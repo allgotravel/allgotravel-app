@@ -70,6 +70,16 @@
     },
     "language": "Idioma preferido"
   },
+  "chat": {
+    "title": "Asistente AllGo",
+    "subtitle": "Viajes accesibles · IA",
+    "open": "Abrir chat",
+    "close": "Cerrar chat",
+    "placeholder": "¿En qué te puedo ayudar?",
+    "send": "Enviar",
+    "empty": "¡Hola! Pregúntame sobre destinos accesibles, alojamiento, transporte...",
+    "error": "Ocurrió un error. Por favor intenta de nuevo."
+  },
   "disabilities": {
     "motriz": "Motriz / Movilidad reducida",
     "visual": "Visual",

@@ -4,6 +4,8 @@ import { NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { routing } from '@/i18n/routing'
+import { createSupabaseServer } from '@/lib/supabase-server'
+import ChatWidget from '@/components/ChatWidget'
 import '../globals.css'
 
 const geist = Geist({ subsets: ['latin'], variable: '--font-geist-sans' })
@@ -28,11 +30,15 @@ export default async function LocaleLayout({
 
   const messages = await getMessages()
 
+  const supabase = await createSupabaseServer()
+  const { data: { user } } = await supabase.auth.getUser()
+
   return (
     <html lang={locale} className={`${geist.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
         <NextIntlClientProvider messages={messages}>
           {children}
+          <ChatWidget userId={user?.id} />
         </NextIntlClientProvider>
       </body>
     </html>

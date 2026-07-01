@@ -70,6 +70,16 @@
     },
     "language": "Preferred language"
   },
+  "chat": {
+    "title": "AllGo Assistant",
+    "subtitle": "Accessible travel · AI",
+    "open": "Open chat",
+    "close": "Close chat",
+    "placeholder": "How can I help you?",
+    "send": "Send",
+    "empty": "Hi! Ask me about accessible destinations, accommodation, transport...",
+    "error": "Something went wrong. Please try again."
+  },
   "disabilities": {
     "motriz": "Motor / Reduced mobility",
     "visual": "Visual",
