@@ -1,18 +1,18 @@
 export const dynamic = 'force-dynamic'
 
 import { redirect } from 'next/navigation'
-import { getTranslations } from 'next-intl/server'
-import { getLocale } from 'next-intl/server'
+import { getTranslations, getLocale } from 'next-intl/server'
 import { createSupabaseServer } from '@/lib/supabase-server'
 import TripPlannerForm from '@/components/TripPlannerForm'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 import type { Profile } from '@/types/profile'
+import type { User } from '@supabase/supabase-js'
 
 export default async function PlanificadorPage() {
   const locale = await getLocale()
   const t = await getTranslations('planner')
 
-  let user = null
+  let user: User | null = null
   try {
     const supabase = await createSupabaseServer()
     const { data } = await supabase.auth.getUser()
