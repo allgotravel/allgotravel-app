@@ -1,24 +1,14 @@
+export const dynamic = 'force-dynamic'
+
 import { redirect } from 'next/navigation'
-import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 import { createSupabaseServer } from '@/lib/supabase-server'
 import TripPlannerForm from '@/components/TripPlannerForm'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 import type { Profile } from '@/types/profile'
 
-function PlannerHeader() {
-  const t = useTranslations('planner')
-  return (
-    <div className="max-w-2xl mx-auto mb-8 flex items-start justify-between">
-      <div>
-        <h1 className="text-3xl font-bold text-teal-700">{t('title')}</h1>
-        <p className="text-gray-500 mt-1">{t('subtitle')}</p>
-      </div>
-      <LanguageSwitcher />
-    </div>
-  )
-}
-
 export default async function PlanificadorPage() {
+  const t = await getTranslations('planner')
   const supabase = await createSupabaseServer()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
@@ -48,7 +38,13 @@ export default async function PlanificadorPage() {
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-teal-50 to-blue-100 py-10 px-4">
-      <PlannerHeader />
+      <div className="max-w-2xl mx-auto mb-8 flex items-start justify-between">
+        <div>
+          <h1 className="text-3xl font-bold text-teal-700">{t('title')}</h1>
+          <p className="text-gray-500 mt-1">{t('subtitle')}</p>
+        </div>
+        <LanguageSwitcher />
+      </div>
       <TripPlannerForm profile={safeProfile} userId={user.id} />
     </main>
   )
