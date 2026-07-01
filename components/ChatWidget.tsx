@@ -3,6 +3,41 @@
 import { useState, useRef, useEffect } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
 
+function renderMarkdown(text: string) {
+  const lines = text.split('\n')
+  const elements: React.ReactNode[] = []
+  let i = 0
+
+  while (i < lines.length) {
+    const line = lines[i]
+
+    if (line.startsWith('### ')) {
+      elements.push(<p key={i} className="font-semibold text-teal-700 mt-2">{parseLine(line.slice(4))}</p>)
+    } else if (line.startsWith('## ')) {
+      elements.push(<p key={i} className="font-bold text-teal-800 mt-3">{parseLine(line.slice(3))}</p>)
+    } else if (line.startsWith('- ') || line.startsWith('* ')) {
+      elements.push(<p key={i} className="pl-3 before:content-['•'] before:mr-2 before:text-teal-500">{parseLine(line.slice(2))}</p>)
+    } else if (line.trim() === '') {
+      elements.push(<div key={i} className="h-1" />)
+    } else {
+      elements.push(<p key={i}>{parseLine(line)}</p>)
+    }
+    i++
+  }
+
+  return <div className="space-y-0.5">{elements}</div>
+}
+
+function parseLine(text: string): React.ReactNode {
+  const parts = text.split(/(\*\*[^*]+\*\*)/g)
+  return parts.map((part, i) => {
+    if (part.startsWith('**') && part.endsWith('**')) {
+      return <strong key={i}>{part.slice(2, -2)}</strong>
+    }
+    return part
+  })
+}
+
 interface Message {
   role: 'user' | 'assistant'
   content: string
@@ -138,13 +173,15 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
                 className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 <div
-                  className={`max-w-[80%] rounded-2xl px-4 py-2 text-sm whitespace-pre-wrap leading-relaxed ${
+                  className={`max-w-[80%] rounded-2xl px-4 py-2 text-sm leading-relaxed ${
                     msg.role === 'user'
                       ? 'bg-teal-600 text-white rounded-br-sm'
                       : 'bg-white border border-gray-200 text-gray-800 rounded-bl-sm'
                   }`}
                 >
-                  {msg.content || (loading && i === messages.length - 1 ? (
+                  {msg.content ? (
+                    msg.role === 'assistant' ? renderMarkdown(msg.content) : msg.content
+                  ) : (loading && i === messages.length - 1 ? (
                     <span className="inline-flex gap-1">
                       <span className="animate-bounce">·</span>
                       <span className="animate-bounce [animation-delay:100ms]">·</span>
