@@ -1,0 +1,82 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "profile": "Mi perfil",
+    "login": "Entrar",
+    "register": "Registrarse",
+    "logout": "Cerrar sesión"
+  },
+  "home": {
+    "title": "AllGo Travel App",
+    "subtitle": "Membresías de turismo accesible. Bienvenido/a a tu comunidad de viajeros.",
+    "cta": "Empieza ahora"
+  },
+  "login": {
+    "title": "Bienvenido/a de vuelta",
+    "subtitle": "Accede a tu perfil de viajero accesible",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "submit": "Entrar",
+    "loading": "Entrando...",
+    "error": "Correo o contraseña incorrectos.",
+    "noAccount": "¿No tienes cuenta?",
+    "register": "Regístrate aquí"
+  },
+  "register": {
+    "title": "Crea tu cuenta",
+    "subtitle": "Únete a la comunidad de viajeros accesibles",
+    "fullName": "Nombre completo",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "submit": "Crear cuenta",
+    "loading": "Creando cuenta...",
+    "hasAccount": "¿Ya tienes cuenta?",
+    "login": "Inicia sesión"
+  },
+  "profile": {
+    "title": "Mi perfil de viajero",
+    "subtitle": "Tu información nos ayuda a recomendarte destinos y servicios 100% accesibles para ti.",
+    "save": "Guardar perfil",
+    "saving": "Guardando...",
+    "saved": "¡Guardado!",
+    "sections": {
+      "personal": "Datos personales",
+      "disabilities": "Tipo(s) de discapacidad",
+      "disabilitiesHint": "Selecciona todos los que apliquen.",
+      "chronic": "Enfermedades crónicas o invisibles",
+      "chronicHint": "Escribe tus condiciones (ej: fibromialgia, POTS, diabetes tipo 1).",
+      "chronicPlaceholder": "fibromialgia, POTS, Crohn...",
+      "invisible": "Necesidades invisibles",
+      "invisibleHint": "Lo que no se ve pero importa para viajar. Esto ayuda al chatbot a darte recomendaciones personalizadas.",
+      "invisiblePlaceholder": "Ej: necesito descansar cada 30 min, no tolero ruidos fuertes, requiero acceso a refrigeración para medicamentos...",
+      "medications": "Recordatorio de medicamentos",
+      "medicationsHint": "Los horarios se ajustan a tu zona horaria.",
+      "addMedication": "+ Agregar",
+      "noMedications": "No hay medicamentos registrados.",
+      "medName": "Nombre",
+      "medDose": "Dosis",
+      "medTimes": "Horarios (separados por coma)",
+      "medTimesPlaceholder": "08:00, 14:00, 20:00",
+      "medRemove": "Eliminar",
+      "timezone": "Zona horaria",
+      "group": "Miembros del grupo",
+      "groupHint": "Agrega a las personas que viajan contigo.",
+      "addMember": "+ Agregar",
+      "memberName": "Nombre",
+      "memberAge": "Edad (opcional)",
+      "memberNeeds": "Necesidades de accesibilidad",
+      "memberRemove": "Eliminar",
+      "medication": "Medicamento"
+    },
+    "language": "Idioma preferido"
+  },
+  "disabilities": {
+    "motriz": "Motriz / Movilidad reducida",
+    "visual": "Visual",
+    "auditiva": "Auditiva",
+    "autismo": "Autismo / TEA",
+    "cognitiva": "Cognitiva",
+    "cronica_invisible": "Enfermedad crónica o invisible",
+    "mixta": "Mixta (grupo familiar)"
+  }
+}

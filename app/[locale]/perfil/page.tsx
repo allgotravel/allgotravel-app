@@ -1,11 +1,25 @@
 import { redirect } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import { createSupabaseServer } from '@/lib/supabase-server'
 import ProfileForm from '@/components/profile/ProfileForm'
+import LanguageSwitcher from '@/components/LanguageSwitcher'
 import { Profile } from '@/types/profile'
+
+function ProfileHeader() {
+  const t = useTranslations('profile')
+  return (
+    <div className="max-w-2xl mx-auto mb-8 flex items-start justify-between">
+      <div>
+        <h1 className="text-3xl font-bold text-teal-700">{t('title')}</h1>
+        <p className="text-gray-500 mt-1">{t('subtitle')}</p>
+      </div>
+      <LanguageSwitcher />
+    </div>
+  )
+}
 
 export default async function PerfilPage() {
   const supabase = await createSupabaseServer()
-
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
@@ -34,12 +48,7 @@ export default async function PerfilPage() {
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-teal-50 to-blue-100 py-10 px-4">
-      <div className="max-w-2xl mx-auto mb-8">
-        <h1 className="text-3xl font-bold text-teal-700">Mi perfil de viajero</h1>
-        <p className="text-gray-500 mt-1">
-          Tu información nos ayuda a recomendarte destinos y servicios 100% accesibles para ti.
-        </p>
-      </div>
+      <ProfileHeader />
       <ProfileForm profile={safeProfile} />
     </main>
   )

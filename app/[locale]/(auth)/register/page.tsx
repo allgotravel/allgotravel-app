@@ -1,24 +1,31 @@
 'use client'
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import Link from 'next/link'
+import { useTranslations } from 'next-intl'
+import { useRouter, Link } from '@/i18n/navigation'
 import { createSupabaseBrowser } from '@/lib/supabase-browser'
+import LanguageSwitcher from '@/components/LanguageSwitcher'
 
-export default function LoginPage() {
+export default function RegisterPage() {
+  const t = useTranslations('register')
   const router = useRouter()
   const supabase = createSupabaseBrowser()
+  const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
-  async function handleLogin(e: React.FormEvent) {
+  async function handleRegister(e: React.FormEvent) {
     e.preventDefault()
     setLoading(true)
     setError('')
-    const { error } = await supabase.auth.signInWithPassword({ email, password })
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: { data: { full_name: fullName } },
+    })
     if (error) {
-      setError('Correo o contraseña incorrectos.')
+      setError(error.message)
       setLoading(false)
     } else {
       router.push('/perfil')
@@ -27,13 +34,26 @@ export default function LoginPage() {
 
   return (
     <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-teal-50 to-blue-100 p-4">
+      <div className="absolute top-4 right-4">
+        <LanguageSwitcher />
+      </div>
       <div className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-md">
-        <h1 className="text-2xl font-bold text-teal-700 mb-2">Bienvenido/a de vuelta</h1>
-        <p className="text-gray-500 mb-6 text-sm">Accede a tu perfil de viajero accesible</p>
+        <h1 className="text-2xl font-bold text-teal-700 mb-2">{t('title')}</h1>
+        <p className="text-gray-500 mb-6 text-sm">{t('subtitle')}</p>
 
-        <form onSubmit={handleLogin} className="space-y-4">
+        <form onSubmit={handleRegister} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Correo electrónico</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">{t('fullName')}</label>
+            <input
+              type="text"
+              required
+              value={fullName}
+              onChange={e => setFullName(e.target.value)}
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-400"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">{t('email')}</label>
             <input
               type="email"
               required
@@ -43,10 +63,11 @@ export default function LoginPage() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">{t('password')}</label>
             <input
               type="password"
               required
+              minLength={8}
               value={password}
               onChange={e => setPassword(e.target.value)}
               className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-400"
@@ -58,14 +79,14 @@ export default function LoginPage() {
             disabled={loading}
             className="w-full bg-teal-600 hover:bg-teal-700 text-white font-semibold py-2 rounded-lg transition disabled:opacity-50"
           >
-            {loading ? 'Entrando...' : 'Entrar'}
+            {loading ? t('loading') : t('submit')}
           </button>
         </form>
 
         <p className="mt-4 text-center text-sm text-gray-500">
-          ¿No tienes cuenta?{' '}
-          <Link href="/register" className="text-teal-600 font-medium hover:underline">
-            Regístrate aquí
+          {t('hasAccount')}{' '}
+          <Link href="/login" className="text-teal-600 font-medium hover:underline">
+            {t('login')}
           </Link>
         </p>
       </div>

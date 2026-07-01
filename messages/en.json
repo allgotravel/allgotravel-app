@@ -1,0 +1,82 @@
+{
+  "nav": {
+    "home": "Home",
+    "profile": "My profile",
+    "login": "Sign in",
+    "register": "Sign up",
+    "logout": "Sign out"
+  },
+  "home": {
+    "title": "AllGo Travel App",
+    "subtitle": "Accessible travel memberships. Welcome to your traveler community.",
+    "cta": "Get started"
+  },
+  "login": {
+    "title": "Welcome back",
+    "subtitle": "Access your accessible traveler profile",
+    "email": "Email address",
+    "password": "Password",
+    "submit": "Sign in",
+    "loading": "Signing in...",
+    "error": "Invalid email or password.",
+    "noAccount": "Don't have an account?",
+    "register": "Sign up here"
+  },
+  "register": {
+    "title": "Create your account",
+    "subtitle": "Join the accessible traveler community",
+    "fullName": "Full name",
+    "email": "Email address",
+    "password": "Password",
+    "submit": "Create account",
+    "loading": "Creating account...",
+    "hasAccount": "Already have an account?",
+    "login": "Sign in"
+  },
+  "profile": {
+    "title": "My traveler profile",
+    "subtitle": "Your information helps us recommend 100% accessible destinations and services for you.",
+    "save": "Save profile",
+    "saving": "Saving...",
+    "saved": "Saved!",
+    "sections": {
+      "personal": "Personal information",
+      "disabilities": "Disability type(s)",
+      "disabilitiesHint": "Select all that apply.",
+      "chronic": "Chronic or invisible conditions",
+      "chronicHint": "List your conditions (e.g. fibromyalgia, POTS, type 1 diabetes).",
+      "chronicPlaceholder": "fibromyalgia, POTS, Crohn's...",
+      "invisible": "Invisible needs",
+      "invisibleHint": "What others can't see but matters when traveling. This helps the chatbot give you personalized recommendations.",
+      "invisiblePlaceholder": "E.g. I need to rest every 30 min, I can't tolerate loud noises, I need access to refrigeration for medications...",
+      "medications": "Medication reminders",
+      "medicationsHint": "Times are adjusted to your timezone.",
+      "addMedication": "+ Add",
+      "noMedications": "No medications registered.",
+      "medName": "Name",
+      "medDose": "Dose",
+      "medTimes": "Times (comma separated)",
+      "medTimesPlaceholder": "08:00, 14:00, 20:00",
+      "medRemove": "Remove",
+      "timezone": "Timezone",
+      "group": "Group members",
+      "groupHint": "Add the people traveling with you.",
+      "addMember": "+ Add",
+      "memberName": "Name",
+      "memberAge": "Age (optional)",
+      "memberNeeds": "Accessibility needs",
+      "memberRemove": "Remove",
+      "medication": "Medication"
+    },
+    "language": "Preferred language"
+  },
+  "disabilities": {
+    "motriz": "Motor / Reduced mobility",
+    "visual": "Visual",
+    "auditiva": "Hearing",
+    "autismo": "Autism / ASD",
+    "cognitiva": "Cognitive",
+    "cronica_invisible": "Chronic or invisible illness",
+    "mixta": "Mixed (family group)"
+  }
+}

@@ -1,9 +1,10 @@
 'use client'
 import { useState } from 'react'
+import { useTranslations } from 'next-intl'
 import { createSupabaseBrowser } from '@/lib/supabase-browser'
 import {
   Profile, DisabilityType, Medication, GroupMember,
-  DISABILITY_LABELS, DISABILITY_ICONS, TIMEZONES,
+  DISABILITY_ICONS, TIMEZONES,
 } from '@/types/profile'
 
 const ALL_DISABILITIES: DisabilityType[] = [
@@ -16,6 +17,8 @@ interface Props {
 
 export default function ProfileForm({ profile }: Props) {
   const supabase = createSupabaseBrowser()
+  const t = useTranslations('profile')
+  const tD = useTranslations('disabilities')
   const [form, setForm] = useState<Profile>(profile)
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
@@ -90,14 +93,16 @@ export default function ProfileForm({ profile }: Props) {
     setTimeout(() => setSaved(false), 3000)
   }
 
+  const s = t('sections') as unknown as Record<string, string>
+
   return (
     <form onSubmit={handleSave} className="space-y-8 max-w-2xl mx-auto">
 
       {/* Datos básicos */}
       <section className="bg-white rounded-2xl shadow p-6 space-y-4">
-        <h2 className="text-lg font-semibold text-teal-700">Datos personales</h2>
+        <h2 className="text-lg font-semibold text-teal-700">{t('sections.personal')}</h2>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Nombre completo</label>
+          <label className="block text-sm font-medium text-gray-700 mb-1">{t('sections.personal')}</label>
           <input
             type="text"
             value={form.full_name ?? ''}
@@ -106,7 +111,7 @@ export default function ProfileForm({ profile }: Props) {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Idioma preferido</label>
+          <label className="block text-sm font-medium text-gray-700 mb-1">{t('language')}</label>
           <select
             value={form.preferred_language}
             onChange={e => setForm(p => ({ ...p, preferred_language: e.target.value as 'es' | 'en' }))}
@@ -120,8 +125,8 @@ export default function ProfileForm({ profile }: Props) {
 
       {/* Tipos de discapacidad */}
       <section className="bg-white rounded-2xl shadow p-6 space-y-4">
-        <h2 className="text-lg font-semibold text-teal-700">Tipo(s) de discapacidad</h2>
-        <p className="text-sm text-gray-500">Selecciona todos los que apliquen.</p>
+        <h2 className="text-lg font-semibold text-teal-700">{t('sections.disabilities')}</h2>
+        <p className="text-sm text-gray-500">{t('sections.disabilitiesHint')}</p>
         <div className="grid grid-cols-2 gap-3">
           {ALL_DISABILITIES.map(type => {
             const selected = form.disability_types.includes(type)
@@ -136,7 +141,7 @@ export default function ProfileForm({ profile }: Props) {
                     : 'border-gray-200 text-gray-600 hover:border-teal-300'}`}
               >
                 <span className="text-xl">{DISABILITY_ICONS[type]}</span>
-                <span className="text-sm">{DISABILITY_LABELS[type]}</span>
+                <span className="text-sm">{tD(type)}</span>
               </button>
             )
           })}
@@ -146,30 +151,28 @@ export default function ProfileForm({ profile }: Props) {
       {/* Enfermedades crónicas */}
       {form.disability_types.includes('cronica_invisible') && (
         <section className="bg-white rounded-2xl shadow p-6 space-y-4">
-          <h2 className="text-lg font-semibold text-teal-700">Enfermedades crónicas o invisibles</h2>
-          <p className="text-sm text-gray-500">Escribe tus condiciones (ej: fibromialgia, POTS, diabetes tipo 1).</p>
+          <h2 className="text-lg font-semibold text-teal-700">{t('sections.chronic')}</h2>
+          <p className="text-sm text-gray-500">{t('sections.chronicHint')}</p>
           <textarea
             value={form.chronic_conditions ?? ''}
             onChange={e => setForm(p => ({ ...p, chronic_conditions: e.target.value }))}
             rows={3}
             className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-400"
-            placeholder="fibromialgia, POTS, Crohn..."
+            placeholder={t('sections.chronicPlaceholder')}
           />
         </section>
       )}
 
       {/* Necesidades invisibles */}
       <section className="bg-white rounded-2xl shadow p-6 space-y-4">
-        <h2 className="text-lg font-semibold text-teal-700">Necesidades invisibles</h2>
-        <p className="text-sm text-gray-500">
-          Lo que no se ve pero importa para viajar. Esto ayuda al chatbot a darte recomendaciones personalizadas.
-        </p>
+        <h2 className="text-lg font-semibold text-teal-700">{t('sections.invisible')}</h2>
+        <p className="text-sm text-gray-500">{t('sections.invisibleHint')}</p>
         <textarea
           value={form.invisible_needs ?? ''}
           onChange={e => setForm(p => ({ ...p, invisible_needs: e.target.value }))}
           rows={4}
           className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-400"
-          placeholder="Ej: necesito descansar cada 30 min, no tolero ruidos fuertes, requiero acceso a refrigeración para medicamentos..."
+          placeholder={t('sections.invisiblePlaceholder')}
         />
       </section>
 
@@ -177,21 +180,20 @@ export default function ProfileForm({ profile }: Props) {
       <section className="bg-white rounded-2xl shadow p-6 space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-lg font-semibold text-teal-700">Recordatorio de medicamentos</h2>
-            <p className="text-sm text-gray-500 mt-1">Los horarios se ajustan a tu zona horaria.</p>
+            <h2 className="text-lg font-semibold text-teal-700">{t('sections.medications')}</h2>
+            <p className="text-sm text-gray-500 mt-1">{t('sections.medicationsHint')}</p>
           </div>
           <button
             type="button"
             onClick={addMedication}
             className="text-sm bg-teal-100 text-teal-700 hover:bg-teal-200 px-3 py-1.5 rounded-lg font-medium transition"
           >
-            + Agregar
+            {t('sections.addMedication')}
           </button>
         </div>
 
-        {/* Zona horaria */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Zona horaria</label>
+          <label className="block text-sm font-medium text-gray-700 mb-1">{t('sections.timezone')}</label>
           <select
             value={form.timezone}
             onChange={e => setForm(p => ({ ...p, timezone: e.target.value }))}
@@ -206,48 +208,46 @@ export default function ProfileForm({ profile }: Props) {
         {form.medications.map((med, i) => (
           <div key={i} className="border border-gray-200 rounded-xl p-4 space-y-3">
             <div className="flex justify-between items-center">
-              <span className="text-sm font-medium text-gray-600">Medicamento {i + 1}</span>
+              <span className="text-sm font-medium text-gray-600">{t('sections.medication')} {i + 1}</span>
               <button type="button" onClick={() => removeMedication(i)} className="text-red-400 hover:text-red-600 text-sm">
-                Eliminar
+                {t('sections.medRemove')}
               </button>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs text-gray-500 mb-1">Nombre</label>
+                <label className="block text-xs text-gray-500 mb-1">{t('sections.medName')}</label>
                 <input
                   type="text"
                   value={med.name}
                   onChange={e => updateMedication(i, 'name', e.target.value)}
                   className="w-full border border-gray-300 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400"
-                  placeholder="Metformina"
                 />
               </div>
               <div>
-                <label className="block text-xs text-gray-500 mb-1">Dosis</label>
+                <label className="block text-xs text-gray-500 mb-1">{t('sections.medDose')}</label>
                 <input
                   type="text"
                   value={med.dose}
                   onChange={e => updateMedication(i, 'dose', e.target.value)}
                   className="w-full border border-gray-300 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400"
-                  placeholder="500mg"
                 />
               </div>
             </div>
             <div>
-              <label className="block text-xs text-gray-500 mb-1">Horarios (separados por coma)</label>
+              <label className="block text-xs text-gray-500 mb-1">{t('sections.medTimes')}</label>
               <input
                 type="text"
                 value={med.times.join(', ')}
                 onChange={e => updateMedication(i, 'times', e.target.value)}
                 className="w-full border border-gray-300 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400"
-                placeholder="08:00, 14:00, 20:00"
+                placeholder={t('sections.medTimesPlaceholder')}
               />
             </div>
           </div>
         ))}
 
         {form.medications.length === 0 && (
-          <p className="text-sm text-gray-400 text-center py-4">No hay medicamentos registrados.</p>
+          <p className="text-sm text-gray-400 text-center py-4">{t('sections.noMedications')}</p>
         )}
       </section>
 
@@ -256,15 +256,15 @@ export default function ProfileForm({ profile }: Props) {
         <section className="bg-white rounded-2xl shadow p-6 space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-lg font-semibold text-teal-700">Miembros del grupo</h2>
-              <p className="text-sm text-gray-500 mt-1">Agrega a las personas que viajan contigo.</p>
+              <h2 className="text-lg font-semibold text-teal-700">{t('sections.group')}</h2>
+              <p className="text-sm text-gray-500 mt-1">{t('sections.groupHint')}</p>
             </div>
             <button
               type="button"
               onClick={addGroupMember}
               className="text-sm bg-teal-100 text-teal-700 hover:bg-teal-200 px-3 py-1.5 rounded-lg font-medium transition"
             >
-              + Agregar
+              {t('sections.addMember')}
             </button>
           </div>
           {form.group_members.map((member, i) => (
@@ -272,12 +272,12 @@ export default function ProfileForm({ profile }: Props) {
               <div className="flex justify-between">
                 <span className="text-sm font-medium text-gray-600">Miembro {i + 1}</span>
                 <button type="button" onClick={() => removeGroupMember(i)} className="text-red-400 hover:text-red-600 text-sm">
-                  Eliminar
+                  {t('sections.memberRemove')}
                 </button>
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs text-gray-500 mb-1">Nombre</label>
+                  <label className="block text-xs text-gray-500 mb-1">{t('sections.memberName')}</label>
                   <input
                     type="text"
                     value={member.name}
@@ -286,7 +286,7 @@ export default function ProfileForm({ profile }: Props) {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs text-gray-500 mb-1">Edad (opcional)</label>
+                  <label className="block text-xs text-gray-500 mb-1">{t('sections.memberAge')}</label>
                   <input
                     type="number"
                     value={member.age ?? ''}
@@ -296,7 +296,7 @@ export default function ProfileForm({ profile }: Props) {
                 </div>
               </div>
               <div>
-                <label className="block text-xs text-gray-500 mb-2">Necesidades de accesibilidad</label>
+                <label className="block text-xs text-gray-500 mb-2">{t('sections.memberNeeds')}</label>
                 <div className="flex flex-wrap gap-2">
                   {ALL_DISABILITIES.filter(d => d !== 'mixta').map(type => {
                     const selected = member.disability_types.includes(type)
@@ -313,7 +313,7 @@ export default function ProfileForm({ profile }: Props) {
                         className={`text-xs px-2 py-1 rounded-lg border transition
                           ${selected ? 'border-teal-500 bg-teal-50 text-teal-700' : 'border-gray-200 text-gray-500'}`}
                       >
-                        {DISABILITY_ICONS[type]} {DISABILITY_LABELS[type]}
+                        {DISABILITY_ICONS[type]} {tD(type)}
                       </button>
                     )
                   })}
@@ -331,7 +331,7 @@ export default function ProfileForm({ profile }: Props) {
           disabled={saving}
           className="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-8 py-3 rounded-xl transition disabled:opacity-50 text-base"
         >
-          {saving ? 'Guardando...' : saved ? '¡Guardado!' : 'Guardar perfil'}
+          {saving ? t('saving') : saved ? t('saved') : t('save')}
         </button>
       </div>
     </form>
