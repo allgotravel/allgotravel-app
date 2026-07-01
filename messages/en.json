@@ -80,6 +80,24 @@
     "empty": "Hi! Ask me about accessible destinations, accommodation, transport...",
     "error": "Something went wrong. Please try again."
   },
+  "planner": {
+    "title": "Trip Planner",
+    "subtitle": "Generate a personalized itinerary for your whole group, with accessibility at the center.",
+    "groupSummary": "Your travel group",
+    "mainTraveler": "Main traveler",
+    "noNeeds": "No special needs",
+    "groupHint": "The plan will account for each person's accessibility needs.",
+    "planDetails": "Trip details",
+    "destination": "Destination",
+    "destinationPlaceholder": "E.g. Mexico City, Barcelona, Cancun...",
+    "startDate": "Departure date",
+    "endDate": "Return date",
+    "tripType": "Trip type",
+    "generate": "✈️ Generate accessible plan",
+    "generating": "Generating your plan...",
+    "yourPlan": "Your accessible travel plan",
+    "plannerLink": "Plan a trip"
+  },
   "disabilities": {
     "motriz": "Motor / Reduced mobility",
     "visual": "Visual",

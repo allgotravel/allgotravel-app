@@ -80,6 +80,24 @@
     "empty": "¡Hola! Pregúntame sobre destinos accesibles, alojamiento, transporte...",
     "error": "Ocurrió un error. Por favor intenta de nuevo."
   },
+  "planner": {
+    "title": "Planificador de viaje",
+    "subtitle": "Genera un itinerario personalizado para todo tu grupo, con accesibilidad al centro.",
+    "groupSummary": "Tu grupo viajero",
+    "mainTraveler": "Viajero principal",
+    "noNeeds": "Sin necesidades especiales",
+    "groupHint": "El plan tendrá en cuenta las necesidades de cada persona.",
+    "planDetails": "Detalles del viaje",
+    "destination": "Destino",
+    "destinationPlaceholder": "Ej: Ciudad de México, Barcelona, Cancún...",
+    "startDate": "Fecha de salida",
+    "endDate": "Fecha de regreso",
+    "tripType": "Tipo de viaje",
+    "generate": "✈️ Generar plan accesible",
+    "generating": "Generando tu plan...",
+    "yourPlan": "Tu plan de viaje accesible",
+    "plannerLink": "Planificar viaje"
+  },
   "disabilities": {
     "motriz": "Motriz / Movilidad reducida",
     "visual": "Visual",

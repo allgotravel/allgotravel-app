@@ -1,34 +1,24 @@
 import { redirect } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { createSupabaseServer } from '@/lib/supabase-server'
-import ProfileForm from '@/components/profile/ProfileForm'
+import TripPlannerForm from '@/components/TripPlannerForm'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
-import { Link } from '@/i18n/navigation'
-import { Profile } from '@/types/profile'
+import type { Profile } from '@/types/profile'
 
-function ProfileHeader() {
-  const t = useTranslations('profile')
-  const tP = useTranslations('planner')
+function PlannerHeader() {
+  const t = useTranslations('planner')
   return (
-    <div className="max-w-2xl mx-auto mb-8 space-y-4">
-      <div className="flex items-start justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-teal-700">{t('title')}</h1>
-          <p className="text-gray-500 mt-1">{t('subtitle')}</p>
-        </div>
-        <LanguageSwitcher />
+    <div className="max-w-2xl mx-auto mb-8 flex items-start justify-between">
+      <div>
+        <h1 className="text-3xl font-bold text-teal-700">{t('title')}</h1>
+        <p className="text-gray-500 mt-1">{t('subtitle')}</p>
       </div>
-      <Link
-        href="/planificador"
-        className="inline-flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition"
-      >
-        ✈️ {tP('plannerLink')}
-      </Link>
+      <LanguageSwitcher />
     </div>
   )
 }
 
-export default async function PerfilPage() {
+export default async function PlanificadorPage() {
   const supabase = await createSupabaseServer()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
@@ -58,8 +48,8 @@ export default async function PerfilPage() {
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-teal-50 to-blue-100 py-10 px-4">
-      <ProfileHeader />
-      <ProfileForm profile={safeProfile} />
+      <PlannerHeader />
+      <TripPlannerForm profile={safeProfile} userId={user.id} />
     </main>
   )
 }
