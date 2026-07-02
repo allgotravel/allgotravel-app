@@ -103,32 +103,35 @@ export default function HomePage() {
         <div className="absolute bottom-10 left-10 w-96 h-96 bg-teal-400/10 rounded-full blur-3xl" />
         <div className="absolute top-1/3 left-1/4 w-48 h-48 bg-blue-400/10 rounded-full blur-2xl" />
 
-        <div className="relative z-10 flex flex-col items-center text-center px-4 max-w-4xl mx-auto">
-          {/* Tagline pill */}
-          <div className="mb-4 inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white/90 text-sm font-medium px-4 py-1.5 rounded-full">
-            <span className="w-2 h-2 bg-orange-400 rounded-full animate-pulse" />
-            {t('heroTagline')}
+        <div className="relative z-10 flex flex-col items-center text-center px-4 w-full">
+          {/* Tagline pill y headline dentro de max-w-4xl */}
+          <div className="max-w-4xl mx-auto w-full flex flex-col items-center">
+            {/* Tagline pill */}
+            <div className="mb-4 inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white/90 text-sm font-medium px-4 py-1.5 rounded-full">
+              <span className="w-2 h-2 bg-orange-400 rounded-full animate-pulse" />
+              {t('heroTagline')}
+            </div>
+
+            {/* Headline */}
+            <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold text-white leading-tight mb-6 tracking-tight">
+              {t('heroTitle').split(' ').map((word, i) => (
+                i === 1
+                  ? <span key={i} className="text-orange-400"> {word}</span>
+                  : <span key={i}>{i > 0 ? ' ' : ''}{word}</span>
+              ))}
+            </h1>
           </div>
 
-          {/* Headline */}
-          <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold text-white leading-tight mb-6 tracking-tight">
-            {t('heroTitle').split(' ').map((word, i) => (
-              i === 1
-                ? <span key={i} className="text-orange-400"> {word}</span>
-                : <span key={i}>{i > 0 ? ' ' : ''}{word}</span>
-            ))}
-          </h1>
-
-          {/* Subtitle */}
+          {/* Subtitle - ancho completo, fuera del max-w */}
           <p
-            className="w-full font-extrabold text-white leading-none mb-10 text-center tracking-tight"
-            style={{ fontSize: 'clamp(2.5rem, 7vw, 7rem)' }}
+            className="w-full font-extrabold text-white leading-none mb-10 text-center tracking-tighter px-2"
+            style={{ fontSize: 'clamp(3rem, 9vw, 12rem)' }}
           >
             {t('heroSubtitle')}
           </p>
 
-          {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-4">
+          {/* CTAs dentro de max-w-4xl */}
+          <div className="max-w-4xl mx-auto flex flex-col sm:flex-row gap-4">
             <Link
               href="/register"
               className="inline-flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-bold px-8 py-4 rounded-full text-base shadow-lg shadow-orange-500/30 transition transform hover:scale-105"
