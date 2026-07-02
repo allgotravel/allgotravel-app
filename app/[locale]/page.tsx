@@ -94,20 +94,6 @@ export default function HomePage() {
         <div className="absolute top-1/3 left-1/4 w-48 h-48 bg-blue-400/10 rounded-full blur-2xl" />
 
         <div className="relative z-10 flex flex-col items-center text-center px-4 max-w-4xl mx-auto">
-          {/* Logo */}
-          <div className="mb-8 relative">
-            <div className="w-40 h-40 rounded-full overflow-hidden shadow-2xl ring-4 ring-white/20 ring-offset-4 ring-offset-transparent mx-auto">
-              <Image
-                src="/logo-allgo.jpg"
-                alt="AllGo Travel"
-                width={160}
-                height={160}
-                className="object-cover w-full h-full"
-                priority
-              />
-            </div>
-          </div>
-
           {/* Tagline pill */}
           <div className="mb-4 inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white/90 text-sm font-medium px-4 py-1.5 rounded-full">
             <span className="w-2 h-2 bg-orange-400 rounded-full animate-pulse" />
