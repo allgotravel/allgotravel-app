@@ -32,8 +32,14 @@ export default async function LocaleLayout({
 
   const messages = await getMessages()
 
-  const supabase = await createSupabaseServer()
-  const { data: { user } } = await supabase.auth.getUser()
+  let user = null
+  try {
+    const supabase = await createSupabaseServer()
+    const { data } = await supabase.auth.getUser()
+    user = data.user
+  } catch {
+    // If Supabase fails, continue without user (ChatWidget won't have userId)
+  }
 
   return (
     <html lang={locale} className={`${geist.variable} h-full antialiased`}>
