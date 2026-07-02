@@ -1,18 +1,51 @@
 import type { DisabilityType } from '@/types/profile'
 
+export type AttractionType =
+  | 'termales'
+  | 'fincas'
+  | 'parques_naturales'
+  | 'spas'
+  | 'playas'
+  | 'museos'
+  | 'parques_tematicos'
+  | 'gastronomia'
+  | 'cultura'
+
+export interface Attraction {
+  nameES: string
+  nameEN: string
+  type: AttractionType
+  descES: string
+  descEN: string
+}
+
 export interface Destination {
   id: string
   name: string
   country: string
   flag: string
   bgColor: string
-  accessibilityRating: number // 1-5
-  disabilityTypes: DisabilityType[] // which needs are well covered
+  accessibilityRating: number
+  disabilityTypes: DisabilityType[]
+  attractionTypes: AttractionType[]
   featuresES: string[]
   featuresEN: string[]
   descriptionES: string
   descriptionEN: string
+  highlights: Attraction[]
   tags: string[]
+}
+
+export const ATTRACTION_TYPE_LABELS: Record<AttractionType, { es: string; en: string; icon: string }> = {
+  termales:        { es: 'Baños termales',      en: 'Hot springs',        icon: '♨️' },
+  fincas:          { es: 'Fincas de recreo',    en: 'Ranch retreats',     icon: '🌾' },
+  parques_naturales:{ es: 'Parques naturales',  en: 'Nature parks',       icon: '🌿' },
+  spas:            { es: 'Spas accesibles',      en: 'Accessible spas',    icon: '🧖' },
+  playas:          { es: 'Playas adaptadas',     en: 'Adapted beaches',    icon: '🏖️' },
+  museos:          { es: 'Museos accesibles',    en: 'Accessible museums', icon: '🏛️' },
+  parques_tematicos:{ es: 'Parques temáticos',  en: 'Theme parks',        icon: '🎢' },
+  gastronomia:     { es: 'Gastronomía',          en: 'Gastronomy',         icon: '🍽️' },
+  cultura:         { es: 'Cultura e historia',   en: 'Culture & history',  icon: '🎭' },
 }
 
 export const DESTINATIONS: Destination[] = [
@@ -24,10 +57,16 @@ export const DESTINATIONS: Destination[] = [
     bgColor: 'bg-blue-400',
     accessibilityRating: 5,
     disabilityTypes: ['motriz', 'visual', 'auditiva'],
+    attractionTypes: ['playas', 'museos', 'cultura'],
     featuresES: ['Playas con sillas anfibias', 'Hoteles certificados ADA', 'Transporte adaptado', 'Señalización en braille', 'Guías en lengua de señas'],
     featuresEN: ['Beaches with amphibious chairs', 'ADA-certified hotels', 'Adapted transport', 'Braille signage', 'Sign language guides'],
     descriptionES: 'San Juan es uno de los destinos más accesibles del Caribe, con infraestructura ADA en hoteles, playas adaptadas y transporte público accesible.',
     descriptionEN: 'San Juan is one of the most accessible destinations in the Caribbean, with ADA infrastructure in hotels, adapted beaches, and accessible public transport.',
+    highlights: [
+      { nameES: 'Playa de Luquillo (Balneario)', nameEN: 'Luquillo Beach (Balneario)', type: 'playas', descES: 'Playa pública con silla anfibia gratuita, rampa de acceso al mar y baños adaptados. Una de las mejores playas accesibles del Caribe.', descEN: 'Public beach with free amphibious chair, sea access ramp, and adapted restrooms. One of the best accessible beaches in the Caribbean.' },
+      { nameES: 'Museo de Arte de Puerto Rico', nameEN: 'Puerto Rico Museum of Art', type: 'museos', descES: 'Completamente accesible con ascensores, recorridos en ASL, audioguías y materiales en braille. Entrada gratuita para personas con discapacidad.', descEN: 'Fully accessible with elevators, ASL tours, audio guides and braille materials. Free entry for people with disabilities.' },
+      { nameES: 'El Yunque National Forest', nameEN: 'El Yunque National Forest', type: 'parques_naturales', descES: 'Sendero accesible "La Mina" pavimentado apto para sillas de ruedas, con miradores adaptados y centro de visitantes accesible.', descEN: 'Accessible paved "La Mina" trail suitable for wheelchairs, with adapted viewpoints and accessible visitor center.' },
+    ],
     tags: ['caribe', 'playa', 'cultura'],
   },
   {
@@ -38,10 +77,16 @@ export const DESTINATIONS: Destination[] = [
     bgColor: 'bg-cyan-400',
     accessibilityRating: 4,
     disabilityTypes: ['motriz', 'visual'],
+    attractionTypes: ['playas', 'spas', 'parques_naturales'],
     featuresES: ['Zona Hotelera con accesos adaptados', 'Playas accesibles en El Garrafón', 'Hoteles all-inclusive con sillas de ruedas', 'Rampas en zona arqueológica Tulum', 'Transporte turístico adaptado'],
     featuresEN: ['Hotel Zone with adapted access', 'Accessible beaches at El Garrafón', 'All-inclusive hotels with wheelchairs', 'Ramps at Tulum archaeological zone', 'Adapted tourist transport'],
     descriptionES: 'Cancún ofrece una zona hotelera con amplia infraestructura accesible, playas adaptadas y tours accesibles a zonas arqueológicas cercanas.',
     descriptionEN: 'Cancún offers a hotel zone with extensive accessible infrastructure, adapted beaches, and accessible tours to nearby archaeological sites.',
+    highlights: [
+      { nameES: 'Playa Delfines (Km 12.5)', nameEN: 'Playa Delfines (Km 12.5)', type: 'playas', descES: 'Playa pública gratuita con sillas anfibias disponibles en temporada, rampa de acceso y zona sombreada adaptada. Vista panorámica al mar Caribe.', descEN: 'Free public beach with seasonal amphibious chairs, access ramp, and adapted shaded area. Panoramic view of the Caribbean Sea.' },
+      { nameES: 'Garrafón Natural Reef Park (Isla Mujeres)', nameEN: 'Garrafón Natural Reef Park (Isla Mujeres)', type: 'parques_naturales', descES: 'Parque natural accesible con rampa de entrada al agua, snorkel adaptado y zip-line con opciones para movilidad reducida.', descEN: 'Accessible nature park with water entry ramp, adapted snorkel, and zip-line with reduced mobility options.' },
+      { nameES: 'Spa del Hotel Nizuc Resort', nameEN: 'Nizuc Resort Spa', type: 'spas', descES: 'Spa de lujo con instalaciones 100% accesibles, tratamientos adaptados y piscinas con elevadores hidráulicos. Certificado para personas con movilidad reducida.', descEN: 'Luxury spa with 100% accessible facilities, adapted treatments, and pools with hydraulic lifts. Certified for people with reduced mobility.' },
+    ],
     tags: ['caribe', 'playa', 'naturaleza'],
   },
   {
@@ -52,10 +97,16 @@ export const DESTINATIONS: Destination[] = [
     bgColor: 'bg-yellow-400',
     accessibilityRating: 3,
     disabilityTypes: ['motriz', 'auditiva'],
+    attractionTypes: ['playas', 'cultura', 'spas'],
     featuresES: ['Ciudad amurallada con rutas adaptadas', 'Hoteles boutique accesibles en el centro', 'Playas accesibles en Bocagrande', 'Audioguías disponibles', 'Carros de golf adaptados para tours'],
     featuresEN: ['Walled city with adapted routes', 'Accessible boutique hotels downtown', 'Accessible beaches in Bocagrande', 'Audio guides available', 'Adapted golf carts for tours'],
     descriptionES: 'Cartagena combina historia colonial con infraestructura accesible creciente. El centro histórico tiene rutas adaptadas y transporte en carros de golf.',
     descriptionEN: 'Cartagena combines colonial history with growing accessible infrastructure. The historic center has adapted routes and golf cart transport.',
+    highlights: [
+      { nameES: 'Playa de Bocagrande', nameEN: 'Bocagrande Beach', type: 'playas', descES: 'Playa urbana con zona accesible en el sector norte, servicio de sillas de playa adaptadas y paseo marítimo pavimentado.', descEN: 'Urban beach with accessible zone in the northern sector, adapted beach chair service, and paved promenade.' },
+      { nameES: 'Museo del Oro Zenú', nameEN: 'Zenú Gold Museum', type: 'museos', descES: 'Museo del Banco de la República con planta baja completamente accesible, audioguías en español e inglés y rampas en todos los niveles.', descEN: 'Banco de la República museum with fully accessible ground floor, audio guides in Spanish and English, and ramps on all levels.' },
+      { nameES: 'Islas del Rosario (Barco accesible)', nameEN: 'Rosario Islands (Accessible Boat)', type: 'parques_naturales', descES: 'Tour en catamarán con rampa de abordaje para sillas de ruedas, snorkel adaptado y cubierta accesible a las islas del parque natural.', descEN: 'Catamaran tour with wheelchair boarding ramp, adapted snorkel, and accessible deck to the natural park islands.' },
+    ],
     tags: ['cultura', 'historia', 'caribe'],
   },
   {
@@ -66,10 +117,16 @@ export const DESTINATIONS: Destination[] = [
     bgColor: 'bg-sky-500',
     accessibilityRating: 4,
     disabilityTypes: ['motriz', 'visual', 'auditiva', 'cognitiva'],
+    attractionTypes: ['museos', 'cultura', 'gastronomia', 'spas'],
     featuresES: ['Metro con plataformas elevadoras', 'Museos con recorridos táctiles', 'Teatro Colón accesible', 'Semáforos con señal sonora', 'Guías en lengua de señas argentina (LSA)', 'Mapas en braille'],
     featuresEN: ['Subway with elevating platforms', 'Museums with tactile tours', 'Accessible Teatro Colón', 'Traffic lights with audio signals', 'Argentine sign language (LSA) guides', 'Braille maps'],
     descriptionES: 'Buenos Aires tiene una de las infraestructuras de accesibilidad más desarrolladas de LATAM, con metro adaptado, museos inclusivos y amplia red de apoyo.',
     descriptionEN: 'Buenos Aires has one of the most developed accessibility infrastructures in LATAM, with adapted subway, inclusive museums, and extensive support network.',
+    highlights: [
+      { nameES: 'Teatro Colón', nameEN: 'Teatro Colón', type: 'cultura', descES: 'Uno de los mejores teatros del mundo con acceso para sillas de ruedas, audiodescripción en funciones seleccionadas, bucle de inducción y guías en LSA.', descEN: 'One of the best theaters in the world with wheelchair access, audio description at selected performances, induction loop, and LSA guides.' },
+      { nameES: 'Museo Nacional de Bellas Artes', nameEN: 'National Museum of Fine Arts', type: 'museos', descES: 'Entrada gratuita, recorridos táctiles para personas con discapacidad visual, ascensores en todos los niveles y programa de visitas en LSA.', descEN: 'Free entry, tactile tours for visually impaired visitors, elevators on all levels, and LSA tour program.' },
+      { nameES: 'Termas de Cacheuta (Mendoza, day trip)', nameEN: 'Cacheuta Hot Springs (Mendoza, day trip)', type: 'termales', descES: 'Complejo termal a 2h de Buenos Aires con piscinas accesibles, rampas de entrada al agua y servicio de asistencia. Ideal para enfermedades crónicas.', descEN: 'Thermal resort 2h from Buenos Aires with accessible pools, water entry ramps, and assistance service. Ideal for chronic conditions.' },
+    ],
     tags: ['cultura', 'ciudad', 'gastronomia'],
   },
   {
@@ -80,10 +137,16 @@ export const DESTINATIONS: Destination[] = [
     bgColor: 'bg-green-500',
     accessibilityRating: 4,
     disabilityTypes: ['motriz', 'visual', 'auditiva'],
+    attractionTypes: ['museos', 'cultura', 'gastronomia', 'parques_naturales'],
     featuresES: ['Metro con módulos de accesibilidad', 'Museos con lenguaje de señas mexicano (LSM)', 'Paseo de la Reforma con rampas', 'TURIBUS accesible', 'Zonas arqueológicas con recorridos adaptados', 'Braille en museos INAH'],
     featuresEN: ['Subway with accessibility modules', 'Museums with Mexican sign language (LSM)', 'Paseo de la Reforma with ramps', 'Accessible TURIBUS', 'Archaeological zones with adapted tours', 'Braille in INAH museums'],
     descriptionES: 'La CDMX cuenta con infraestructura de accesibilidad en transporte público, museos de clase mundial con programas inclusivos y tours adaptados.',
     descriptionEN: 'Mexico City has accessibility infrastructure in public transport, world-class museums with inclusive programs, and adapted tours.',
+    highlights: [
+      { nameES: 'Museo Nacional de Antropología', nameEN: 'National Museum of Anthropology', type: 'museos', descES: 'El museo más visitado de México con rampas en todas las salas, audioguías, reproducciones táctiles de piezas arqueológicas y guías en LSM.', descEN: 'Mexico\'s most visited museum with ramps in all rooms, audio guides, tactile reproductions of archaeological pieces, and LSM guides.' },
+      { nameES: 'Bosque de Chapultepec', nameEN: 'Chapultepec Forest', type: 'parques_naturales', descES: 'Parque urbano más grande de LATAM con senderos pavimentados accesibles, baños adaptados y zoológico con entrada gratuita para personas con discapacidad.', descEN: 'Largest urban park in LATAM with accessible paved trails, adapted restrooms, and zoo with free entry for people with disabilities.' },
+      { nameES: 'Xochimilco (trajineras accesibles)', nameEN: 'Xochimilco (accessible trajineras)', type: 'cultura', descES: 'Los canales prehispánicos ofrecen embarcaderos con rampas y trajineras adaptadas para sillas de ruedas. Experiencia cultural única declarada Patrimonio UNESCO.', descEN: 'Pre-Hispanic canals offer ramp embarkation and wheelchair-adapted trajineras. Unique cultural experience declared UNESCO Heritage.' },
+    ],
     tags: ['cultura', 'ciudad', 'historia', 'gastronomia'],
   },
   {
@@ -94,10 +157,16 @@ export const DESTINATIONS: Destination[] = [
     bgColor: 'bg-amber-400',
     accessibilityRating: 3,
     disabilityTypes: ['motriz'],
+    attractionTypes: ['playas', 'spas', 'parques_naturales'],
     featuresES: ['Resorts all-inclusive adaptados', 'Sillas anfibias en resorts premium', 'Habitaciones accesibles con barras de apoyo', 'Personal entrenado en atención inclusiva', 'Excursiones con transporte adaptado'],
     featuresEN: ['Adapted all-inclusive resorts', 'Amphibious chairs at premium resorts', 'Accessible rooms with grab bars', 'Staff trained in inclusive care', 'Excursions with adapted transport'],
     descriptionES: 'Punta Cana es ideal para viajeros con movilidad reducida que buscan resorts todo incluido con servicios accesibles en playas de arena blanca.',
     descriptionEN: 'Punta Cana is ideal for travelers with reduced mobility seeking all-inclusive resorts with accessible services on white sand beaches.',
+    highlights: [
+      { nameES: 'Playa Bávaro (sector Hard Rock Hotel)', nameEN: 'Bávaro Beach (Hard Rock Hotel sector)', type: 'playas', descES: 'Playa con silla anfibia incluida, rampa de acceso al mar, sombrillas y hamacas con altura adaptada. El Hard Rock tiene el programa accesible más completo de la zona.', descEN: 'Beach with included amphibious chair, sea access ramp, umbrellas and adapted-height hammocks. The Hard Rock has the most complete accessible program in the area.' },
+      { nameES: 'Parque Nacional del Este (Isla Saona)', nameEN: 'Parque Nacional del Este (Saona Island)', type: 'parques_naturales', descES: 'Tour en catamarán con asistencia para embarque, cubierta accesible y parada en playa virgen. Operadores especializados en turismo inclusivo disponibles.', descEN: 'Catamaran tour with boarding assistance, accessible deck, and stop at pristine beach. Specialized inclusive tourism operators available.' },
+      { nameES: 'Spa Westin Puntacana Resort', nameEN: 'Westin Puntacana Resort Spa', type: 'spas', descES: 'Spa certificado con tratamientos adaptados, piscinas con elevadores y personal entrenado para atender a personas con diversidad funcional.', descEN: 'Certified spa with adapted treatments, pools with lifts, and staff trained to serve people with functional diversity.' },
+    ],
     tags: ['caribe', 'playa', 'relax'],
   },
   {
@@ -108,10 +177,16 @@ export const DESTINATIONS: Destination[] = [
     bgColor: 'bg-emerald-500',
     accessibilityRating: 4,
     disabilityTypes: ['motriz', 'visual', 'cognitiva'],
+    attractionTypes: ['termales', 'parques_naturales', 'fincas', 'playas'],
     featuresES: ['Parque Nacional Manuel Antonio accesible', 'Senderos adaptados en reservas', 'Hoteles eco accesibles certificados', 'Avistamiento de vida silvestre adaptado', 'Guías especializados en turismo inclusivo', 'Leyes fuertes de accesibilidad (Ley 7600)'],
     featuresEN: ['Accessible Manuel Antonio National Park', 'Adapted trails in reserves', 'Certified eco-accessible hotels', 'Adapted wildlife watching', 'Guides specialized in inclusive tourism', 'Strong accessibility laws (Law 7600)'],
     descriptionES: 'Costa Rica lidera el ecoturismo accesible en LATAM con la Ley 7600, parques nacionales adaptados y hoteles eco-accesibles certificados.',
     descriptionEN: 'Costa Rica leads accessible ecotourism in LATAM with Law 7600, adapted national parks, and certified eco-accessible hotels.',
+    highlights: [
+      { nameES: 'Tabacón Thermal Resort & Spa (La Fortuna)', nameEN: 'Tabacón Thermal Resort & Spa (La Fortuna)', type: 'termales', descES: 'El complejo termal más accesible de Costa Rica, junto al Volcán Arenal. Piscinas termales con rampas de entrada, sillas de asistencia acuática y personal capacitado. Temperatura natural entre 29°C y 40°C.', descEN: 'The most accessible thermal resort in Costa Rica, beside Arenal Volcano. Thermal pools with entry ramps, aquatic assistance chairs, and trained staff. Natural temperature between 29°C and 40°C.' },
+      { nameES: 'La Paz Waterfall Gardens (Alajuela)', nameEN: 'La Paz Waterfall Gardens (Alajuela)', type: 'parques_naturales', descES: 'Parque natural con sendero pavimentado accesible a 5 cascadas, maripósario accesible, hummingbird garden y aviario. Sillas de ruedas gratuitas disponibles en entrada.', descEN: 'Nature park with paved accessible trail to 5 waterfalls, accessible butterfly garden, hummingbird garden, and aviary. Free wheelchairs available at entrance.' },
+      { nameES: 'Playa Manuel Antonio (Parque Nacional)', nameEN: 'Manuel Antonio Beach (National Park)', type: 'playas', descES: 'Playa accesible dentro del parque nacional con sillas anfibias gratuitas, sendero pavimentado desde el estacionamiento y servicio de guías con sillas especializadas todo terreno.', descEN: 'Accessible beach within the national park with free amphibious chairs, paved trail from parking, and guide service with all-terrain specialized chairs.' },
+    ],
     tags: ['naturaleza', 'ecoturismo', 'aventura'],
   },
   {
@@ -122,10 +197,16 @@ export const DESTINATIONS: Destination[] = [
     bgColor: 'bg-red-400',
     accessibilityRating: 3,
     disabilityTypes: ['motriz', 'visual'],
+    attractionTypes: ['museos', 'cultura', 'parques_naturales'],
     featuresES: ['Canal de Panamá con rampas y ascensores', 'Casco Viejo con recorridos adaptados', 'Metro accesible inaugurado 2014', 'Multiplaza con infraestructura completa', 'Tours al Canal con intérpretes LSP'],
     featuresEN: ['Panama Canal with ramps and elevators', 'Casco Viejo with adapted tours', 'Accessible metro opened 2014', 'Multiplaza with complete infrastructure', 'Canal tours with LSP interpreters'],
     descriptionES: 'Ciudad de Panamá ofrece metro accesible, tours adaptados al Canal y una infraestructura urbana moderna con buena cobertura de accesibilidad.',
     descriptionEN: 'Panama City offers accessible metro, adapted Canal tours, and modern urban infrastructure with good accessibility coverage.',
+    highlights: [
+      { nameES: 'Miraflores Locks Museum (Canal de Panamá)', nameEN: 'Miraflores Locks Museum (Panama Canal)', type: 'museos', descES: 'Museo 100% accesible con 4 pisos de exhibiciones sobre el Canal, mirador adaptado con vistas a las esclusas en operación, audioguías y recorridos en LSP.', descEN: 'Fully accessible museum with 4 floors of Canal exhibits, adapted viewpoint overlooking operating locks, audio guides, and LSP tours.' },
+      { nameES: 'Parque Natural Metropolitano', nameEN: 'Metropolitan Natural Park', type: 'parques_naturales', descES: 'Único bosque tropical dentro de una capital de América, con sendero principal pavimentado apto para sillas de ruedas y avistamiento de vida silvestre adaptado.', descEN: 'Unique tropical forest within a capital city in the Americas, with main paved trail suitable for wheelchairs and adapted wildlife watching.' },
+      { nameES: 'Biomuseo (Frank Gehry)', nameEN: 'Biomuseo (Frank Gehry)', type: 'museos', descES: 'Museo de biodiversidad diseñado por Frank Gehry, completamente accesible con rampas en todas las galerías, audioguías y exhibiciones táctiles sobre el istmo de Panamá.', descEN: 'Biodiversity museum designed by Frank Gehry, fully accessible with ramps in all galleries, audio guides, and tactile exhibits about the Panama isthmus.' },
+    ],
     tags: ['ciudad', 'cultura', 'historia'],
   },
   {
@@ -136,10 +217,16 @@ export const DESTINATIONS: Destination[] = [
     bgColor: 'bg-orange-400',
     accessibilityRating: 3,
     disabilityTypes: ['motriz', 'visual', 'auditiva'],
+    attractionTypes: ['museos', 'gastronomia', 'parques_naturales'],
     featuresES: ['Museo Larco con recorridos táctiles', 'Miraflores con malecón accesible', 'Restaurantes gastronómicos accesibles', 'Tours a Machu Picchu con asistencia', 'Aeropuerto Jorge Chávez certificado', 'Línea 1 del Metro accesible'],
     featuresEN: ['Larco Museum with tactile tours', 'Miraflores with accessible boardwalk', 'Accessible gourmet restaurants', 'Tours to Machu Picchu with assistance', 'Certified Jorge Chávez Airport', 'Accessible Metro Line 1'],
     descriptionES: 'Lima combina gastronomía de clase mundial con infraestructura accesible creciente en Miraflores. El Museo Larco ofrece recorridos táctiles únicos.',
     descriptionEN: 'Lima combines world-class gastronomy with growing accessible infrastructure in Miraflores. The Larco Museum offers unique tactile tours.',
+    highlights: [
+      { nameES: 'Museo Larco (Pueblo Libre)', nameEN: 'Larco Museum (Pueblo Libre)', type: 'museos', descES: 'El museo de arte precolombino más importante de Perú, con recorrido táctil de cerámica para personas con discapacidad visual, jardín accesible y audioguías. Rampas en toda la colección.', descEN: 'Peru\'s most important pre-Columbian art museum, with tactile ceramics tour for the visually impaired, accessible garden, and audio guides. Ramps throughout the collection.' },
+      { nameES: 'Malecón de Miraflores', nameEN: 'Miraflores Boardwalk', type: 'parques_naturales', descES: 'Paseo costero pavimentado de 4 km sobre acantilados, accesible en silla de ruedas, con vistas al Pacífico, parques en cada tramo y acceso al Parque del Amor.', descEN: '4 km paved coastal walk above cliffs, wheelchair accessible, with Pacific views, parks at each section, and access to the Parque del Amor.' },
+      { nameES: 'Central Restaurante (Miraflores)', nameEN: 'Central Restaurant (Miraflores)', type: 'gastronomia', descES: 'Restaurante #1 de América Latina (The World\'s 50 Best), completamente accesible con mesa adaptada, carta en braille disponible y servicio de asistencia. Reserva con anticipación recomendada.', descEN: '#1 Restaurant in Latin America (The World\'s 50 Best), fully accessible with adapted table, braille menu available, and assistance service. Advance reservation recommended.' },
+    ],
     tags: ['gastronomia', 'cultura', 'ciudad'],
   },
   {
@@ -150,10 +237,16 @@ export const DESTINATIONS: Destination[] = [
     bgColor: 'bg-indigo-500',
     accessibilityRating: 4,
     disabilityTypes: ['motriz', 'visual', 'auditiva', 'cognitiva'],
+    attractionTypes: ['museos', 'parques_naturales', 'cultura', 'fincas'],
     featuresES: ['TransMilenio con estaciones accesibles', 'Museos con programas para sordociegos', 'Ciclovía dominical adaptada', 'Biblioteca Pública con materiales braille', 'Teatro con intérpretes LSC', 'Parque Simón Bolívar accesible'],
     featuresEN: ['TransMilenio with accessible stations', 'Museums with programs for deafblind', 'Accessible Sunday ciclovía', 'Public Library with braille materials', 'Theater with LSC interpreters', 'Accessible Simón Bolívar Park'],
     descriptionES: 'Bogotá tiene una de las políticas de accesibilidad más avanzadas de Colombia, con TransMilenio adaptado, museos inclusivos y ciclovía para todos.',
     descriptionEN: 'Bogotá has one of the most advanced accessibility policies in Colombia, with adapted TransMilenio, inclusive museums, and ciclovía for all.',
+    highlights: [
+      { nameES: 'Museo del Oro (Banco de la República)', nameEN: 'Gold Museum (Banco de la República)', type: 'museos', descES: 'El museo más visitado de Colombia con acceso gratuito los domingos, exhibiciones táctiles de orfebrería prehispánica, audioguías en 6 idiomas y recorridos en Lengua de Señas Colombiana (LSC).', descEN: 'Colombia\'s most visited museum with free Sunday entry, tactile pre-Hispanic goldsmith exhibits, audio guides in 6 languages, and Colombian Sign Language (LSC) tours.' },
+      { nameES: 'Parque Nacional Natural Chingaza (day trip)', nameEN: 'Chingaza National Natural Park (day trip)', type: 'parques_naturales', descES: 'Páramo andino a 2h de Bogotá con sendero principal pavimentado accesible, avistamiento de frailejones y fauna silvestre. Guías especializados en accesibilidad disponibles.', descEN: 'Andean páramo 2h from Bogotá with accessible paved main trail, frailejón and wildlife watching. Specialized accessibility guides available.' },
+      { nameES: 'Finca El Ocaso (Salento, day trip)', nameEN: 'Finca El Ocaso (Salento, day trip)', type: 'fincas', descES: 'Finca cafetera en el Eje Cafetero con tour accesible de beneficio del café, senderos adaptados y degustación inclusiva. Transporte adaptado disponible desde Bogotá.', descEN: 'Coffee farm in the Coffee Region with accessible coffee processing tour, adapted trails, and inclusive tasting. Adapted transport available from Bogotá.' },
+    ],
     tags: ['ciudad', 'cultura', 'naturaleza'],
   },
   {
@@ -164,10 +257,16 @@ export const DESTINATIONS: Destination[] = [
     bgColor: 'bg-purple-500',
     accessibilityRating: 4,
     disabilityTypes: ['motriz', 'cognitiva', 'cronica_invisible'],
+    attractionTypes: ['termales', 'fincas', 'parques_naturales', 'museos'],
     featuresES: ['Metro + Metrocable con ascensores', 'Parques biblioteca accesibles', 'Jardín Botánico con rampas y braille', 'Programa "Medellín Accesible"', 'Clínicas de clase mundial', 'Clima primaveral ideal para movilidad reducida'],
     featuresEN: ['Metro + Metrocable with elevators', 'Accessible library parks', 'Botanical Garden with ramps and braille', '"Medellín Accesible" program', 'World-class clinics', 'Perpetual spring climate ideal for reduced mobility'],
     descriptionES: 'Medellín, la "Ciudad de la Eterna Primavera", combina innovación urbana accesible con el programa oficial "Medellín Accesible" y clima ideal.',
     descriptionEN: 'Medellín, the "City of Eternal Spring," combines accessible urban innovation with the official "Medellín Accesible" program and ideal climate.',
+    highlights: [
+      { nameES: 'Termales de Santa Rosa de Cabal (2h de Medellín)', nameEN: 'Santa Rosa de Cabal Hot Springs (2h from Medellín)', type: 'termales', descES: 'Complejo termal en plena selva andina con piscinas termales accesibles mediante plataformas y rampas, aguas sulfurosas a 62°C enfriadas a temperatura de confort. Ideal para artritis, fibromialgia y condiciones crónicas.', descEN: 'Thermal complex in the Andean jungle with thermal pools accessible via platforms and ramps, sulfurous water cooled to comfortable temperature. Ideal for arthritis, fibromyalgia, and chronic conditions.' },
+      { nameES: 'Finca Secreto de los Andes (Santa Fe de Antioquia)', nameEN: 'Finca Secreto de los Andes (Santa Fe de Antioquia)', type: 'fincas', descES: 'Finca de recreo antioqueña con senderos adaptados para sillas de ruedas, piscina con entrada rampa, cabaña accesible y actividades de agroturismo inclusivo.', descEN: 'Antioquian recreational farm with wheelchair-adapted trails, pool with ramp entry, accessible cabin, and inclusive agrotourism activities.' },
+      { nameES: 'Jardín Botánico de Medellín', nameEN: 'Medellín Botanical Garden', type: 'parques_naturales', descES: 'Jardín urbano 100% accesible con orquideario adaptado, senderos pavimentados, señalización en braille en todas las especies y auditorio accesible. Entrada gratuita.', descEN: 'Fully accessible urban garden with adapted orchid house, paved trails, braille signage on all species, and accessible auditorium. Free entry.' },
+    ],
     tags: ['ciudad', 'cultura', 'naturaleza'],
   },
   {
@@ -178,10 +277,16 @@ export const DESTINATIONS: Destination[] = [
     bgColor: 'bg-pink-400',
     accessibilityRating: 2,
     disabilityTypes: ['motriz', 'auditiva'],
+    attractionTypes: ['cultura', 'museos', 'spas'],
     featuresES: ['Habana Vieja con calles adoquinadas (desafío)', 'Hotel Nacional con acceso adaptado', 'Tours privados en autos clásicos adaptados', 'Malecón relativamente plano', 'Personal de hoteles capacitado', 'Cuidado médico accesible de alta calidad'],
     featuresEN: ['Old Havana with cobblestone streets (challenge)', 'Hotel Nacional with adapted access', 'Private tours in adapted classic cars', 'Relatively flat Malecón', 'Trained hotel staff', 'Accessible high-quality medical care'],
     descriptionES: 'La Habana ofrece una experiencia única aunque con desafíos en accesibilidad por su arquitectura histórica. Los hoteles principales y tours privados son adaptados.',
     descriptionEN: 'Havana offers a unique experience though with accessibility challenges due to its historic architecture. Main hotels and private tours are adapted.',
+    highlights: [
+      { nameES: 'Museo de la Revolución', nameEN: 'Museum of the Revolution', type: 'museos', descES: 'Ex Palacio Presidencial con planta baja accesible, rampa de entrada y exhibiciones sobre la historia de Cuba. La planta alta requiere escaleras, pero el personal asiste con silla de ruedas de transporte.', descEN: 'Former Presidential Palace with accessible ground floor, entry ramp, and exhibits on Cuban history. Upper floor requires stairs, but staff assists with transport wheelchair.' },
+      { nameES: 'El Malecón de La Habana', nameEN: 'Havana Malecón', type: 'cultura', descES: 'Paseo marítimo de 8 km relativamente plano, accesible en silla de ruedas, con vistas al Golfo de México. El mejor recorrido accesible de La Habana al atardecer.', descEN: 'Relatively flat 8 km seaside promenade, wheelchair accessible, with views of the Gulf of Mexico. Best accessible Havana route at sunset.' },
+      { nameES: 'Spa Hotel Nacional de Cuba', nameEN: 'Hotel Nacional de Cuba Spa', type: 'spas', descES: 'Spa en el hotel más icónico de Cuba (Patrimonio Nacional) con acceso adaptado por rampa lateral, tratamientos de medicina natural cubana y piscina con asistencia.', descEN: 'Spa in Cuba\'s most iconic hotel (National Heritage) with adapted side ramp access, Cuban natural medicine treatments, and assisted pool.' },
+    ],
     tags: ['cultura', 'historia', 'caribe'],
   },
 
@@ -194,10 +299,16 @@ export const DESTINATIONS: Destination[] = [
     bgColor: 'bg-slate-600',
     accessibilityRating: 4,
     disabilityTypes: ['motriz', 'visual', 'auditiva', 'cognitiva'],
+    attractionTypes: ['museos', 'cultura', 'parques_naturales', 'gastronomia'],
     featuresES: ['ADA en todos los espacios públicos y edificios federales', 'Taxis y Uber con opción WAV (vehículo accesible en silla de ruedas)', 'Metropolitan Museum con tours táctiles y en lengua de señas (ASL)', 'Broadway con funciones con subtítulos y audiodescripción', 'Estatua de la Libertad con acceso en silla de ruedas al pedestal', 'MTA Subway con ascensores (cobertura parcial ~25% estaciones)', 'Central Park con rutas pavimentadas accesibles'],
     featuresEN: ['ADA in all public spaces and federal buildings', 'Taxis and Uber with WAV option (wheelchair accessible vehicle)', 'Metropolitan Museum with tactile tours and ASL', 'Broadway with captioned and audio-described performances', 'Statue of Liberty with wheelchair access to pedestal', 'MTA Subway with elevators (partial coverage ~25% stations)', 'Central Park with accessible paved routes'],
     descriptionES: 'Nueva York lidera en legislación ADA y diversidad de servicios accesibles. Broadway, museos de clase mundial y transporte adaptado conviven con un metro histórico de cobertura parcial.',
     descriptionEN: 'New York leads in ADA legislation and diversity of accessible services. Broadway, world-class museums, and adapted transport coexist with a historic subway of partial coverage.',
+    highlights: [
+      { nameES: 'Metropolitan Museum of Art (The Met)', nameEN: 'Metropolitan Museum of Art (The Met)', type: 'museos', descES: 'El museo más visitado de EE.UU. con acceso gratuito para personas con discapacidad, recorridos táctiles, tours en ASL, audioguías y sillas de ruedas gratuitas. Ascensores en todos los niveles.', descEN: 'The most visited museum in the US with free access for people with disabilities, tactile tours, ASL tours, audio guides, and free wheelchairs. Elevators on all levels.' },
+      { nameES: 'The High Line (Parque lineal elevado)', nameEN: 'The High Line (Elevated Linear Park)', type: 'parques_naturales', descES: 'Parque lineal sobre vías de tren elevadas, 100% accesible con ascensores en cada acceso, superficie uniforme y vistas panorámicas de Manhattan. Recorrido de 2.3 km sin barreras.', descEN: 'Linear park on elevated train tracks, 100% accessible with elevators at each access, uniform surface, and panoramic Manhattan views. 2.3 km barrier-free route.' },
+      { nameES: 'Broadway — Teatro Majestic (El Fantasma)', nameEN: 'Broadway — Majestic Theatre (Phantom)', type: 'cultura', descES: 'Los teatros de Broadway son líderes mundiales en accesibilidad: asientos para sillas de ruedas, funciones con audiodescripción, subtítulos abiertos y bucle de inducción auditiva disponibles cada semana.', descEN: 'Broadway theaters are world leaders in accessibility: wheelchair seating, audio description performances, open captions, and hearing induction loop available weekly.' },
+    ],
     tags: ['eeuu', 'cultura', 'ciudad', 'historia'],
   },
   {
@@ -208,10 +319,16 @@ export const DESTINATIONS: Destination[] = [
     bgColor: 'bg-orange-600',
     accessibilityRating: 4,
     disabilityTypes: ['motriz', 'visual', 'auditiva', 'cronica_invisible'],
-    featuresES: ['BART y Muni Metro 100% accesibles con ascensores', 'Alcatraz con audio tour accesible y ferry adaptado', 'Golden Gate Park con rutas pavimentadas para sillas de ruedas', 'Fisherman\'s Wharf con paseos costeros accesibles', 'Clemente Disability Resource Center activo', 'Hoteles con certificación ADA extendida', 'Cable cars históricos con plataformas de embarque adaptadas'],
+    attractionTypes: ['museos', 'parques_naturales', 'cultura', 'spas'],
+    featuresES: ['BART y Muni Metro 100% accesibles con ascensores', 'Alcatraz con audio tour accesible y ferry adaptado', 'Golden Gate Park con rutas pavimentadas para sillas de ruedas', "Fisherman's Wharf con paseos costeros accesibles", 'Clemente Disability Resource Center activo', 'Hoteles con certificación ADA extendida', 'Cable cars históricos con plataformas de embarque adaptadas'],
     featuresEN: ['BART and Muni Metro 100% accessible with elevators', 'Alcatraz with accessible audio tour and adapted ferry', 'Golden Gate Park with paved wheelchair routes', "Fisherman's Wharf with accessible coastal walks", 'Active Clemente Disability Resource Center', 'Hotels with extended ADA certification', 'Historic cable cars with adapted boarding platforms'],
     descriptionES: 'San Francisco combina transporte público accesible de primer nivel con atracciones icónicas adaptadas. Sus colinas empinadas son un reto, pero el BART y Muni ofrecen cobertura completa.',
     descriptionEN: 'San Francisco combines top-tier accessible public transport with adapted iconic attractions. Its steep hills are a challenge, but BART and Muni offer full coverage.',
+    highlights: [
+      { nameES: 'Alcatraz Island (Golden Gate NRA)', nameEN: 'Alcatraz Island (Golden Gate NRA)', type: 'museos', descES: 'La excursión más popular de SF con ferry accesible (rampa hidráulica), tram eléctrico en la isla, audio tour premiado compatible con audífonos y baños adaptados en tierra.', descEN: 'SF\'s most popular excursion with accessible ferry (hydraulic ramp), island electric tram, award-winning hearing-loop-compatible audio tour, and adapted restrooms on land.' },
+      { nameES: 'Golden Gate Park — Japanese Tea Garden', nameEN: 'Golden Gate Park — Japanese Tea Garden', type: 'parques_naturales', descES: 'El jardín japonés más antiguo de EE.UU. con entrada accesible, caminos pavimentados en la mayor parte del recorrido y servicio de té con sillas de altura adaptada.', descEN: 'The oldest Japanese garden in the US with accessible entrance, paved paths throughout most of the route, and tea service with adapted-height chairs.' },
+      { nameES: 'Kabuki Springs & Spa (Japantown)', nameEN: 'Kabuki Springs & Spa (Japantown)', type: 'spas', descES: 'Spa urbano de baños japoneses con instalaciones completamente accesibles, baños de inmersión con escalones y asistencia, sala de relajación accesible y estacionamiento adaptado.', descEN: 'Urban Japanese bath spa with fully accessible facilities, immersion baths with steps and assistance, accessible relaxation room, and adapted parking.' },
+    ],
     tags: ['eeuu', 'ciudad', 'naturaleza', 'cultura'],
   },
   {
@@ -222,10 +339,16 @@ export const DESTINATIONS: Destination[] = [
     bgColor: 'bg-violet-500',
     accessibilityRating: 5,
     disabilityTypes: ['motriz', 'visual', 'auditiva', 'autismo', 'cognitiva', 'cronica_invisible'],
+    attractionTypes: ['parques_tematicos', 'spas', 'parques_naturales'],
     featuresES: ['Walt Disney World — líder mundial en accesibilidad para parques temáticos', 'Disability Access Service (DAS) en todos los parques Disney y Universal', 'Universal Studios con Attraction Assistance Pass', 'SeaWorld con programas para personas con autismo (certificado IBCCES)', 'Hotel Disney con habitaciones totalmente accesibles y servicios médicos', 'Transporte gratuito accesible entre parques Disney', 'Quiet Hours en parques para viajeros con sensibilidad sensorial'],
     featuresEN: ['Walt Disney World — world leader in theme park accessibility', 'Disability Access Service (DAS) at all Disney and Universal parks', 'Universal Studios with Attraction Assistance Pass', 'SeaWorld with autism programs (IBCCES certified)', 'Disney hotels with fully accessible rooms and medical services', 'Free accessible transport between Disney parks', 'Quiet Hours at parks for sensory-sensitive travelers'],
     descriptionES: 'Orlando es el destino más accesible para parques temáticos en el mundo. Disney, Universal y SeaWorld tienen programas líderes para todo tipo de discapacidad, incluyendo autismo y necesidades sensoriales.',
     descriptionEN: 'Orlando is the most accessible theme park destination in the world. Disney, Universal, and SeaWorld have leading programs for all types of disability, including autism and sensory needs.',
+    highlights: [
+      { nameES: 'Walt Disney World — Magic Kingdom', nameEN: 'Walt Disney World — Magic Kingdom', type: 'parques_tematicos', descES: 'El parque más accesible del mundo con Disability Access Service (DAS), atracciones con vehículos accesibles para sillas de ruedas, mapas de accesibilidad detallados y Quiet Hours matutinas para viajeros con autismo o sensibilidad sensorial.', descEN: 'The world\'s most accessible park with Disability Access Service (DAS), attractions with wheelchair-accessible vehicles, detailed accessibility maps, and morning Quiet Hours for autism or sensory-sensitive travelers.' },
+      { nameES: 'SeaWorld Orlando — Blue Horizons (IBCCES Certified)', nameEN: 'SeaWorld Orlando (IBCCES Certified)', type: 'parques_tematicos', descES: 'Primer parque certificado IBCCES para autismo en el mundo. Personal con formación especializada, zonas de descanso sensorial, guías sociales visuales y todas las atracciones accesibles para sillas de ruedas.', descEN: 'First IBCCES autism-certified park in the world. Staff with specialized training, sensory rest zones, visual social guides, and all attractions accessible for wheelchairs.' },
+      { nameES: 'Wekiwa Springs State Park', nameEN: 'Wekiwa Springs State Park', type: 'parques_naturales', descES: 'Parque natural con manantiales de agua dulce cristalina a 30 min de los parques. Zona de natación con silla anfibia gratuita, rampa de acceso al agua y sendero pavimentado accesible al manantial.', descEN: 'Nature park with crystal clear freshwater springs 30 min from the theme parks. Swimming area with free amphibious chair, water access ramp, and accessible paved trail to the spring.' },
+    ],
     tags: ['eeuu', 'familia', 'relax', 'ciudad'],
   },
   {
@@ -236,10 +359,16 @@ export const DESTINATIONS: Destination[] = [
     bgColor: 'bg-red-700',
     accessibilityRating: 5,
     disabilityTypes: ['motriz', 'visual', 'auditiva', 'cognitiva', 'cronica_invisible'],
-    featuresES: ['TTC (metro y autobús) 100% accesible con elevadores Wheel-Trans', 'Museos Royal Ontario y Art Gallery con programas de accesibilidad total', 'CN Tower con ascensores accesibles y restaurante adaptado', 'Ripley\'s Aquarium con recorridos para sordos y ciegos', 'Código de Derechos Humanos de Ontario — protección legal robusta', 'Programa municipal "Toronto Accessibility" con mapas detallados', 'Hoteles con certificación AccessNow verificada'],
+    attractionTypes: ['museos', 'cultura', 'parques_naturales', 'gastronomia'],
+    featuresES: ['TTC (metro y autobús) 100% accesible con elevadores Wheel-Trans', 'Museos Royal Ontario y Art Gallery con programas de accesibilidad total', 'CN Tower con ascensores accesibles y restaurante adaptado', "Ripley's Aquarium con recorridos para sordos y ciegos", 'Código de Derechos Humanos de Ontario — protección legal robusta', 'Programa municipal "Toronto Accessibility" con mapas detallados', 'Hoteles con certificación AccessNow verificada'],
     featuresEN: ['TTC (subway and bus) 100% accessible with Wheel-Trans elevators', 'Royal Ontario Museum and Art Gallery with full accessibility programs', 'CN Tower with accessible elevators and adapted restaurant', "Ripley's Aquarium with tours for deaf and blind visitors", 'Ontario Human Rights Code — robust legal protection', 'Municipal "Toronto Accessibility" program with detailed maps', 'Hotels with verified AccessNow certification'],
     descriptionES: 'Toronto es consistentemente clasificada entre las ciudades más accesibles de América del Norte. Su legislación robusta, transporte 100% adaptado y multiculturalismo la hacen destino de referencia.',
     descriptionEN: 'Toronto is consistently ranked among the most accessible cities in North America. Its robust legislation, 100% adapted transport, and multiculturalism make it a reference destination.',
+    highlights: [
+      { nameES: 'Royal Ontario Museum (ROM)', nameEN: 'Royal Ontario Museum (ROM)', type: 'museos', descES: 'El museo más grande de Canadá con acceso gratuito para asistentes de personas con discapacidad, recorridos táctiles en la galería de historia natural, audioguías y recorridos en ASL/LSQ.', descEN: 'Canada\'s largest museum with free access for disability attendants, tactile tours in the natural history gallery, audio guides, and ASL/LSQ tours.' },
+      { nameES: 'CN Tower — Restaurante 360°', nameEN: 'CN Tower — 360° Restaurant', type: 'gastronomia', descES: 'La torre más alta de Canadá con ascensores accesibles, restaurante giratorio a 351 m con mesas adaptadas para sillas de ruedas y menú en formato grande. Vista panorámica de Toronto y el Lago Ontario.', descEN: 'Canada\'s tallest tower with accessible elevators, revolving restaurant at 351 m with wheelchair-adapted tables and large-print menu. Panoramic view of Toronto and Lake Ontario.' },
+      { nameES: 'Toronto Islands (Ferry accesible)', nameEN: 'Toronto Islands (Accessible Ferry)', type: 'parques_naturales', descES: 'Archipiélago urbano con senderos pavimentados, playas accesibles con sillas anfibias gratuitas, ferry con rampa hidráulica y área de picnic adaptada. A 10 min del centro de Toronto.', descEN: 'Urban archipelago with paved trails, accessible beaches with free amphibious chairs, ferry with hydraulic ramp, and adapted picnic area. 10 min from downtown Toronto.' },
+    ],
     tags: ['canada', 'ciudad', 'cultura', 'naturaleza'],
   },
   {
@@ -250,10 +379,16 @@ export const DESTINATIONS: Destination[] = [
     bgColor: 'bg-green-600',
     accessibilityRating: 5,
     disabilityTypes: ['motriz', 'visual', 'auditiva', 'cognitiva', 'cronica_invisible'],
+    attractionTypes: ['parques_naturales', 'spas', 'museos', 'playas'],
     featuresES: ['SkyTrain y autobuses TransLink totalmente accesibles', 'Stanley Park con rutas pavimentadas de 8.8 km accesibles en silla de ruedas', 'Vancouver Aquarium con programas para autismo y sordoceguera', 'Granville Island completamente accesible con mercado adaptado', 'Legislación BC Human Rights Code aplicada estrictamente', 'Ski Whistler con programa de esquí adaptado (Whistler Adaptive)', 'App "Access Vancouver" con guía de movilidad en tiempo real'],
     featuresEN: ['SkyTrain and TransLink buses fully accessible', 'Stanley Park with 8.8 km of wheelchair-accessible paved routes', 'Vancouver Aquarium with autism and deafblind programs', 'Granville Island fully accessible with adapted market', 'BC Human Rights Code strictly enforced', 'Whistler ski with adapted ski program (Whistler Adaptive)', '"Access Vancouver" app with real-time mobility guide'],
     descriptionES: 'Vancouver combina naturaleza espectacular con infraestructura de accesibilidad de primer nivel. Stanley Park, transporte 100% adaptado y el programa de esquí accesible en Whistler la hacen única.',
     descriptionEN: 'Vancouver combines spectacular nature with world-class accessibility infrastructure. Stanley Park, 100% adapted transport, and the Whistler Adaptive ski program make it unique.',
+    highlights: [
+      { nameES: 'Stanley Park — Seawall (paseo marítimo)', nameEN: 'Stanley Park — Seawall', type: 'parques_naturales', descES: 'Paseo marítimo de 8.8 km totalmente pavimentado y accesible en silla de ruedas, con vistas a las montañas y al Pacífico. Ruta plana, baños accesibles cada 1 km y servicio de bicicletas adaptadas de alquiler.', descEN: '8.8 km fully paved seawall, wheelchair accessible, with mountain and Pacific views. Flat route, accessible restrooms every 1 km, and adapted bicycle rental service.' },
+      { nameES: 'Whistler Adaptive Sports Program', nameEN: 'Whistler Adaptive Sports Program', type: 'spas', descES: 'El programa de deportes adaptados más completo de Canadá: esquí sentado, monoski, snowboard adaptado, biski y más. Instructores certificados y equipo especializado incluido. Gondola accesible desde el pueblo.', descEN: 'Canada\'s most comprehensive adaptive sports program: sit-skiing, monoski, adapted snowboard, biski, and more. Certified instructors and specialized equipment included. Accessible gondola from the village.' },
+      { nameES: 'Kitsilano Beach — Zona Accesible', nameEN: 'Kitsilano Beach — Accessible Zone', type: 'playas', descES: 'La playa más popular de Vancouver con zona accesible certificada, sillas anfibias gratuitas (servicio mayo–septiembre), rampa de acceso al agua y estacionamiento adaptado priorizado.', descEN: 'Vancouver\'s most popular beach with certified accessible zone, free amphibious chairs (May–September service), water access ramp, and prioritized adapted parking.' },
+    ],
     tags: ['canada', 'naturaleza', 'ciudad', 'aventura'],
   },
 
@@ -266,10 +401,16 @@ export const DESTINATIONS: Destination[] = [
     bgColor: 'bg-red-500',
     accessibilityRating: 5,
     disabilityTypes: ['motriz', 'visual', 'auditiva', 'cognitiva'],
+    attractionTypes: ['playas', 'museos', 'cultura', 'spas'],
     featuresES: ['Metro 100% accesible con ascensores en todas las estaciones', 'Playa de la Barceloneta con sillas anfibias gratuitas', 'Sagrada Família con audioguías y recorridos táctiles', 'Autobuses de piso bajo en toda la red', 'Museos con lengua de signos española (LSE)', 'App "BCN Accessible" con rutas adaptadas', 'Ramblas con carril accesible señalizado'],
     featuresEN: ['100% accessible metro with elevators at all stations', 'Barceloneta beach with free amphibious chairs', 'Sagrada Família with audio guides and tactile tours', 'Low-floor buses across the entire network', 'Museums with Spanish sign language (LSE)', '"BCN Accessible" app with adapted routes', 'Las Ramblas with marked accessible lane'],
     descriptionES: 'Barcelona es referente mundial en turismo accesible. Su metro completamente adaptado, playas con sillas anfibias gratuitas y la mayoría de atracciones con acceso inclusivo la convierten en destino ideal.',
     descriptionEN: 'Barcelona is a world reference in accessible tourism. Its fully adapted metro, beaches with free amphibious chairs, and most attractions with inclusive access make it an ideal destination.',
+    highlights: [
+      { nameES: 'Sagrada Família', nameEN: 'Sagrada Família', type: 'cultura', descES: 'La basílica más visitada de España con ascensores accesibles a las torres, audioguía táctil para personas con discapacidad visual, plano en braille y servicio de asistencia en entrada preferente.', descEN: 'Spain\'s most visited basilica with accessible elevators to the towers, tactile audio guide for the visually impaired, braille floor plan, and priority entrance assistance service.' },
+      { nameES: 'Playa de la Barceloneta (Servei de bany adaptat)', nameEN: 'Barceloneta Beach (Adapted bathing service)', type: 'playas', descES: 'Playa urbana con el mejor servicio de baño adaptado de España: sillas anfibias gratuitas, rampas de acceso, aseos adaptados y personal de apoyo en temporada de verano (junio–septiembre).', descEN: 'Urban beach with Spain\'s best adapted bathing service: free amphibious chairs, access ramps, adapted toilets, and support staff in summer season (June–September).' },
+      { nameES: 'Museu Picasso — Recorrido táctil', nameEN: 'Picasso Museum — Tactile Tour', type: 'museos', descES: 'El museo más visitado de Cataluña ofrece recorridos táctiles de reproducciones de obras de Picasso para personas con discapacidad visual, audioguías y servicio en LSE. Ascensores en todas las plantas.', descEN: 'Catalonia\'s most visited museum offers tactile tours of Picasso reproductions for the visually impaired, audio guides, and LSE service. Elevators on all floors.' },
+    ],
     tags: ['europa', 'cultura', 'playa', 'ciudad'],
   },
   {
@@ -280,10 +421,16 @@ export const DESTINATIONS: Destination[] = [
     bgColor: 'bg-orange-500',
     accessibilityRating: 5,
     disabilityTypes: ['motriz', 'visual', 'auditiva', 'cognitiva', 'cronica_invisible'],
+    attractionTypes: ['museos', 'cultura', 'parques_naturales', 'spas'],
     featuresES: ['Tranvías y metros totalmente accesibles (GVB)', 'Rijksmuseum con recorridos táctiles y LSB', 'Barcos-canal adaptados para sillas de ruedas', 'Anne Frank Huis con tour virtual accesible', 'Hoteles con certificación AccessibleNL', 'Calles planas y pavimento uniforme', 'Sistema nacional de información de accesibilidad (ANWB)'],
     featuresEN: ['Fully accessible trams and metro (GVB)', 'Rijksmuseum with tactile tours and Dutch SL', 'Wheelchair-adapted canal boats', 'Anne Frank House with accessible virtual tour', 'Hotels with AccessibleNL certification', 'Flat streets and uniform pavement', 'National accessibility information system (ANWB)'],
     descriptionES: 'Amsterdam es consistentemente clasificada entre las ciudades más accesibles de Europa. Su terreno plano, transporte adaptado y cultura de inclusión la hacen excepcionalmente amigable.',
     descriptionEN: 'Amsterdam is consistently ranked among the most accessible cities in Europe. Its flat terrain, adapted transport, and culture of inclusion make it exceptionally friendly.',
+    highlights: [
+      { nameES: 'Rijksmuseum — Recorrido táctil', nameEN: 'Rijksmuseum — Tactile Tour', type: 'museos', descES: 'El museo nacional de los Países Bajos ofrece recorridos táctiles de reproducciones de Rembrandt y Vermeer, audioguías en 8 idiomas, recorridos en Lengua de Signos Holandesa y sillas de ruedas gratuitas.', descEN: 'The national museum of the Netherlands offers tactile tours of Rembrandt and Vermeer reproductions, audio guides in 8 languages, Dutch Sign Language tours, and free wheelchairs.' },
+      { nameES: 'Barcos-canal accesibles (Lovers Canal Cruises)', nameEN: 'Accessible Canal Boats (Lovers Canal Cruises)', type: 'cultura', descES: 'Los canales de Amsterdam declarados Patrimonio UNESCO. Lovers ofrece catamaranes con rampa hidráulica, espacio para sillas de ruedas, audiodescripción y recorridos de 1h por los canales históricos.', descEN: 'Amsterdam\'s UNESCO Heritage canals. Lovers offers catamarans with hydraulic ramp, wheelchair space, audio description, and 1h tours through historic canals.' },
+      { nameES: 'Vondelpark — Zona accesible', nameEN: 'Vondelpark — Accessible Zone', type: 'parques_naturales', descES: 'El parque más popular de Amsterdam con senderos 100% pavimentados, baños accesibles, terraza de cafetería accesible y zona de picnic adaptada. Completamente plano y accesible en silla de ruedas.', descEN: 'Amsterdam\'s most popular park with 100% paved paths, accessible restrooms, accessible café terrace, and adapted picnic area. Completely flat and wheelchair accessible.' },
+    ],
     tags: ['europa', 'cultura', 'ciudad', 'historia'],
   },
   {
@@ -294,10 +441,16 @@ export const DESTINATIONS: Destination[] = [
     bgColor: 'bg-gray-700',
     accessibilityRating: 5,
     disabilityTypes: ['motriz', 'visual', 'auditiva', 'cognitiva'],
+    attractionTypes: ['museos', 'cultura', 'parques_naturales', 'spas'],
     featuresES: ['U-Bahn y S-Bahn con 95% de estaciones accesibles', 'Museo Judío con audioguías y recorridos táctiles', 'Semáforos con señal sonora y vibrotáctil en toda la ciudad', 'Línea de pavimento táctil en aceras', 'Filarmónica de Berlín con bucle de inducción auditiva', 'Puerta de Brandenburgo con rampas y plataformas', 'BVG app con información de accesibilidad en tiempo real'],
     featuresEN: ['U-Bahn and S-Bahn with 95% accessible stations', 'Jewish Museum with audio guides and tactile tours', 'Traffic lights with audio and vibrotactile signals citywide', 'Tactile paving line on sidewalks', 'Berlin Philharmonic with hearing induction loop', 'Brandenburg Gate with ramps and platforms', 'BVG app with real-time accessibility information'],
     descriptionES: 'Berlín lidera en accesibilidad urbana en Europa. Su red de transporte casi completamente adaptada, señalización táctil y programas de inclusión cultural la convierten en referencia global.',
     descriptionEN: 'Berlin leads in urban accessibility in Europe. Its near-completely adapted transport network, tactile signage, and cultural inclusion programs make it a global reference.',
+    highlights: [
+      { nameES: 'Jüdisches Museum Berlin (Museo Judío)', nameEN: 'Jewish Museum Berlin', type: 'museos', descES: 'Museo diseñado por Daniel Libeskind con acceso completo para sillas de ruedas, recorridos táctiles de la arquitectura, audioguías con descripción de espacios y bucle de inducción auditiva en el auditorio.', descEN: 'Museum designed by Daniel Libeskind with full wheelchair access, tactile tours of the architecture, audio guides with space descriptions, and hearing induction loop in the auditorium.' },
+      { nameES: 'Berliner Philharmonie (Filarmónica de Berlín)', nameEN: 'Berlin Philharmonic (Berliner Philharmonie)', type: 'cultura', descES: 'Una de las mejores salas de conciertos del mundo con bucle de inducción auditiva T-coil en toda la sala, espacios para sillas de ruedas en excelentes posiciones, asistencia preferente y audiodescrip­ción disponible.', descEN: 'One of the world\'s best concert halls with T-coil hearing induction loop throughout, wheelchair spaces in excellent positions, priority assistance, and audio description available.' },
+      { nameES: 'Tiergarten — Sendero accesible', nameEN: 'Tiergarten — Accessible Path', type: 'parques_naturales', descES: 'El pulmón verde de Berlín con sendero principal pavimentado de 3 km accesible en silla de ruedas, baños adaptados distribuidos en el parque y cafetería accesible en el centro del parque.', descEN: 'Berlin\'s green lung with 3 km paved main path wheelchair accessible, adapted restrooms throughout the park, and accessible café at the park\'s center.' },
+    ],
     tags: ['europa', 'cultura', 'historia', 'ciudad'],
   },
   {
@@ -308,10 +461,16 @@ export const DESTINATIONS: Destination[] = [
     bgColor: 'bg-blue-600',
     accessibilityRating: 3,
     disabilityTypes: ['motriz', 'visual', 'auditiva'],
+    attractionTypes: ['museos', 'cultura', 'gastronomia', 'spas'],
     featuresES: ['Torre Eiffel con ascensores accesibles hasta el 2° piso', 'Museo de Orsay con recorridos táctiles gratuitos', 'RER y líneas de metro parcialmente accesibles (líneas A, B, 14)', 'Louvre con entrada gratuita para personas con discapacidad + acompañante', 'Autobuses de piso bajo en toda la red', 'Versalles con sillas de ruedas gratuitas disponibles', 'Guías de accesibilidad por arrondissement'],
     featuresEN: ['Eiffel Tower with accessible elevators to 2nd floor', "Musée d'Orsay with free tactile tours", 'RER and partial metro access (lines A, B, 14)', 'Louvre with free entry for people with disabilities + companion', 'Low-floor buses across the network', 'Versailles with free wheelchairs available', 'Accessibility guides by arrondissement'],
     descriptionES: 'París ofrece experiencias culturales de clase mundial adaptadas, aunque el metro histórico tiene cobertura parcial. La mayoría de museos son plenamente accesibles y gratuitos para personas con discapacidad.',
     descriptionEN: 'Paris offers world-class adapted cultural experiences, though the historic metro has partial coverage. Most museums are fully accessible and free for people with disabilities.',
+    highlights: [
+      { nameES: 'Musée d\'Orsay — Recorrido táctil', nameEN: "Musée d'Orsay — Tactile Tour", type: 'museos', descES: 'El museo de arte impresionista más importante del mundo ofrece recorridos táctiles gratuitos con reproducciones de Monet, Renoir y Van Gogh, audioguías en 6 idiomas y entrada gratuita para personas con discapacidad + acompañante.', descEN: 'The world\'s most important impressionist art museum offers free tactile tours with reproductions of Monet, Renoir, and Van Gogh, audio guides in 6 languages, and free entry for people with disabilities + companion.' },
+      { nameES: 'Palacio de Versalles — Jardines accesibles', nameEN: 'Palace of Versailles — Accessible Gardens', type: 'parques_naturales', descES: 'Los jardines de Versalles son completamente accesibles con sillas de ruedas gratuitas y carritos de golf adaptados de alquiler. El Palacio tiene ascensores en los salones principales y audioguías con descripción detallada.', descEN: 'Versailles gardens are fully accessible with free wheelchairs and adapted rental golf carts. The Palace has elevators in the main halls and audio guides with detailed descriptions.' },
+      { nameES: 'Les Bains Douches Spa (Le Marais)', nameEN: 'Les Bains Douches Spa (Le Marais)', type: 'spas', descES: 'Spa de lujo en un antiguo balneario histórico con instalaciones completamente accesibles, piscina con rampa de entrada, cabinas de tratamiento adaptadas y personal bilingüe especializado.', descEN: 'Luxury spa in a historic former bathhouse with fully accessible facilities, pool with entry ramp, adapted treatment cabins, and specialized bilingual staff.' },
+    ],
     tags: ['europa', 'cultura', 'historia', 'gastronomia'],
   },
   {
@@ -322,10 +481,16 @@ export const DESTINATIONS: Destination[] = [
     bgColor: 'bg-rose-500',
     accessibilityRating: 5,
     disabilityTypes: ['motriz', 'visual', 'auditiva', 'cognitiva'],
+    attractionTypes: ['termales', 'museos', 'cultura', 'parques_naturales', 'spas'],
     featuresES: ['Red de metro con ascensores en todas las salidas principales', 'Pavimento táctil Tenji-block en toda la ciudad desde 1967', 'Señalización sonora en semáforos y estaciones', 'Inodoros accesibles de alta tecnología en espacios públicos', 'Shinkansen con espacios para sillas de ruedas reservables', 'Guías de accesibilidad en inglés en cada atracción', 'Personal de estaciones entrenado en asistencia a personas con discapacidad'],
     featuresEN: ['Metro network with elevators at all major exits', 'Tenji-block tactile paving citywide since 1967', 'Audible signals at traffic lights and stations', 'High-tech accessible toilets in public spaces', 'Shinkansen with bookable wheelchair spaces', 'English accessibility guides at every attraction', 'Station staff trained to assist people with disabilities'],
     descriptionES: 'Tokio es considerada la ciudad más accesible de Asia. Su sistema de pavimento táctil pionero, metro completamente adaptado y cultura de servicio excepcional la hacen destino de primer nivel.',
     descriptionEN: 'Tokyo is considered the most accessible city in Asia. Its pioneering tactile paving system, fully adapted metro, and exceptional service culture make it a top-tier destination.',
+    highlights: [
+      { nameES: 'Hakone Yuryo Onsen (Baños termales accesibles)', nameEN: 'Hakone Yuryo Onsen (Accessible Hot Springs)', type: 'termales', descES: 'El onsen más accesible de Japón, a 1.5h de Tokio. Cuenta con baños privados accesibles para sillas de ruedas, bañeras con asideros y espacio de transferencia, baños abiertos en naturaleza (rotenburo) adaptados y servicio de asistencia.', descEN: 'Japan\'s most accessible onsen, 1.5h from Tokyo. Features wheelchair-accessible private baths with grab bars and transfer space, adapted outdoor nature baths (rotenburo), and assistance service.' },
+      { nameES: 'TeamLab Planets Tokyo (Experiencia sensorial)', nameEN: 'TeamLab Planets Tokyo (Sensory Experience)', type: 'museos', descES: 'Museo de arte digital inmersivo 100% accesible para sillas de ruedas, con experiencias visuales y sonoras adaptadas. Una de las exposiciones más accesibles e inclusivas de Asia.', descEN: 'Immersive digital art museum 100% wheelchair accessible, with adapted visual and sound experiences. One of Asia\'s most accessible and inclusive exhibitions.' },
+      { nameES: 'Parque Shinjuku Gyoen', nameEN: 'Shinjuku Gyoen Park', type: 'parques_naturales', descES: 'El jardín nacional más hermoso de Tokio con senderos completamente pavimentados y accesibles, baños adaptados en cada sección y servicio de sillas de ruedas gratuitas en la entrada principal.', descEN: 'Tokyo\'s most beautiful national garden with fully paved and accessible paths, adapted restrooms in each section, and free wheelchair service at the main entrance.' },
+    ],
     tags: ['asia', 'cultura', 'gastronomia', 'ciudad'],
   },
   {
@@ -336,10 +501,16 @@ export const DESTINATIONS: Destination[] = [
     bgColor: 'bg-red-600',
     accessibilityRating: 5,
     disabilityTypes: ['motriz', 'visual', 'auditiva', 'cognitiva', 'cronica_invisible'],
+    attractionTypes: ['parques_naturales', 'museos', 'spas', 'gastronomia'],
     featuresES: ['MRT 100% accesible con ascensores en todas las estaciones', 'Gardens by the Bay con senderos totalmente accesibles', 'Programa "Enabling Village" — centro de recursos para discapacidad', 'Taxis y Grab con opción de vehículo accesible', 'Marina Bay Sands con habitaciones y casino accesibles', 'Hawker Centers con mesas adaptadas', 'App "AccessAble Singapore" con mapa de accesibilidad detallado'],
     featuresEN: ['100% accessible MRT with elevators at all stations', 'Gardens by the Bay with fully accessible pathways', '"Enabling Village" program — disability resource center', 'Taxis and Grab with accessible vehicle option', 'Marina Bay Sands with accessible rooms and casino', 'Hawker Centers with adapted tables', '"AccessAble Singapore" app with detailed accessibility map'],
     descriptionES: 'Singapur es el destino más accesible de Asia según múltiples rankings. Su infraestructura de primer nivel, transporte 100% adaptado y políticas de inclusión social la hacen excepcionalmente inclusiva.',
     descriptionEN: 'Singapore is the most accessible destination in Asia according to multiple rankings. Its world-class infrastructure, 100% adapted transport, and social inclusion policies make it exceptionally inclusive.',
+    highlights: [
+      { nameES: 'Gardens by the Bay — Cloud Forest & Flower Dome', nameEN: 'Gardens by the Bay — Cloud Forest & Flower Dome', type: 'parques_naturales', descES: 'Los jardines cubiertos más espectaculares de Asia, completamente accesibles con ascensores en todas las pasarelas elevadas, sillas de ruedas gratuitas disponibles y experiencia de naturaleza sin barreras.', descEN: 'Asia\'s most spectacular indoor gardens, fully accessible with elevators on all elevated walkways, free wheelchairs available, and barrier-free nature experience.' },
+      { nameES: 'National Museum of Singapore', nameEN: 'National Museum of Singapore', type: 'museos', descES: 'El museo nacional más antiguo de Singapur con acceso completo para sillas de ruedas, recorridos en Lengua de Señas de Singapur (SgSL), audioguías táctiles y entrada gratuita para residentes con discapacidad.', descEN: 'Singapore\'s oldest national museum with full wheelchair access, Singapore Sign Language (SgSL) tours, tactile audio guides, and free entry for residents with disabilities.' },
+      { nameES: 'Willow Stream Spa (Fairmont Singapore)', nameEN: 'Willow Stream Spa (Fairmont Singapore)', type: 'spas', descES: 'Spa de lujo certificado accesible con piscina de hidroterapia adaptada, tratamientos en camillas accesibles con barras de apoyo, baños privados accesibles y servicio de asistencia especializado.', descEN: 'Certified accessible luxury spa with adapted hydrotherapy pool, treatments on accessible tables with grab bars, accessible private bathrooms, and specialized assistance service.' },
+    ],
     tags: ['asia', 'ciudad', 'gastronomia', 'naturaleza'],
   },
   {
@@ -350,10 +521,16 @@ export const DESTINATIONS: Destination[] = [
     bgColor: 'bg-teal-600',
     accessibilityRating: 5,
     disabilityTypes: ['motriz', 'visual', 'auditiva', 'cognitiva', 'cronica_invisible'],
+    attractionTypes: ['playas', 'museos', 'parques_naturales', 'cultura', 'spas'],
     featuresES: ['Ópera de Sídney con tours accesibles y bucle de inducción', 'Playas accesibles con sillas anfibias y rampas de arena (Bondi, Manly)', 'Tren, ferry y autobús totalmente accesibles (Transport for NSW)', 'Jardín Botánico con senderos pavimentados y braille', 'Acuario de Sídney con recorridos para personas con autismo', 'Disability Discrimination Act 1992 rigurosamente aplicada', 'App "Sydney Accessibility" con planificador de rutas inclusivas'],
     featuresEN: ['Sydney Opera House with accessible tours and induction loop', 'Accessible beaches with amphibious chairs and sand ramps (Bondi, Manly)', 'Fully accessible train, ferry and bus (Transport for NSW)', 'Botanic Garden with paved paths and braille', 'Sydney Aquarium with autism-friendly tours', 'Rigorously enforced Disability Discrimination Act 1992', '"Sydney Accessibility" app with inclusive route planner'],
     descriptionES: 'Sídney combina infraestructura de accesibilidad de primer nivel con entornos naturales espectaculares. Sus playas adaptadas, transporte inclusivo y legislación fuerte la posicionan como destino de excelencia.',
     descriptionEN: 'Sydney combines world-class accessibility infrastructure with spectacular natural environments. Its adapted beaches, inclusive transport, and strong legislation position it as a destination of excellence.',
+    highlights: [
+      { nameES: 'Sydney Opera House — Tour accesible', nameEN: 'Sydney Opera House — Accessible Tour', type: 'cultura', descES: 'Patrimonio Mundial UNESCO con tours de 1h completamente accesibles, bucle de inducción auditiva T-coil en todas las salas, audiodescripción en espectáculos seleccionados y programa Autism-Friendly Performances.', descEN: 'UNESCO World Heritage with fully accessible 1h tours, T-coil hearing induction loop in all halls, audio description at selected shows, and Autism-Friendly Performances program.' },
+      { nameES: 'Bondi Beach — Zona accesible y Icebergs Pool', nameEN: 'Bondi Beach — Accessible Zone & Icebergs Pool', type: 'playas', descES: 'La playa más icónica de Australia con silla anfibia gratuita, rampa de acceso al agua, baños accesibles y acceso adaptado a la piscina oceánica Bondi Icebergs con vistas espectaculares al Pacífico.', descEN: 'Australia\'s most iconic beach with free amphibious chair, water access ramp, accessible restrooms, and adapted access to Bondi Icebergs ocean pool with spectacular Pacific views.' },
+      { nameES: 'Royal Botanic Garden Sydney', nameEN: 'Royal Botanic Garden Sydney', type: 'parques_naturales', descES: 'Jardín botánico en el corazón de Sídney con senderos 100% pavimentados, señalización en braille en todas las especies, sillas de ruedas gratuitas en entrada y bus turístico interno accesible.', descEN: 'Botanic garden in Sydney\'s heart with 100% paved paths, braille signage on all species, free wheelchairs at entrance, and accessible internal tourist bus.' },
+    ],
     tags: ['oceania', 'playa', 'naturaleza', 'ciudad', 'cultura'],
   },
 ]

@@ -93,7 +93,9 @@
     "features": "Características accesibles",
     "askAI": "Pedir consejos personalizados con IA",
     "aiTips": "Consejos generados por IA",
-    "destinationsLink": "Destinos accesibles"
+    "destinationsLink": "Destinos accesibles",
+    "highlights": "Atracciones destacadas",
+    "filterByAttraction": "Filtrar por tipo de atracción"
   },
   "planner": {
     "title": "Planificador de viaje",

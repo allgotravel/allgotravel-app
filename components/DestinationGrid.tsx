@@ -2,10 +2,11 @@
 
 import { useState, useMemo } from 'react'
 import { useTranslations, useLocale } from 'next-intl'
-import { DESTINATIONS, type Destination } from '@/lib/destinations'
+import { DESTINATIONS, ATTRACTION_TYPE_LABELS, type Destination, type AttractionType } from '@/lib/destinations'
 import { DISABILITY_ICONS, type DisabilityType } from '@/types/profile'
 
-const ALL_FILTERS: DisabilityType[] = ['motriz', 'visual', 'auditiva', 'autismo', 'cognitiva', 'cronica_invisible']
+const ALL_DISABILITY_FILTERS: DisabilityType[] = ['motriz', 'visual', 'auditiva', 'autismo', 'cognitiva', 'cronica_invisible']
+const ALL_ATTRACTION_FILTERS: AttractionType[] = ['termales', 'fincas', 'parques_naturales', 'spas', 'playas', 'museos', 'parques_tematicos', 'gastronomia', 'cultura']
 
 function StarRating({ rating }: { rating: number }) {
   return (
@@ -96,7 +97,7 @@ function DestinationModal({ destination, userId, onClose }: ModalProps) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50" onClick={onClose}>
       <div
-        className="bg-white rounded-2xl shadow-2xl max-w-lg w-full max-h-[85vh] overflow-y-auto"
+        className="bg-white rounded-2xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto"
         onClick={e => e.stopPropagation()}
       >
         {/* Header */}
@@ -109,13 +110,44 @@ function DestinationModal({ destination, userId, onClose }: ModalProps) {
             </div>
             <button onClick={onClose} className="text-white/70 hover:text-white text-2xl leading-none">×</button>
           </div>
-          <div className="mt-3">
+          <div className="mt-3 flex items-center gap-3">
             <StarRating rating={destination.accessibilityRating} />
+            <div className="flex gap-1.5">
+              {destination.attractionTypes.map(a => (
+                <span key={a} className="text-lg" title={locale === 'es' ? ATTRACTION_TYPE_LABELS[a].es : ATTRACTION_TYPE_LABELS[a].en}>
+                  {ATTRACTION_TYPE_LABELS[a].icon}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
 
         <div className="p-6 space-y-5">
           <p className="text-gray-600 text-sm">{description}</p>
+
+          {/* Highlighted attractions */}
+          <div>
+            <p className="text-xs font-semibold text-gray-500 uppercase mb-3">{t('highlights')}</p>
+            <div className="space-y-3">
+              {destination.highlights.map((h, i) => {
+                const attrLabel = ATTRACTION_TYPE_LABELS[h.type]
+                const name = locale === 'es' ? h.nameES : h.nameEN
+                const desc = locale === 'es' ? h.descES : h.descEN
+                return (
+                  <div key={i} className="bg-gray-50 rounded-xl p-3.5 space-y-1">
+                    <div className="flex items-center gap-2">
+                      <span className="text-lg">{attrLabel.icon}</span>
+                      <div>
+                        <p className="text-sm font-semibold text-gray-800">{name}</p>
+                        <p className="text-xs text-teal-600">{locale === 'es' ? attrLabel.es : attrLabel.en}</p>
+                      </div>
+                    </div>
+                    <p className="text-xs text-gray-600 leading-relaxed">{desc}</p>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
 
           {/* Disability types covered */}
           <div>
@@ -180,13 +212,25 @@ export default function DestinationGrid({ userId }: Props) {
   const locale = useLocale()
 
   const [search, setSearch] = useState('')
-  const [activeFilters, setActiveFilters] = useState<DisabilityType[]>([])
+  const [activeDisability, setActiveDisability] = useState<DisabilityType[]>([])
+  const [activeAttraction, setActiveAttraction] = useState<AttractionType[]>([])
   const [selected, setSelected] = useState<Destination | null>(null)
 
-  function toggleFilter(type: DisabilityType) {
-    setActiveFilters(prev =>
+  function toggleDisability(type: DisabilityType) {
+    setActiveDisability(prev =>
       prev.includes(type) ? prev.filter(f => f !== type) : [...prev, type]
     )
+  }
+
+  function toggleAttraction(type: AttractionType) {
+    setActiveAttraction(prev =>
+      prev.includes(type) ? prev.filter(f => f !== type) : [...prev, type]
+    )
+  }
+
+  function clearAll() {
+    setActiveDisability([])
+    setActiveAttraction([])
   }
 
   const filtered = useMemo(() => {
@@ -194,11 +238,15 @@ export default function DestinationGrid({ userId }: Props) {
       const matchSearch = search === '' ||
         d.name.toLowerCase().includes(search.toLowerCase()) ||
         d.country.toLowerCase().includes(search.toLowerCase())
-      const matchFilter = activeFilters.length === 0 ||
-        activeFilters.every(f => d.disabilityTypes.includes(f))
-      return matchSearch && matchFilter
+      const matchDisability = activeDisability.length === 0 ||
+        activeDisability.every(f => d.disabilityTypes.includes(f))
+      const matchAttraction = activeAttraction.length === 0 ||
+        activeAttraction.some(f => d.attractionTypes.includes(f))
+      return matchSearch && matchDisability && matchAttraction
     })
-  }, [search, activeFilters])
+  }, [search, activeDisability, activeAttraction])
+
+  const hasFilters = activeDisability.length > 0 || activeAttraction.length > 0
 
   return (
     <div className="max-w-5xl mx-auto space-y-6">
@@ -211,24 +259,48 @@ export default function DestinationGrid({ userId }: Props) {
           placeholder={t('searchPlaceholder')}
           className="w-full border border-gray-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400"
         />
+
+        {/* Disability filter */}
         <div>
           <p className="text-xs font-semibold text-gray-500 uppercase mb-2">{t('filterBy')}</p>
           <div className="flex flex-wrap gap-2">
-            {ALL_FILTERS.map(type => (
+            {ALL_DISABILITY_FILTERS.map(type => (
               <button
                 key={type}
-                onClick={() => toggleFilter(type)}
+                onClick={() => toggleDisability(type)}
                 className={`inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border-2 transition
-                  ${activeFilters.includes(type)
+                  ${activeDisability.includes(type)
                     ? 'border-teal-500 bg-teal-50 text-teal-700 font-semibold'
                     : 'border-gray-200 text-gray-600 hover:border-teal-300'}`}
               >
                 {DISABILITY_ICONS[type]} {tD(type)}
               </button>
             ))}
-            {activeFilters.length > 0 && (
+          </div>
+        </div>
+
+        {/* Attraction type filter */}
+        <div>
+          <p className="text-xs font-semibold text-gray-500 uppercase mb-2">{t('filterByAttraction')}</p>
+          <div className="flex flex-wrap gap-2">
+            {ALL_ATTRACTION_FILTERS.map(type => {
+              const label = ATTRACTION_TYPE_LABELS[type]
+              return (
+                <button
+                  key={type}
+                  onClick={() => toggleAttraction(type)}
+                  className={`inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border-2 transition
+                    ${activeAttraction.includes(type)
+                      ? 'border-amber-500 bg-amber-50 text-amber-700 font-semibold'
+                      : 'border-gray-200 text-gray-600 hover:border-amber-300'}`}
+                >
+                  {label.icon} {locale === 'es' ? label.es : label.en}
+                </button>
+              )
+            })}
+            {hasFilters && (
               <button
-                onClick={() => setActiveFilters([])}
+                onClick={clearAll}
                 className="text-xs text-gray-400 hover:text-gray-600 px-2 underline"
               >
                 {t('clearFilters')}
@@ -253,9 +325,17 @@ export default function DestinationGrid({ userId }: Props) {
               onClick={() => setSelected(dest)}
               className="bg-white rounded-2xl shadow hover:shadow-lg transition-shadow text-left overflow-hidden group"
             >
-              {/* Photo placeholder */}
-              <div className={`${dest.bgColor} h-32 flex items-center justify-center`}>
+              {/* Color header */}
+              <div className={`${dest.bgColor} h-32 flex items-center justify-center relative`}>
                 <span className="text-6xl group-hover:scale-110 transition-transform">{dest.flag}</span>
+                {/* Attraction type pills */}
+                <div className="absolute bottom-2 left-2 flex gap-1">
+                  {dest.attractionTypes.slice(0, 4).map(a => (
+                    <span key={a} className="text-base bg-white/20 backdrop-blur-sm rounded-full px-1.5 py-0.5" title={locale === 'es' ? ATTRACTION_TYPE_LABELS[a].es : ATTRACTION_TYPE_LABELS[a].en}>
+                      {ATTRACTION_TYPE_LABELS[a].icon}
+                    </span>
+                  ))}
+                </div>
               </div>
               <div className="p-4 space-y-3">
                 <div>
@@ -268,8 +348,17 @@ export default function DestinationGrid({ userId }: Props) {
                     <span key={d} className="text-lg" title={tD(d)}>{DISABILITY_ICONS[d]}</span>
                   ))}
                 </div>
+                {/* Highlighted attractions preview */}
+                <div className="space-y-1">
+                  {dest.highlights.slice(0, 2).map((h, i) => (
+                    <div key={i} className="flex items-start gap-1.5 text-xs text-gray-600">
+                      <span className="shrink-0">{ATTRACTION_TYPE_LABELS[h.type].icon}</span>
+                      <span className="line-clamp-1">{locale === 'es' ? h.nameES : h.nameEN}</span>
+                    </div>
+                  ))}
+                </div>
                 <ul className="space-y-1">
-                  {features.slice(0, 3).map((f, i) => (
+                  {features.slice(0, 2).map((f, i) => (
                     <li key={i} className="text-xs text-gray-600 flex items-start gap-1.5">
                       <span className="text-teal-500 shrink-0">✓</span> {f}
                     </li>

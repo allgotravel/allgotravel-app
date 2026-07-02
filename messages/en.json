@@ -93,7 +93,9 @@
     "features": "Accessible features",
     "askAI": "Get personalized AI tips",
     "aiTips": "AI-generated tips",
-    "destinationsLink": "Accessible destinations"
+    "destinationsLink": "Accessible destinations",
+    "highlights": "Featured attractions",
+    "filterByAttraction": "Filter by attraction type"
   },
   "planner": {
     "title": "Trip Planner",
