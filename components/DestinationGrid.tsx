@@ -1,0 +1,301 @@
+'use client'
+
+import { useState, useMemo } from 'react'
+import { useTranslations, useLocale } from 'next-intl'
+import { DESTINATIONS, type Destination } from '@/lib/destinations'
+import { DISABILITY_ICONS, type DisabilityType } from '@/types/profile'
+
+const ALL_FILTERS: DisabilityType[] = ['motriz', 'visual', 'auditiva', 'autismo', 'cognitiva', 'cronica_invisible']
+
+function StarRating({ rating }: { rating: number }) {
+  return (
+    <div className="flex gap-0.5" aria-label={`Accesibilidad: ${rating} de 5`}>
+      {[1, 2, 3, 4, 5].map(n => (
+        <span key={n} className={n <= rating ? 'text-teal-500' : 'text-gray-200'}>♿</span>
+      ))}
+    </div>
+  )
+}
+
+interface ModalProps {
+  destination: Destination
+  userId: string
+  onClose: () => void
+}
+
+function DestinationModal({ destination, userId, onClose }: ModalProps) {
+  const locale = useLocale()
+  const t = useTranslations('destinations')
+  const tD = useTranslations('disabilities')
+  const [aiInfo, setAiInfo] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [requested, setRequested] = useState(false)
+
+  const features = locale === 'es' ? destination.featuresES : destination.featuresEN
+  const description = locale === 'es' ? destination.descriptionES : destination.descriptionEN
+
+  async function askAI() {
+    if (requested) return
+    setRequested(true)
+    setLoading(true)
+
+    const question = locale === 'es'
+      ? `Dame consejos prácticos y detallados de accesibilidad para viajar a ${destination.name}, ${destination.country}. Incluye: mejores hoteles accesibles, cómo moverse, qué actividades son más accesibles, y consejos específicos para viajeros con discapacidad motriz, visual y auditiva. Sé concreto y práctico.`
+      : `Give me practical and detailed accessibility tips for traveling to ${destination.name}, ${destination.country}. Include: best accessible hotels, how to get around, which activities are most accessible, and specific tips for travelers with motor, visual, and hearing disabilities. Be concrete and practical.`
+
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          messages: [{ role: 'user', content: question }],
+          userId,
+          locale,
+        }),
+      })
+      const reader = res.body?.getReader()
+      const decoder = new TextDecoder()
+      if (!reader) return
+      let text = ''
+      while (true) {
+        const { done, value } = await reader.read()
+        if (done) break
+        text += decoder.decode(value, { stream: true })
+        setAiInfo(text)
+      }
+    } catch {
+      setAiInfo(locale === 'es' ? 'Error al cargar información. Intenta de nuevo.' : 'Error loading info. Please try again.')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  function renderMarkdown(text: string) {
+    return (
+      <div className="space-y-1 text-sm">
+        {text.split('\n').map((line, i) => {
+          if (line.startsWith('## ')) return <h3 key={i} className="font-bold text-teal-700 mt-3">{line.slice(3)}</h3>
+          if (line.startsWith('### ')) return <h4 key={i} className="font-semibold text-teal-600 mt-2">{line.slice(4)}</h4>
+          if (line.startsWith('- ') || line.startsWith('• ')) return <p key={i} className="pl-3 text-gray-700 before:content-['•'] before:mr-2 before:text-teal-400">{parseLine(line.slice(2))}</p>
+          if (line.trim() === '') return <div key={i} className="h-1.5" />
+          return <p key={i} className="text-gray-700">{parseLine(line)}</p>
+        })}
+      </div>
+    )
+  }
+
+  function parseLine(text: string): React.ReactNode {
+    const parts = text.split(/(\*\*[^*]+\*\*)/g)
+    return parts.map((p, i) =>
+      p.startsWith('**') && p.endsWith('**')
+        ? <strong key={i} className="font-semibold text-gray-900">{p.slice(2, -2)}</strong>
+        : p
+    )
+  }
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50" onClick={onClose}>
+      <div
+        className="bg-white rounded-2xl shadow-2xl max-w-lg w-full max-h-[85vh] overflow-y-auto"
+        onClick={e => e.stopPropagation()}
+      >
+        {/* Header */}
+        <div className={`${destination.bgColor} rounded-t-2xl p-6 text-white`}>
+          <div className="flex items-start justify-between">
+            <div>
+              <span className="text-4xl">{destination.flag}</span>
+              <h2 className="text-2xl font-bold mt-2">{destination.name}</h2>
+              <p className="text-white/80 text-sm">{destination.country}</p>
+            </div>
+            <button onClick={onClose} className="text-white/70 hover:text-white text-2xl leading-none">×</button>
+          </div>
+          <div className="mt-3">
+            <StarRating rating={destination.accessibilityRating} />
+          </div>
+        </div>
+
+        <div className="p-6 space-y-5">
+          <p className="text-gray-600 text-sm">{description}</p>
+
+          {/* Disability types covered */}
+          <div>
+            <p className="text-xs font-semibold text-gray-500 uppercase mb-2">{t('coveredNeeds')}</p>
+            <div className="flex flex-wrap gap-2">
+              {destination.disabilityTypes.map(d => (
+                <span key={d} className="inline-flex items-center gap-1 text-xs bg-teal-50 text-teal-700 border border-teal-200 px-2.5 py-1 rounded-full">
+                  {DISABILITY_ICONS[d]} {tD(d)}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Accessible features */}
+          <div>
+            <p className="text-xs font-semibold text-gray-500 uppercase mb-2">{t('features')}</p>
+            <ul className="space-y-1.5">
+              {features.map((f, i) => (
+                <li key={i} className="flex items-start gap-2 text-sm text-gray-700">
+                  <span className="text-teal-500 mt-0.5 shrink-0">✓</span> {f}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* AI info */}
+          <div className="border-t pt-4">
+            {!requested ? (
+              <button
+                onClick={askAI}
+                className="w-full py-2.5 bg-teal-600 hover:bg-teal-700 text-white text-sm font-semibold rounded-xl transition"
+              >
+                🤖 {t('askAI')}
+              </button>
+            ) : (
+              <div>
+                <p className="text-xs font-semibold text-gray-500 uppercase mb-2">{t('aiTips')}</p>
+                {loading && !aiInfo && (
+                  <span className="inline-flex gap-1 text-teal-400">
+                    <span className="animate-bounce">·</span>
+                    <span className="animate-bounce [animation-delay:100ms]">·</span>
+                    <span className="animate-bounce [animation-delay:200ms]">·</span>
+                  </span>
+                )}
+                {aiInfo && renderMarkdown(aiInfo)}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+interface Props {
+  userId: string
+}
+
+export default function DestinationGrid({ userId }: Props) {
+  const t = useTranslations('destinations')
+  const tD = useTranslations('disabilities')
+  const locale = useLocale()
+
+  const [search, setSearch] = useState('')
+  const [activeFilters, setActiveFilters] = useState<DisabilityType[]>([])
+  const [selected, setSelected] = useState<Destination | null>(null)
+
+  function toggleFilter(type: DisabilityType) {
+    setActiveFilters(prev =>
+      prev.includes(type) ? prev.filter(f => f !== type) : [...prev, type]
+    )
+  }
+
+  const filtered = useMemo(() => {
+    return DESTINATIONS.filter(d => {
+      const matchSearch = search === '' ||
+        d.name.toLowerCase().includes(search.toLowerCase()) ||
+        d.country.toLowerCase().includes(search.toLowerCase())
+      const matchFilter = activeFilters.length === 0 ||
+        activeFilters.every(f => d.disabilityTypes.includes(f))
+      return matchSearch && matchFilter
+    })
+  }, [search, activeFilters])
+
+  return (
+    <div className="max-w-5xl mx-auto space-y-6">
+      {/* Search + filters */}
+      <div className="bg-white rounded-2xl shadow p-5 space-y-4">
+        <input
+          type="text"
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+          placeholder={t('searchPlaceholder')}
+          className="w-full border border-gray-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400"
+        />
+        <div>
+          <p className="text-xs font-semibold text-gray-500 uppercase mb-2">{t('filterBy')}</p>
+          <div className="flex flex-wrap gap-2">
+            {ALL_FILTERS.map(type => (
+              <button
+                key={type}
+                onClick={() => toggleFilter(type)}
+                className={`inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border-2 transition
+                  ${activeFilters.includes(type)
+                    ? 'border-teal-500 bg-teal-50 text-teal-700 font-semibold'
+                    : 'border-gray-200 text-gray-600 hover:border-teal-300'}`}
+              >
+                {DISABILITY_ICONS[type]} {tD(type)}
+              </button>
+            ))}
+            {activeFilters.length > 0 && (
+              <button
+                onClick={() => setActiveFilters([])}
+                className="text-xs text-gray-400 hover:text-gray-600 px-2 underline"
+              >
+                {t('clearFilters')}
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Results count */}
+      <p className="text-sm text-gray-500 px-1">
+        {filtered.length} {t('results')}
+      </p>
+
+      {/* Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {filtered.map(dest => {
+          const features = locale === 'es' ? dest.featuresES : dest.featuresEN
+          return (
+            <button
+              key={dest.id}
+              onClick={() => setSelected(dest)}
+              className="bg-white rounded-2xl shadow hover:shadow-lg transition-shadow text-left overflow-hidden group"
+            >
+              {/* Photo placeholder */}
+              <div className={`${dest.bgColor} h-32 flex items-center justify-center`}>
+                <span className="text-6xl group-hover:scale-110 transition-transform">{dest.flag}</span>
+              </div>
+              <div className="p-4 space-y-3">
+                <div>
+                  <h3 className="font-bold text-gray-900">{dest.name}</h3>
+                  <p className="text-xs text-gray-500">{dest.country}</p>
+                </div>
+                <StarRating rating={dest.accessibilityRating} />
+                <div className="flex flex-wrap gap-1">
+                  {dest.disabilityTypes.map(d => (
+                    <span key={d} className="text-lg" title={tD(d)}>{DISABILITY_ICONS[d]}</span>
+                  ))}
+                </div>
+                <ul className="space-y-1">
+                  {features.slice(0, 3).map((f, i) => (
+                    <li key={i} className="text-xs text-gray-600 flex items-start gap-1.5">
+                      <span className="text-teal-500 shrink-0">✓</span> {f}
+                    </li>
+                  ))}
+                </ul>
+                <p className="text-xs text-teal-600 font-medium">{t('viewMore')} →</p>
+              </div>
+            </button>
+          )
+        })}
+      </div>
+
+      {filtered.length === 0 && (
+        <div className="text-center py-16 text-gray-400">
+          <p className="text-4xl mb-3">🔍</p>
+          <p>{t('noResults')}</p>
+        </div>
+      )}
+
+      {selected && (
+        <DestinationModal
+          destination={selected}
+          userId={userId}
+          onClose={() => setSelected(null)}
+        />
+      )}
+    </div>
+  )
+}

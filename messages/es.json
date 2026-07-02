@@ -80,6 +80,21 @@
     "empty": "¡Hola! Pregúntame sobre destinos accesibles, alojamiento, transporte...",
     "error": "Ocurrió un error. Por favor intenta de nuevo."
   },
+  "destinations": {
+    "title": "Destinos accesibles",
+    "subtitle": "Caribe y LATAM · Verificado por accesibilidad real",
+    "searchPlaceholder": "Buscar destino o país...",
+    "filterBy": "Filtrar por necesidad",
+    "clearFilters": "Limpiar filtros",
+    "results": "destinos encontrados",
+    "noResults": "No se encontraron destinos con esos filtros.",
+    "viewMore": "Ver detalles y consejos IA",
+    "coveredNeeds": "Necesidades cubiertas",
+    "features": "Características accesibles",
+    "askAI": "Pedir consejos personalizados con IA",
+    "aiTips": "Consejos generados por IA",
+    "destinationsLink": "Destinos accesibles"
+  },
   "planner": {
     "title": "Planificador de viaje",
     "subtitle": "Genera un itinerario personalizado para todo tu grupo, con accesibilidad al centro.",

@@ -80,6 +80,21 @@
     "empty": "Hi! Ask me about accessible destinations, accommodation, transport...",
     "error": "Something went wrong. Please try again."
   },
+  "destinations": {
+    "title": "Accessible destinations",
+    "subtitle": "Caribbean & LATAM · Verified real accessibility",
+    "searchPlaceholder": "Search destination or country...",
+    "filterBy": "Filter by need",
+    "clearFilters": "Clear filters",
+    "results": "destinations found",
+    "noResults": "No destinations found with those filters.",
+    "viewMore": "View details & AI tips",
+    "coveredNeeds": "Covered needs",
+    "features": "Accessible features",
+    "askAI": "Get personalized AI tips",
+    "aiTips": "AI-generated tips",
+    "destinationsLink": "Accessible destinations"
+  },
   "planner": {
     "title": "Trip Planner",
     "subtitle": "Generate a personalized itinerary for your whole group, with accessibility at the center.",

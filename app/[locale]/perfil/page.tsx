@@ -9,6 +9,7 @@ import { Profile } from '@/types/profile'
 function ProfileHeader() {
   const t = useTranslations('profile')
   const tP = useTranslations('planner')
+  const tD = useTranslations('destinations')
   return (
     <div className="max-w-2xl mx-auto mb-8 space-y-4">
       <div className="flex items-start justify-between">
@@ -18,12 +19,20 @@ function ProfileHeader() {
         </div>
         <LanguageSwitcher />
       </div>
-      <Link
-        href="/planificador"
-        className="inline-flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition"
-      >
-        ✈️ {tP('plannerLink')}
-      </Link>
+      <div className="flex flex-wrap gap-3">
+        <Link
+          href="/planificador"
+          className="inline-flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition"
+        >
+          ✈️ {tP('plannerLink')}
+        </Link>
+        <Link
+          href="/destinos"
+          className="inline-flex items-center gap-2 bg-white hover:bg-teal-50 text-teal-700 border-2 border-teal-600 text-sm font-semibold px-5 py-2.5 rounded-xl transition"
+        >
+          🗺️ {tD('destinationsLink')}
+        </Link>
+      </div>
     </div>
   )
 }
