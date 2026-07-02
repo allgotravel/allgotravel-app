@@ -119,6 +119,20 @@ function QuickAccessCards() {
   )
 }
 
+function InstallAppBanner() {
+  const t = useTranslations('dashboard')
+  return (
+    <div className="flex justify-center">
+      <Link
+        href="/instalar"
+        className="inline-flex items-center gap-2 bg-white border border-[#1B6FB5] text-[#1B6FB5] px-5 py-2.5 rounded-full text-sm font-medium hover:bg-[#1B6FB5] hover:text-white transition shadow"
+      >
+        {t('installLink')}
+      </Link>
+    </div>
+  )
+}
+
 function AlliTipCard() {
   const t = useTranslations('dashboard')
   const tips = [
@@ -171,6 +185,7 @@ export default async function DashboardPage() {
         <ProfileSummaryCard profile={safeProfile} />
         <QuickAccessCards />
         <AlliTipCard />
+        <InstallAppBanner />
       </div>
     </main>
   )
