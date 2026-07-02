@@ -94,7 +94,7 @@ export default function HomePage() {
             src="/logo-allgo.jpg"
             alt=""
             fill
-            className="object-contain opacity-[0.15]"
+            className="object-cover opacity-[0.15]"
             style={{ objectPosition: 'center' }}
           />
         </div>
