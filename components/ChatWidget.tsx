@@ -155,7 +155,7 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
         <div className="fixed bottom-24 right-6 z-50 w-[360px] max-w-[calc(100vw-2rem)] flex flex-col rounded-2xl shadow-2xl border border-gray-200 bg-white overflow-hidden">
           {/* Header */}
           <div className="bg-teal-600 text-white px-4 py-3 flex items-center gap-2">
-            <span className="text-xl">✈️</span>
+            <span className="text-xl">🌍</span>
             <div>
               <p className="font-semibold leading-tight">{t('title')}</p>
               <p className="text-xs text-teal-100">{t('subtitle')}</p>
