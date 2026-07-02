@@ -90,12 +90,19 @@ function QuickAccessCards() {
       desc: t('cardCommunicationDesc'),
       bg: 'bg-purple-600',
     },
+    {
+      href: '/documentos-viaje',
+      icon: '📄',
+      title: t('cardDocuments'),
+      desc: t('cardDocumentsDesc'),
+      bg: 'bg-indigo-600',
+    },
   ]
 
   return (
     <div>
       <h2 className="text-lg font-semibold text-gray-700 mb-4">{t('quickAccess')}</h2>
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5">
         {cards.map(card => (
           <Link
             key={card.href}
