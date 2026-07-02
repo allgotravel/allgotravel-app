@@ -86,6 +86,16 @@ export default function HomePage() {
 
       {/* ── HERO ── */}
       <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-16">
+        {/* Logo de fondo - ocupa todo el hero */}
+        <div className="absolute inset-0 pointer-events-none select-none">
+          <Image
+            src="/logo-allgo.jpg"
+            alt=""
+            fill
+            className="object-contain opacity-[0.12]"
+            style={{ objectPosition: 'center' }}
+          />
+        </div>
         {/* Background gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-950 via-blue-800 to-teal-700" />
         {/* Decorative circles */}
