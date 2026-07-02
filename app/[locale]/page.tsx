@@ -93,6 +93,17 @@ export default function HomePage() {
         <div className="absolute bottom-10 left-10 w-96 h-96 bg-teal-400/10 rounded-full blur-3xl" />
         <div className="absolute top-1/3 left-1/4 w-48 h-48 bg-blue-400/10 rounded-full blur-2xl" />
 
+        {/* Logo decorativo de fondo */}
+        <div className="absolute left-8 top-1/2 -translate-y-1/2 w-72 h-72 opacity-15 pointer-events-none select-none">
+          <Image
+            src="/logo-allgo.jpg"
+            alt=""
+            width={288}
+            height={288}
+            className="rounded-full object-cover"
+          />
+        </div>
+
         <div className="relative z-10 flex flex-col items-center text-center px-4 max-w-4xl mx-auto">
           {/* Tagline pill */}
           <div className="mb-4 inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white/90 text-sm font-medium px-4 py-1.5 rounded-full">
