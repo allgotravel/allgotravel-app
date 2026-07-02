@@ -150,5 +150,31 @@
     "cognitiva": "Cognitive",
     "cronica_invisible": "Chronic or invisible illness",
     "mixta": "Mixed (family group)"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "link": "Dashboard",
+    "greeting": "Hello, {name}! 👋",
+    "greetingFallback": "Hello! 👋",
+    "profileSummary": "Your accessibility profile",
+    "noProfile": "Complete your profile to see your accessibility summary.",
+    "quickAccess": "Quick access",
+    "cardPlanner": "Trip Planner",
+    "cardPlannerDesc": "Generate personalized itineraries for your group",
+    "cardDestinations": "Accessible destinations",
+    "cardDestinationsDesc": "Explore 24 verified destinations",
+    "cardMedical": "Medical Card",
+    "cardMedicalDesc": "Your emergency medical information",
+    "cardCommunication": "Communication Card",
+    "cardCommunicationDesc": "Useful phrases to show on screen",
+    "alliTip": "Alli's tip of the day 🌍",
+    "editProfile": "Edit profile",
+    "tip0": "Arrive at the airport at least 3 hours early if you need special assistance. Most airports offer mobility services with advance reservation.",
+    "tip1": "Research your hotel's accessibility features before booking. Request written confirmation of the accommodations you need.",
+    "tip2": "Download offline maps of your destination. In an emergency, you'll be able to navigate without internet access.",
+    "tip3": "Always carry your medications in your carry-on luggage, never in checked bags. Pack double the amount you need.",
+    "tip4": "Research whether your destination has adapted transportation apps. Many cities offer specific options for people with disabilities.",
+    "tip5": "Communicate your needs to the flight attendant when boarding. They can help with the boarding and disembarking process.",
+    "tip6": "Look for traveler groups with the same disability on social media. Their firsthand experiences are invaluable for planning your trip."
   }
 }

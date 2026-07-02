@@ -24,7 +24,7 @@ export default function LoginPage() {
       setError(t('error'))
       setLoading(false)
     } else {
-      router.push('/perfil')
+      router.push('/dashboard')
     }
   }
 

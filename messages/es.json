@@ -150,5 +150,31 @@
     "cognitiva": "Cognitiva",
     "cronica_invisible": "Enfermedad crónica o invisible",
     "mixta": "Mixta (grupo familiar)"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "link": "Dashboard",
+    "greeting": "¡Hola, {name}! 👋",
+    "greetingFallback": "¡Hola! 👋",
+    "profileSummary": "Tu perfil de accesibilidad",
+    "noProfile": "Completa tu perfil para ver tu resumen de accesibilidad.",
+    "quickAccess": "Acceso rápido",
+    "cardPlanner": "Planificador de viaje",
+    "cardPlannerDesc": "Genera itinerarios personalizados para tu grupo",
+    "cardDestinations": "Destinos accesibles",
+    "cardDestinationsDesc": "Explora 24 destinos verificados",
+    "cardMedical": "Tarjeta Médica",
+    "cardMedicalDesc": "Tu información médica de emergencia",
+    "cardCommunication": "Tarjeta de Comunicación",
+    "cardCommunicationDesc": "Frases útiles para mostrar en pantalla",
+    "alliTip": "Tip del día de Alli 🌍",
+    "editProfile": "Editar perfil",
+    "tip0": "Llega al aeropuerto con al menos 3 horas de anticipación si necesitas asistencia especial. La mayoría de aeropuertos ofrecen servicio de movilidad con reservación previa.",
+    "tip1": "Investiga las facilidades de accesibilidad de tu hotel antes de reservar. Pide confirmación escrita de las adaptaciones que necesitas.",
+    "tip2": "Descarga mapas offline de tu destino. En caso de emergencia, podrás orientarte sin necesidad de internet.",
+    "tip3": "Lleva siempre tus medicamentos en tu equipaje de mano, nunca en la maleta documentada. Incluye el doble de la cantidad que necesitas.",
+    "tip4": "Investiga si tu destino tiene aplicaciones de transporte adaptado. Muchas ciudades ofrecen opciones específicas para personas con discapacidad.",
+    "tip5": "Comunica tus necesidades al tripulante de vuelo al abordar. Ellos pueden ayudarte con el proceso de embarque y desembarque.",
+    "tip6": "Busca grupos de viajeros con tu misma discapacidad en redes sociales. Sus experiencias directas son invaluables para planificar tu viaje."
   }
 }

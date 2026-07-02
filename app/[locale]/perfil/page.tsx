@@ -10,6 +10,7 @@ function ProfileHeader() {
   const t = useTranslations('profile')
   const tP = useTranslations('planner')
   const tD = useTranslations('destinations')
+  const tDash = useTranslations('dashboard')
   return (
     <div className="max-w-2xl mx-auto mb-8 space-y-4">
       <div className="flex items-start justify-between">
@@ -31,6 +32,12 @@ function ProfileHeader() {
           className="inline-flex items-center gap-2 bg-white hover:bg-teal-50 text-teal-700 border-2 border-teal-600 text-sm font-semibold px-5 py-2.5 rounded-xl transition"
         >
           🗺️ {tD('destinationsLink')}
+        </Link>
+        <Link
+          href="/dashboard"
+          className="inline-flex items-center gap-2 bg-[#1B6FB5] hover:bg-blue-700 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition"
+        >
+          🏠 {tDash('link')}
         </Link>
       </div>
     </div>
