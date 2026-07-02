@@ -44,6 +44,18 @@ interface Message {
   ts: string
 }
 
+interface SpeechRecognitionInstance {
+  lang: string
+  interimResults: boolean
+  maxAlternatives: number
+  onstart: (() => void) | null
+  onend: (() => void) | null
+  onerror: (() => void) | null
+  onresult: ((e: { results: { [k: number]: { [k: number]: { transcript: string } } } }) => void) | null
+  start(): void
+  stop(): void
+}
+
 interface ChatWidgetProps {
   userId?: string
 }
@@ -57,8 +69,16 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
   const [conversationId, setConversationId] = useState<string | undefined>()
+  const [isListening, setIsListening] = useState(false)
+  const [speechSupported, setSpeechSupported] = useState(false)
   const bottomRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLTextAreaElement>(null)
+  const recognitionRef = useRef<SpeechRecognitionInstance | null>(null)
+
+  useEffect(() => {
+    const w = window as Window & { SpeechRecognition?: new () => SpeechRecognitionInstance; webkitSpeechRecognition?: new () => SpeechRecognitionInstance }
+    if (w.SpeechRecognition || w.webkitSpeechRecognition) setSpeechSupported(true)
+  }, [])
 
   useEffect(() => {
     if (open) {
@@ -66,6 +86,33 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
       inputRef.current?.focus()
     }
   }, [open, messages])
+
+  function toggleListening() {
+    if (isListening) {
+      recognitionRef.current?.stop()
+      return
+    }
+
+    const w = window as Window & { SpeechRecognition?: new () => SpeechRecognitionInstance; webkitSpeechRecognition?: new () => SpeechRecognitionInstance }
+    const SR = w.SpeechRecognition || w.webkitSpeechRecognition
+    if (!SR) return
+
+    const recognition = new SR()
+    recognition.lang = navigator.language.startsWith('en') ? 'en-US' : 'es-ES'
+    recognition.interimResults = false
+    recognition.maxAlternatives = 1
+
+    recognition.onstart = () => setIsListening(true)
+    recognition.onend = () => setIsListening(false)
+    recognition.onerror = () => setIsListening(false)
+    recognition.onresult = (e) => {
+      const transcript = e.results[0][0].transcript
+      setInput(prev => prev ? `${prev} ${transcript}` : transcript)
+    }
+
+    recognitionRef.current = recognition
+    recognition.start()
+  }
 
   async function sendMessage() {
     const text = input.trim()
@@ -207,6 +254,20 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
               className="flex-1 resize-none rounded-xl border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 disabled:opacity-50 max-h-28 overflow-y-auto"
               style={{ fieldSizing: 'content' } as React.CSSProperties}
             />
+            {speechSupported && (
+              <button
+                onClick={toggleListening}
+                disabled={loading}
+                aria-label={isListening ? 'Detener grabación' : 'Iniciar grabación de voz'}
+                className={`shrink-0 w-10 h-10 rounded-xl text-white flex items-center justify-center disabled:opacity-40 transition ${
+                  isListening
+                    ? 'bg-red-500 hover:bg-red-600 animate-pulse'
+                    : 'bg-gray-400 hover:bg-gray-500'
+                }`}
+              >
+                🎤
+              </button>
+            )}
             <button
               onClick={sendMessage}
               disabled={loading || !input.trim()}
