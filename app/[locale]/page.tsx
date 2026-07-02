@@ -121,7 +121,7 @@ export default function HomePage() {
           </h1>
 
           {/* Subtitle */}
-          <p className="text-lg sm:text-xl text-white/80 max-w-2xl leading-relaxed mb-10">
+          <p className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white max-w-2xl leading-snug mb-10">
             {t('heroSubtitle')}
           </p>
 
