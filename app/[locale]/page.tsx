@@ -121,7 +121,10 @@ export default function HomePage() {
           </h1>
 
           {/* Subtitle */}
-          <p className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white max-w-2xl leading-snug mb-10">
+          <p
+            className="w-full font-extrabold text-white leading-none mb-10 text-center tracking-tight"
+            style={{ fontSize: 'clamp(2.5rem, 7vw, 7rem)' }}
+          >
             {t('heroSubtitle')}
           </p>
 
