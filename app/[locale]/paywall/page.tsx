@@ -11,7 +11,7 @@ export default function PaywallPage() {
 
       <div className="flex flex-col sm:flex-row gap-4 w-full max-w-lg">
         {/* Annual - Recommended */}
-        <a href="https://go.hotmart.com/P106494873O?dp=1" className="flex-1 bg-orange-500 hover:bg-orange-600 rounded-2xl p-6 text-center transition">
+        <a href="https://pay.hotmart.com/P106494873O?off=jqgv7nc8" className="flex-1 bg-orange-500 hover:bg-orange-600 rounded-2xl p-6 text-center transition">
           <div className="text-xs font-bold bg-white text-orange-500 rounded-full px-3 py-1 inline-block mb-3">⭐ RECOMENDADO</div>
           <div className="text-2xl font-extrabold">$97/año</div>
           <div className="text-white/80 text-sm mb-2">Ahorra 46% vs mensual</div>

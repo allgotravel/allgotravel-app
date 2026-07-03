@@ -648,7 +648,7 @@ function StepPricing({ t, uid }: { t: T; uid: string | null }) {
           </div>
 
           <button
-            onClick={() => finish('https://go.hotmart.com/P106494873O?dp=1')}
+            onClick={() => finish('https://pay.hotmart.com/P106494873O?off=jqgv7nc8')}
             disabled={finishing}
             className="w-full bg-orange-500 hover:bg-orange-400 active:scale-[0.98] disabled:opacity-60 text-white font-extrabold text-base py-4 rounded-xl shadow-lg shadow-orange-500/30 transition-all duration-200"
           >
