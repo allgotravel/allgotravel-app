@@ -173,6 +173,76 @@ function DestinationModal({ destination, userId, onClose }: ModalProps) {
             </ul>
           </div>
 
+          {/* Booking platforms */}
+          <div className="border-t pt-4">
+            <p className="text-xs font-semibold text-gray-500 uppercase mb-3">
+              {locale === 'es' ? '🔗 Reservar en plataformas populares' : '🔗 Book on popular platforms'}
+            </p>
+
+            {/* Hotels */}
+            <div className="mb-3">
+              <p className="text-xs text-gray-400 font-medium mb-1.5">🏨 {locale === 'es' ? 'Hoteles' : 'Hotels'}</p>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  { name: 'Booking.com', url: `https://www.booking.com/search.html?ss=${encodeURIComponent(destination.name)}`, color: 'bg-blue-600' },
+                  { name: 'Expedia', url: `https://www.expedia.com/Hotel-Search?destination=${encodeURIComponent(destination.name + ', ' + destination.country)}`, color: 'bg-yellow-500' },
+                  { name: 'Hotels.com', url: `https://www.hotels.com/search.do?q-destination=${encodeURIComponent(destination.name)}`, color: 'bg-red-600' },
+                  { name: 'Airbnb', url: `https://www.airbnb.com/s/${encodeURIComponent(destination.name)}/homes`, color: 'bg-rose-500' },
+                ].map(p => (
+                  <a key={p.name} href={p.url} target="_blank" rel="noopener noreferrer"
+                    className={`${p.color} text-white text-xs font-semibold px-3 py-1.5 rounded-full hover:opacity-90 transition`}>
+                    {p.name}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Flights */}
+            <div className="mb-3">
+              <p className="text-xs text-gray-400 font-medium mb-1.5">✈️ {locale === 'es' ? 'Vuelos' : 'Flights'}</p>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  { name: 'Google Flights', url: `https://www.google.com/travel/flights?q=${encodeURIComponent('flights to ' + destination.name)}`, color: 'bg-indigo-600' },
+                  { name: 'Kayak', url: `https://www.kayak.com/flights/anywhere-${encodeURIComponent(destination.name)}`, color: 'bg-orange-500' },
+                  { name: 'Skyscanner', url: `https://www.skyscanner.com/flights-to/${encodeURIComponent(destination.name.toLowerCase())}`, color: 'bg-teal-600' },
+                ].map(p => (
+                  <a key={p.name} href={p.url} target="_blank" rel="noopener noreferrer"
+                    className={`${p.color} text-white text-xs font-semibold px-3 py-1.5 rounded-full hover:opacity-90 transition`}>
+                    {p.name}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Activities & Cars */}
+            <div className="flex flex-wrap gap-4">
+              <div>
+                <p className="text-xs text-gray-400 font-medium mb-1.5">🎭 {locale === 'es' ? 'Actividades' : 'Activities'}</p>
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    { name: 'Viator', url: `https://www.viator.com/search/${encodeURIComponent(destination.name)}`, color: 'bg-emerald-600' },
+                    { name: 'GetYourGuide', url: `https://www.getyourguide.com/s/?q=${encodeURIComponent(destination.name)}`, color: 'bg-purple-600' },
+                  ].map(p => (
+                    <a key={p.name} href={p.url} target="_blank" rel="noopener noreferrer"
+                      className={`${p.color} text-white text-xs font-semibold px-3 py-1.5 rounded-full hover:opacity-90 transition`}>
+                      {p.name}
+                    </a>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <p className="text-xs text-gray-400 font-medium mb-1.5">🚗 {locale === 'es' ? 'Autos' : 'Cars'}</p>
+                <div className="flex flex-wrap gap-2">
+                  <a href={`https://www.rentalcars.com/SearchResults.do?country=${encodeURIComponent(destination.country)}`}
+                    target="_blank" rel="noopener noreferrer"
+                    className="bg-sky-600 text-white text-xs font-semibold px-3 py-1.5 rounded-full hover:opacity-90 transition">
+                    Rentalcars.com
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* AI info */}
           <div className="border-t pt-4">
             {!requested ? (
