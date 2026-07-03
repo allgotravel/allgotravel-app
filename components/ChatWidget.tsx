@@ -71,6 +71,8 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
   const [conversationId, setConversationId] = useState<string | undefined>()
   const [isListening, setIsListening] = useState(false)
   const [speechSupported, setSpeechSupported] = useState(false)
+  const [ttsSupported, setTtsSupported] = useState(false)
+  const [speakingIndex, setSpeakingIndex] = useState<number | null>(null)
   const bottomRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLTextAreaElement>(null)
   const recognitionRef = useRef<SpeechRecognitionInstance | null>(null)
@@ -78,7 +80,53 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
   useEffect(() => {
     const w = window as Window & { SpeechRecognition?: new () => SpeechRecognitionInstance; webkitSpeechRecognition?: new () => SpeechRecognitionInstance }
     if (w.SpeechRecognition || w.webkitSpeechRecognition) setSpeechSupported(true)
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) setTtsSupported(true)
   }, [])
+
+  function pickBestVoice(lang: string): SpeechSynthesisVoice | null {
+    const voices = window.speechSynthesis.getVoices()
+    // Priority: exact lang female → any lang female → any lang voice
+    const langLower = lang.toLowerCase()
+    const candidates = voices.filter(v => v.lang.toLowerCase().startsWith(langLower.slice(0, 2)))
+    const femaleKeywords = ['female', 'woman', 'mujer', 'femenina', 'paulina', 'monica', 'jorge', 'lupe', 'paloma', 'sabina', 'conchita', 'valentina']
+    const female = candidates.find(v => femaleKeywords.some(k => v.name.toLowerCase().includes(k)))
+    return female ?? candidates[0] ?? voices[0] ?? null
+  }
+
+  function speakText(text: string, index: number) {
+    if (!ttsSupported) return
+    if (speakingIndex === index) {
+      window.speechSynthesis.cancel()
+      setSpeakingIndex(null)
+      return
+    }
+    window.speechSynthesis.cancel()
+    // Strip markdown symbols for cleaner speech
+    const clean = text
+      .replace(/\*\*(.*?)\*\*/g, '$1')
+      .replace(/\*(.*?)\*/g, '$1')
+      .replace(/#{1,3} /g, '')
+      .replace(/- /g, '')
+    const utterance = new SpeechSynthesisUtterance(clean)
+    utterance.lang = locale === 'en' ? 'en-US' : 'es-ES'
+    utterance.rate = 0.9
+    utterance.pitch = 1.08
+    utterance.volume = 1
+    // Wait for voices to load (Chrome needs this)
+    const assignVoice = () => {
+      const voice = pickBestVoice(utterance.lang)
+      if (voice) utterance.voice = voice
+    }
+    if (window.speechSynthesis.getVoices().length > 0) {
+      assignVoice()
+    } else {
+      window.speechSynthesis.onvoiceschanged = assignVoice
+    }
+    utterance.onstart = () => setSpeakingIndex(index)
+    utterance.onend = () => setSpeakingIndex(null)
+    utterance.onerror = () => setSpeakingIndex(null)
+    window.speechSynthesis.speak(utterance)
+  }
 
   useEffect(() => {
     if (open) {
@@ -219,22 +267,38 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
                 key={i}
                 className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
               >
-                <div
-                  className={`max-w-[80%] rounded-2xl px-4 py-2 text-sm leading-relaxed ${
-                    msg.role === 'user'
-                      ? 'bg-teal-600 text-white rounded-br-sm'
-                      : 'bg-white border border-gray-200 text-gray-800 rounded-bl-sm'
-                  }`}
-                >
-                  {msg.content ? (
-                    msg.role === 'assistant' ? renderMarkdown(msg.content) : msg.content
-                  ) : (loading && i === messages.length - 1 ? (
-                    <span className="inline-flex gap-1">
-                      <span className="animate-bounce">·</span>
-                      <span className="animate-bounce [animation-delay:100ms]">·</span>
-                      <span className="animate-bounce [animation-delay:200ms]">·</span>
-                    </span>
-                  ) : null)}
+                <div className={`max-w-[80%] flex flex-col gap-1 ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
+                  <div
+                    className={`rounded-2xl px-4 py-2 text-sm leading-relaxed ${
+                      msg.role === 'user'
+                        ? 'bg-teal-600 text-white rounded-br-sm'
+                        : 'bg-white border border-gray-200 text-gray-800 rounded-bl-sm'
+                    }`}
+                  >
+                    {msg.content ? (
+                      msg.role === 'assistant' ? renderMarkdown(msg.content) : msg.content
+                    ) : (loading && i === messages.length - 1 ? (
+                      <span className="inline-flex gap-1">
+                        <span className="animate-bounce">·</span>
+                        <span className="animate-bounce [animation-delay:100ms]">·</span>
+                        <span className="animate-bounce [animation-delay:200ms]">·</span>
+                      </span>
+                    ) : null)}
+                  </div>
+                  {/* TTS button — only on completed Alli messages */}
+                  {ttsSupported && msg.role === 'assistant' && msg.content && !(loading && i === messages.length - 1) && (
+                    <button
+                      onClick={() => speakText(msg.content, i)}
+                      title={speakingIndex === i ? 'Detener voz' : 'Escuchar respuesta'}
+                      className={`flex items-center gap-1 text-xs px-2 py-0.5 rounded-full transition-all duration-200 ${
+                        speakingIndex === i
+                          ? 'bg-teal-100 text-teal-700 border border-teal-300 animate-pulse'
+                          : 'text-gray-400 hover:text-teal-600 hover:bg-teal-50 border border-transparent'
+                      }`}
+                    >
+                      {speakingIndex === i ? '🔊 Reproduciendo...' : '🔈 Escuchar'}
+                    </button>
+                  )}
                 </div>
               </div>
             ))}

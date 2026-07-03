@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AllGo Travel — Vista Previa</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #f1f5f9; font-family: system-ui, sans-serif; padding: 24px 16px; }
+  h1 { text-align: center; font-size: 18px; color: #1a1a2e; margin-bottom: 6px; }
+  p.sub { text-align: center; font-size: 12px; color: #6b7280; margin-bottom: 20px; }
+  .tabs { display: flex; gap: 8px; justify-content: center; margin-bottom: 24px; flex-wrap: wrap; }
+  .tab { padding: 6px 18px; border-radius: 20px; border: 1px solid #cbd5e1; cursor: pointer; font-size: 13px; background: #fff; color: #64748b; transition: all 0.2s; }
+  .tab.on { background: #1B6FB5; color: #fff; border-color: #1B6FB5; }
+  .screens { display: flex; justify-content: center; }
+  .screen { display: none; flex-direction: column; align-items: center; }
+  .screen.on { display: flex; }
+  .phone { width: 240px; border-radius: 40px; border: 8px solid #111827; background: #111827; box-shadow: 0 28px 72px rgba(0,0,0,0.35); overflow: hidden; }
+  .notch { width: 80px; height: 20px; background: #111827; border-radius: 0 0 14px 14px; margin: 0 auto; position: relative; z-index: 2; }
+  .lbl { margin-top: 14px; font-size: 12px; color: #6b7280; text-align: center; }
+</style>
+</head>
+<body>
+<h1>🌍 AllGo Travel — Vista Previa Móvil</h1>
+<p class="sub">Presiona cada pantalla para explorar el app</p>
+
+<div class="tabs">
+  <button class="tab on" onclick="sw('ob',this)">Bienvenida</button>
+  <button class="tab" onclick="sw('db',this)">Dashboard</button>
+  <button class="tab" onclick="sw('ch',this)">Chat Alli</button>
+  <button class="tab" onclick="sw('pw',this)">Membresía</button>
+</div>
+
+<div class="screens">
+
+  <!-- ONBOARDING -->
+  <div id="ob" class="screen on">
+    <div class="phone">
+      <div class="notch"></div>
+      <div style="background:linear-gradient(155deg,#0f1f5c,#1B6FB5 55%,#0D9488);padding:0 0 20px;min-height:440px">
+        <div style="text-align:right;padding:8px 12px 0">
+          <span style="background:rgba(255,255,255,.15);border-radius:8px;padding:3px 10px;font-size:10px;color:#fff">ES <b style="background:#F97316;border-radius:5px;padding:1px 6px">EN</b></span>
+        </div>
+        <div style="text-align:center;padding:14px 16px 0">
+          <div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#F97316,#1B6FB5);margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 0 0 6px rgba(249,115,22,.2)">✈️</div>
+          <div style="color:#fff;font-size:18px;font-weight:700;line-height:1.25">Welcome to<br><span style="color:#F97316">AllGo Travel</span> 🌍</div>
+          <div style="color:rgba(255,255,255,.55);font-size:11px;margin-top:5px">Your accessible travel companion</div>
+        </div>
+        <div style="margin:14px 12px 0;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:14px;padding:11px 12px">
+          <div style="display:flex;gap:8px;align-items:flex-start">
+            <span style="font-size:20px">🌍</span>
+            <p style="color:rgba(255,255,255,.9);font-size:11px;line-height:1.6;margin:0">Hi! I'm here to help you travel without limits.</p>
+          </div>
+        </div>
+        <div style="margin:12px 12px 0;border-top:1px solid rgba(255,255,255,.15);padding-top:12px;text-align:center">
+          <p style="color:rgba(255,255,255,.5);font-size:10px;margin:0 0 4px">87% of people with disabilities say travel is complicated.</p>
+          <p style="color:#F97316;font-size:13px;font-weight:700;margin:0">AllGo Travel makes it possible.</p>
+        </div>
+        <div style="text-align:center;margin-top:20px">
+          <div style="display:inline-block;background:#F97316;color:#fff;border-radius:30px;padding:12px 32px;font-size:13px;font-weight:700;box-shadow:0 6px 18px rgba(249,115,22,.4)">Get started ✨</div>
+        </div>
+      </div>
+    </div>
+    <div class="lbl">Pantalla de bienvenida (con selector ES/EN)</div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="db" class="screen">
+    <div class="phone">
+      <div class="notch"></div>
+      <div style="min-height:440px;background:#f1f5f9">
+        <div style="background:linear-gradient(135deg,#1B6FB5,#0D9488);padding:16px 14px 20px">
+          <div style="color:rgba(255,255,255,.65);font-size:10px">Buenos días 👋</div>
+          <div style="color:#fff;font-size:16px;font-weight:700">AllGo Travel</div>
+          <div style="display:flex;gap:6px;margin-top:10px">
+            <span style="background:rgba(255,255,255,.2);border-radius:8px;padding:4px 9px;font-size:10px;color:#fff">🌍 Alli</span>
+            <span style="background:rgba(255,255,255,.2);border-radius:8px;padding:4px 9px;font-size:10px;color:#fff">✈️ Vuelos</span>
+            <span style="background:rgba(255,255,255,.2);border-radius:8px;padding:4px 9px;font-size:10px;color:#fff">ES/EN</span>
+          </div>
+        </div>
+        <div style="padding:12px 12px 0;display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <div style="background:#fff;border-radius:12px;padding:11px;box-shadow:0 1px 4px rgba(0,0,0,.08)"><div style="font-size:20px;margin-bottom:4px">🗺️</div><div style="font-size:11px;font-weight:600;color:#1a1a2e">Destinos</div><div style="font-size:10px;color:#6b7280;margin-top:2px">24 verificados</div></div>
+          <div style="background:#fff;border-radius:12px;padding:11px;box-shadow:0 1px 4px rgba(0,0,0,.08)"><div style="font-size:20px;margin-bottom:4px">📋</div><div style="font-size:11px;font-weight:600;color:#1a1a2e">Planificador</div><div style="font-size:10px;color:#6b7280;margin-top:2px">Con IA personalizada</div></div>
+          <div style="background:#fff;border-radius:12px;padding:11px;box-shadow:0 1px 4px rgba(0,0,0,.08)"><div style="font-size:20px;margin-bottom:4px">🆘</div><div style="font-size:11px;font-weight:600;color:#1a1a2e">Tarjeta Médica</div><div style="font-size:10px;color:#6b7280;margin-top:2px">Multilingüe</div></div>
+          <div style="background:#fff;border-radius:12px;padding:11px;box-shadow:0 1px 4px rgba(0,0,0,.08)"><div style="font-size:20px;margin-bottom:4px">📄</div><div style="font-size:11px;font-weight:600;color:#1a1a2e">Documentos DOT</div><div style="font-size:10px;color:#6b7280;margin-top:2px">Formularios</div></div>
+        </div>
+        <div style="margin:8px 12px 0;background:#fff;border-radius:12px;padding:11px;box-shadow:0 1px 4px rgba(0,0,0,.08)"><div style="font-size:20px;margin-bottom:4px">🗣️</div><div style="font-size:11px;font-weight:600;color:#1a1a2e">Tarjeta de Comunicación</div><div style="font-size:10px;color:#6b7280;margin-top:2px">Para emergencias</div></div>
+        <div style="padding:12px 12px 0">
+          <div style="background:linear-gradient(135deg,#1B6FB5,#0D9488);color:#fff;border-radius:24px;padding:10px 0;font-size:11px;font-weight:600;text-align:center">💬 Habla con Alli</div>
+        </div>
+      </div>
+    </div>
+    <div class="lbl">Pantalla principal (dashboard)</div>
+  </div>
+
+  <!-- CHAT -->
+  <div id="ch" class="screen">
+    <div class="phone">
+      <div class="notch"></div>
+      <div style="min-height:440px;background:#f1f5f9;display:flex;flex-direction:column">
+        <div style="background:#0D9488;padding:12px 14px;display:flex;align-items:center;gap:8px">
+          <span style="font-size:22px">🌍</span>
+          <div><div style="color:#fff;font-size:13px;font-weight:600">Alli</div><div style="color:rgba(255,255,255,.65);font-size:10px">Tu asistente de viaje</div></div>
+        </div>
+        <div style="flex:1;padding:12px 10px 0;display:flex;flex-direction:column;gap:9px">
+          <div style="display:flex;justify-content:flex-start">
+            <div>
+              <div style="background:#fff;border:1px solid #e5e7eb;border-radius:14px 14px 14px 4px;padding:9px 11px;font-size:11px;line-height:1.5;color:#1a1a2e;max-width:160px">¡Hola! Soy Alli 🌍 ¿A dónde quieres viajar? Puedo ayudarte a planificar.</div>
+              <div style="margin-top:4px;font-size:10px;color:#0D9488;cursor:pointer">🔈 Escuchar</div>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:flex-end">
+            <div style="background:#0D9488;color:#fff;border-radius:14px 14px 4px 14px;padding:9px 11px;font-size:11px;line-height:1.5;max-width:160px">Quiero ir a Puerto Rico con silla de ruedas</div>
+          </div>
+          <div style="display:flex;justify-content:flex-start">
+            <div>
+              <div style="background:#fff;border:1px solid #e5e7eb;border-radius:14px 14px 14px 4px;padding:9px 11px;font-size:11px;line-height:1.5;color:#1a1a2e;max-width:168px">¡Excelente elección! Puerto Rico tiene varias playas accesibles ♿. El Sheraton San Juan tiene acceso total para silla de ruedas...</div>
+              <div style="margin-top:4px;font-size:10px;color:#0D9488;background:#e6faf8;border-radius:10px;padding:2px 9px;display:inline-block">🔊 Reproduciendo...</div>
+            </div>
+          </div>
+        </div>
+        <div style="padding:9px 10px;background:#fff;border-top:1px solid #e5e7eb;display:flex;gap:6px;align-items:center;margin-top:10px">
+          <div style="flex:1;background:#f3f4f6;border-radius:20px;padding:8px 12px;font-size:11px;color:#9ca3af">Escribe o habla...</div>
+          <div style="background:#9ca3af;border-radius:8px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:15px">🎤</div>
+          <div style="background:#0D9488;border-radius:8px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px">➤</div>
+        </div>
+      </div>
+    </div>
+    <div class="lbl">Chat con Alli + botón de voz 🔈</div>
+  </div>
+
+  <!-- PAYWALL -->
+  <div id="pw" class="screen">
+    <div class="phone">
+      <div class="notch"></div>
+      <div style="background:linear-gradient(155deg,#0f1f5c,#1B6FB5 60%,#0D9488);min-height:440px;padding:16px 12px">
+        <div style="text-align:center;margin-bottom:14px">
+          <div style="color:rgba(255,255,255,.7);font-size:10px;margin-bottom:3px;font-style:italic">Tú mereces explorar el mundo.</div>
+          <div style="color:#fff;font-size:15px;font-weight:700;line-height:1.3">Sin barreras. Sin límites.</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:9px">
+          <div style="position:relative;border:2px solid #F97316;border-radius:14px;padding:14px 11px;background:rgba(249,115,22,.13)">
+            <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:#F97316;color:#fff;font-size:9px;font-weight:700;padding:3px 12px;border-radius:10px;white-space:nowrap">⭐ Más popular</div>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div>
+                <div style="color:#fff;font-size:12px;font-weight:700">Plan Anual</div>
+                <div style="background:#F97316;color:#fff;font-size:9px;font-weight:700;border-radius:6px;padding:1px 7px;display:inline-block;margin-top:4px">Ahorra 46%</div>
+              </div>
+              <div style="text-align:right">
+                <div style="color:#fb923c;font-size:24px;font-weight:800;line-height:1">$97</div>
+                <div style="color:rgba(255,255,255,.5);font-size:10px">/año ≈ $8/mes</div>
+              </div>
+            </div>
+            <div style="background:#F97316;color:#fff;border-radius:10px;padding:9px;text-align:center;font-size:12px;font-weight:700;margin-top:11px">Suscribirme anual →</div>
+          </div>
+          <div style="border:1px solid rgba(255,255,255,.2);border-radius:14px;padding:14px 11px;background:rgba(255,255,255,.08)">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div>
+                <div style="color:#fff;font-size:12px;font-weight:700">Plan Mensual</div>
+                <div style="color:rgba(255,255,255,.5);font-size:10px;margin-top:3px">Sin compromiso</div>
+              </div>
+              <div style="text-align:right">
+                <div style="color:#fff;font-size:20px;font-weight:700;line-height:1">$14.99</div>
+                <div style="color:rgba(255,255,255,.5);font-size:10px">/mes</div>
+              </div>
+            </div>
+            <div style="border:1px solid rgba(255,255,255,.25);color:#fff;border-radius:10px;padding:8px;text-align:center;font-size:11px;font-weight:600;margin-top:11px">Suscribirme mensual →</div>
+          </div>
+        </div>
+        <div style="text-align:center;margin-top:12px;color:rgba(255,255,255,.35);font-size:10px">Cancela cuando quieras. Sin compromisos.</div>
+        <div style="text-align:center;margin-top:8px;color:rgba(255,255,255,.4);font-size:10px;text-decoration:underline">Ya tengo membresía →</div>
+      </div>
+    </div>
+    <div class="lbl">Pantalla de membresía</div>
+  </div>
+
+</div>
+
+<script>
+function sw(id, btn) {
+  ['ob','db','ch','pw'].forEach(s => document.getElementById(s).classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(b => b.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  btn.classList.add('on');
+}
+</script>
+</body>
+</html>

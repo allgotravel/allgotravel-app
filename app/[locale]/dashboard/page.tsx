@@ -169,7 +169,9 @@ export default async function DashboardPage({
   if (!profile?.onboarding_completed) redirect('/onboarding')
 
   // Block access if subscription is explicitly 'free' (column exists but unpaid)
-  if (profile && profile.subscription_status === 'free') {
+  // Skip check in development mode so you can test without a paid subscription
+  const isDev = process.env.NODE_ENV === 'development'
+  if (!isDev && profile && profile.subscription_status === 'free') {
     redirect(`/${locale}/paywall`)
   }
 
@@ -193,6 +195,13 @@ export default async function DashboardPage({
   return (
     <main className="min-h-screen bg-gradient-to-br from-teal-50 to-blue-100 py-10 px-4">
       <div className="max-w-3xl mx-auto space-y-8">
+        {/* Language switcher */}
+        <div className="flex justify-end">
+          <div className="flex gap-1 bg-white border border-gray-200 rounded-lg p-1 text-xs font-bold shadow-sm">
+            <a href={`/es/dashboard`} className={`px-3 py-1 rounded-md transition-all ${locale === 'es' ? 'bg-blue-700 text-white' : 'text-gray-500 hover:text-blue-700'}`}>ES</a>
+            <a href={`/en/dashboard`} className={`px-3 py-1 rounded-md transition-all ${locale === 'en' ? 'bg-blue-700 text-white' : 'text-gray-500 hover:text-blue-700'}`}>EN</a>
+          </div>
+        </div>
         <GreetingSection name={safeProfile.full_name ?? ''} />
         <ProfileSummaryCard profile={safeProfile} />
         <QuickAccessCards />

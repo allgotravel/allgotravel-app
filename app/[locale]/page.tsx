@@ -66,11 +66,15 @@ export default function HomePage() {
             />
             <span className="font-bold text-blue-700 text-lg tracking-tight">AllGo Travel</span>
           </div>
-          <div className="flex items-center gap-3">
-            <LanguageSwitcher />
+          <div className="flex items-center gap-2 sm:gap-3">
+            {/* Language toggle — always visible */}
+            <div className="flex gap-1 bg-gray-100 rounded-lg p-1 text-xs font-bold">
+              <a href="/es" className="px-2.5 py-1 rounded-md transition-all bg-blue-700 text-white shadow-sm">ES</a>
+              <a href="/en" className="px-2.5 py-1 rounded-md transition-all text-gray-500 hover:text-blue-700">EN</a>
+            </div>
             <Link
               href="/login"
-              className="text-sm font-medium text-gray-600 hover:text-blue-700 transition px-3 py-1.5"
+              className="hidden sm:block text-sm font-medium text-gray-600 hover:text-blue-700 transition px-3 py-1.5"
             >
               {t('navLogin')}
             </Link>

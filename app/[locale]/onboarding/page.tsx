@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
-import { useRouter } from '@/i18n/navigation'
+import { useRouter, usePathname } from '@/i18n/navigation'
 import { useLocale } from 'next-intl'
 import { createSupabaseBrowser } from '@/lib/supabase-browser'
 
@@ -49,42 +49,74 @@ type FamilyMember = { name: string; disability: string }
 
 // ─── Step 0: Welcome ──────────────────────────────────────────────────────
 
+// Animated letter-by-letter component
+function AnimatedWord({ text, color, baseDelay = 0 }: { text: string; color: string; baseDelay?: number }) {
+  return (
+    <span>
+      {text.split('').map((char, i) => (
+        <span
+          key={i}
+          className="inline-block"
+          style={{
+            animation: `letterPop 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) ${(baseDelay + i * 0.06).toFixed(2)}s both`,
+            color: char === ' ' ? 'transparent' : color,
+          }}
+        >
+          {char === ' ' ? ' ' : char}
+        </span>
+      ))}
+    </span>
+  )
+}
+
 function StepWelcome({ t, onNext }: { t: T; onNext: () => void }) {
+  const brandName = 'AllGo Travel'
+  const greeting = t('Bienvenido a', 'Welcome to')
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-6 pt-20 pb-16 text-center">
-      {/* Logo with double pulsing ring */}
-      <div className="relative mb-8">
+      {/* Logo with triple pulsing ring */}
+      <div className="relative mb-6">
         <div
-          className="absolute -inset-4 rounded-full bg-orange-400/25"
-          style={{ animation: 'pulseRing 2s ease-out infinite' }}
+          className="absolute -inset-3 rounded-full bg-orange-400/30"
+          style={{ animation: 'pulseRing 2.2s ease-out infinite' }}
         />
         <div
-          className="absolute -inset-8 rounded-full bg-orange-400/10"
-          style={{ animation: 'pulseRing 2s ease-out infinite 0.4s' }}
+          className="absolute -inset-6 rounded-full bg-orange-400/15"
+          style={{ animation: 'pulseRing 2.2s ease-out infinite 0.5s' }}
         />
         <div
-          className="relative w-32 h-32 rounded-full overflow-hidden ring-4 ring-white/25 shadow-2xl shadow-blue-950/80"
+          className="absolute -inset-10 rounded-full bg-teal-400/10"
+          style={{ animation: 'pulseRing 2.2s ease-out infinite 1s' }}
+        />
+        <div
+          className="relative w-28 h-28 rounded-full overflow-hidden ring-4 ring-white/30 shadow-2xl shadow-blue-950/80"
           style={{ animation: 'floatY 3s ease-in-out infinite' }}
         >
           <Image src="/logo-allgo.jpg" alt="AllGo Travel" fill className="object-cover" />
         </div>
       </div>
 
-      <h1 className="text-4xl sm:text-5xl font-extrabold text-white leading-tight mb-3">
-        {t('Bienvenido a', 'Welcome to')}{' '}
-        <span className="text-orange-400">AllGo Travel</span>{' '}
-        <span className="inline-block" style={{ animation: 'floatY 2s ease-in-out infinite 0.2s' }}>
+      {/* Animated title */}
+      <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight mb-2" style={{ animation: 'fadeInUp 0.4s ease-out 0.1s both' }}>
+        <span className="text-white/80">{greeting} </span>
+      </h1>
+      <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight mb-3">
+        <AnimatedWord text={brandName} color="#F97316" baseDelay={0.3} />
+        {' '}
+        <span className="inline-block" style={{ animation: 'floatY 2s ease-in-out infinite 1.2s, fadeInUp 0.4s ease-out 1.1s both' }}>
           🌍
         </span>
       </h1>
-      <p className="text-white/65 text-lg mb-10 max-w-xs">
+
+      <p className="text-white/60 text-base mb-8 max-w-xs" style={{ animation: 'fadeInUp 0.5s ease-out 1.3s both' }}>
         {t('Tu compañero de viajes accesibles', 'Your accessible travel companion')}
       </p>
 
       {/* Alli speech bubble */}
       <div
-        className="relative bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl rounded-bl-sm px-5 py-4 max-w-xs mb-8 text-left"
-        style={{ animation: 'floatY 4s ease-in-out infinite 0.8s' }}
+        className="relative bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl rounded-bl-sm px-5 py-4 max-w-xs mb-7 text-left"
+        style={{ animation: 'fadeInUp 0.5s ease-out 1.5s both, floatY 4s ease-in-out infinite 2.5s' }}
       >
         <div className="flex items-start gap-3">
           <span className="text-3xl shrink-0 leading-none mt-0.5">🌍</span>
@@ -101,28 +133,59 @@ function StepWelcome({ t, onNext }: { t: T; onNext: () => void }) {
         />
       </div>
 
-      {/* ── Emotional hook — animated in with 1s delay ── */}
-      <div
-        className="w-full max-w-xs mb-10"
-        style={{ animation: 'fadeInUp 0.7s ease-out 1s both' }}
-      >
-        <div className="border-t border-white/20 pt-6">
-          <p className="text-white/65 text-sm text-center leading-relaxed">
+      {/* Emotional hook — splash explosion */}
+      <div className="w-full max-w-xs mb-9 relative">
+        <div className="border-t border-white/20 pt-5">
+          <p
+            className="text-white/55 text-sm text-center leading-relaxed"
+            style={{ animation: 'fadeInUp 0.5s ease-out 1.8s both' }}
+          >
             {t(
               'El 87% de las personas con discapacidad dicen que viajar es complicado.',
               '87% of people with disabilities say travel is complicated.'
             )}
           </p>
-          <p className="text-orange-400 text-xl font-extrabold text-center mt-1.5">
-            {t('AllGo Travel lo hace posible.', 'AllGo Travel makes it possible.')}
-          </p>
+
+          {/* SPLASH container */}
+          <div className="relative flex items-center justify-center mt-4">
+            {/* Burst rings */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="absolute w-48 h-12 rounded-full bg-orange-400/20"
+                style={{ animation: 'splashRing 1s cubic-bezier(0,0.5,0.5,1) 2.2s both' }} />
+              <div className="absolute w-64 h-16 rounded-full bg-orange-400/10"
+                style={{ animation: 'splashRing 1s cubic-bezier(0,0.5,0.5,1) 2.35s both' }} />
+              <div className="absolute w-80 h-20 rounded-full bg-orange-300/8"
+                style={{ animation: 'splashRing 1s cubic-bezier(0,0.5,0.5,1) 2.5s both' }} />
+            </div>
+            {/* Spark dots */}
+            {[0,45,90,135,180,225,270,315].map((deg, i) => (
+              <div
+                key={i}
+                className="absolute w-2 h-2 rounded-full bg-orange-400"
+                style={{
+                  animation: `spark 0.7s ease-out ${(2.2 + i * 0.03).toFixed(2)}s both`,
+                  ['--spark-x' as string]: `${Math.cos(deg * Math.PI / 180) * 60}px`,
+                  ['--spark-y' as string]: `${Math.sin(deg * Math.PI / 180) * 24}px`,
+                }}
+              />
+            ))}
+            {/* The text itself */}
+            <p
+              className="relative z-10 text-orange-400 text-2xl font-extrabold text-center leading-tight px-2"
+              style={{
+                animation: 'splashText 0.7s cubic-bezier(0.36, 0.07, 0.19, 0.97) 2.1s both, splashGlow 2s ease-in-out 2.8s infinite',
+              }}
+            >
+              {t('AllGo Travel lo hace posible.', 'AllGo Travel makes it possible.')}
+            </p>
+          </div>
         </div>
       </div>
 
       <button
         onClick={onNext}
         className="bg-orange-500 hover:bg-orange-400 active:scale-95 text-white font-extrabold text-xl px-14 py-5 rounded-full shadow-2xl shadow-orange-500/40 transition-all duration-200"
-        style={{ animation: 'fadeInUp 0.5s ease-out 1.4s both' }}
+        style={{ animation: 'fadeInUp 0.5s ease-out 2.1s both' }}
       >
         {t('Comenzar', 'Get started')} ✨
       </button>
@@ -585,12 +648,15 @@ function StepPricing({ t, uid }: { t: T; uid: string | null }) {
           </div>
 
           <button
-            onClick={() => finish('https://pay.hotmart.com/P106494873O')}
+            onClick={() => finish('https://yadira01.gumroad.com/l/allgo-travel-app')}
             disabled={finishing}
             className="w-full bg-orange-500 hover:bg-orange-400 active:scale-[0.98] disabled:opacity-60 text-white font-extrabold text-base py-4 rounded-xl shadow-lg shadow-orange-500/30 transition-all duration-200"
           >
-            {finishing ? '···' : t('Suscribirme anual', 'Subscribe annually')} →
+            {finishing ? '···' : t('Suscribirme anual — $97/año', 'Subscribe annually — $97/year')} →
           </button>
+          <p className="text-center text-orange-200/70 text-xs mt-2">
+            {t('👉 Selecciona "Annual Plan" en la siguiente página', '👉 Select "Annual Plan" on the next page')}
+          </p>
         </div>
 
         {/* Monthly */}
@@ -642,7 +708,12 @@ export default function OnboardingPage() {
   const t: T = (es, en) => (isES ? es : en)
 
   const router = useRouter()
+  const pathname = usePathname()
   const supabase = createSupabaseBrowser()
+
+  const switchLocale = (next: string) => {
+    router.replace(pathname, { locale: next })
+  }
 
   const [step, setStep] = useState(0)
   const [entryDir, setEntryDir] = useState<'right' | 'left'>('right')
@@ -755,6 +826,37 @@ export default function OnboardingPage() {
           80%  { transform: scale(0.92) rotate(-3deg); }
           100% { transform: scale(1) rotate(0deg);     opacity: 1; }
         }
+        @keyframes letterPop {
+          0%   { opacity: 0; transform: translateY(20px) scale(0.6) rotate(-8deg); }
+          60%  { opacity: 1; transform: translateY(-4px) scale(1.1) rotate(2deg); }
+          80%  { transform: translateY(2px) scale(0.97) rotate(-1deg); }
+          100% { opacity: 1; transform: translateY(0) scale(1) rotate(0deg); }
+        }
+        @keyframes shimmer {
+          0%, 100% { opacity: 1; }
+          50%       { opacity: 0.65; }
+        }
+        @keyframes splashText {
+          0%   { opacity: 0; transform: scale(0.3) rotate(-6deg); filter: blur(8px); }
+          55%  { opacity: 1; transform: scale(1.22) rotate(2deg); filter: blur(0); }
+          75%  { transform: scale(0.95) rotate(-1deg); }
+          90%  { transform: scale(1.06); }
+          100% { opacity: 1; transform: scale(1) rotate(0deg); }
+        }
+        @keyframes splashGlow {
+          0%, 100% { text-shadow: 0 0 20px rgba(249,115,22,0.8), 0 0 40px rgba(249,115,22,0.4); }
+          50%       { text-shadow: 0 0 30px rgba(249,115,22,1),   0 0 60px rgba(249,115,22,0.6); }
+        }
+        @keyframes splashRing {
+          0%   { opacity: 0.8; transform: scale(0.1); }
+          60%  { opacity: 0.4; }
+          100% { opacity: 0;   transform: scale(1); }
+        }
+        @keyframes spark {
+          0%   { opacity: 1; transform: translate(0, 0) scale(1.2); }
+          80%  { opacity: 0.6; }
+          100% { opacity: 0;   transform: translate(var(--spark-x), var(--spark-y)) scale(0.2); }
+        }
         .slide-right { animation: slideFromRight 0.38s cubic-bezier(0.22, 1, 0.36, 1) both; }
         .slide-left  { animation: slideFromLeft  0.38s cubic-bezier(0.22, 1, 0.36, 1) both; }
       `}</style>
@@ -766,6 +868,26 @@ export default function OnboardingPage() {
         <div className="fixed bottom-8 left-6 w-96 h-96 bg-teal-400/10 rounded-full blur-3xl pointer-events-none" />
         <div className="fixed top-1/2 left-1/4 w-56 h-56 bg-blue-400/10 rounded-full blur-2xl pointer-events-none" />
         <div className="fixed top-3/4 right-1/4 w-40 h-40 bg-orange-300/5 rounded-full blur-2xl pointer-events-none" />
+
+        {/* Language switcher — always visible top-right */}
+        <div className="fixed top-4 right-4 z-[100] flex gap-1 bg-blue-950/80 backdrop-blur-sm border border-white/30 rounded-xl p-1.5 shadow-lg">
+          <button
+            onClick={() => switchLocale('es')}
+            className={`px-3 py-1.5 rounded-lg text-sm font-bold transition-all duration-200 ${
+              locale === 'es' ? 'bg-orange-500 text-white shadow' : 'text-white/70 hover:text-white hover:bg-white/10'
+            }`}
+          >
+            🇲🇽 ES
+          </button>
+          <button
+            onClick={() => switchLocale('en')}
+            className={`px-3 py-1.5 rounded-lg text-sm font-bold transition-all duration-200 ${
+              locale === 'en' ? 'bg-orange-500 text-white shadow' : 'text-white/70 hover:text-white hover:bg-white/10'
+            }`}
+          >
+            🇺🇸 EN
+          </button>
+        </div>
 
         {/* Progress dots — steps 0–4 only */}
         {showProgress && (
