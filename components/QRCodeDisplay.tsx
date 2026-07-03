@@ -2,7 +2,7 @@
 
 import { QRCodeSVG } from 'qrcode.react'
 
-const APP_URL = 'https://allgotravel-app-six.vercel.app'
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://allgotravel.app'
 
 export default function QRCodeDisplay() {
   return (
