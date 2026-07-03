@@ -161,6 +161,8 @@ export default async function DashboardPage() {
     .eq('id', user.id)
     .single()
 
+  if (!profile?.onboarding_completed) redirect('/onboarding')
+
   const safeProfile: Profile = {
     id: user.id,
     email: user.email ?? '',

@@ -28,7 +28,7 @@ export default function RegisterPage() {
       setError(error.message)
       setLoading(false)
     } else {
-      router.push('/perfil')
+      router.push('/onboarding')
     }
   }
 

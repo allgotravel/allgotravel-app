@@ -32,6 +32,7 @@ export interface Profile {
   is_group_profile: boolean
   group_members: GroupMember[]
   preferred_language: 'es' | 'en'
+  onboarding_completed?: boolean
   created_at: string
   updated_at: string
 }
