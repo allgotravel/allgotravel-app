@@ -4,7 +4,6 @@ import { createSupabaseServer } from '@/lib/supabase-server'
 import { Link } from '@/i18n/navigation'
 import { Profile } from '@/types/profile'
 import Image from 'next/image'
-import FamiliaIllustration from '@/components/FamiliaIllustration'
 
 export const dynamic = 'force-dynamic'
 
@@ -393,7 +392,7 @@ export default async function DashboardPage({
           <div className="flex flex-col sm:flex-row gap-6 items-center sm:items-start">
             <div className="flex flex-col items-center gap-3 shrink-0">
               <div className="w-36 rounded-2xl overflow-hidden shadow-xl ring-4 ring-orange-100">
-                <FamiliaIllustration className="w-full h-auto" />
+                <Image src="/yadira-familia.jpg" alt="Yadira, su familia y su perrita" width={144} height={180} className="object-cover w-full h-auto" />
               </div>
               <div className="text-center">
                 <p className="font-bold text-blue-700 text-sm">Yadira y familia</p>
