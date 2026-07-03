@@ -150,7 +150,12 @@ function AlliTipCard() {
   )
 }
 
-export default async function DashboardPage() {
+export default async function DashboardPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await params
   const supabase = await createSupabaseServer()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
@@ -162,6 +167,11 @@ export default async function DashboardPage() {
     .single()
 
   if (!profile?.onboarding_completed) redirect('/onboarding')
+
+  // Block access if subscription is explicitly 'free' (column exists but unpaid)
+  if (profile && profile.subscription_status === 'free') {
+    redirect(`/${locale}/paywall`)
+  }
 
   const safeProfile: Profile = {
     id: user.id,
