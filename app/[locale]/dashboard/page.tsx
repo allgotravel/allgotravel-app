@@ -389,15 +389,14 @@ export default async function DashboardPage({
           <div className="flex items-center gap-2 mb-4">
             <span className="inline-block bg-orange-100 text-orange-600 text-xs font-bold px-3 py-1 rounded-full">💛 Nuestra Historia</span>
           </div>
-          <div className="flex flex-col sm:flex-row gap-6 items-center sm:items-start">
-            <div className="flex flex-col items-center gap-3 shrink-0">
-              <div className="w-36 rounded-2xl overflow-hidden shadow-xl ring-4 ring-orange-100">
-                <Image src="/yadira-familia.jpg" alt="Yadira, su familia y su perrita" width={144} height={180} className="object-cover w-full h-auto" />
-              </div>
-              <div className="text-center">
-                <p className="font-bold text-blue-700 text-sm">Yadira y familia</p>
-                <p className="text-gray-400 text-xs">Fundadora · AllGo Travel</p>
-              </div>
+          <div className="flex flex-col gap-4">
+            {/* Imagen completa, sin recorte */}
+            <div className="rounded-2xl overflow-hidden shadow-xl ring-4 ring-orange-100 w-full">
+              <Image src="/yadira-familia.jpg" alt="Yadira, su familia y su perrita" width={720} height={1195} className="w-full h-auto block" />
+            </div>
+            <div className="text-center">
+              <p className="font-bold text-blue-700 text-sm">Yadira y familia</p>
+              <p className="text-gray-400 text-xs">Fundadora · AllGo Travel</p>
             </div>
             <div className="space-y-3 text-gray-600 text-sm leading-relaxed">
               <p><strong className="text-gray-900">AllGo Travel nació de una historia personal.</strong></p>
