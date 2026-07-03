@@ -5,7 +5,7 @@ if [ -f .git/index.lock ]; then
 fi
 echo "Subiendo cambios a Vercel..."
 git add -A
-git commit -m "fix: splash rings y sparks en loop infinito"
+git commit -m "fix: splash loop, botones anuales a Hotmart, sin Gumroad"
 git push origin main
 echo ""
 echo "✅ Listo! Vercel va a redesplegar en 1-2 minutos."

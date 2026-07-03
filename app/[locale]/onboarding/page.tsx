@@ -648,14 +648,14 @@ function StepPricing({ t, uid }: { t: T; uid: string | null }) {
           </div>
 
           <button
-            onClick={() => finish('https://yadira01.gumroad.com/l/allgo-travel-app')}
+            onClick={() => finish('https://go.hotmart.com/P106494873O?dp=1')}
             disabled={finishing}
             className="w-full bg-orange-500 hover:bg-orange-400 active:scale-[0.98] disabled:opacity-60 text-white font-extrabold text-base py-4 rounded-xl shadow-lg shadow-orange-500/30 transition-all duration-200"
           >
             {finishing ? '···' : t('Suscribirme anual — $97/año', 'Subscribe annually — $97/year')} →
           </button>
           <p className="text-center text-orange-200/70 text-xs mt-2">
-            {t('👉 Selecciona "Annual Plan" en la siguiente página', '👉 Select "Annual Plan" on the next page')}
+            {t('✅ Pago seguro con Hotmart', '✅ Secure payment with Hotmart')}
           </p>
         </div>
 
