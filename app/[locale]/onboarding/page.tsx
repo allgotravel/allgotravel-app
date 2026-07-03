@@ -513,8 +513,8 @@ function StepReady({
           style={{ animation: 'fadeInUp 0.5s ease-out 0.4s both' }}
         >
           {t(
-            'Un último paso para desbloquear todo lo que AllGo tiene para ti...',
-            'One last step to unlock everything AllGo has for you...'
+            'Antes de comenzar, déjame mostrarte algo especial...',
+            'Before we start, let me show you something special...'
           )}
         </p>
 
@@ -523,16 +523,140 @@ function StepReady({
           className="bg-orange-500 hover:bg-orange-400 active:scale-95 text-white font-extrabold text-xl px-14 py-5 rounded-full shadow-2xl shadow-orange-500/40 transition-all duration-200"
           style={{ animation: 'fadeInUp 0.5s ease-out 0.7s both' }}
         >
-          {t('Ver qué incluye', "See what's included")} →
+          {t('Ver mi preview personalizado', 'See my personalized preview')} →
         </button>
       </div>
     </div>
   )
 }
 
-// ─── Step 5: Value + Pricing ──────────────────────────────────────────────
+// ─── Step 5: Alli Value Preview (personalized) ───────────────────────────
 
-function StepPricing({ t, uid }: { t: T; uid: string | null }) {
+const ALLI_INSIGHTS: Record<string, { emoji: string; es: string; en: string }> = {
+  motriz: {
+    emoji: '🏖️',
+    es: 'Encontré 12 hoteles en Cancún con acceso en silla de ruedas, elevadores de piscina y habitaciones adaptadas.',
+    en: 'I found 12 hotels in Cancún with wheelchair access, pool lifts, and adapted rooms.',
+  },
+  visual: {
+    emoji: '🛫',
+    es: 'Puedo solicitar asistencia de abordaje anticipado en tu nombre en cualquier aeropuerto del mundo.',
+    en: 'I can request pre-boarding assistance on your behalf at any airport in the world.',
+  },
+  auditiva: {
+    emoji: '💬',
+    es: 'Tengo tarjetas de comunicación de emergencia listas en 5 idiomas para tu próximo viaje.',
+    en: 'I have emergency communication cards ready in 5 languages for your next trip.',
+  },
+  autismo: {
+    emoji: '🗺️',
+    es: 'Antes de cada vuelo te preparo el mapa del aeropuerto y los horarios para evitar sorpresas.',
+    en: 'Before each flight I'll prepare the airport map and schedules to avoid surprises.',
+  },
+  cognitiva: {
+    emoji: '📋',
+    es: 'Preparo tu itinerario paso a paso, en lenguaje simple y en el idioma que prefieras.',
+    en: 'I create your itinerary step by step, in simple language and your preferred language.',
+  },
+  cronica_invisible: {
+    emoji: '🏥',
+    es: 'Identifico hospitales y farmacias cerca de tu hotel en cada destino que planifiques.',
+    en: 'I find hospitals and pharmacies near your hotel for every destination you plan.',
+  },
+  animal_servicio: {
+    emoji: '🐕',
+    es: 'Tengo las regulaciones para animales de servicio en 22 países — listas para ti ahora mismo.',
+    en: 'I have service animal regulations for 22 countries — ready for you right now.',
+  },
+  mixta: {
+    emoji: '👨‍👩‍👧',
+    es: 'Planifico para cada miembro de tu grupo con sus necesidades específicas en un solo viaje.',
+    en: 'I plan for each group member with their specific needs in one trip.',
+  },
+}
+
+function StepValuePreview({
+  t,
+  firstName,
+  selected,
+  onNext,
+}: {
+  t: T
+  firstName: string
+  selected: string[]
+  onNext: () => void
+}) {
+  const primaryDisability = selected.find((s) => ALLI_INSIGHTS[s]) ?? ''
+  const insight = primaryDisability
+    ? ALLI_INSIGHTS[primaryDisability]
+    : {
+        emoji: '🌍',
+        es: 'Puedo planificar tu viaje accesible a cualquier destino del mundo en segundos.',
+        en: 'I can plan your accessible trip to any destination in the world in seconds.',
+      }
+
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center px-6 pt-20 pb-16 text-center">
+      {/* Alli avatar */}
+      <div className="relative mb-5">
+        <div
+          className="w-24 h-24 rounded-full bg-gradient-to-br from-teal-400 to-blue-500 flex items-center justify-center shadow-2xl shadow-teal-500/40"
+          style={{ animation: 'floatY 3s ease-in-out infinite' }}
+        >
+          <span className="text-5xl">🌍</span>
+        </div>
+        <div className="absolute -bottom-1 -right-1 bg-green-400 w-5 h-5 rounded-full border-2 border-blue-900 flex items-center justify-center">
+          <span className="text-white text-xs font-bold">✓</span>
+        </div>
+      </div>
+
+      <p
+        className="text-white/60 text-sm mb-3"
+        style={{ animation: 'fadeInUp 0.4s ease-out 0.2s both' }}
+      >
+        {t(`Alli ya revisó tu perfil, ${firstName} 👀`, `Alli already reviewed your profile, ${firstName} 👀`)}
+      </p>
+
+      {/* Speech bubble — personalized insight */}
+      <div
+        className="relative bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl rounded-tl-sm px-6 py-5 max-w-sm mb-3 text-left"
+        style={{ animation: 'fadeInUp 0.5s ease-out 0.4s both' }}
+      >
+        <p className="text-white text-base leading-relaxed font-medium">
+          <span className="text-2xl mr-2">{insight.emoji}</span>
+          {t(insight.es, insight.en)}
+        </p>
+        {/* Bubble tail */}
+        <div
+          className="absolute -top-2.5 left-5 w-5 h-5 bg-white/10 border-t border-l border-white/20"
+          style={{ transform: 'rotate(45deg)', borderRadius: '4px 0 0 0' }}
+        />
+      </div>
+
+      <p
+        className="text-white/45 text-xs mb-10 max-w-xs leading-relaxed"
+        style={{ animation: 'fadeInUp 0.4s ease-out 0.7s both' }}
+      >
+        {t(
+          'Esto es solo una muestra. Con AllGo tienes a Alli disponible 24/7 para cada viaje.',
+          'This is just a sample. With AllGo you have Alli available 24/7 for every trip.'
+        )}
+      </p>
+
+      <button
+        onClick={onNext}
+        className="bg-orange-500 hover:bg-orange-400 active:scale-95 text-white font-extrabold text-xl px-14 py-5 rounded-full shadow-2xl shadow-orange-500/40 transition-all duration-200"
+        style={{ animation: 'fadeInUp 0.5s ease-out 0.9s both' }}
+      >
+        {t('Ver mi plan completo', 'See my full plan')} →
+      </button>
+    </div>
+  )
+}
+
+// ─── Step 6: Value + Pricing ──────────────────────────────────────────────
+
+function StepPricing({ t, uid }: { t: T; uid: string | null }) { // step 6
   const router = useRouter()
   const supabase = createSupabaseBrowser()
   const [finishing, setFinishing] = useState(false)
@@ -789,8 +913,8 @@ export default function OnboardingPage() {
 
   const displayName = firstName.trim() || t('viajero/a', 'traveler')
 
-  // Step 5 (pricing) gets its own full-page layout — no progress dots, no back button
-  const showProgress = step < 5
+  // Step 6 (pricing) gets its own full-page layout — no progress dots, no back button
+  const showProgress = step < 6
   const showBack = step > 0 && step < 4
 
   return (
@@ -891,10 +1015,10 @@ export default function OnboardingPage() {
           </button>
         </div>
 
-        {/* Progress dots — steps 0–4 only */}
+        {/* Progress dots — steps 0–5 only */}
         {showProgress && (
           <div className="fixed top-0 inset-x-0 z-50 flex justify-center items-center gap-3 py-4">
-            {Array.from({ length: 5 }, (_, i) => (
+            {Array.from({ length: 6 }, (_, i) => (
               <div
                 key={i}
                 className="rounded-full transition-all duration-500"
@@ -963,7 +1087,15 @@ export default function OnboardingPage() {
               onNext={handleNext}
             />
           )}
-          {step === 5 && <StepPricing t={t} uid={uid} />}
+          {step === 5 && (
+            <StepValuePreview
+              t={t}
+              firstName={displayName}
+              selected={selected}
+              onNext={handleNext}
+            />
+          )}
+          {step === 6 && <StepPricing t={t} uid={uid} />}
         </div>
       </div>
     </>
