@@ -23,14 +23,25 @@ const CONFETTI_DATA = Array.from({ length: 60 }, (_, i) => ({
 }))
 
 const DISABILITY_OPTIONS = [
-  { id: 'motriz',            emoji: '♿',  es: 'Movilidad reducida',    en: 'Reduced mobility' },
-  { id: 'visual',            emoji: '👁️', es: 'Discapacidad visual',   en: 'Visual impairment' },
-  { id: 'auditiva',          emoji: '👂', es: 'Discapacidad auditiva', en: 'Hearing impairment' },
-  { id: 'autismo',           emoji: '🧩', es: 'Autismo',               en: 'Autism' },
-  { id: 'cognitiva',         emoji: '🧠', es: 'Discapacidad cognitiva',en: 'Cognitive disability' },
-  { id: 'cronica_invisible', emoji: '🫀', es: 'Enfermedad invisible',  en: 'Invisible illness' },
-  { id: 'animal_servicio',   emoji: '🐕', es: 'Animal de servicio',    en: 'Service animal' },
+  { id: 'motriz',            emoji: '♿',  es: 'Movilidad reducida',     en: 'Reduced mobility' },
+  { id: 'visual',            emoji: '👁️', es: 'Discapacidad visual',    en: 'Visual impairment' },
+  { id: 'auditiva',          emoji: '👂', es: 'Discapacidad auditiva',  en: 'Hearing impairment' },
+  { id: 'autismo',           emoji: '🧩', es: 'Autismo',                en: 'Autism' },
+  { id: 'cognitiva',         emoji: '🧠', es: 'Discapacidad cognitiva', en: 'Cognitive disability' },
+  { id: 'cronica_invisible', emoji: '🫀', es: 'Enfermedad invisible',   en: 'Invisible illness' },
+  { id: 'animal_servicio',   emoji: '🐕', es: 'Animal de servicio',     en: 'Service animal' },
   { id: 'mixta',             emoji: '👨‍👩‍👧', es: 'Viajo con familia',   en: 'Traveling with family' },
+]
+
+const FEATURES = [
+  { es: 'Alli 🌍 — Tu asistente IA disponible 24/7',                     en: 'Alli 🌍 — Your AI assistant available 24/7' },
+  { es: '24+ destinos verificados con rating de accesibilidad real',      en: '24+ verified destinations with real accessibility ratings' },
+  { es: 'Planificador familiar con IA personalizada',                     en: 'Family planner with personalized AI' },
+  { es: 'Tarjeta Médica de Viaje en múltiples idiomas',                   en: 'Travel Medical Card in multiple languages' },
+  { es: 'Tarjeta de Comunicación de emergencia',                          en: 'Emergency Communication Card' },
+  { es: 'Guías de regulaciones para animales de servicio',                en: 'Service animal regulation guides' },
+  { es: 'Acceso desde cualquier teléfono o tablet',                       en: 'Access from any phone or tablet' },
+  { es: 'En español e inglés, siempre disponible',                        en: 'In Spanish and English, always available' },
 ]
 
 type T = (es: string, en: string) => string
@@ -41,7 +52,7 @@ type FamilyMember = { name: string; disability: string }
 function StepWelcome({ t, onNext }: { t: T; onNext: () => void }) {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-6 pt-20 pb-16 text-center">
-      {/* Logo with pulsing ring */}
+      {/* Logo with double pulsing ring */}
       <div className="relative mb-8">
         <div
           className="absolute -inset-4 rounded-full bg-orange-400/25"
@@ -62,15 +73,17 @@ function StepWelcome({ t, onNext }: { t: T; onNext: () => void }) {
       <h1 className="text-4xl sm:text-5xl font-extrabold text-white leading-tight mb-3">
         {t('Bienvenido a', 'Welcome to')}{' '}
         <span className="text-orange-400">AllGo Travel</span>{' '}
-        <span className="inline-block" style={{ animation: 'floatY 2s ease-in-out infinite 0.2s' }}>🌍</span>
+        <span className="inline-block" style={{ animation: 'floatY 2s ease-in-out infinite 0.2s' }}>
+          🌍
+        </span>
       </h1>
-      <p className="text-white/65 text-lg mb-12 max-w-xs">
+      <p className="text-white/65 text-lg mb-10 max-w-xs">
         {t('Tu compañero de viajes accesibles', 'Your accessible travel companion')}
       </p>
 
       {/* Alli speech bubble */}
       <div
-        className="relative bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl rounded-bl-sm px-5 py-4 max-w-xs mb-14 text-left"
+        className="relative bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl rounded-bl-sm px-5 py-4 max-w-xs mb-8 text-left"
         style={{ animation: 'floatY 4s ease-in-out infinite 0.8s' }}
       >
         <div className="flex items-start gap-3">
@@ -88,9 +101,28 @@ function StepWelcome({ t, onNext }: { t: T; onNext: () => void }) {
         />
       </div>
 
+      {/* ── Emotional hook — animated in with 1s delay ── */}
+      <div
+        className="w-full max-w-xs mb-10"
+        style={{ animation: 'fadeInUp 0.7s ease-out 1s both' }}
+      >
+        <div className="border-t border-white/20 pt-6">
+          <p className="text-white/65 text-sm text-center leading-relaxed">
+            {t(
+              'El 87% de las personas con discapacidad dicen que viajar es complicado.',
+              '87% of people with disabilities say travel is complicated.'
+            )}
+          </p>
+          <p className="text-orange-400 text-xl font-extrabold text-center mt-1.5">
+            {t('AllGo Travel lo hace posible.', 'AllGo Travel makes it possible.')}
+          </p>
+        </div>
+      </div>
+
       <button
         onClick={onNext}
         className="bg-orange-500 hover:bg-orange-400 active:scale-95 text-white font-extrabold text-xl px-14 py-5 rounded-full shadow-2xl shadow-orange-500/40 transition-all duration-200"
+        style={{ animation: 'fadeInUp 0.5s ease-out 1.4s both' }}
       >
         {t('Comenzar', 'Get started')} ✨
       </button>
@@ -115,7 +147,10 @@ function StepName({
 }) {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-6 pt-20 pb-16 text-center">
-      <div className="text-6xl mb-6 select-none" style={{ animation: 'floatY 3.5s ease-in-out infinite' }}>
+      <div
+        className="text-6xl mb-6 select-none"
+        style={{ animation: 'floatY 3.5s ease-in-out infinite' }}
+      >
         👤
       </div>
       <h1 className="text-3xl sm:text-4xl font-extrabold text-white mb-3">
@@ -260,7 +295,10 @@ function StepGroup({
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 pt-20 pb-16">
       <div className="text-center mb-8">
-        <div className="text-5xl mb-4 select-none" style={{ animation: 'floatY 3s ease-in-out infinite' }}>
+        <div
+          className="text-5xl mb-4 select-none"
+          style={{ animation: 'floatY 3s ease-in-out infinite' }}
+        >
           ✈️
         </div>
         <h1 className="text-2xl sm:text-3xl font-extrabold text-white mb-2">
@@ -304,7 +342,6 @@ function StepGroup({
         ))}
       </div>
 
-      {/* Family member form */}
       {travelSolo === false && (
         <div
           className="w-full max-w-xs mb-6 space-y-3"
@@ -365,18 +402,16 @@ function StepGroup({
   )
 }
 
-// ─── Step 4: All Done! ────────────────────────────────────────────────────
+// ─── Step 4: Profile ready — transition to pricing ────────────────────────
 
-function StepDone({
+function StepReady({
   t,
   firstName,
   onNext,
-  saving,
 }: {
   t: T
   firstName: string
   onNext: () => void
-  saving: boolean
 }) {
   return (
     <div className="relative min-h-screen flex flex-col items-center justify-center px-6 pt-16 pb-16 text-center overflow-hidden">
@@ -399,7 +434,6 @@ function StepDone({
         />
       ))}
 
-      {/* Celebration content */}
       <div className="relative z-20">
         <div
           className="text-8xl sm:text-9xl mb-6 select-none leading-none"
@@ -409,47 +443,193 @@ function StepDone({
         </div>
 
         <h1 className="text-3xl sm:text-4xl font-extrabold text-white mb-3 leading-tight">
-          {t(`¡Todo listo, ${firstName}!`, `You're all set, ${firstName}!`)}
+          {t(`¡Tu perfil está listo, ${firstName}!`, `Your profile is ready, ${firstName}!`)}
         </h1>
-        <p className="text-white/70 mb-10 max-w-xs mx-auto text-base">
+        <p
+          className="text-white/70 mb-10 max-w-xs mx-auto text-base"
+          style={{ animation: 'fadeInUp 0.5s ease-out 0.4s both' }}
+        >
           {t(
-            'Alli ya conoce tus necesidades. ¡Empieza a explorar!',
-            'Alli now knows your needs. Start exploring!'
+            'Un último paso para desbloquear todo lo que AllGo tiene para ti...',
+            'One last step to unlock everything AllGo has for you...'
           )}
         </p>
 
-        {/* Benefit icons row */}
-        <div className="flex justify-center gap-5 mb-12">
-          {[
-            { icon: '✈️', label: t('Destinos', 'Destinations') },
-            { icon: '🤖', label: 'Alli' },
-            { icon: '🗺️', label: t('Planificador', 'Planner') },
-          ].map((b, i) => (
+        <button
+          onClick={onNext}
+          className="bg-orange-500 hover:bg-orange-400 active:scale-95 text-white font-extrabold text-xl px-14 py-5 rounded-full shadow-2xl shadow-orange-500/40 transition-all duration-200"
+          style={{ animation: 'fadeInUp 0.5s ease-out 0.7s both' }}
+        >
+          {t('Ver qué incluye', "See what's included")} →
+        </button>
+      </div>
+    </div>
+  )
+}
+
+// ─── Step 5: Value + Pricing ──────────────────────────────────────────────
+
+function StepPricing({ t, uid }: { t: T; uid: string | null }) {
+  const router = useRouter()
+  const supabase = createSupabaseBrowser()
+  const [finishing, setFinishing] = useState(false)
+
+  const finish = async (destination: string) => {
+    setFinishing(true)
+    if (uid) {
+      await supabase.from('profiles').update({ onboarding_completed: true }).eq('id', uid)
+    }
+    if (destination === 'dashboard') {
+      router.push('/dashboard')
+    } else {
+      window.location.href = destination
+    }
+  }
+
+  return (
+    <div className="min-h-screen overflow-y-auto flex flex-col items-center pt-8 pb-12 px-4">
+      {/* Emotional hook */}
+      <div
+        className="text-center mb-8 max-w-xs pt-12"
+        style={{ animation: 'fadeInUp 0.5s ease-out 0.1s both' }}
+      >
+        <p className="text-white/80 text-base italic leading-relaxed">
+          {t('Tú mereces explorar el mundo.', 'You deserve to explore the world.')}
+        </p>
+        <p className="text-white font-bold text-lg italic leading-relaxed mt-1">
+          {t(
+            'Sin barreras. Sin preocupaciones. Sin límites.',
+            'Without barriers. Without worries. Without limits.'
+          )}
+        </p>
+      </div>
+
+      {/* Headline */}
+      <h1
+        className="text-2xl sm:text-3xl font-extrabold text-white text-center mb-7 max-w-xs leading-snug"
+        style={{ animation: 'fadeInUp 0.5s ease-out 0.25s both' }}
+      >
+        {t(
+          'Todo esto te espera con AllGo Travel',
+          'Everything waiting for you with AllGo Travel'
+        )}
+      </h1>
+
+      {/* Feature list — staggered */}
+      <div className="w-full max-w-sm space-y-2.5 mb-7">
+        {FEATURES.map((f, i) => (
+          <div
+            key={i}
+            className="flex items-start gap-3 bg-white/10 border border-white/15 rounded-xl px-4 py-3"
+            style={{ animation: `fadeInUp 0.4s ease-out ${(i * 0.08 + 0.35).toFixed(2)}s both` }}
+          >
+            <span className="text-green-400 text-lg leading-none mt-0.5 shrink-0">✅</span>
+            <span className="text-white/90 text-sm leading-snug">{t(f.es, f.en)}</span>
+          </div>
+        ))}
+      </div>
+
+      {/* Social proof */}
+      <div
+        className="flex items-center gap-2 mb-7 max-w-xs"
+        style={{ animation: 'fadeInUp 0.4s ease-out 1.1s both' }}
+      >
+        <div className="flex -space-x-1.5 shrink-0">
+          {['#F97316', '#1B6FB5', '#0D9488', '#8B5CF6'].map((c, i) => (
             <div
-              key={b.label}
-              className="flex flex-col items-center gap-2"
-              style={{ animation: `fadeInUp 0.4s ease-out ${(i * 0.1 + 0.3).toFixed(1)}s both` }}
+              key={i}
+              className="w-7 h-7 rounded-full border-2 border-blue-900 flex items-center justify-center text-xs font-bold text-white shadow"
+              style={{ backgroundColor: c }}
             >
-              <div className="w-16 h-16 bg-white/15 backdrop-blur-sm border border-white/20 rounded-2xl flex items-center justify-center text-2xl shadow-lg shadow-black/20">
-                {b.icon}
-              </div>
-              <span className="text-white/70 text-xs font-semibold">{b.label}</span>
+              {['M', 'L', 'A', 'R'][i]}
             </div>
           ))}
         </div>
-
-        <button
-          onClick={onNext}
-          disabled={saving}
-          className="bg-orange-500 hover:bg-orange-400 active:scale-95 disabled:opacity-50 text-white font-extrabold text-xl px-14 py-5 rounded-full shadow-2xl shadow-orange-500/40 transition-all duration-200"
-          style={{
-            animation: saving ? undefined : 'floatY 2.5s ease-in-out infinite',
-          }}
-        >
-          {saving ? '···' : t('¡Ir al Dashboard!', 'Go to Dashboard!')}
-          {!saving && ' 🚀'}
-        </button>
+        <p className="text-white/60 text-xs leading-snug">
+          {t(
+            'Miles de viajeros con discapacidad ya planifican sus viajes con AllGo',
+            'Thousands of travelers with disabilities already plan their trips with AllGo'
+          )}
+        </p>
       </div>
+
+      {/* Pricing cards */}
+      <div
+        className="flex flex-col gap-4 w-full max-w-sm mb-5"
+        style={{ animation: 'fadeInUp 0.5s ease-out 1.2s both' }}
+      >
+        {/* Annual — recommended */}
+        <div className="relative bg-gradient-to-br from-orange-500/25 to-orange-600/10 border-2 border-orange-400 rounded-2xl p-5 shadow-xl shadow-orange-500/20">
+          {/* Recommended badge */}
+          <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-orange-400 text-white text-xs font-extrabold px-4 py-1 rounded-full shadow-md whitespace-nowrap">
+            ⭐ {t('Más popular', 'Most popular')}
+          </div>
+
+          <div className="flex items-start justify-between mb-3 mt-1">
+            <div>
+              <p className="text-white font-extrabold text-lg leading-tight">
+                {t('Plan Anual', 'Annual Plan')}
+              </p>
+              <div className="flex items-center gap-2 mt-1">
+                <span className="bg-orange-400 text-white text-xs font-bold px-2.5 py-0.5 rounded-full">
+                  {t('Ahorra 46%', 'Save 46%')}
+                </span>
+                <span className="text-white/50 text-xs line-through">$276</span>
+              </div>
+            </div>
+            <div className="text-right shrink-0">
+              <p className="text-orange-300 font-extrabold text-3xl leading-none">$97</p>
+              <p className="text-white/55 text-xs mt-0.5">{t('/año', '/year')}</p>
+              <p className="text-white/40 text-xs">{t('≈ $8/mes', '≈ $8/mo')}</p>
+            </div>
+          </div>
+
+          <button
+            onClick={() => finish('https://pay.hotmart.com/ANUAL_PLACEHOLDER')}
+            disabled={finishing}
+            className="w-full bg-orange-500 hover:bg-orange-400 active:scale-[0.98] disabled:opacity-60 text-white font-extrabold text-base py-4 rounded-xl shadow-lg shadow-orange-500/30 transition-all duration-200"
+          >
+            {finishing ? '···' : t('Suscribirme anual', 'Subscribe annually')} →
+          </button>
+        </div>
+
+        {/* Monthly */}
+        <div className="bg-white/10 border border-white/20 rounded-2xl p-5">
+          <div className="flex items-start justify-between mb-4">
+            <div>
+              <p className="text-white font-extrabold text-lg leading-tight">
+                {t('Plan Mensual', 'Monthly Plan')}
+              </p>
+              <p className="text-white/50 text-xs mt-1">
+                {t('Sin compromiso de largo plazo', 'No long-term commitment')}
+              </p>
+            </div>
+            <div className="text-right shrink-0">
+              <p className="text-white font-extrabold text-3xl leading-none">$14.99</p>
+              <p className="text-white/55 text-xs mt-0.5">{t('/mes', '/month')}</p>
+            </div>
+          </div>
+          <button
+            onClick={() => finish('https://pay.hotmart.com/MENSUAL_PLACEHOLDER')}
+            disabled={finishing}
+            className="w-full bg-white/20 hover:bg-white/30 active:scale-[0.98] disabled:opacity-60 border border-white/30 text-white font-bold text-base py-4 rounded-xl transition-all duration-200"
+          >
+            {finishing ? '···' : t('Suscribirme mensual', 'Subscribe monthly')} →
+          </button>
+        </div>
+      </div>
+
+      <p className="text-white/40 text-xs text-center mb-6">
+        {t('Cancela cuando quieras. Sin compromisos.', 'Cancel anytime. No commitments.')}
+      </p>
+
+      <button
+        onClick={() => finish('dashboard')}
+        disabled={finishing}
+        className="text-white/45 hover:text-white/80 text-sm transition-colors underline underline-offset-2 disabled:opacity-40"
+      >
+        {t('Ya tengo membresía →', 'I already have a membership →')}
+      </button>
     </div>
   )
 }
@@ -528,15 +708,7 @@ export default function OnboardingPage() {
     } finally {
       setSaving(false)
     }
-
-    if (step === 4) {
-      if (uid) {
-        await supabase.from('profiles').update({ onboarding_completed: true }).eq('id', uid)
-      }
-      router.push('/dashboard')
-    } else {
-      goTo(step + 1)
-    }
+    goTo(step + 1)
   }
 
   const toggle = (id: string) =>
@@ -545,6 +717,10 @@ export default function OnboardingPage() {
     )
 
   const displayName = firstName.trim() || t('viajero/a', 'traveler')
+
+  // Step 5 (pricing) gets its own full-page layout — no progress dots, no back button
+  const showProgress = step < 5
+  const showBack = step > 0 && step < 4
 
   return (
     <>
@@ -558,7 +734,7 @@ export default function OnboardingPage() {
           100% { transform: scale(2);   opacity: 0; }
         }
         @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(10px); }
+          from { opacity: 0; transform: translateY(12px); }
           to   { opacity: 1; transform: translateY(0); }
         }
         @keyframes slideFromRight {
@@ -589,32 +765,33 @@ export default function OnboardingPage() {
         <div className="fixed top-10 right-8 w-80 h-80 bg-orange-400/10 rounded-full blur-3xl pointer-events-none" />
         <div className="fixed bottom-8 left-6 w-96 h-96 bg-teal-400/10 rounded-full blur-3xl pointer-events-none" />
         <div className="fixed top-1/2 left-1/4 w-56 h-56 bg-blue-400/10 rounded-full blur-2xl pointer-events-none" />
-        <div className="fixed top-3/4 right-1/4 w-40 h-40 bg-orange-300/8 rounded-full blur-2xl pointer-events-none" />
+        <div className="fixed top-3/4 right-1/4 w-40 h-40 bg-orange-300/5 rounded-full blur-2xl pointer-events-none" />
 
-        {/* Progress dots */}
-        <div className="fixed top-0 inset-x-0 z-50 flex justify-center items-center gap-3 py-4">
-          {Array.from({ length: 5 }, (_, i) => (
-            <div
-              key={i}
-              className="rounded-full transition-all duration-500"
-              style={{
-                width:  i === step ? '18px' : '10px',
-                height: i === step ? '18px' : '10px',
-                backgroundColor:
-                  i < step   ? '#ffffff' :
-                  i === step ? '#F97316' :
-                               'rgba(255,255,255,0.22)',
-                boxShadow:
-                  i === step ? '0 0 14px rgba(249,115,22,0.75)' :
-                  i < step   ? '0 0 6px rgba(255,255,255,0.4)'  : 'none',
-                transform: i === step ? 'scale(1)' : 'scale(1)',
-              }}
-            />
-          ))}
-        </div>
+        {/* Progress dots — steps 0–4 only */}
+        {showProgress && (
+          <div className="fixed top-0 inset-x-0 z-50 flex justify-center items-center gap-3 py-4">
+            {Array.from({ length: 5 }, (_, i) => (
+              <div
+                key={i}
+                className="rounded-full transition-all duration-500"
+                style={{
+                  width:  i === step ? '18px' : '10px',
+                  height: i === step ? '18px' : '10px',
+                  backgroundColor:
+                    i < step   ? '#ffffff' :
+                    i === step ? '#F97316' :
+                                 'rgba(255,255,255,0.22)',
+                  boxShadow:
+                    i === step ? '0 0 14px rgba(249,115,22,0.75)' :
+                    i < step   ? '0 0 6px rgba(255,255,255,0.4)'  : 'none',
+                }}
+              />
+            ))}
+          </div>
+        )}
 
         {/* Back button — steps 1–3 only */}
-        {step > 0 && step < 4 && (
+        {showBack && (
           <button
             onClick={() => goTo(step - 1)}
             className="fixed top-3 left-4 z-50 flex items-center gap-1 text-white/55 hover:text-white transition-colors text-sm font-medium px-2 py-2"
@@ -656,13 +833,13 @@ export default function OnboardingPage() {
             />
           )}
           {step === 4 && (
-            <StepDone
+            <StepReady
               t={t}
               firstName={displayName}
               onNext={handleNext}
-              saving={saving}
             />
           )}
+          {step === 5 && <StepPricing t={t} uid={uid} />}
         </div>
       </div>
     </>
