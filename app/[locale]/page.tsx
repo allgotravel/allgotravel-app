@@ -287,13 +287,13 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             {/* Photo / visual side */}
             <div className="flex flex-col items-center gap-6">
-              <div className="w-48 h-48 rounded-full overflow-hidden shadow-2xl ring-4 ring-orange-100">
-                <Image src="/yadira-avatar.png" alt="Yadira y su papá" width={192} height={192} className="object-cover w-full h-full" />
+              <div className="w-64 h-80 rounded-full overflow-hidden shadow-2xl ring-4 ring-orange-100 mx-auto">
+                <Image src="/yadira-familia.jpg" alt="Yadira, su familia y su perrita" width={720} height={899} className="object-cover w-full h-full" />
               </div>
               <div className="text-center">
-                <p className="font-bold text-xl text-blue-700">Yadira</p>
-                <p className="text-gray-500 text-sm">Fundadora de AllGo Travel</p>
-                <p className="text-gray-400 text-xs mt-1">con su papá — la inspiración detrás de todo</p>
+                <p className="font-bold text-xl text-blue-700">Yadira y familia</p>
+                <p className="text-gray-500 text-sm">Fundadora · AllGo Travel</p>
+                <p className="text-gray-400 text-xs mt-1">La historia detrás de AllGo Travel</p>
               </div>
               <blockquote className="bg-orange-50 border-l-4 border-orange-400 rounded-r-xl px-5 py-4 max-w-sm">
                 <p className="text-orange-700 font-semibold italic text-sm leading-relaxed">
