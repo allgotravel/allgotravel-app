@@ -391,8 +391,8 @@ export default async function DashboardPage({
           </div>
           <div className="flex flex-col sm:flex-row gap-6 items-center sm:items-start">
             <div className="flex flex-col items-center gap-3 shrink-0">
-              <div className="w-28 h-28 rounded-full overflow-hidden shadow-lg ring-4 ring-orange-100">
-                <Image src="/yadira-avatar.png" alt="Yadira y su papá" width={112} height={112} className="object-cover w-full h-full" />
+              <div className="w-40 h-40 rounded-full overflow-hidden shadow-xl ring-4 ring-orange-100">
+                <Image src="/yadira-avatar.png" alt="Yadira y su papá" width={160} height={160} className="object-cover w-full h-full" />
               </div>
               <div className="text-center">
                 <p className="font-bold text-blue-700 text-sm">Yadira</p>
