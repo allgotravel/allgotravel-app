@@ -120,6 +120,34 @@ function QuickAccessCards() {
   )
 }
 
+function NextTripCard() {
+  return (
+    <div className="bg-gradient-to-br from-[#1B6FB5] to-teal-600 rounded-2xl shadow p-6 text-white">
+      <div className="flex items-center gap-2 mb-3">
+        <span className="text-2xl">✈️</span>
+        <h2 className="font-extrabold text-lg leading-tight">¿A dónde vas después?</h2>
+      </div>
+      <p className="text-white/80 text-sm leading-relaxed mb-4">
+        Planifica tu próxima aventura accesible — Alli tiene todo listo para ti.
+      </p>
+      <div className="flex flex-col sm:flex-row gap-3">
+        <Link
+          href="/planificador"
+          className="flex-1 bg-white text-[#1B6FB5] font-bold text-sm text-center px-4 py-3 rounded-xl hover:bg-orange-50 transition shadow"
+        >
+          🗺️ Planificar viaje
+        </Link>
+        <Link
+          href="/destinos"
+          className="flex-1 bg-white/20 border border-white/30 text-white font-bold text-sm text-center px-4 py-3 rounded-xl hover:bg-white/30 transition"
+        >
+          🌍 Ver destinos
+        </Link>
+      </div>
+    </div>
+  )
+}
+
 function InstallAppBanner() {
   const t = useTranslations('dashboard')
   return (
@@ -207,6 +235,7 @@ export default async function DashboardPage({
         <ProfileSummaryCard profile={safeProfile} />
         <QuickAccessCards />
         <AlliTipCard />
+        <NextTripCard />
 
         {/* Nuestra Historia */}
         <div className="bg-white rounded-2xl shadow p-6">

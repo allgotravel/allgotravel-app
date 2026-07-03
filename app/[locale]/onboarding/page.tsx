@@ -34,14 +34,14 @@ const DISABILITY_OPTIONS = [
 ]
 
 const FEATURES = [
-  { es: 'Alli 🌍 — Tu asistente IA disponible 24/7',                     en: 'Alli 🌍 — Your AI assistant available 24/7' },
-  { es: '24+ destinos verificados con rating de accesibilidad real',      en: '24+ verified destinations with real accessibility ratings' },
-  { es: 'Planificador familiar con IA personalizada',                     en: 'Family planner with personalized AI' },
-  { es: 'Tarjeta Médica de Viaje en múltiples idiomas',                   en: 'Travel Medical Card in multiple languages' },
-  { es: 'Tarjeta de Comunicación de emergencia',                          en: 'Emergency Communication Card' },
-  { es: 'Guías de regulaciones para animales de servicio',                en: 'Service animal regulation guides' },
-  { es: 'Acceso desde cualquier teléfono o tablet',                       en: 'Access from any phone or tablet' },
-  { es: 'En español e inglés, siempre disponible',                        en: 'In Spanish and English, always available' },
+  { es: '🌍 Alli, tu asistente IA — responde en segundos, 24/7',           en: '🌍 Alli, your AI assistant — responds in seconds, 24/7' },
+  { es: '✈️ Planificador de viajes personalizado a tu discapacidad',       en: '✈️ Trip planner personalized to your disability' },
+  { es: '🗺️ 24+ destinos con rating real de accesibilidad verificado',     en: '🗺️ 24+ destinations with verified real accessibility ratings' },
+  { es: '🏥 Tarjeta Médica de Viaje — lista para imprimir o mostrar',      en: '🏥 Travel Medical Card — ready to print or show' },
+  { es: '💬 Tarjeta de Comunicación de emergencia en tu idioma',           en: '💬 Emergency Communication Card in your language' },
+  { es: '🐕 Guías de regulaciones para animales de servicio en 22 países', en: '🐕 Service animal regulation guides for 22 countries' },
+  { es: '📱 Funciona en iPhone, Android y tablet — siempre contigo',       en: '📱 Works on iPhone, Android and tablet — always with you' },
+  { es: '🇺🇸🇲🇽 Todo en español e inglés — sin barreras de idioma',       en: '🇺🇸🇲🇽 Everything in English and Spanish — no language barriers' },
 ]
 
 type T = (es: string, en: string) => string
@@ -675,10 +675,27 @@ function StepPricing({ t, uid }: { t: T; uid: string | null }) { // step 6
 
   return (
     <div className="min-h-screen overflow-y-auto flex flex-col items-center pt-8 pb-12 px-4">
+
+      {/* 🔥 Urgency banner — founder pricing */}
+      <div
+        className="w-full max-w-sm mb-5 mt-10"
+        style={{ animation: 'fadeInUp 0.4s ease-out 0.05s both' }}
+      >
+        <div className="bg-orange-500/20 border border-orange-400/50 rounded-xl px-4 py-2.5 flex items-center gap-2">
+          <span className="text-lg shrink-0">🔥</span>
+          <p className="text-orange-300 text-xs font-bold leading-snug">
+            {t(
+              'Precio de fundadores — solo por tiempo limitado. El precio subirá pronto.',
+              'Founder pricing — limited time only. Price will increase soon.'
+            )}
+          </p>
+        </div>
+      </div>
+
       {/* Emotional hook */}
       <div
-        className="text-center mb-8 max-w-xs pt-12"
-        style={{ animation: 'fadeInUp 0.5s ease-out 0.1s both' }}
+        className="text-center mb-6 max-w-xs"
+        style={{ animation: 'fadeInUp 0.5s ease-out 0.15s both' }}
       >
         <p className="text-white/80 text-base italic leading-relaxed">
           {t('Tú mereces explorar el mundo.', 'You deserve to explore the world.')}
@@ -693,24 +710,23 @@ function StepPricing({ t, uid }: { t: T; uid: string | null }) { // step 6
 
       {/* Headline */}
       <h1
-        className="text-2xl sm:text-3xl font-extrabold text-white text-center mb-7 max-w-xs leading-snug"
+        className="text-2xl sm:text-3xl font-extrabold text-white text-center mb-5 max-w-xs leading-snug"
         style={{ animation: 'fadeInUp 0.5s ease-out 0.25s both' }}
       >
         {t(
-          'Todo esto te espera con AllGo Travel',
-          'Everything waiting for you with AllGo Travel'
+          'Todo esto incluido con AllGo Travel',
+          'Everything included with AllGo Travel'
         )}
       </h1>
 
-      {/* Feature list — staggered */}
-      <div className="w-full max-w-sm space-y-2.5 mb-7">
+      {/* Feature list — staggered, more specific */}
+      <div className="w-full max-w-sm space-y-2 mb-6">
         {FEATURES.map((f, i) => (
           <div
             key={i}
-            className="flex items-start gap-3 bg-white/10 border border-white/15 rounded-xl px-4 py-3"
-            style={{ animation: `fadeInUp 0.4s ease-out ${(i * 0.08 + 0.35).toFixed(2)}s both` }}
+            className="flex items-center gap-3 bg-white/10 border border-white/15 rounded-xl px-4 py-2.5"
+            style={{ animation: `fadeInUp 0.4s ease-out ${(i * 0.07 + 0.35).toFixed(2)}s both` }}
           >
-            <span className="text-green-400 text-lg leading-none mt-0.5 shrink-0">✅</span>
             <span className="text-white/90 text-sm leading-snug">{t(f.es, f.en)}</span>
           </div>
         ))}
@@ -718,8 +734,8 @@ function StepPricing({ t, uid }: { t: T; uid: string | null }) { // step 6
 
       {/* Social proof */}
       <div
-        className="flex items-center gap-2 mb-7 max-w-xs"
-        style={{ animation: 'fadeInUp 0.4s ease-out 1.1s both' }}
+        className="flex items-center gap-2 mb-6 max-w-xs"
+        style={{ animation: 'fadeInUp 0.4s ease-out 1.0s both' }}
       >
         <div className="flex -space-x-1.5 shrink-0">
           {['#F97316', '#1B6FB5', '#0D9488', '#8B5CF6'].map((c, i) => (
@@ -734,30 +750,29 @@ function StepPricing({ t, uid }: { t: T; uid: string | null }) { // step 6
         </div>
         <p className="text-white/60 text-xs leading-snug">
           {t(
-            'Miles de viajeros con discapacidad ya planifican sus viajes con AllGo',
-            'Thousands of travelers with disabilities already plan their trips with AllGo'
+            'Cientos de viajeros con discapacidad ya confían en AllGo para cada viaje',
+            'Hundreds of travelers with disabilities already trust AllGo for every trip'
           )}
         </p>
       </div>
 
       {/* Pricing cards */}
       <div
-        className="flex flex-col gap-4 w-full max-w-sm mb-5"
-        style={{ animation: 'fadeInUp 0.5s ease-out 1.2s both' }}
+        className="flex flex-col gap-4 w-full max-w-sm mb-4"
+        style={{ animation: 'fadeInUp 0.5s ease-out 1.1s both' }}
       >
         {/* Annual — recommended */}
         <div className="relative bg-gradient-to-br from-orange-500/25 to-orange-600/10 border-2 border-orange-400 rounded-2xl p-5 shadow-xl shadow-orange-500/20">
-          {/* Recommended badge */}
           <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-orange-400 text-white text-xs font-extrabold px-4 py-1 rounded-full shadow-md whitespace-nowrap">
             ⭐ {t('Más popular', 'Most popular')}
           </div>
 
-          <div className="flex items-start justify-between mb-3 mt-1">
+          <div className="flex items-start justify-between mb-1 mt-1">
             <div>
               <p className="text-white font-extrabold text-lg leading-tight">
                 {t('Plan Anual', 'Annual Plan')}
               </p>
-              <div className="flex items-center gap-2 mt-1">
+              <div className="flex items-center gap-2 mt-1 flex-wrap">
                 <span className="bg-orange-400 text-white text-xs font-bold px-2.5 py-0.5 rounded-full">
                   {t('Ahorra 46%', 'Save 46%')}
                 </span>
@@ -767,8 +782,17 @@ function StepPricing({ t, uid }: { t: T; uid: string | null }) { // step 6
             <div className="text-right shrink-0">
               <p className="text-orange-300 font-extrabold text-3xl leading-none">$97</p>
               <p className="text-white/55 text-xs mt-0.5">{t('/año', '/year')}</p>
-              <p className="text-white/40 text-xs">{t('≈ $8/mes', '≈ $8/mo')}</p>
             </div>
+          </div>
+
+          {/* Price anchoring — per day & per month */}
+          <div className="flex items-center gap-3 mb-4 mt-2">
+            <span className="bg-white/10 rounded-lg px-3 py-1 text-xs text-white/80 font-semibold">
+              {t('≈ $8/mes', '≈ $8/mo')}
+            </span>
+            <span className="bg-green-500/20 border border-green-400/40 rounded-lg px-3 py-1 text-xs text-green-300 font-semibold">
+              {t('$0.27/día — menos que un café ☕', '$0.27/day — less than a coffee ☕')}
+            </span>
           </div>
 
           <button
@@ -776,10 +800,10 @@ function StepPricing({ t, uid }: { t: T; uid: string | null }) { // step 6
             disabled={finishing}
             className="w-full bg-orange-500 hover:bg-orange-400 active:scale-[0.98] disabled:opacity-60 text-white font-extrabold text-base py-4 rounded-xl shadow-lg shadow-orange-500/30 transition-all duration-200"
           >
-            {finishing ? '···' : t('Suscribirme anual — $97/año', 'Subscribe annually — $97/year')} →
+            {finishing ? '···' : t('Comenzar por $97/año', 'Start for $97/year')} →
           </button>
           <p className="text-center text-orange-200/70 text-xs mt-2">
-            {t('✅ Pago seguro con Hotmart', '✅ Secure payment with Hotmart')}
+            {t('✅ Pago seguro · 🔒 Garantía 7 días', '✅ Secure payment · 🔒 7-day guarantee')}
           </p>
         </div>
 
@@ -804,8 +828,29 @@ function StepPricing({ t, uid }: { t: T; uid: string | null }) { // step 6
             disabled={finishing}
             className="w-full bg-white/20 hover:bg-white/30 active:scale-[0.98] disabled:opacity-60 border border-white/30 text-white font-bold text-base py-4 rounded-xl transition-all duration-200"
           >
-            {finishing ? '···' : t('Suscribirme mensual', 'Subscribe monthly')} →
+            {finishing ? '···' : t('Comenzar mensual — $14.99', 'Start monthly — $14.99')} →
           </button>
+        </div>
+      </div>
+
+      {/* 7-day guarantee */}
+      <div
+        className="w-full max-w-sm mb-4"
+        style={{ animation: 'fadeInUp 0.4s ease-out 1.3s both' }}
+      >
+        <div className="bg-white/5 border border-white/15 rounded-xl px-4 py-3 flex items-start gap-3">
+          <span className="text-2xl shrink-0">🔒</span>
+          <div>
+            <p className="text-white font-bold text-sm">
+              {t('Garantía de satisfacción 7 días', '7-day satisfaction guarantee')}
+            </p>
+            <p className="text-white/50 text-xs mt-0.5 leading-relaxed">
+              {t(
+                'Si no estás satisfecho en los primeros 7 días, te devolvemos tu dinero. Sin preguntas.',
+                'If you\'re not satisfied in the first 7 days, we refund you. No questions asked.'
+              )}
+            </p>
+          </div>
         </div>
       </div>
 
