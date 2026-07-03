@@ -3,6 +3,7 @@ import { useTranslations } from 'next-intl'
 import { createSupabaseServer } from '@/lib/supabase-server'
 import { Link } from '@/i18n/navigation'
 import { Profile } from '@/types/profile'
+import Image from 'next/image'
 
 export const dynamic = 'force-dynamic'
 
@@ -206,6 +207,33 @@ export default async function DashboardPage({
         <ProfileSummaryCard profile={safeProfile} />
         <QuickAccessCards />
         <AlliTipCard />
+
+        {/* Nuestra Historia */}
+        <div className="bg-white rounded-2xl shadow p-6">
+          <div className="flex items-center gap-2 mb-4">
+            <span className="inline-block bg-orange-100 text-orange-600 text-xs font-bold px-3 py-1 rounded-full">💛 Nuestra Historia</span>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-6 items-center sm:items-start">
+            <div className="flex flex-col items-center gap-3 shrink-0">
+              <div className="w-28 h-28 rounded-full overflow-hidden shadow-lg ring-4 ring-orange-100">
+                <Image src="/yadira-avatar.png" alt="Yadira y su papá" width={112} height={112} className="object-cover w-full h-full" />
+              </div>
+              <div className="text-center">
+                <p className="font-bold text-blue-700 text-sm">Yadira</p>
+                <p className="text-gray-400 text-xs">Fundadora · AllGo Travel</p>
+              </div>
+            </div>
+            <div className="space-y-3 text-gray-600 text-sm leading-relaxed">
+              <p><strong className="text-gray-900">AllGo Travel nació de una historia personal.</strong></p>
+              <p>Yadira, cubano-americana y profesional del área de salud, lleva años viajando junto a su padre con discapacidad. De esa experiencia nació AllGo Travel — un espacio donde los viajes se diseñan desde la inclusión, para que personas con discapacidad y sus familias puedan explorar el mundo con libertad y dignidad.</p>
+              <p className="text-blue-700 font-semibold">Porque todos merecen descubrir el mundo. 🌍</p>
+              <Link href="/nosotros" className="inline-block mt-1 text-orange-500 hover:text-orange-600 font-semibold text-xs underline">
+                Leer historia completa →
+              </Link>
+            </div>
+          </div>
+        </div>
+
         <InstallAppBanner />
       </div>
     </main>
