@@ -389,10 +389,10 @@ export default async function DashboardPage({
           <div className="flex items-center gap-2 mb-4">
             <span className="inline-block bg-orange-100 text-orange-600 text-xs font-bold px-3 py-1 rounded-full">💛 Nuestra Historia</span>
           </div>
-          <div className="flex flex-col gap-4">
-            {/* Imagen completa, sin recorte */}
-            <div className="rounded-2xl overflow-hidden shadow-xl ring-4 ring-orange-100 w-full">
-              <Image src="/yadira-familia.jpg" alt="Yadira, su familia y su perrita" width={720} height={1195} className="w-full h-auto block" />
+          <div className="flex flex-col gap-4 items-center">
+            {/* Óvalo grande — misma proporción que la imagen, se ve completa */}
+            <div className="w-56 h-96 rounded-full overflow-hidden shadow-xl ring-4 ring-orange-100">
+              <Image src="/yadira-familia.jpg" alt="Yadira, su familia y su perrita" width={720} height={1195} className="object-cover w-full h-full" />
             </div>
             <div className="text-center">
               <p className="font-bold text-blue-700 text-sm">Yadira y familia</p>
