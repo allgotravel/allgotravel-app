@@ -19,7 +19,15 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: 'AllGo',
+    title: 'AllGo Travel',
+    startupImage: '/apple-touch-icon.png',
+  },
+  icons: {
+    apple: '/apple-touch-icon.png',
+    icon: [
+      { url: '/icon-192x192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/icon-512x512.png', sizes: '512x512', type: 'image/png' },
+    ],
   },
   other: {
     'mobile-web-app-capable': 'yes',
