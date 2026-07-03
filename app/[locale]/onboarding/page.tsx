@@ -148,24 +148,24 @@ function StepWelcome({ t, onNext }: { t: T; onNext: () => void }) {
 
           {/* SPLASH container */}
           <div className="relative flex items-center justify-center mt-4">
-            {/* Burst rings */}
+            {/* Burst rings — loop every 4s */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div className="absolute w-48 h-12 rounded-full bg-orange-400/20"
-                style={{ animation: 'splashRing 1s cubic-bezier(0,0.5,0.5,1) 2.2s both' }} />
-              <div className="absolute w-64 h-16 rounded-full bg-orange-400/10"
-                style={{ animation: 'splashRing 1s cubic-bezier(0,0.5,0.5,1) 2.35s both' }} />
-              <div className="absolute w-80 h-20 rounded-full bg-orange-300/8"
-                style={{ animation: 'splashRing 1s cubic-bezier(0,0.5,0.5,1) 2.5s both' }} />
+              <div className="absolute w-48 h-12 rounded-full bg-orange-400/30"
+                style={{ animation: 'splashRing 4s ease-out 2.2s infinite' }} />
+              <div className="absolute w-64 h-16 rounded-full bg-orange-400/20"
+                style={{ animation: 'splashRing 4s ease-out 2.5s infinite' }} />
+              <div className="absolute w-80 h-20 rounded-full bg-orange-300/15"
+                style={{ animation: 'splashRing 4s ease-out 2.8s infinite' }} />
             </div>
-            {/* Spark dots */}
+            {/* Spark dots — loop every 4s */}
             {[0,45,90,135,180,225,270,315].map((deg, i) => (
               <div
                 key={i}
-                className="absolute w-2 h-2 rounded-full bg-orange-400"
+                className="absolute w-2.5 h-2.5 rounded-full bg-orange-400"
                 style={{
-                  animation: `spark 0.7s ease-out ${(2.2 + i * 0.03).toFixed(2)}s both`,
-                  ['--spark-x' as string]: `${Math.cos(deg * Math.PI / 180) * 60}px`,
-                  ['--spark-y' as string]: `${Math.sin(deg * Math.PI / 180) * 24}px`,
+                  animation: `spark 4s ease-out ${(2.2 + i * 0.05).toFixed(2)}s infinite`,
+                  ['--spark-x' as string]: `${Math.cos(deg * Math.PI / 180) * 70}px`,
+                  ['--spark-y' as string]: `${Math.sin(deg * Math.PI / 180) * 30}px`,
                 }}
               />
             ))}
@@ -848,14 +848,16 @@ export default function OnboardingPage() {
           50%       { text-shadow: 0 0 30px rgba(249,115,22,1),   0 0 60px rgba(249,115,22,0.6); }
         }
         @keyframes splashRing {
-          0%   { opacity: 0.8; transform: scale(0.1); }
-          60%  { opacity: 0.4; }
-          100% { opacity: 0;   transform: scale(1); }
+          0%, 75%, 100% { opacity: 0; transform: scale(0.1); }
+          5%  { opacity: 0.8; transform: scale(0.1); }
+          50% { opacity: 0.3; transform: scale(1); }
+          65% { opacity: 0;   transform: scale(1.05); }
         }
         @keyframes spark {
-          0%   { opacity: 1; transform: translate(0, 0) scale(1.2); }
-          80%  { opacity: 0.6; }
-          100% { opacity: 0;   transform: translate(var(--spark-x), var(--spark-y)) scale(0.2); }
+          0%, 75%, 100% { opacity: 0; transform: translate(0,0) scale(0); }
+          5%  { opacity: 1; transform: translate(0, 0) scale(1.2); }
+          50% { opacity: 0.4; transform: translate(var(--spark-x), var(--spark-y)) scale(0.4); }
+          65% { opacity: 0;  transform: translate(var(--spark-x), var(--spark-y)) scale(0.1); }
         }
         .slide-right { animation: slideFromRight 0.38s cubic-bezier(0.22, 1, 0.36, 1) both; }
         .slide-left  { animation: slideFromLeft  0.38s cubic-bezier(0.22, 1, 0.36, 1) both; }
