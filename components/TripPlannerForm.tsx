@@ -223,6 +223,78 @@ export default function TripPlannerForm({ profile, userId }: Props) {
           {plan ? renderMarkdown(plan) : null}
         </div>
       )}
+
+      {/* Booking platforms — shown once plan is ready */}
+      {plan && !loading && (
+        <div className="bg-white rounded-2xl shadow p-6 space-y-4">
+          <h2 className="text-base font-semibold text-teal-700 flex items-center gap-2">
+            🔗 {locale === 'es' ? `Reservar en ${destination}` : `Book in ${destination}`}
+          </h2>
+
+          <div className="space-y-3">
+            {/* Hotels */}
+            <div>
+              <p className="text-xs font-semibold text-gray-400 uppercase mb-2">🏨 {locale === 'es' ? 'Hoteles accesibles' : 'Accessible hotels'}</p>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  { name: 'Booking.com', url: `https://www.booking.com/search.html?ss=${encodeURIComponent(destination)}`, color: 'bg-blue-600' },
+                  { name: 'Expedia', url: `https://www.expedia.com/Hotel-Search?destination=${encodeURIComponent(destination)}`, color: 'bg-yellow-500' },
+                  { name: 'Hotels.com', url: `https://www.hotels.com/search.do?q-destination=${encodeURIComponent(destination)}`, color: 'bg-red-600' },
+                  { name: 'Airbnb', url: `https://www.airbnb.com/s/${encodeURIComponent(destination)}/homes`, color: 'bg-rose-500' },
+                ].map(p => (
+                  <a key={p.name} href={p.url} target="_blank" rel="noopener noreferrer"
+                    className={`${p.color} text-white text-xs font-semibold px-3 py-1.5 rounded-full hover:opacity-90 transition`}>
+                    {p.name}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Flights */}
+            <div>
+              <p className="text-xs font-semibold text-gray-400 uppercase mb-2">✈️ {locale === 'es' ? 'Vuelos' : 'Flights'}</p>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  { name: 'Google Flights', url: `https://www.google.com/travel/flights?q=${encodeURIComponent('flights to ' + destination)}`, color: 'bg-indigo-600' },
+                  { name: 'Kayak', url: `https://www.kayak.com/flights/to-${encodeURIComponent(destination)}`, color: 'bg-orange-500' },
+                  { name: 'Skyscanner', url: `https://www.skyscanner.com/flights-to/${encodeURIComponent(destination.toLowerCase())}`, color: 'bg-teal-600' },
+                ].map(p => (
+                  <a key={p.name} href={p.url} target="_blank" rel="noopener noreferrer"
+                    className={`${p.color} text-white text-xs font-semibold px-3 py-1.5 rounded-full hover:opacity-90 transition`}>
+                    {p.name}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Activities & Cars */}
+            <div className="flex flex-wrap gap-6">
+              <div>
+                <p className="text-xs font-semibold text-gray-400 uppercase mb-2">🎭 {locale === 'es' ? 'Actividades' : 'Activities'}</p>
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    { name: 'Viator', url: `https://www.viator.com/search/${encodeURIComponent(destination)}`, color: 'bg-emerald-600' },
+                    { name: 'GetYourGuide', url: `https://www.getyourguide.com/s/?q=${encodeURIComponent(destination)}`, color: 'bg-purple-600' },
+                  ].map(p => (
+                    <a key={p.name} href={p.url} target="_blank" rel="noopener noreferrer"
+                      className={`${p.color} text-white text-xs font-semibold px-3 py-1.5 rounded-full hover:opacity-90 transition`}>
+                      {p.name}
+                    </a>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <p className="text-xs font-semibold text-gray-400 uppercase mb-2">🚗 {locale === 'es' ? 'Autos' : 'Cars'}</p>
+                <a href={`https://www.rentalcars.com/SearchResults.do?location=${encodeURIComponent(destination)}`}
+                  target="_blank" rel="noopener noreferrer"
+                  className="inline-block bg-sky-600 text-white text-xs font-semibold px-3 py-1.5 rounded-full hover:opacity-90 transition">
+                  Rentalcars.com
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
