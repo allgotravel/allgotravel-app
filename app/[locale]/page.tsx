@@ -275,6 +275,52 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── NUESTRA HISTORIA ── */}
+      <section className="py-24 px-4 bg-white">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <span className="inline-block bg-orange-100 text-orange-600 text-sm font-bold px-4 py-1.5 rounded-full mb-4">💛 Nuestra Historia</span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">Un acto de amor, justicia y visión</h2>
+            <p className="text-gray-500 max-w-xl mx-auto">La historia detrás de AllGo Travel</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            {/* Photo / visual side */}
+            <div className="flex flex-col items-center gap-6">
+              <div className="w-48 h-48 rounded-full overflow-hidden shadow-2xl ring-4 ring-orange-100">
+                <Image src="/yadira-avatar.png" alt="Yadira y su papá" width={192} height={192} className="object-cover w-full h-full" />
+              </div>
+              <div className="text-center">
+                <p className="font-bold text-xl text-blue-700">Yadira</p>
+                <p className="text-gray-500 text-sm">Fundadora de AllGo Travel</p>
+                <p className="text-gray-400 text-xs mt-1">con su papá — la inspiración detrás de todo</p>
+              </div>
+              <blockquote className="bg-orange-50 border-l-4 border-orange-400 rounded-r-xl px-5 py-4 max-w-sm">
+                <p className="text-orange-700 font-semibold italic text-sm leading-relaxed">
+                  "Viajar es para todos. Creamos caminos posibles."
+                </p>
+              </blockquote>
+            </div>
+
+            {/* Story text - short version */}
+            <div className="space-y-5 text-gray-600 leading-relaxed">
+              <p className="text-lg">
+                <strong className="text-gray-900">AllGo Travel nació de una historia personal.</strong>
+              </p>
+              <p>
+                Yadira, cubano-americana y profesional del área de salud, lleva años viajando junto a su padre con discapacidad. Cada viaje revelaba la misma realidad: una industria que no está preparada para todos.
+              </p>
+              <p>
+                De esa experiencia nació AllGo Travel — no como una agencia más, sino como un acto de amor y justicia. Un espacio donde los viajes se diseñan desde la inclusión, para que personas con discapacidad y sus familias puedan explorar el mundo con libertad, seguridad y dignidad.
+              </p>
+              <p className="text-blue-700 font-semibold text-lg">
+                Porque todos merecen descubrir el mundo. 🌍
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── FINAL CTA ── */}
       <section className="py-24 px-4 bg-white">
         <div className="max-w-2xl mx-auto text-center">
@@ -319,6 +365,9 @@ export default function HomePage() {
             />
             <span className="font-bold text-white">AllGo Travel</span>
             <span className="text-gray-500 text-xs">· {t('footerTagline')}</span>
+          </div>
+          <div className="flex gap-4 text-gray-500 text-xs">
+            <Link href="/nosotros" className="hover:text-white transition">Nuestra Historia</Link>
           </div>
           <p className="text-gray-500 text-xs">© 2025 AllGo Travel. {t('footerRights')}</p>
         </div>

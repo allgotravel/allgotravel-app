@@ -20,10 +20,10 @@ export const metadata: Metadata = {
     capable: true,
     statusBarStyle: 'default',
     title: 'AllGo Travel',
-    startupImage: '/apple-touch-icon.png',
+    startupImage: '/apple-touch-icon-v3.png',
   },
   icons: {
-    apple: '/apple-touch-icon.png',
+    apple: '/apple-touch-icon-v3.png',
     icon: [
       { url: '/icon-192x192.png', sizes: '192x192', type: 'image/png' },
       { url: '/icon-512x512.png', sizes: '512x512', type: 'image/png' },

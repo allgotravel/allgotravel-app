@@ -1,11 +1,9 @@
 #!/bin/bash
 cd ~/Desktop/allgotravel-app
-if [ -f .git/index.lock ]; then
-  rm -f .git/index.lock
-fi
+rm -f .git/index.lock .git/HEAD.lock .git/MERGE_HEAD.lock .git/objects/maintenance.lock 2>/dev/null
 echo "Subiendo cambios a Vercel..."
 git add -A
-git commit -m "fix: splash loop, botones anuales a Hotmart, sin Gumroad"
+git commit -m "feat: historia AllGo Travel, avatar Yadira, ícono PWA azul, página nosotros"
 git push origin main
 echo ""
 echo "✅ Listo! Vercel va a redesplegar en 1-2 minutos."
