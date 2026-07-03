@@ -7,7 +7,8 @@ interface Props {
 }
 
 export default function MedicalQRCode({ userId }: Props) {
-  const url = `https://allgotravel-app.vercel.app/es/tarjeta-medica?uid=${userId}`
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://allgotravel.app'
+  const url = `${baseUrl}/es/tarjeta-medica?uid=${userId}`
 
   return (
     <div className="flex flex-col items-center gap-3">
