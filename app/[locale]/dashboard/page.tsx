@@ -391,8 +391,8 @@ export default async function DashboardPage({
           </div>
           <div className="flex flex-col gap-4 items-center">
             {/* Óvalo grande — misma proporción que la imagen, se ve completa */}
-            <div className="w-56 h-96 rounded-full overflow-hidden shadow-xl ring-4 ring-orange-100">
-              <Image src="/yadira-familia.jpg" alt="Yadira, su familia y su perrita" width={720} height={1195} className="object-cover w-full h-full" />
+            <div className="w-64 h-80 rounded-full overflow-hidden shadow-xl ring-4 ring-orange-100">
+              <Image src="/yadira-familia.jpg" alt="Yadira, su familia y su perrita" width={720} height={899} className="object-cover w-full h-full" />
             </div>
             <div className="text-center">
               <p className="font-bold text-blue-700 text-sm">Yadira y familia</p>

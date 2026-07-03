@@ -22,8 +22,8 @@ export default function NosotrosPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {/* Sidebar */}
           <div className="flex flex-col items-center gap-6 md:sticky md:top-24 md:h-fit">
-            <div className="w-56 h-96 rounded-full overflow-hidden shadow-2xl ring-4 ring-orange-100">
-              <Image src="/yadira-familia.jpg" alt="Yadira, su familia y su perrita" width={720} height={1195} className="object-cover w-full h-full" />
+            <div className="w-64 h-80 rounded-full overflow-hidden shadow-2xl ring-4 ring-orange-100">
+              <Image src="/yadira-familia.jpg" alt="Yadira, su familia y su perrita" width={720} height={899} className="object-cover w-full h-full" />
             </div>
             <div className="text-center">
               <p className="font-bold text-xl text-blue-700">Yadira y familia</p>
