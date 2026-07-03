@@ -585,7 +585,7 @@ function StepPricing({ t, uid }: { t: T; uid: string | null }) {
           </div>
 
           <button
-            onClick={() => finish('https://pay.hotmart.com/ANUAL_PLACEHOLDER')}
+            onClick={() => finish('https://pay.hotmart.com/P106494873O')}
             disabled={finishing}
             className="w-full bg-orange-500 hover:bg-orange-400 active:scale-[0.98] disabled:opacity-60 text-white font-extrabold text-base py-4 rounded-xl shadow-lg shadow-orange-500/30 transition-all duration-200"
           >
@@ -610,7 +610,7 @@ function StepPricing({ t, uid }: { t: T; uid: string | null }) {
             </div>
           </div>
           <button
-            onClick={() => finish('https://pay.hotmart.com/MENSUAL_PLACEHOLDER')}
+            onClick={() => finish('https://pay.hotmart.com/P106494873O')}
             disabled={finishing}
             className="w-full bg-white/20 hover:bg-white/30 active:scale-[0.98] disabled:opacity-60 border border-white/30 text-white font-bold text-base py-4 rounded-xl transition-all duration-200"
           >
