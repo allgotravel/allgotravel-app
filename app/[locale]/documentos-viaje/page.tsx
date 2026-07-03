@@ -74,13 +74,32 @@ const AIRLINES = [
 ]
 
 const COUNTRIES = [
+  // América del Norte
   { flag: '🇺🇸', name: 'EE.UU. / USA', law: 'ACAA aplica — destino más accesible', level: 'green' },
   { flag: '🇵🇷', name: 'Puerto Rico', law: 'Territorio de EE.UU. — ACAA aplica', level: 'green' },
+  { flag: '🇨🇦', name: 'Canadá', law: 'Canada Transportation Act — perros de servicio permitidos en todos los vuelos', level: 'green' },
+  { flag: '🇲🇽', name: 'México', law: 'Perros guía protegidos por ley federal (NOM)', level: 'amber' },
+  // Caribe y LATAM
+  { flag: '🇩🇴', name: 'Rep. Dominicana', law: 'Sin ley específica — aerolíneas varían', level: 'red' },
   { flag: '🇨🇷', name: 'Costa Rica', law: 'Sin ley nacional, pero generalmente aceptado', level: 'amber' },
   { flag: '🇨🇴', name: 'Colombia', law: 'Ley 1618 — perros guía permitidos en transporte público', level: 'amber' },
-  { flag: '🇲🇽', name: 'México', law: 'Perros guía protegidos por ley federal (NOM)', level: 'amber' },
-  { flag: '🇩🇴', name: 'Rep. Dominicana', law: 'Sin ley específica — aerolíneas varían', level: 'red' },
   { flag: '🇧🇷', name: 'Brasil', law: 'ABNT NBR 9050 — perros guía totalmente protegidos', level: 'amber' },
+  { flag: '🇦🇷', name: 'Argentina', law: 'Ley 22.431 — perros guía protegidos; animales de servicio permitidos', level: 'amber' },
+  { flag: '🇵🇪', name: 'Perú', law: 'Ley 29830 — perros guía con certificado permitidos', level: 'amber' },
+  { flag: '🇵🇦', name: 'Panamá', law: 'Decreto Ejecutivo 27 — perros guía permitidos en espacios públicos', level: 'amber' },
+  { flag: '🇨🇺', name: 'Cuba', law: 'No hay ley de animales de servicio — solo perros guía visuales en algunos hoteles', level: 'red' },
+  // Europa
+  { flag: '🇪🇸', name: 'España', law: 'Reglamento UE 1107/2006 — animales de asistencia garantizados en todos los vuelos UE', level: 'green' },
+  { flag: '🇫🇷', name: 'Francia', law: 'Reglamento UE 1107/2006 — perros guía y de asistencia permitidos', level: 'green' },
+  { flag: '🇩🇪', name: 'Alemania', law: 'Reglamento UE 1107/2006 + Gleichstellungsgesetz — protección completa', level: 'green' },
+  { flag: '🇳🇱', name: 'Países Bajos', law: 'Reglamento UE 1107/2006 — uno de los más accesibles de Europa', level: 'green' },
+  { flag: '🇬🇧', name: 'Reino Unido', law: 'Equality Act 2010 — animales de servicio protegidos post-Brexit', level: 'green' },
+  { flag: '🇮🇹', name: 'Italia', law: 'Reglamento UE 1107/2006 — perros guía permitidos en cabina', level: 'green' },
+  { flag: '🇵🇹', name: 'Portugal', law: 'Reglamento UE 1107/2006 — acceso garantizado en vuelos UE', level: 'green' },
+  // Asia-Pacífico
+  { flag: '🇯🇵', name: 'Japón', law: 'Ley de Asistencia a Personas con Discapacidad — perros guía, sordos y físicos permitidos', level: 'green' },
+  { flag: '🇸🇬', name: 'Singapur', law: 'Misguided Dogs and Assistance Dogs Act — acceso garantizado en transporte y espacios públicos', level: 'green' },
+  { flag: '🇦🇺', name: 'Australia', law: 'Disability Discrimination Act 1992 — animales de asistencia con amplia protección legal', level: 'green' },
 ]
 
 export default async function DocumentosViajePage() {
