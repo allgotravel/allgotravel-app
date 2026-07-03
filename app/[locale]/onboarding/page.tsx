@@ -551,7 +551,7 @@ const ALLI_INSIGHTS: Record<string, { emoji: string; es: string; en: string }> =
   autismo: {
     emoji: '🗺️',
     es: 'Antes de cada vuelo te preparo el mapa del aeropuerto y los horarios para evitar sorpresas.',
-    en: 'Before each flight I'll prepare the airport map and schedules to avoid surprises.',
+    en: 'Before each flight I will prepare the airport map and schedules to avoid surprises.',
   },
   cognitiva: {
     emoji: '📋',
