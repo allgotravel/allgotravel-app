@@ -60,10 +60,11 @@ async function handlePurchase(
       subscription_status: status,
       subscription_provider: 'gumroad',
       subscription_plan: plan,
-      gumroad_sale_id: saleId ?? null,
       updated_at: new Date().toISOString(),
     })
     .eq('id', userId)
+
+  console.log(`[gumroad] Activated ${plan} subscription for ${email} (sale: ${saleId})`)
 }
 
 async function handleSubscriptionUpdate(email: string, status: SubscriptionStatus) {
@@ -77,6 +78,8 @@ async function handleSubscriptionUpdate(email: string, status: SubscriptionStatu
     .from('profiles')
     .update({ subscription_status: status, updated_at: new Date().toISOString() })
     .eq('id', userId)
+
+  console.log(`[gumroad] Updated subscription to ${status} for ${email}`)
 }
 
 async function getUserIdByEmail(email: string): Promise<string | null> {

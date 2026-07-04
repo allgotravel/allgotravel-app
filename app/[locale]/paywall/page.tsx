@@ -23,8 +23,37 @@ export default function PaywallPage() {
           <div className="text-2xl font-extrabold mt-7">$14.99/mes</div>
           <div className="text-white/80 text-sm mb-4">Facturación mensual</div>
           <div className="border border-white text-white font-bold py-2 px-4 rounded-full text-sm">Suscribirme mensual</div>
+          <p className="text-white/60 text-xs mt-2">Pago con Hotmart</p>
         </a>
       </div>
+
+      {/* Gumroad alternative */}
+      <div className="w-full max-w-lg mt-6">
+        <p className="text-white/50 text-xs text-center mb-3">— o paga con tarjeta de crédito vía Gumroad —</p>
+        <div className="flex flex-col sm:flex-row gap-4">
+          <a
+            href="https://yadira01.gumroad.com/l/allgo-travel-app?recurrence=yearly"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 bg-white/10 border border-white/20 rounded-2xl p-5 text-center transition hover:bg-white/20"
+          >
+            <div className="text-lg font-extrabold">$97/año</div>
+            <div className="text-white/70 text-xs mb-2">Ahorra 46% vs mensual</div>
+            <div className="border border-white/50 text-white font-bold py-2 px-4 rounded-full text-sm">Anual vía Gumroad</div>
+          </a>
+          <a
+            href="https://yadira01.gumroad.com/l/allgo-travel-app"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 bg-white/10 border border-white/20 rounded-2xl p-5 text-center transition hover:bg-white/20"
+          >
+            <div className="text-lg font-extrabold">$14.99/mes</div>
+            <div className="text-white/70 text-xs mb-2">Facturación mensual</div>
+            <div className="border border-white/50 text-white font-bold py-2 px-4 rounded-full text-sm">Mensual vía Gumroad</div>
+          </a>
+        </div>
+      </div>
+
       <p className="text-white/50 text-xs mt-6">Cancela cuando quieras. Sin compromisos.</p>
       <Link href="/login" className="text-white/40 text-xs mt-2 hover:text-white/60">Ya tengo cuenta →</Link>
     </div>
