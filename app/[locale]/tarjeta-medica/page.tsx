@@ -27,6 +27,7 @@ export default async function TarjetaMedicaPage() {
     disability_types: profile?.disability_types ?? [],
     chronic_conditions: profile?.chronic_conditions ?? null,
     invisible_needs: profile?.invisible_needs ?? null,
+    allergies: profile?.allergies ?? null,
     medications: profile?.medications ?? [],
     timezone: profile?.timezone ?? 'America/Mexico_City',
     is_group_profile: profile?.is_group_profile ?? false,
@@ -113,6 +114,16 @@ export default async function TarjetaMedicaPage() {
                   Condiciones crónicas / Chronic conditions
                 </p>
                 <p className="text-gray-700 text-sm leading-relaxed">{safeProfile.chronic_conditions}</p>
+              </div>
+            )}
+
+            {/* Allergies (critical for emergencies) */}
+            {safeProfile.allergies && (
+              <div className="bg-red-50 border border-red-200 rounded-xl p-3">
+                <p className="text-xs font-bold text-red-600 uppercase tracking-wide mb-1">
+                  ⚠️ Alergias / Allergies
+                </p>
+                <p className="text-gray-800 text-sm leading-relaxed">{safeProfile.allergies}</p>
               </div>
             )}
 

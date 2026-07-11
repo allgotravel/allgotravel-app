@@ -6,6 +6,7 @@ export const dynamic = 'force-dynamic'
 interface EmergencyCard {
   full_name: string | null
   chronic_conditions: string | null
+  allergies: string | null
   invisible_needs: string | null
   medications: Medication[] | null
 }
@@ -88,6 +89,17 @@ export default async function EmergencyCardPage({
               {card.full_name || '—'}
             </p>
           </div>
+
+          {card.allergies && (
+            <div className="bg-red-50 border border-red-200 rounded-xl p-4">
+              <p className="text-xs font-bold text-red-600 uppercase tracking-wide mb-1">
+                ⚠️ Alergias / Allergies
+              </p>
+              <p className="text-gray-800 text-sm leading-relaxed">
+                {card.allergies}
+              </p>
+            </div>
+          )}
 
           {card.chronic_conditions && (
             <div>

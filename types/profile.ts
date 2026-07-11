@@ -27,6 +27,7 @@ export interface Profile {
   disability_types: DisabilityType[]
   chronic_conditions: string | null
   invisible_needs: string | null
+  allergies: string | null
   medications: Medication[]
   timezone: string
   is_group_profile: boolean

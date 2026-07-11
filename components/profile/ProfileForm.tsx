@@ -176,6 +176,21 @@ export default function ProfileForm({ profile }: Props) {
         />
       </section>
 
+      {/* Alergias (crítico en emergencias) */}
+      <section className="bg-white rounded-2xl shadow p-6 space-y-4">
+        <h2 className="text-lg font-semibold text-teal-700">⚠️ Alergias / Allergies</h2>
+        <p className="text-sm text-gray-500">
+          Muy importante en una emergencia: medicamentos, alimentos, materiales (látex), etc.
+        </p>
+        <textarea
+          value={form.allergies ?? ''}
+          onChange={e => setForm(p => ({ ...p, allergies: e.target.value }))}
+          rows={3}
+          className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-400"
+          placeholder="Ej: Penicilina, maní, látex…"
+        />
+      </section>
+
       {/* Medicamentos */}
       <section className="bg-white rounded-2xl shadow p-6 space-y-4">
         <div className="flex items-center justify-between">
