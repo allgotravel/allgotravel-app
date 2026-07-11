@@ -35,6 +35,10 @@ export async function POST(req: NextRequest) {
   if (isCancelled) {
     await handleSubscriptionUpdate(email, 'cancelled')
   } else {
+    // TODO(meta-pixel): Same as the Hotmart webhook — this is a server-to-server
+    // callback from Gumroad, so components/MetaPixel.tsx can't fire Subscribe/Purchase
+    // from here. Use the Meta Conversions API server-side (hash `email` first) or fire
+    // the event client-side from a checkout-return page if one is added later.
     const plan = /year|annual|anual/i.test(recurrence ?? '') ? 'annual' : 'monthly'
     await handlePurchase(email, saleId, plan, 'active')
   }

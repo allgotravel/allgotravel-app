@@ -13,7 +13,10 @@
       "Bash(npm run *)",
       "Bash(python3 -m json.tool)",
       "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(list\\(d.keys\\(\\)\\), indent=2\\)\\)\")",
-      "Bash(mkdir -p /Users/yadirasuarez/Desktop/allgotravel-app/app/\\\\[locale\\\\]/onboarding)"
+      "Bash(mkdir -p /Users/yadirasuarez/Desktop/allgotravel-app/app/\\\\[locale\\\\]/onboarding)",
+      "Bash(git stash *)",
+      "Bash(cp .env.local /tmp/env.local.bak)",
+      "Bash(sed -i '' 's/^NEXT_PUBLIC_META_PIXEL_ID=$/NEXT_PUBLIC_META_PIXEL_ID=1234567890123456/' .env.local)"
     ]
   }
 }

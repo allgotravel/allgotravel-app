@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl'
 import { useRouter, Link } from '@/i18n/navigation'
 import { createSupabaseBrowser } from '@/lib/supabase-browser'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
+import { trackCompleteRegistration } from '@/lib/metaPixel'
 
 export default function RegisterPage() {
   const t = useTranslations('register')
@@ -28,6 +29,7 @@ export default function RegisterPage() {
       setError(error.message)
       setLoading(false)
     } else {
+      trackCompleteRegistration()
       router.push('/onboarding')
     }
   }

@@ -31,6 +31,12 @@ export async function POST(req: NextRequest) {
   switch (event) {
     case 'PURCHASE_APPROVED':
     case 'PURCHASE_COMPLETE':
+      // TODO(meta-pixel): This webhook fires server-to-server from Hotmart, with no
+      // browser in the loop, so the client-side Meta Pixel (components/MetaPixel.tsx)
+      // can't fire Subscribe/Purchase from here. To track this event, send it via the
+      // Meta Conversions API (server-side) using data.buyer.email (hashed) — see
+      // https://developers.facebook.com/docs/marketing-api/conversions-api — or fire
+      // Subscribe/Purchase client-side from a checkout-return page if one is added later.
       await handlePurchase(data, 'active')
       break
 
