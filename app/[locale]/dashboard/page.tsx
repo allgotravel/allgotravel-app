@@ -345,6 +345,7 @@ export default async function DashboardPage({
     disability_types: profile?.disability_types ?? [],
     chronic_conditions: profile?.chronic_conditions ?? null,
     invisible_needs: profile?.invisible_needs ?? null,
+    allergies: profile?.allergies ?? null,
     medications: profile?.medications ?? [],
     timezone: profile?.timezone ?? 'America/Mexico_City',
     is_group_profile: profile?.is_group_profile ?? false,
