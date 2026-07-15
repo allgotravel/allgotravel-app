@@ -35,12 +35,12 @@ export default function RegisterPage() {
   }
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-teal-50 to-blue-100 p-4">
+    <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100 p-4">
       <div className="absolute top-4 right-4">
         <LanguageSwitcher />
       </div>
       <div className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-md">
-        <h1 className="text-2xl font-bold text-teal-700 mb-2">{t('title')}</h1>
+        <h1 className="text-2xl font-bold text-blue-700 mb-2">{t('title')}</h1>
         <p className="text-gray-500 mb-6 text-sm">{t('subtitle')}</p>
 
         <form onSubmit={handleRegister} className="space-y-4">
@@ -51,7 +51,7 @@ export default function RegisterPage() {
               required
               value={fullName}
               onChange={e => setFullName(e.target.value)}
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-400"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           <div>
@@ -61,7 +61,7 @@ export default function RegisterPage() {
               required
               value={email}
               onChange={e => setEmail(e.target.value)}
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-400"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           <div>
@@ -72,14 +72,14 @@ export default function RegisterPage() {
               minLength={8}
               value={password}
               onChange={e => setPassword(e.target.value)}
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-400"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           {error && <p className="text-red-500 text-sm">{error}</p>}
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-teal-600 hover:bg-teal-700 text-white font-semibold py-2 rounded-lg transition disabled:opacity-50"
+            className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 rounded-lg transition disabled:opacity-50"
           >
             {loading ? t('loading') : t('submit')}
           </button>
@@ -87,7 +87,7 @@ export default function RegisterPage() {
 
         <p className="mt-4 text-center text-sm text-gray-500">
           {t('hasAccount')}{' '}
-          <Link href="/login" className="text-teal-600 font-medium hover:underline">
+          <Link href="/login" className="text-blue-600 font-medium hover:underline">
             {t('login')}
           </Link>
         </p>
