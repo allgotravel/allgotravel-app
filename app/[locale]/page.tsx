@@ -64,7 +64,7 @@ export default function HomePage() {
               height={40}
               className="rounded-full object-cover"
             />
-            <span className="font-bold text-blue-700 text-lg tracking-tight">AllGo Travel</span>
+            <span className="font-bold text-blue-700 text-lg tracking-tight">AllGo Travel App</span>
           </div>
           <div className="flex items-center gap-2 sm:gap-3">
             {/* Language toggle — always visible */}
@@ -363,7 +363,7 @@ export default function HomePage() {
               height={32}
               className="rounded-full object-cover"
             />
-            <span className="font-bold text-white">AllGo Travel</span>
+            <span className="font-bold text-white">AllGo Travel App</span>
             <span className="text-gray-500 text-xs">· {t('footerTagline')}</span>
           </div>
           <div className="flex gap-4 text-gray-500 text-xs">
