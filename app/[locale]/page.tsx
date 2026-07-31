@@ -369,7 +369,7 @@ export default function HomePage() {
           <div className="flex gap-4 text-gray-500 text-xs">
             <Link href="/nosotros" className="hover:text-white transition">Nuestra Historia</Link>
           </div>
-          <p className="text-gray-500 text-xs">© 2025 AllGo Travel. {t('footerRights')}</p>
+          <p className="text-gray-500 text-xs">© 2026 AllGo Travel App. {t('footerRights')}</p>
         </div>
       </footer>
 
