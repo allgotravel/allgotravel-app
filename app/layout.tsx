@@ -32,6 +32,7 @@ export const metadata: Metadata = {
   },
   other: {
     'mobile-web-app-capable': 'yes',
+    'facebook-domain-verification': '9y86rno9uw18r0te6miom20w1g5nbj',
   },
 };
 
