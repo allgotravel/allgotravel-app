@@ -4,9 +4,9 @@ import PlanButton from './PlanButton'
 
 export const dynamic = 'force-dynamic'
 
-const TEAL = '#0B6E6E'
-const TEAL_DARK = '#084f4f'
-const GOLD = '#C9A84C'
+const BLUE = '#1B6FB5'
+const BLUE_DARK = '#0E4E85'
+const ORANGE = '#F97316'
 const FOUNDING_LIMIT = 50
 
 // TODO (Yadira): reemplazar con los links reales de Hotmart de cada plan.
@@ -38,7 +38,7 @@ function Check() {
   return (
     <span
       className="inline-flex h-6 w-6 items-center justify-center rounded-full text-white text-sm font-bold"
-      style={{ backgroundColor: TEAL }}
+      style={{ backgroundColor: BLUE }}
     >
       ✓
     </span>
@@ -53,10 +53,10 @@ function Cross() {
 }
 
 const COMPARISON: { label: string; free: React.ReactNode; member: React.ReactNode }[] = [
-  { label: 'Directorio de aerolíneas', free: <span className="text-gray-500 text-sm">3 de muestra</span>, member: <span className="font-semibold" style={{ color: TEAL }}>Las 25, verificadas</span> },
+  { label: 'Directorio de aerolíneas', free: <span className="text-gray-500 text-sm">3 de muestra</span>, member: <span className="font-semibold" style={{ color: BLUE }}>Las 25, verificadas</span> },
   { label: 'Ebook «Viaja con tu Perro de Servicio»', free: <Check />, member: <Check /> },
   { label: 'Service Dog Travel Hub (6 módulos)', free: <Cross />, member: <Check /> },
-  { label: 'Alli, tu asistente de viaje', free: <span className="text-gray-500 text-sm">Limitada</span>, member: <span className="font-semibold" style={{ color: TEAL }}>Ilimitada</span> },
+  { label: 'Alli, tu asistente de viaje', free: <span className="text-gray-500 text-sm">Limitada</span>, member: <span className="font-semibold" style={{ color: BLUE }}>Ilimitada</span> },
   { label: 'Formularios y documentos descargables', free: <Cross />, member: <Check /> },
   { label: 'Alertas de cambios de política', free: <Cross />, member: <Check /> },
 ]
@@ -70,7 +70,7 @@ export default async function MembresiaPage() {
       {/* Hero */}
       <section
         className="px-5 pt-14 pb-24 text-center text-white"
-        style={{ background: `linear-gradient(135deg, ${TEAL}, ${TEAL_DARK})` }}
+        style={{ background: `linear-gradient(135deg, ${BLUE}, ${BLUE_DARK})` }}
       >
         <Image
           src="/logo-allgo.jpg"
@@ -79,7 +79,7 @@ export default async function MembresiaPage() {
           height={72}
           className="rounded-full mx-auto mb-5"
         />
-        <p className="text-sm font-semibold tracking-wide" style={{ color: GOLD }}>
+        <p className="text-sm font-semibold tracking-wide" style={{ color: ORANGE }}>
           MEMBRESÍA ALLGO TRAVEL
         </p>
         <h1 className="mt-2 text-3xl sm:text-4xl font-extrabold leading-tight max-w-2xl mx-auto">
@@ -93,7 +93,7 @@ export default async function MembresiaPage() {
         {foundingOpen && (
           <div
             className="inline-flex items-center gap-2 mt-6 rounded-full px-5 py-2 text-sm font-bold"
-            style={{ backgroundColor: GOLD, color: TEAL_DARK }}
+            style={{ backgroundColor: ORANGE, color: BLUE_DARK }}
           >
             🔥 Solo 50 cupos founding — quedan {remaining}
           </div>
@@ -107,15 +107,15 @@ export default async function MembresiaPage() {
           {foundingOpen && (
             <div
               className="relative rounded-2xl bg-white p-6 shadow-lg flex flex-col"
-              style={{ border: `2px solid ${GOLD}` }}
+              style={{ border: `2px solid ${ORANGE}` }}
             >
               <div
                 className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full px-3 py-1 text-xs font-bold text-white whitespace-nowrap"
-                style={{ backgroundColor: GOLD, color: TEAL_DARK }}
+                style={{ backgroundColor: ORANGE, color: BLUE_DARK }}
               >
                 Quedan {remaining} de 50
               </div>
-              <h3 className="text-lg font-extrabold" style={{ color: TEAL }}>Founding</h3>
+              <h3 className="text-lg font-extrabold" style={{ color: BLUE }}>Founding</h3>
               <p className="mt-1 text-xs text-gray-500">Precio de fundador, por tiempo limitado</p>
               <div className="mt-4">
                 <span className="text-4xl font-extrabold">$19</span>
@@ -132,14 +132,14 @@ export default async function MembresiaPage() {
                 plan="founding"
                 value={19}
                 className="mt-5 block rounded-full py-3 text-center font-bold text-white transition hover:opacity-90"
-                style={{ backgroundColor: TEAL }}
+                style={{ backgroundColor: ORANGE }}
               />
             </div>
           )}
 
           {/* Mensual */}
           <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100 flex flex-col">
-            <h3 className="text-lg font-extrabold" style={{ color: TEAL }}>Mensual</h3>
+            <h3 className="text-lg font-extrabold" style={{ color: BLUE }}>Mensual</h3>
             <p className="mt-1 text-xs text-gray-500">Flexible, cancela cuando quieras</p>
             <div className="mt-4">
               <span className="text-4xl font-extrabold">$29</span>
@@ -155,23 +155,23 @@ export default async function MembresiaPage() {
               plan="monthly"
               value={29}
               className="mt-5 block rounded-full py-3 text-center font-bold border transition hover:bg-gray-50"
-              style={{ borderColor: TEAL, color: TEAL }}
+              style={{ borderColor: BLUE, color: BLUE }}
             />
           </div>
 
           {/* Anual */}
           <div
             className="relative rounded-2xl bg-white p-6 shadow-sm flex flex-col"
-            style={{ border: `2px solid ${TEAL}` }}
+            style={{ border: `2px solid ${BLUE}` }}
           >
             <div
               className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full px-3 py-1 text-xs font-bold text-white whitespace-nowrap"
-              style={{ backgroundColor: TEAL }}
+              style={{ backgroundColor: BLUE }}
             >
               Mejor valor
             </div>
-            <h3 className="text-lg font-extrabold" style={{ color: TEAL }}>Anual</h3>
-            <p className="mt-1 text-xs font-semibold" style={{ color: GOLD }}>Ahorra $99 = 2 meses gratis</p>
+            <h3 className="text-lg font-extrabold" style={{ color: BLUE }}>Anual</h3>
+            <p className="mt-1 text-xs font-semibold" style={{ color: ORANGE }}>Ahorra $99 = 2 meses gratis</p>
             <div className="mt-4">
               <span className="text-4xl font-extrabold">$249</span>
               <span className="text-gray-500">/año</span>
@@ -187,7 +187,7 @@ export default async function MembresiaPage() {
               plan="annual"
               value={249}
               className="mt-5 block rounded-full py-3 text-center font-bold text-white transition hover:opacity-90"
-              style={{ backgroundColor: TEAL }}
+              style={{ backgroundColor: ORANGE }}
             />
           </div>
         </div>
@@ -198,14 +198,14 @@ export default async function MembresiaPage() {
 
       {/* Comparativa FREE vs MEMBER */}
       <section className="px-5 py-12">
-        <h2 className="text-center text-2xl font-extrabold" style={{ color: TEAL }}>
+        <h2 className="text-center text-2xl font-extrabold" style={{ color: BLUE }}>
           Qué incluye cada nivel
         </h2>
         <div className="mx-auto mt-6 max-w-3xl overflow-hidden rounded-2xl bg-white shadow-sm border border-gray-100">
-          <div className="grid grid-cols-[1fr_90px_110px] items-center px-5 py-4" style={{ backgroundColor: TEAL, color: 'white' }}>
+          <div className="grid grid-cols-[1fr_90px_110px] items-center px-5 py-4" style={{ backgroundColor: BLUE, color: 'white' }}>
             <span className="text-sm font-bold">Beneficio</span>
             <span className="text-center text-sm font-bold">Free</span>
-            <span className="text-center text-sm font-bold" style={{ color: GOLD }}>Member</span>
+            <span className="text-center text-sm font-bold" style={{ color: ORANGE }}>Member</span>
           </div>
           {COMPARISON.map((row, i) => (
             <div
@@ -228,7 +228,7 @@ export default async function MembresiaPage() {
           te lo decimos.
         </p>
         {foundingOpen && (
-          <p className="mt-4 text-sm font-bold" style={{ color: TEAL }}>
+          <p className="mt-4 text-sm font-bold" style={{ color: BLUE }}>
             Los cupos founding se agotan. Quedan {remaining} de 50.
           </p>
         )}
