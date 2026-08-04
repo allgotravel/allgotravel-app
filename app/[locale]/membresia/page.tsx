@@ -13,11 +13,10 @@ const FOUNDING_LIMIT = 50
 const HOTMART = {
   founding: 'https://pay.hotmart.com/Q107023060D?off=ghy5gvr9',
   monthly: 'https://pay.hotmart.com/Q107023060D?off=zk0d9b2e',
-  annual: '', // pendiente: el plan Anual debe quedar en periodicidad ANUAL en Hotmart
+  annual: 'https://pay.hotmart.com/Q107023060D?off=2nx7unav',
 }
 
-// El plan Anual queda oculto hasta corregir su periodicidad (hoy sale mensual) en Hotmart.
-const ANNUAL_ENABLED: boolean = false
+const ANNUAL_ENABLED: boolean = true
 
 async function getFoundingRemaining(): Promise<number> {
   try {
