@@ -9,13 +9,15 @@ const BLUE_DARK = '#0E4E85'
 const ORANGE = '#F97316'
 const FOUNDING_LIMIT = 50
 
-// TODO (Yadira): reemplazar con los links reales de Hotmart de cada plan.
-// El upsell del ebook debe llegar a /membresia con el founding preseleccionado.
+// Suscripción "Membresía AllGo Travel" — Hotmart producto Q107023060D
 const HOTMART = {
-  founding: 'https://pay.hotmart.com/REEMPLAZAR-FOUNDING',
-  monthly: 'https://pay.hotmart.com/REEMPLAZAR-MENSUAL',
-  annual: 'https://pay.hotmart.com/REEMPLAZAR-ANUAL',
+  founding: 'https://pay.hotmart.com/Q107023060D?off=ghy5gvr9',
+  monthly: 'https://pay.hotmart.com/Q107023060D?off=zk0d9b2e',
+  annual: '', // pendiente: el plan Anual debe quedar en periodicidad ANUAL en Hotmart
 }
+
+// El plan Anual queda oculto hasta corregir su periodicidad (hoy sale mensual) en Hotmart.
+const ANNUAL_ENABLED: boolean = false
 
 async function getFoundingRemaining(): Promise<number> {
   try {
@@ -102,7 +104,7 @@ export default async function MembresiaPage() {
 
       {/* Planes */}
       <section className="px-5 -mt-16 pb-4">
-        <div className="mx-auto grid max-w-4xl gap-5 sm:grid-cols-3">
+        <div className={`mx-auto grid gap-5 ${ANNUAL_ENABLED ? 'max-w-4xl sm:grid-cols-3' : 'max-w-2xl sm:grid-cols-2'}`}>
           {/* Founding */}
           {foundingOpen && (
             <div
@@ -160,6 +162,7 @@ export default async function MembresiaPage() {
           </div>
 
           {/* Anual */}
+          {ANNUAL_ENABLED && (
           <div
             className="relative rounded-2xl bg-white p-6 shadow-sm flex flex-col"
             style={{ border: `2px solid ${BLUE}` }}
@@ -190,6 +193,7 @@ export default async function MembresiaPage() {
               style={{ backgroundColor: ORANGE }}
             />
           </div>
+          )}
         </div>
         <p className="mt-4 text-center text-xs text-gray-400">
           Pago seguro con Hotmart · Cancela cuando quieras
