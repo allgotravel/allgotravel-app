@@ -3,6 +3,7 @@ export const dynamic = 'force-dynamic'
 import { redirect } from 'next/navigation'
 import { getTranslations, getLocale } from 'next-intl/server'
 import { createSupabaseServer } from '@/lib/supabase-server'
+import { requireMember } from '@/lib/subscription'
 import DestinationGrid from '@/components/DestinationGrid'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 import type { User } from '@supabase/supabase-js'
@@ -21,6 +22,9 @@ export default async function DestinosPage() {
   }
 
   if (!user) redirect(`/${locale}/login`)
+
+  // Función premium — solo miembros
+  await requireMember(locale)
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-teal-50 to-blue-100 py-10 px-4">
