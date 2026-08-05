@@ -1,5 +1,26 @@
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
+
+// Miembro = suscripción activa. En desarrollo se trata como miembro para no bloquear el trabajo local.
+export function isDevBypass() {
+  return process.env.NODE_ENV === 'development'
+}
+
+// Devuelve true si el usuario actual es miembro (suscripción activa).
+export async function isMember(): Promise<boolean> {
+  if (isDevBypass()) return true
+  const { isSubscribed } = await checkSubscription()
+  return isSubscribed
+}
+
+// Guard para páginas premium: si no hay sesión → login; si no es miembro → página de membresía.
+export async function requireMember(locale: string) {
+  if (isDevBypass()) return
+  const { user, isSubscribed } = await checkSubscription()
+  if (!user) redirect(`/${locale}/login`)
+  if (!isSubscribed) redirect(`/${locale}/membresia`)
+}
 
 export async function checkSubscription() {
   const cookieStore = await cookies()
