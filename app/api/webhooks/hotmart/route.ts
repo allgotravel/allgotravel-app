@@ -32,10 +32,6 @@ export async function POST(req: NextRequest) {
   }
 
   const tok = headerTok ?? body.hottok
-  // Temporary diagnostic (no secret values): confirms where/whether Hotmart sends the hottok
-  console.log(
-    `[hotmart] diag event=${body.event} hasHeaderTok=${!!headerTok} hasBodyTok=${!!body.hottok} envSet=${!!HOTMART_HOTTOK} tokLen=${tok ? String(tok).length : 0} envLen=${HOTMART_HOTTOK ? HOTMART_HOTTOK.length : 0} match=${!!HOTMART_HOTTOK && tok === HOTMART_HOTTOK}`
-  )
   if (HOTMART_HOTTOK && tok !== HOTMART_HOTTOK) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
