@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation'
-import { getTranslations } from 'next-intl/server'
+import { getTranslations, getLocale } from 'next-intl/server'
 import { createSupabaseServer } from '@/lib/supabase-server'
+import { requireMember } from '@/lib/subscription'
 import { Link } from '@/i18n/navigation'
 import PrintButton from '@/components/PrintButton'
 
@@ -103,9 +104,13 @@ const COUNTRIES = [
 ]
 
 export default async function DocumentosViajePage() {
+  const locale = await getLocale()
   const supabase = await createSupabaseServer()
   const { data: { user } } = await supabase.auth.getUser()
-  if (!user) redirect('/login')
+  if (!user) redirect(`/${locale}/login`)
+
+  // Función premium — solo miembros
+  await requireMember(locale)
 
   const t = await getTranslations('documentos')
 
