@@ -273,6 +273,13 @@ export async function POST(req: NextRequest) {
       profile = data
     }
 
+    // Alli es una función de miembros. Defensa en el servidor (la UI ya está protegida).
+    const isDev = process.env.NODE_ENV === 'development'
+    const subStatus = (profile as { subscription_status?: string } | null)?.subscription_status
+    if (!isDev && subStatus && subStatus !== 'active') {
+      return NextResponse.json({ error: 'membership_required' }, { status: 403 })
+    }
+
     const hoy = new Date().toISOString().slice(0, 10)
     const systemPrompt = buildSystemPrompt(profile, locale, hoy)
 
