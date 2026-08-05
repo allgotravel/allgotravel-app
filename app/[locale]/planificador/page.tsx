@@ -3,6 +3,7 @@ export const dynamic = 'force-dynamic'
 import { redirect } from 'next/navigation'
 import { getTranslations, getLocale } from 'next-intl/server'
 import { createSupabaseServer } from '@/lib/supabase-server'
+import { requireMember } from '@/lib/subscription'
 import TripPlannerForm from '@/components/TripPlannerForm'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 import type { Profile } from '@/types/profile'
@@ -22,6 +23,9 @@ export default async function PlanificadorPage() {
   }
 
   if (!user) redirect(`/${locale}/login`)
+
+  // Función premium — solo miembros
+  await requireMember(locale)
 
   const supabase = await createSupabaseServer()
   const { data: profile } = await supabase
