@@ -2,9 +2,6 @@
 
 import { useState } from 'react'
 
-const BLUE = '#1B6FB5'
-const ORANGE = '#F97316'
-
 type Fields = {
   name: string
   email: string
@@ -28,6 +25,27 @@ const EMPTY: Fields = {
   service_type: 'Perro de servicio',
   notes: '',
 }
+
+const CSS = `
+.vipform{--navy:#0a2440;--gold:#d9b45b;--gold-l:#f3d68a;--gold-d:#b8912f;--line:#ece4d2;--muted:#6b7683;background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:0 14px 40px rgba(20,40,70,.10);position:relative;overflow:hidden}
+.vipform::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold-d),var(--gold-l),var(--gold-d))}
+.vipform h3{font-family:'Playfair Display',Georgia,serif;font-size:1.2rem;font-weight:600;color:var(--navy);margin:0}
+.vipform .sub{font-size:.83rem;color:var(--muted);margin:3px 0 15px}
+.vipform label{display:block;font-size:.7rem;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:#8a94a0;margin:12px 0 5px}
+.vipform input,.vipform textarea,.vipform select{width:100%;border:1px solid #e2e6ec;border-radius:11px;padding:12px 14px;font-size:.92rem;outline:none;font-family:inherit;background:#fcfcfd;transition:border-color .2s,box-shadow .2s;color:#1b2733}
+.vipform input:focus,.vipform textarea:focus,.vipform select:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(217,180,91,.16);background:#fff}
+.vipform .row{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.vipform .cta{display:block;width:100%;margin-top:20px;position:relative;overflow:hidden;background:linear-gradient(135deg,#14406b,var(--navy));color:#fff;border:1px solid rgba(217,180,91,.6);border-radius:14px;padding:16px;font-size:1.02rem;font-weight:700;letter-spacing:.3px;cursor:pointer;box-shadow:0 10px 26px rgba(10,36,64,.3)}
+.vipform .cta:disabled{opacity:.6;cursor:default}
+.vipform .cta .g{color:var(--gold-l)}
+.vipform .trust{text-align:center;font-size:.76rem;color:var(--muted);margin-top:11px}
+.vipform .err{margin-top:12px;color:#b42323;font-size:.86rem}
+.vipform .done{text-align:center;padding:14px 6px}
+.vipform .done .em{font-size:2.4rem}
+.vipform .done h3{margin-top:6px}
+.vipform .done p{font-size:.9rem;color:#55606c;margin-top:8px}
+@media(max-width:480px){.vipform .row{grid-template-columns:1fr}}
+`
 
 export default function VipForm() {
   const [f, setF] = useState<Fields>(EMPTY)
@@ -65,65 +83,59 @@ export default function VipForm() {
 
   if (state === 'done') {
     return (
-      <div className="rounded-2xl bg-white p-8 text-center shadow-sm border border-gray-100">
-        <div className="text-4xl mb-2">🎉</div>
-        <h3 className="text-lg font-extrabold" style={{ color: BLUE }}>
-          ¡Recibido! Empezamos con tu viaje.
-        </h3>
-        <p className="mt-2 text-sm text-gray-600">
-          Guardamos tus datos y te contactaremos por WhatsApp para arrancar tu experiencia VIP. 🐾
-        </p>
+      <div className="vipform">
+        <style>{CSS}</style>
+        <div className="done">
+          <div className="em">🎉</div>
+          <h3>¡Recibido! Empezamos con tu viaje.</h3>
+          <p>Guardamos tus datos y te contactaremos por WhatsApp para arrancar tu experiencia VIP. 🐾</p>
+        </div>
       </div>
     )
   }
 
-  const inputCls =
-    'w-full rounded-xl border border-gray-200 px-3.5 py-3 text-sm outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100 bg-white'
-  const labelCls = 'block text-xs font-bold text-gray-600 mt-3 mb-1'
-
   return (
-    <div className="rounded-2xl bg-white p-5 shadow-sm border border-gray-100">
-      <h3 className="text-base font-extrabold" style={{ color: BLUE }}>
-        Reserva tu experiencia VIP
-      </h3>
-      <p className="text-xs text-gray-500 mb-3">Cuéntanos de tu viaje y arrancamos.</p>
+    <div className="vipform">
+      <style>{CSS}</style>
+      <h3>Reserva tu experiencia VIP</h3>
+      <div className="sub">Cuéntanos de tu viaje y arrancamos de inmediato.</div>
 
-      <label className={labelCls}>Nombre completo</label>
-      <input className={inputCls} value={f.name} onChange={(e) => set('name', e.target.value)} placeholder="Tu nombre" />
+      <label>Nombre completo</label>
+      <input value={f.name} onChange={(e) => set('name', e.target.value)} placeholder="Tu nombre" />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+      <div className="row">
         <div>
-          <label className={labelCls}>Correo</label>
-          <input className={inputCls} type="email" value={f.email} onChange={(e) => set('email', e.target.value)} placeholder="tu@correo.com" />
+          <label>Correo</label>
+          <input type="email" value={f.email} onChange={(e) => set('email', e.target.value)} placeholder="tu@correo.com" />
         </div>
         <div>
-          <label className={labelCls}>WhatsApp</label>
-          <input className={inputCls} value={f.whatsapp} onChange={(e) => set('whatsapp', e.target.value)} placeholder="+1 ..." />
-        </div>
-      </div>
-
-      <label className={labelCls}>¿A dónde viajas?</label>
-      <input className={inputCls} value={f.destination} onChange={(e) => set('destination', e.target.value)} placeholder="Ciudad / país de destino" />
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-        <div>
-          <label className={labelCls}>Fechas (aprox.)</label>
-          <input className={inputCls} value={f.travel_dates} onChange={(e) => set('travel_dates', e.target.value)} placeholder="Ej: 15-22 sep" />
-        </div>
-        <div>
-          <label className={labelCls}>Aerolínea (si la tienes)</label>
-          <input className={inputCls} value={f.airline} onChange={(e) => set('airline', e.target.value)} placeholder="Ej: United" />
+          <label>WhatsApp</label>
+          <input value={f.whatsapp} onChange={(e) => set('whatsapp', e.target.value)} placeholder="+1 ..." />
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+      <label>¿A dónde viajas?</label>
+      <input value={f.destination} onChange={(e) => set('destination', e.target.value)} placeholder="Ciudad / país de destino" />
+
+      <div className="row">
         <div>
-          <label className={labelCls}>Tu perro — nombre y raza</label>
-          <input className={inputCls} value={f.dog_info} onChange={(e) => set('dog_info', e.target.value)} placeholder="Ej: Luna, frenchie" />
+          <label>Fechas (aprox.)</label>
+          <input value={f.travel_dates} onChange={(e) => set('travel_dates', e.target.value)} placeholder="Ej: 15-22 sep" />
         </div>
         <div>
-          <label className={labelCls}>Tipo de servicio</label>
-          <select className={inputCls} value={f.service_type} onChange={(e) => set('service_type', e.target.value)}>
+          <label>Aerolínea (si la tienes)</label>
+          <input value={f.airline} onChange={(e) => set('airline', e.target.value)} placeholder="Ej: United" />
+        </div>
+      </div>
+
+      <div className="row">
+        <div>
+          <label>Tu perro — nombre y raza</label>
+          <input value={f.dog_info} onChange={(e) => set('dog_info', e.target.value)} placeholder="Ej: Luna, frenchie" />
+        </div>
+        <div>
+          <label>Tipo de servicio</label>
+          <select value={f.service_type} onChange={(e) => set('service_type', e.target.value)}>
             <option>Perro de servicio</option>
             <option>Perro de servicio psiquiátrico</option>
             <option>En entrenamiento</option>
@@ -132,30 +144,15 @@ export default function VipForm() {
         </div>
       </div>
 
-      <label className={labelCls}>Necesidades especiales o notas</label>
-      <textarea
-        className={inputCls}
-        rows={3}
-        value={f.notes}
-        onChange={(e) => set('notes', e.target.value)}
-        placeholder="Cuéntanos cualquier detalle que debamos saber…"
-      />
+      <label>Necesidades especiales o notas</label>
+      <textarea rows={3} value={f.notes} onChange={(e) => set('notes', e.target.value)} placeholder="Cuéntanos cualquier detalle que debamos saber…" />
 
-      {state === 'error' && (
-        <p className="mt-3 text-sm text-red-600">Revisa tu correo e inténtalo de nuevo.</p>
-      )}
+      {state === 'error' && <p className="err">Revisa tu correo e inténtalo de nuevo.</p>}
 
-      <button
-        onClick={submit}
-        disabled={state === 'sending'}
-        className="mt-4 w-full rounded-2xl py-4 text-white font-extrabold shadow-lg disabled:opacity-60"
-        style={{ background: `linear-gradient(135deg, ${ORANGE}, #ff8f3c)` }}
-      >
-        {state === 'sending' ? 'Enviando…' : 'Reservar mi experiencia VIP →'}
+      <button className="cta" onClick={submit} disabled={state === 'sending'}>
+        {state === 'sending' ? 'Enviando…' : (<>Reservar mi experiencia <span className="g">VIP</span> →</>)}
       </button>
-      <p className="text-center text-xs text-gray-400 mt-2.5">
-        Pago único de $297 · Empezamos apenas recibamos tus datos
-      </p>
+      <div className="trust">Pago único de $297 · Empezamos apenas recibamos tus datos</div>
     </div>
   )
 }
