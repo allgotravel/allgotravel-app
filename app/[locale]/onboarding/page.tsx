@@ -770,37 +770,34 @@ function StepPricing({ t, uid }: { t: T; uid: string | null }) { // step 6
           <div className="flex items-start justify-between mb-1 mt-1">
             <div>
               <p className="text-white font-extrabold text-lg leading-tight">
-                {t('Plan Anual', 'Annual Plan')}
+                {t('Plan Fundador', 'Founding Plan')}
               </p>
               <div className="flex items-center gap-2 mt-1 flex-wrap">
                 <span className="bg-orange-400 text-white text-xs font-bold px-2.5 py-0.5 rounded-full">
-                  {t('Ahorra 46%', 'Save 46%')}
+                  {t('Precio de fundador', 'Founder price')}
                 </span>
-                <span className="text-white/50 text-xs line-through">$276</span>
+                <span className="text-white/50 text-xs line-through">$29</span>
               </div>
             </div>
             <div className="text-right shrink-0">
-              <p className="text-orange-300 font-extrabold text-3xl leading-none">$97</p>
-              <p className="text-white/55 text-xs mt-0.5">{t('/año', '/year')}</p>
+              <p className="text-orange-300 font-extrabold text-3xl leading-none">$19</p>
+              <p className="text-white/55 text-xs mt-0.5">{t('/mes', '/month')}</p>
             </div>
           </div>
 
           {/* Price anchoring — per day & per month */}
           <div className="flex items-center gap-3 mb-4 mt-2">
-            <span className="bg-white/10 rounded-lg px-3 py-1 text-xs text-white/80 font-semibold">
-              {t('≈ $8/mes', '≈ $8/mo')}
-            </span>
             <span className="bg-green-500/20 border border-green-400/40 rounded-lg px-3 py-1 text-xs text-green-300 font-semibold">
-              {t('$0.27/día — menos que un café ☕', '$0.27/day — less than a coffee ☕')}
+              {t('🔥 Cupos de fundador limitados', '🔥 Limited founding spots')}
             </span>
           </div>
 
           <button
-            onClick={() => finish('https://pay.hotmart.com/P106494873O?off=jqgv7nc8')}
+            onClick={() => finish('https://pay.hotmart.com/Q107023060D?off=ghy5gvr9')}
             disabled={finishing}
             className="w-full bg-orange-500 hover:bg-orange-400 active:scale-[0.98] disabled:opacity-60 text-white font-extrabold text-base py-4 rounded-xl shadow-lg shadow-orange-500/30 transition-all duration-200"
           >
-            {finishing ? '···' : t('Comenzar por $97/año', 'Start for $97/year')} →
+            {finishing ? '···' : t('Unirme por $19/mes', 'Join for $19/mo')} →
           </button>
           <p className="text-center text-orange-200/70 text-xs mt-2">
             {t('✅ Pago seguro · 🔒 Garantía 7 días', '✅ Secure payment · 🔒 7-day guarantee')}
@@ -819,16 +816,41 @@ function StepPricing({ t, uid }: { t: T; uid: string | null }) { // step 6
               </p>
             </div>
             <div className="text-right shrink-0">
-              <p className="text-white font-extrabold text-3xl leading-none">$14.99</p>
+              <p className="text-white font-extrabold text-3xl leading-none">$29</p>
               <p className="text-white/55 text-xs mt-0.5">{t('/mes', '/month')}</p>
             </div>
           </div>
           <button
-            onClick={() => finish('https://pay.hotmart.com/P106494873O')}
+            onClick={() => finish('https://pay.hotmart.com/Q107023060D?off=zk0d9b2e')}
             disabled={finishing}
             className="w-full bg-white/20 hover:bg-white/30 active:scale-[0.98] disabled:opacity-60 border border-white/30 text-white font-bold text-base py-4 rounded-xl transition-all duration-200"
           >
-            {finishing ? '···' : t('Comenzar mensual — $14.99', 'Start monthly — $14.99')} →
+            {finishing ? '···' : t('Comenzar mensual — $29', 'Start monthly — $29')} →
+          </button>
+        </div>
+
+        {/* Anual */}
+        <div className="bg-white/10 border border-white/20 rounded-2xl p-5">
+          <div className="flex items-start justify-between mb-4">
+            <div>
+              <p className="text-white font-extrabold text-lg leading-tight">
+                {t('Plan Anual', 'Annual Plan')}
+              </p>
+              <p className="text-white/50 text-xs mt-1">
+                {t('Ahorra vs mensual · 2 meses gratis', 'Save vs monthly · 2 months free')}
+              </p>
+            </div>
+            <div className="text-right shrink-0">
+              <p className="text-white font-extrabold text-3xl leading-none">$249</p>
+              <p className="text-white/55 text-xs mt-0.5">{t('/año', '/year')}</p>
+            </div>
+          </div>
+          <button
+            onClick={() => finish('https://pay.hotmart.com/Q107023060D?off=2nx7unav')}
+            disabled={finishing}
+            className="w-full bg-white/20 hover:bg-white/30 active:scale-[0.98] disabled:opacity-60 border border-white/30 text-white font-bold text-base py-4 rounded-xl transition-all duration-200"
+          >
+            {finishing ? '···' : t('Comenzar anual — $249', 'Start annual — $249')} →
           </button>
         </div>
       </div>

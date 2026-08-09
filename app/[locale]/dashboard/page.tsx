@@ -206,15 +206,15 @@ function QuickAccessCards({ member }: { member: boolean }) {
             <Link
               key={card.href}
               href={(locked ? '/membresia' : card.href) as '/planificador'}
-              style={{ animationDelay: `${i * 70}ms` }}
-              className={`allgo-rise allgo-tap group relative ${card.bg} text-white rounded-2xl p-5 flex flex-col gap-2 shadow ${locked ? 'opacity-90' : ''}`}
+              style={{ animationDelay: `${i * 90}ms` }}
+              className={`allgo-pop allgo-tap group relative ${card.bg} text-white rounded-2xl p-5 flex flex-col gap-2 shadow ${locked ? 'opacity-90' : ''}`}
             >
               {locked && (
                 <span className="absolute top-2 right-2 text-[10px] font-bold bg-white/95 text-gray-800 rounded-full px-2 py-0.5 flex items-center gap-1">
                   🔒 Miembros
                 </span>
               )}
-              <span className="text-3xl transition-transform duration-200 group-hover:scale-110">{card.icon}</span>
+              <span className="text-3xl allgo-float inline-block group-hover:scale-110 transition-transform duration-200" style={{ animationDelay: `${i * 250}ms` }}>{card.icon}</span>
               <span className="font-semibold text-sm leading-tight">{card.title}</span>
               <span className="text-xs opacity-80 leading-tight">
                 {locked ? 'Hazte miembro para desbloquear →' : card.desc}
@@ -268,7 +268,7 @@ function NextTripCard() {
       <div className="flex flex-col sm:flex-row gap-3">
         <Link
           href="/planificador"
-          className="allgo-tap flex-1 bg-white text-[#1B6FB5] font-bold text-sm text-center px-4 py-3 rounded-xl hover:bg-orange-50 shadow"
+          className="allgo-tap allgo-cta flex-1 bg-white text-[#1B6FB5] font-bold text-sm text-center px-4 py-3 rounded-xl hover:bg-orange-50 shadow"
         >
           🗺️ Planificar viaje
         </Link>
