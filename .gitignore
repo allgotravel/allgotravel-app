@@ -40,3 +40,10 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .env.local
+
+# temp de pruebas Alli
+_alli_test.mjs
+alli_prompt.txt
+
+# temp de verificación (Claude)
+tsconfig.check.json

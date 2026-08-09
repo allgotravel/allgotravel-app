@@ -29,3 +29,7 @@ export function trackSubscribe(params?: Record<string, unknown>) {
 export function trackPurchase(params?: Record<string, unknown>) {
   track('Purchase', params)
 }
+
+export function trackInitiateCheckout(params?: Record<string, unknown>) {
+  track('InitiateCheckout', params)
+}

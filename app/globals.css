@@ -24,3 +24,36 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* ───────────────────────────────────────────────
+   AllGo — animaciones reutilizables
+   Entradas suaves + feedback al tocar botones.
+   Respeta "reducir movimiento" (accesibilidad).
+   ─────────────────────────────────────────────── */
+@keyframes allgoRise {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes allgoPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.5); }
+  50%      { box-shadow: 0 0 0 12px rgba(249, 115, 22, 0); }
+}
+
+/* Entrada con desvanecido y deslizamiento (usar animation-delay inline para escalonar) */
+.allgo-rise { animation: allgoRise 0.5s ease both; }
+
+/* Botón/tarjeta interactiva: elevación al pasar y "presión" al tocar */
+.allgo-tap {
+  transition: transform 0.16s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.allgo-tap:hover  { transform: translateY(-2px); }
+.allgo-tap:active { transform: scale(0.97); }
+
+/* Llamado a la acción con latido suave para guiar la vista */
+.allgo-cta { animation: allgoPulse 2.6s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .allgo-rise, .allgo-cta { animation: none; }
+  .allgo-tap { transition: none; }
+  .allgo-tap:hover, .allgo-tap:active { transform: none; }
+}

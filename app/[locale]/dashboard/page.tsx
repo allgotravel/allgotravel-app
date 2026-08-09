@@ -142,16 +142,25 @@ function KitDeViajeCard({ profile }: { profile: Profile }) {
 }
 
 // ── Quick Access Cards ────────────────────────────────────────────────────────
-function QuickAccessCards() {
+function QuickAccessCards({ member }: { member: boolean }) {
   const t = useTranslations('dashboard')
 
   const cards = [
+    {
+      href: '/hub',
+      icon: '🐕‍🦺',
+      title: 'Service Dog Travel Hub',
+      desc: 'Requisitos, formularios, checklist y alertas',
+      bg: 'bg-[#0E4E85]',
+      premium: true,
+    },
     {
       href: '/planificador',
       icon: '✈️',
       title: t('cardPlanner'),
       desc: t('cardPlannerDesc'),
       bg: 'bg-[#1B6FB5]',
+      premium: true,
     },
     {
       href: '/destinos',
@@ -159,6 +168,7 @@ function QuickAccessCards() {
       title: t('cardDestinations'),
       desc: t('cardDestinationsDesc'),
       bg: 'bg-[#0D9488]',
+      premium: true,
     },
     {
       href: '/tarjeta-medica',
@@ -166,6 +176,7 @@ function QuickAccessCards() {
       title: t('cardMedical'),
       desc: t('cardMedicalDesc'),
       bg: 'bg-[#F97316]',
+      premium: false,
     },
     {
       href: '/tarjeta-comunicacion',
@@ -173,6 +184,7 @@ function QuickAccessCards() {
       title: t('cardCommunication'),
       desc: t('cardCommunicationDesc'),
       bg: 'bg-purple-600',
+      premium: false,
     },
     {
       href: '/documentos-viaje',
@@ -180,6 +192,7 @@ function QuickAccessCards() {
       title: t('cardDocuments'),
       desc: t('cardDocumentsDesc'),
       bg: 'bg-indigo-600',
+      premium: true,
     },
   ]
 
@@ -187,17 +200,27 @@ function QuickAccessCards() {
     <div>
       <h2 className="text-lg font-semibold text-gray-700 mb-4">{t('quickAccess')}</h2>
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5">
-        {cards.map(card => (
-          <Link
-            key={card.href}
-            href={card.href as '/planificador'}
-            className={`${card.bg} text-white rounded-2xl p-5 flex flex-col gap-2 hover:opacity-90 transition shadow`}
-          >
-            <span className="text-3xl">{card.icon}</span>
-            <span className="font-semibold text-sm leading-tight">{card.title}</span>
-            <span className="text-xs opacity-80 leading-tight">{card.desc}</span>
-          </Link>
-        ))}
+        {cards.map(card => {
+          const locked = card.premium && !member
+          return (
+            <Link
+              key={card.href}
+              href={(locked ? '/membresia' : card.href) as '/planificador'}
+              className={`relative ${card.bg} text-white rounded-2xl p-5 flex flex-col gap-2 hover:opacity-90 transition shadow ${locked ? 'opacity-90' : ''}`}
+            >
+              {locked && (
+                <span className="absolute top-2 right-2 text-[10px] font-bold bg-white/95 text-gray-800 rounded-full px-2 py-0.5 flex items-center gap-1">
+                  🔒 Miembros
+                </span>
+              )}
+              <span className="text-3xl">{card.icon}</span>
+              <span className="font-semibold text-sm leading-tight">{card.title}</span>
+              <span className="text-xs opacity-80 leading-tight">
+                {locked ? 'Hazte miembro para desbloquear →' : card.desc}
+              </span>
+            </Link>
+          )
+        })}
       </div>
     </div>
   )
@@ -333,9 +356,8 @@ export default async function DashboardPage({
   if (!profile?.onboarding_completed) redirect('/onboarding')
 
   const isDev = process.env.NODE_ENV === 'development'
-  if (!isDev && profile && profile.subscription_status === 'free') {
-    redirect(`/${locale}/paywall`)
-  }
+  // Acceso por niveles: FREE entra al app; las funciones premium se muestran con candado.
+  const member = isDev || profile?.subscription_status === 'active'
 
   const safeProfile: Profile = {
     id: user.id,
@@ -374,7 +396,7 @@ export default async function DashboardPage({
         <KitDeViajeCard profile={safeProfile} />
 
         {/* 3. Quick access to all tools */}
-        <QuickAccessCards />
+        <QuickAccessCards member={member} />
 
         {/* 4. Alli daily tip + CTA — habit loop */}
         <AlliTipCard />
