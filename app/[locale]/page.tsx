@@ -79,8 +79,14 @@ export default function HomePage() {
               {t('navLogin')}
             </Link>
             <Link
+              href="/membresia"
+              className="hidden sm:block text-sm font-medium text-gray-600 hover:text-blue-700 transition px-3 py-1.5"
+            >
+              Planes
+            </Link>
+            <Link
               href="/register"
-              className="text-sm font-semibold bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-full transition shadow-sm"
+              className="allgo-tap text-sm font-semibold bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-full shadow-sm"
             >
               {t('navRegister')}
             </Link>
@@ -132,18 +138,18 @@ export default function HomePage() {
           </p>
 
           {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-col sm:flex-row gap-4 allgo-pop">
             <Link
               href="/register"
-              className="inline-flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-bold px-8 py-4 rounded-full text-base shadow-lg shadow-orange-500/30 transition transform hover:scale-105"
+              className="allgo-tap allgo-cta inline-flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-bold px-8 py-4 rounded-full text-base shadow-lg shadow-orange-500/30"
             >
               🚀 {t('heroCta')}
             </Link>
             <Link
-              href="/login"
-              className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/30 text-white font-semibold px-8 py-4 rounded-full text-base transition"
+              href="/membresia"
+              className="allgo-tap inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/30 text-white font-semibold px-8 py-4 rounded-full text-base"
             >
-              {t('heroLogin')} →
+              💎 Ver planes →
             </Link>
           </div>
 
@@ -180,9 +186,9 @@ export default function HomePage() {
             <p className="text-gray-500 max-w-xl mx-auto">{t('featuresSubtitle')}</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {FEATURES.map(f => (
-              <div key={f.key} className={`rounded-2xl border p-6 flex gap-5 items-start ${f.color}`}>
-                <div className={`${f.iconBg} text-white text-2xl w-12 h-12 rounded-xl flex items-center justify-center shrink-0 shadow-sm`}>
+            {FEATURES.map((f, i) => (
+              <div key={f.key} style={{ animationDelay: `${i * 90}ms` }} className={`allgo-rise allgo-tap group rounded-2xl border p-6 flex gap-5 items-start ${f.color}`}>
+                <div className={`${f.iconBg} text-white text-2xl w-12 h-12 rounded-xl flex items-center justify-center shrink-0 shadow-sm transition-transform duration-200 group-hover:scale-110`}>
                   {f.icon}
                 </div>
                 <div>
@@ -191,6 +197,67 @@ export default function HomePage() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── PLANES / PRODUCTOS ── */}
+      <section className="py-24 px-4 bg-white">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-14">
+            <span className="allgo-pop inline-block bg-orange-100 text-orange-600 text-sm font-bold px-4 py-1.5 rounded-full mb-4">💎 Elige cómo empezar</span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">Viaja con tu perro de servicio, sin adivinar nada</h2>
+            <p className="text-gray-500 max-w-xl mx-auto">Información verificada, con su fuente y su fecha. Nunca inventamos un dato.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+            {/* Membresía — destacada */}
+            <div className="allgo-rise allgo-tap relative flex flex-col rounded-2xl bg-white p-7 shadow-xl border-2 border-orange-400 md:-mt-2" style={{ animationDelay: '0ms' }}>
+              <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-orange-500 px-3 py-1 text-xs font-bold text-white whitespace-nowrap allgo-cta">🔥 Más popular</span>
+              <h3 className="text-lg font-extrabold text-blue-700">Membresía AllGo App</h3>
+              <p className="mt-1 text-xs text-gray-500">Todo el poder de Ali, sin límites</p>
+              <div className="mt-4"><span className="text-4xl font-extrabold text-gray-900">$19</span><span className="text-gray-500">/mes</span> <span className="text-xs font-bold text-orange-500">· fundador</span></div>
+              <ul className="mt-4 space-y-2 text-sm text-gray-700 flex-1">
+                <li>✅ Ali, tu asistente con IA, ilimitada</li>
+                <li>✅ Requisitos por aerolínea <b>y crucero</b> 🚢</li>
+                <li>✅ Service Dog Travel Hub (7 módulos)</li>
+                <li>✅ Tarjeta médica con QR</li>
+                <li>🔥 Cupos de fundador limitados</li>
+              </ul>
+              <Link href="/membresia" className="allgo-tap allgo-cta mt-5 block rounded-full bg-orange-500 py-3 text-center font-bold text-white hover:bg-orange-600">
+                Hazte miembro →
+              </Link>
+            </div>
+
+            {/* Ebook */}
+            <div className="allgo-rise allgo-tap flex flex-col rounded-2xl bg-white p-7 shadow-sm border border-gray-100" style={{ animationDelay: '90ms' }}>
+              <h3 className="text-lg font-extrabold text-blue-700">Guía «Viaja con tu Perro de Servicio»</h3>
+              <p className="mt-1 text-xs text-gray-500">El ebook con todo lo esencial (ES/EN)</p>
+              <div className="mt-4"><span className="text-4xl font-extrabold text-gray-900">$37</span><span className="text-gray-500"> único pago</span></div>
+              <ul className="mt-4 space-y-2 text-sm text-gray-700 flex-1">
+                <li>✅ Requisitos y documentos clave</li>
+                <li>✅ Cómo evitar que te rechacen</li>
+                <li>✅ Descarga inmediata</li>
+              </ul>
+              <a href="https://pay.hotmart.com/Q106793737G" target="_blank" rel="noopener noreferrer" className="allgo-tap mt-5 block rounded-full border-2 border-blue-700 py-3 text-center font-bold text-blue-700 hover:bg-blue-50">
+                Obtener la guía →
+              </a>
+            </div>
+
+            {/* Gratis */}
+            <div className="allgo-rise allgo-tap flex flex-col rounded-2xl bg-white p-7 shadow-sm border border-gray-100" style={{ animationDelay: '180ms' }}>
+              <h3 className="text-lg font-extrabold text-blue-700">Empieza gratis</h3>
+              <p className="mt-1 text-xs text-gray-500">Prueba el app sin pagar</p>
+              <div className="mt-4"><span className="text-4xl font-extrabold text-gray-900">$0</span></div>
+              <ul className="mt-4 space-y-2 text-sm text-gray-700 flex-1">
+                <li>✅ Crea tu perfil de accesibilidad</li>
+                <li>✅ 3 aerolíneas de muestra</li>
+                <li>✅ Conoce a Ali</li>
+              </ul>
+              <Link href="/register" className="allgo-tap mt-5 block rounded-full border-2 border-gray-200 py-3 text-center font-bold text-gray-700 hover:bg-gray-50">
+                Crear cuenta gratis
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -204,8 +271,8 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {previewDests.map(dest => (
-              <div key={dest.id} className="bg-white rounded-2xl shadow-md overflow-hidden border border-gray-100 hover:shadow-xl transition-shadow group">
+            {previewDests.map((dest, i) => (
+              <div key={dest.id} style={{ animationDelay: `${i * 80}ms` }} className="allgo-rise allgo-tap bg-white rounded-2xl shadow-md overflow-hidden border border-gray-100 hover:shadow-xl group">
                 {/* Color header */}
                 <div className={`${dest.bgColor} h-36 flex items-center justify-center relative`}>
                   <span className="text-7xl group-hover:scale-110 transition-transform duration-300">{dest.flag}</span>
@@ -242,7 +309,7 @@ export default function HomePage() {
           <div className="text-center mt-10">
             <Link
               href="/destinos"
-              className="inline-flex items-center gap-2 bg-blue-700 hover:bg-blue-800 text-white font-semibold px-8 py-3.5 rounded-full transition shadow-md"
+              className="allgo-tap inline-flex items-center gap-2 bg-blue-700 hover:bg-blue-800 text-white font-semibold px-8 py-3.5 rounded-full shadow-md"
             >
               🗺️ {t('destinationsCta')}
             </Link>
@@ -261,9 +328,9 @@ export default function HomePage() {
               { num: '1', icon: '👤', titleES: 'Crea tu perfil', descES: 'Indica tus necesidades de accesibilidad y las de cada miembro de tu grupo familiar.' },
               { num: '2', icon: '🗺️', titleES: 'Elige tu destino', descES: '24 destinos verificados con rating de accesibilidad real y atracciones detalladas.' },
               { num: '3', icon: '✈️', titleES: 'Genera tu plan', descES: 'La IA crea un itinerario personalizado para todo tu grupo en segundos.' },
-            ].map(step => (
-              <div key={step.num} className="flex flex-col items-center gap-4">
-                <div className="w-16 h-16 rounded-full bg-orange-500 text-white text-2xl flex items-center justify-center font-extrabold shadow-lg shadow-orange-500/30">
+            ].map((step, i) => (
+              <div key={step.num} style={{ animationDelay: `${i * 120}ms` }} className="allgo-pop flex flex-col items-center gap-4">
+                <div className="w-16 h-16 rounded-full bg-orange-500 text-white text-2xl flex items-center justify-center font-extrabold shadow-lg shadow-orange-500/30 allgo-float">
                   {step.num}
                 </div>
                 <div className="text-4xl">{step.icon}</div>
@@ -338,15 +405,15 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/register"
-              className="inline-flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-bold px-8 py-4 rounded-full text-base shadow-lg shadow-orange-500/20 transition transform hover:scale-105"
+              className="allgo-tap allgo-cta inline-flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-bold px-8 py-4 rounded-full text-base shadow-lg shadow-orange-500/20"
             >
               🚀 {t('ctaRegister')}
             </Link>
             <Link
-              href="/login"
-              className="inline-flex items-center justify-center gap-2 border-2 border-blue-700 text-blue-700 hover:bg-blue-50 font-semibold px-8 py-4 rounded-full text-base transition"
+              href="/membresia"
+              className="allgo-tap inline-flex items-center justify-center gap-2 border-2 border-blue-700 text-blue-700 hover:bg-blue-50 font-semibold px-8 py-4 rounded-full text-base"
             >
-              {t('ctaLogin')}
+              💎 Ver planes
             </Link>
           </div>
         </div>
