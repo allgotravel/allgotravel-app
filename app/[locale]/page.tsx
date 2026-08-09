@@ -372,13 +372,16 @@ export default function HomePage() {
             {/* Story text - short version */}
             <div className="space-y-5 text-gray-600 leading-relaxed">
               <p className="text-lg">
-                <strong className="text-gray-900">AllGo Travel nació de una historia personal.</strong>
+                <strong className="text-gray-900">AllGo Travel nació del cruce entre una pasión y una necesidad.</strong>
               </p>
               <p>
-                Yadira, cubano-americana y profesional del área de salud, lleva años viajando junto a su padre con discapacidad. Cada viaje revelaba la misma realidad: una industria que no está preparada para todos.
+                Su fundadora, Yadira Suárez —Yadi— es cubano-americana, profesional del área de salud y una viajera incansable. Pero por encima de todo, es hija. Hija de un padre con discapacidad, con quien ha vivido en carne propia las limitaciones que impone el mundo cuando no está preparado para todos.
               </p>
               <p>
-                De esa experiencia nació AllGo Travel — no como una agencia más, sino como un acto de amor y justicia. Un espacio donde los viajes se diseñan desde la inclusión, para que personas con discapacidad y sus familias puedan explorar el mundo con libertad, seguridad y dignidad.
+                Cada vez que intentaba planificar un viaje con su padre surgían los mismos obstáculos: escasa información, infraestructura no adaptada y una industria que no contempla las verdaderas necesidades de este público.
+              </p>
+              <p>
+                Así nació AllGo Travel — no como una simple agencia, sino como un <strong className="text-gray-900">acto de amor, justicia y visión</strong>. Experiencias de viaje diseñadas desde la inclusión, para que las personas con discapacidad y sus familias puedan explorar el mundo con libertad, seguridad y dignidad. Aquí no se adaptan itinerarios estándar: se diseñan viajes desde cero, con sensibilidad y cuidado en cada detalle.
               </p>
               <p className="text-blue-700 font-semibold text-lg">
                 Porque todos merecen descubrir el mundo. 🌍
