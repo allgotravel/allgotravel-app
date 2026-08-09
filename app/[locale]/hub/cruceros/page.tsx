@@ -28,6 +28,7 @@ type CruisePolicy = {
   notas: string | null
   url_fuente: string | null
   fecha_verificacion: string | null
+  url_reserva: string | null
 }
 
 function yesNo(v: string | null): 'yes' | 'no' | 'limited' | 'unknown' {
@@ -125,6 +126,17 @@ export default async function HubCrucerosPage() {
                       <Field label="Camarotes accesibles / movilidad" value={p.camarotes_accesibles} />
                       <Field label="Contacto de accesibilidad" value={p.contacto_accesibilidad} />
                       <Field label="Notas" value={p.notas} />
+                      {p.url_reserva && (
+                        <a
+                          href={p.url_reserva}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="allgo-tap allgo-cta mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-extrabold text-white sm:w-auto"
+                          style={{ background: 'linear-gradient(135deg, #F97316, #ea6a0a)' }}
+                        >
+                          🚢 Reservar en {c.name} →
+                        </a>
+                      )}
                       <div className="pt-2 flex flex-wrap items-center gap-3 text-xs text-gray-400">
                         {p.fecha_verificacion && <span>Verificado: {p.fecha_verificacion}</span>}
                         {p.url_fuente && (

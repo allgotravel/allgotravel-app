@@ -132,7 +132,7 @@ export default async function MembresiaPage() {
                 label="Unirme ahora →"
                 plan="founding"
                 value={19}
-                className="mt-5 block rounded-full py-3 text-center font-bold text-white transition hover:opacity-90"
+                className="allgo-tap allgo-cta mt-5 block rounded-full py-3 text-center font-bold text-white hover:opacity-90"
                 style={{ backgroundColor: ORANGE }}
               />
             </div>
@@ -155,7 +155,7 @@ export default async function MembresiaPage() {
               label="Elegir mensual"
               plan="monthly"
               value={29}
-              className="mt-5 block rounded-full py-3 text-center font-bold border transition hover:bg-gray-50"
+              className="allgo-tap mt-5 block rounded-full py-3 text-center font-bold border hover:bg-gray-50"
               style={{ borderColor: BLUE, color: BLUE }}
             />
           </div>
@@ -188,7 +188,7 @@ export default async function MembresiaPage() {
               label="Elegir anual →"
               plan="annual"
               value={249}
-              className="mt-5 block rounded-full py-3 text-center font-bold text-white transition hover:opacity-90"
+              className="allgo-tap allgo-cta mt-5 block rounded-full py-3 text-center font-bold text-white hover:opacity-90"
               style={{ backgroundColor: ORANGE }}
             />
           </div>

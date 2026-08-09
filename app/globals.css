@@ -26,34 +26,63 @@ body {
 }
 
 /* ───────────────────────────────────────────────
-   AllGo — animaciones reutilizables
-   Entradas suaves + feedback al tocar botones.
-   Respeta "reducir movimiento" (accesibilidad).
+   AllGo — animaciones "Boom" 💥
+   Entradas con vida + feedback satisfactorio al tocar.
+   Todo respeta "reducir movimiento" (accesibilidad).
    ─────────────────────────────────────────────── */
 @keyframes allgoRise {
-  from { opacity: 0; transform: translateY(12px); }
+  from { opacity: 0; transform: translateY(14px); }
   to   { opacity: 1; transform: none; }
 }
+@keyframes allgoPop {
+  0%   { opacity: 0; transform: scale(0.85); }
+  60%  { opacity: 1; transform: scale(1.04); }
+  100% { opacity: 1; transform: scale(1); }
+}
 @keyframes allgoPulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.5); }
-  50%      { box-shadow: 0 0 0 12px rgba(249, 115, 22, 0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.55); }
+  50%      { box-shadow: 0 0 0 14px rgba(249, 115, 22, 0); }
+}
+@keyframes allgoFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-5px); }
+}
+@keyframes allgoShine {
+  0%   { background-position: -140% 0; }
+  60%, 100% { background-position: 140% 0; }
 }
 
-/* Entrada con desvanecido y deslizamiento (usar animation-delay inline para escalonar) */
-.allgo-rise { animation: allgoRise 0.5s ease both; }
+/* Entrada con desvanecido + deslizamiento (animation-delay inline para escalonar) */
+.allgo-rise { animation: allgoRise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
 
-/* Botón/tarjeta interactiva: elevación al pasar y "presión" al tocar */
+/* Entrada con "pop" (rebote sutil) para héroes, íconos y CTAs */
+.allgo-pop { animation: allgoPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+
+/* Botón/tarjeta interactiva: se eleva al pasar y "rebota" al tocar */
 .allgo-tap {
-  transition: transform 0.16s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.2s ease, border-color 0.2s ease, filter 0.2s ease;
+  will-change: transform;
 }
-.allgo-tap:hover  { transform: translateY(-2px); }
-.allgo-tap:active { transform: scale(0.97); }
+.allgo-tap:hover  { transform: translateY(-3px) scale(1.02); }
+.allgo-tap:active { transform: scale(0.95); }
 
-/* Llamado a la acción con latido suave para guiar la vista */
+/* CTA con latido suave para guiar la vista hacia la acción principal */
 .allgo-cta { animation: allgoPulse 2.6s ease-in-out infinite; }
+.allgo-cta:hover { filter: brightness(1.06); }
+
+/* Flotación suave para íconos/insignias destacadas */
+.allgo-float { animation: allgoFloat 3.5s ease-in-out infinite; }
+
+/* Brillo que cruza (para banners/insignias premium) */
+.allgo-shine {
+  background-image: linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.35) 50%, transparent 70%);
+  background-size: 220% 100%;
+  animation: allgoShine 3.2s ease-in-out infinite;
+}
 
 @media (prefers-reduced-motion: reduce) {
-  .allgo-rise, .allgo-cta { animation: none; }
+  .allgo-rise, .allgo-pop, .allgo-cta, .allgo-float, .allgo-shine { animation: none; }
   .allgo-tap { transition: none; }
   .allgo-tap:hover, .allgo-tap:active { transform: none; }
 }

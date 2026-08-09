@@ -121,7 +121,7 @@ function KitDeViajeCard({ profile }: { profile: Profile }) {
           <Link
             key={item.href}
             href={item.href as '/perfil'}
-            className="flex items-center gap-3 p-3 rounded-xl border border-gray-100 hover:border-[#1B6FB5]/30 hover:bg-blue-50/50 transition group"
+            className="allgo-tap flex items-center gap-3 p-3 rounded-xl border border-gray-100 hover:border-[#1B6FB5]/30 hover:bg-blue-50/50 group"
           >
             <span className="text-xl shrink-0">{item.icon}</span>
             <div className="min-w-0">
@@ -200,20 +200,21 @@ function QuickAccessCards({ member }: { member: boolean }) {
     <div>
       <h2 className="text-lg font-semibold text-gray-700 mb-4">{t('quickAccess')}</h2>
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5">
-        {cards.map(card => {
+        {cards.map((card, i) => {
           const locked = card.premium && !member
           return (
             <Link
               key={card.href}
               href={(locked ? '/membresia' : card.href) as '/planificador'}
-              className={`relative ${card.bg} text-white rounded-2xl p-5 flex flex-col gap-2 hover:opacity-90 transition shadow ${locked ? 'opacity-90' : ''}`}
+              style={{ animationDelay: `${i * 70}ms` }}
+              className={`allgo-rise allgo-tap group relative ${card.bg} text-white rounded-2xl p-5 flex flex-col gap-2 shadow ${locked ? 'opacity-90' : ''}`}
             >
               {locked && (
                 <span className="absolute top-2 right-2 text-[10px] font-bold bg-white/95 text-gray-800 rounded-full px-2 py-0.5 flex items-center gap-1">
                   🔒 Miembros
                 </span>
               )}
-              <span className="text-3xl">{card.icon}</span>
+              <span className="text-3xl transition-transform duration-200 group-hover:scale-110">{card.icon}</span>
               <span className="font-semibold text-sm leading-tight">{card.title}</span>
               <span className="text-xs opacity-80 leading-tight">
                 {locked ? 'Hazte miembro para desbloquear →' : card.desc}
@@ -245,7 +246,7 @@ function AlliTipCard() {
       <p className="text-gray-700 leading-relaxed mb-4">{tip}</p>
       <Link
         href="/planificador"
-        className="inline-flex items-center gap-2 bg-orange-50 hover:bg-orange-100 text-orange-600 font-bold text-sm px-4 py-2.5 rounded-xl transition"
+        className="allgo-tap inline-flex items-center gap-2 bg-orange-50 hover:bg-orange-100 text-orange-600 font-bold text-sm px-4 py-2.5 rounded-xl"
       >
         💬 Háblame de tu próximo viaje →
       </Link>
@@ -267,13 +268,13 @@ function NextTripCard() {
       <div className="flex flex-col sm:flex-row gap-3">
         <Link
           href="/planificador"
-          className="flex-1 bg-white text-[#1B6FB5] font-bold text-sm text-center px-4 py-3 rounded-xl hover:bg-orange-50 transition shadow"
+          className="allgo-tap flex-1 bg-white text-[#1B6FB5] font-bold text-sm text-center px-4 py-3 rounded-xl hover:bg-orange-50 shadow"
         >
           🗺️ Planificar viaje
         </Link>
         <Link
           href="/destinos"
-          className="flex-1 bg-white/20 border border-white/30 text-white font-bold text-sm text-center px-4 py-3 rounded-xl hover:bg-white/30 transition"
+          className="allgo-tap flex-1 bg-white/20 border border-white/30 text-white font-bold text-sm text-center px-4 py-3 rounded-xl hover:bg-white/30"
         >
           🌍 Ver destinos
         </Link>
@@ -328,7 +329,7 @@ function InstallAppBanner() {
     <div className="flex justify-center">
       <Link
         href="/instalar"
-        className="inline-flex items-center gap-2 bg-white border border-[#1B6FB5] text-[#1B6FB5] px-5 py-2.5 rounded-full text-sm font-medium hover:bg-[#1B6FB5] hover:text-white transition shadow"
+        className="allgo-tap inline-flex items-center gap-2 bg-white border border-[#1B6FB5] text-[#1B6FB5] px-5 py-2.5 rounded-full text-sm font-medium hover:bg-[#1B6FB5] hover:text-white shadow"
       >
         {t('installLink')}
       </Link>
