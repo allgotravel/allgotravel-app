@@ -38,6 +38,21 @@ const tools: Anthropic.Tool[] = [
       required: ['iata_code', 'policy_type'],
     },
   },
+  {
+    name: 'lookup_cruise_policy',
+    description:
+      'Consulta la política oficial verificada de una naviera de cruceros sobre perros de servicio, accesibilidad y movilidad reducida. Úsala SIEMPRE que el usuario pregunte sobre viajar en crucero con perro de servicio, silla de ruedas, movilidad reducida o condiciones especiales. Nunca respondas sobre políticas de cruceros sin consultar esta herramienta primero. Si no conoces el nombre exacto, pásalo lo mejor que puedas: la herramienta devolverá la lista de navieras disponibles si no hay coincidencia.',
+    input_schema: {
+      type: 'object',
+      properties: {
+        cruise_line: {
+          type: 'string',
+          description: 'Nombre o identificador de la naviera (ej: Royal Caribbean, Carnival, NCL, Norwegian, MSC, Princess, Celebrity, Disney, Holland America).',
+        },
+      },
+      required: ['cruise_line'],
+    },
+  },
 ]
 
 // ─────────────────────────────────────────────────────────────
@@ -132,21 +147,104 @@ async function lookupAirlinePolicy(input: { iata_code?: string; policy_type?: st
 }
 
 // ─────────────────────────────────────────────────────────────
+// Cruceros: resuelve la naviera por slug o nombre y devuelve su
+// política verificada. Mismos principios: nunca inventar; campos
+// vacíos se devuelven vacíos.
+// ─────────────────────────────────────────────────────────────
+async function resolverCrucero(consulta: string) {
+  const term = (consulta || '').trim()
+  if (!term) return null
+
+  // 1) slug exacto (case-insensitive)
+  const { data: bySlug } = await supabaseAdmin
+    .from('cruise_lines')
+    .select('*')
+    .ilike('slug', term)
+    .limit(1)
+  if (bySlug && bySlug.length) return bySlug[0]
+
+  // 2) nombre (coincidencia parcial)
+  const { data: byName } = await supabaseAdmin
+    .from('cruise_lines')
+    .select('*')
+    .ilike('name', `%${term}%`)
+    .limit(1)
+  if (byName && byName.length) return byName[0]
+
+  return null
+}
+
+async function lookupCruisePolicy(input: { cruise_line?: string }) {
+  const linea = await resolverCrucero(input.cruise_line || '')
+
+  if (!linea) {
+    const { data: todas } = await supabaseAdmin
+      .from('cruise_lines')
+      .select('name, slug, status')
+      .order('priority')
+    return {
+      encontrada: false,
+      consulta: input.cruise_line,
+      mensaje:
+        'No hay ninguna naviera que coincida en la base verificada. Revisa el nombre. Navieras disponibles abajo.',
+      navieras_en_base: todas ?? [],
+    }
+  }
+
+  const { data } = await supabaseAdmin
+    .from('cruise_accessibility_policies')
+    .select('*')
+    .eq('cruise_slug', linea.slug)
+    .limit(1)
+
+  return {
+    encontrada: true,
+    naviera: {
+      nombre: linea.name,
+      slug: linea.slug,
+      region: linea.region,
+      estado: linea.status,
+    },
+    politica: data?.[0] ?? null,
+  }
+}
+
+// ─────────────────────────────────────────────────────────────
 // Prompt del sistema de Alli.
 // ─────────────────────────────────────────────────────────────
 const ALLI_BASE_PROMPT = `Eres Alli, la asistente de viaje de AllGo Travel. Ayudas a personas que viajan
 con perros de servicio o con movilidad reducida a entender las políticas
-reales de aerolíneas y aeropuertos.
+reales de aerolíneas, aeropuertos y navieras de cruceros.
 
 ## REGLA PRINCIPAL — NUNCA LA ROMPES
 
 Antes de responder cualquier pregunta sobre la política de una aerolínea
 específica (perros de servicio, animales de apoyo emocional, sillas de
 ruedas, baterías de litio), DEBES consultar la herramienta lookup_airline_policy.
+
+Antes de responder cualquier pregunta sobre viajar en crucero con perro de
+servicio, silla de ruedas, movilidad reducida o condiciones especiales con
+una naviera específica (Royal Caribbean, Carnival, NCL/Norwegian, MSC,
+Princess, Celebrity, Disney, Holland America, etc.), DEBES consultar la
+herramienta lookup_cruise_policy.
+
 No respondas desde tu conocimiento general del modelo. Tu conocimiento
 general puede estar desactualizado o ser incorrecto, y una respuesta
-equivocada aquí puede hacer que alguien pierda un vuelo o quede separado
-de su animal de servicio.
+equivocada aquí puede hacer que alguien pierda un vuelo o un crucero, o
+quede separado de su animal de servicio.
+
+## CRUCEROS — AVISOS QUE SIEMPRE DAS
+
+Cuando ayudes con cruceros y perro de servicio, además del dato de la naviera:
+- Recuérdale que para volver a entrar a EE.UU. con el perro aplica la regla
+  del CDC vigente desde el 1 de agosto de 2024 (perro con microchip, mínimo
+  6 meses de edad, y el CDC Dog Import Form). Aplica también a perros de
+  servicio.
+- Aclara que el hecho de que la naviera permita subir al perro NO garantiza
+  poder bajar en cada puerto: cada país del itinerario tiene sus propias
+  reglas. Sugiérele verificar los puertos de su itinerario.
+- Ninguna de estas navieras acepta animales de apoyo emocional (ESA); solo
+  perros de servicio entrenados.
 
 ## FORMATO OBLIGATORIO DE RESPUESTA
 
@@ -330,10 +428,13 @@ export async function POST(req: NextRequest) {
               for (const tu of toolUses) {
                 let result: unknown
                 try {
-                  result =
-                    tu.name === 'lookup_airline_policy'
-                      ? await lookupAirlinePolicy(tu.input as { iata_code?: string; policy_type?: string })
-                      : { error: `Herramienta desconocida: ${tu.name}` }
+                  if (tu.name === 'lookup_airline_policy') {
+                    result = await lookupAirlinePolicy(tu.input as { iata_code?: string; policy_type?: string })
+                  } else if (tu.name === 'lookup_cruise_policy') {
+                    result = await lookupCruisePolicy(tu.input as { cruise_line?: string })
+                  } else {
+                    result = { error: `Herramienta desconocida: ${tu.name}` }
+                  }
                 } catch (e) {
                   result = { error: 'Error al consultar la base de datos', detalle: String(e) }
                 }

@@ -56,7 +56,7 @@ function Cross() {
 const COMPARISON: { label: string; free: React.ReactNode; member: React.ReactNode }[] = [
   { label: 'Directorio de aerolíneas', free: <span className="text-gray-500 text-sm">3 de muestra</span>, member: <span className="font-semibold" style={{ color: BLUE }}>Las 25, verificadas</span> },
   { label: 'Ebook «Viaja con tu Perro de Servicio»', free: <Check />, member: <Check /> },
-  { label: 'Service Dog Travel Hub (6 módulos)', free: <Cross />, member: <Check /> },
+  { label: 'Service Dog Travel Hub (7 módulos)', free: <Cross />, member: <Check /> },
   { label: 'Alli, tu asistente de viaje', free: <span className="text-gray-500 text-sm">Limitada</span>, member: <span className="font-semibold" style={{ color: BLUE }}>Ilimitada</span> },
   { label: 'Formularios y documentos descargables', free: <Cross />, member: <Check /> },
   { label: 'Alertas de cambios de política', free: <Cross />, member: <Check /> },
