@@ -1,4 +1,4 @@
-import { useTranslations } from 'next-intl'
+import { useTranslations, useLocale } from 'next-intl'
 import Image from 'next/image'
 import { Link } from '@/i18n/navigation'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
@@ -47,6 +47,7 @@ function StarRating({ rating }: { rating: number }) {
 export default function HomePage() {
   const t = useTranslations('home')
   const tD = useTranslations('disabilities')
+  const locale = useLocale()
 
   const previewDests = DESTINATIONS.filter(d => PREVIEW_DESTINATIONS.includes(d.id))
 
@@ -69,8 +70,8 @@ export default function HomePage() {
           <div className="flex items-center gap-2 sm:gap-3">
             {/* Language toggle — always visible */}
             <div className="flex gap-1 bg-gray-100 rounded-lg p-1 text-xs font-bold">
-              <a href="/es" className="px-2.5 py-1 rounded-md transition-all bg-blue-700 text-white shadow-sm">ES</a>
-              <a href="/en" className="px-2.5 py-1 rounded-md transition-all text-gray-500 hover:text-blue-700">EN</a>
+              <a href="/es" className={`px-2.5 py-1 rounded-md transition-all ${locale === 'es' ? 'bg-blue-700 text-white shadow-sm' : 'text-gray-500 hover:text-blue-700'}`}>ES</a>
+              <a href="/en" className={`px-2.5 py-1 rounded-md transition-all ${locale === 'en' ? 'bg-blue-700 text-white shadow-sm' : 'text-gray-500 hover:text-blue-700'}`}>EN</a>
             </div>
             <Link
               href="/login"
@@ -139,9 +140,15 @@ export default function HomePage() {
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row gap-4 allgo-pop">
+            <a
+              href="/prueba-ali.html"
+              className="allgo-tap allgo-cta inline-flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-bold px-8 py-4 rounded-full text-base shadow-lg shadow-orange-500/30"
+            >
+              🤖 {locale === 'en' ? 'Try Ali free' : 'Prueba a Ali gratis'}
+            </a>
             <Link
               href="/register"
-              className="allgo-tap allgo-cta inline-flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-bold px-8 py-4 rounded-full text-base shadow-lg shadow-orange-500/30"
+              className="allgo-tap inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/30 text-white font-semibold px-8 py-4 rounded-full text-base"
             >
               🚀 {t('heroCta')}
             </Link>
@@ -149,7 +156,7 @@ export default function HomePage() {
               href="/membresia"
               className="allgo-tap inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/30 text-white font-semibold px-8 py-4 rounded-full text-base"
             >
-              💎 Ver planes →
+              💎 {locale === 'en' ? 'See plans' : 'Ver planes'} →
             </Link>
           </div>
 
