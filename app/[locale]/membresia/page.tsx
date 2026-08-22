@@ -96,7 +96,7 @@ export default async function MembresiaPage() {
             className="inline-flex items-center gap-2 mt-6 rounded-full px-5 py-2 text-sm font-bold"
             style={{ backgroundColor: ORANGE, color: BLUE_DARK }}
           >
-            🔥 Solo 50 cupos founding — quedan {remaining}
+            🔥 Cupos founding limitados
           </div>
         )}
       </section>
@@ -110,12 +110,6 @@ export default async function MembresiaPage() {
               className="relative rounded-2xl bg-white p-6 shadow-lg flex flex-col"
               style={{ border: `2px solid ${ORANGE}` }}
             >
-              <div
-                className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full px-3 py-1 text-xs font-bold text-white whitespace-nowrap"
-                style={{ backgroundColor: ORANGE, color: BLUE_DARK }}
-              >
-                Quedan {remaining} de 50
-              </div>
               <h3 className="text-lg font-extrabold" style={{ color: BLUE }}>Founding</h3>
               <p className="mt-1 text-xs text-gray-500">Precio de fundador, por tiempo limitado</p>
               <div className="mt-4">
@@ -173,21 +167,21 @@ export default async function MembresiaPage() {
               Mejor valor
             </div>
             <h3 className="text-lg font-extrabold" style={{ color: BLUE }}>Anual</h3>
-            <p className="mt-1 text-xs font-semibold" style={{ color: ORANGE }}>Ahorra $99 = 2 meses gratis</p>
+            <p className="mt-1 text-xs font-semibold" style={{ color: ORANGE }}>Ahorra $58 = 2 meses gratis</p>
             <div className="mt-4">
-              <span className="text-4xl font-extrabold">$249</span>
+              <span className="text-4xl font-extrabold">$290</span>
               <span className="text-gray-500">/año</span>
             </div>
             <ul className="mt-4 space-y-2 text-sm text-gray-700 flex-1">
               <li>✅ Acceso completo MEMBER</li>
-              <li>✅ Equivale a ~$20.75/mes</li>
+              <li>✅ Equivale a ~$24/mes</li>
               <li>✅ 2 meses gratis vs mensual</li>
             </ul>
             <PlanButton
               href={HOTMART.annual}
               label="Elegir anual →"
               plan="annual"
-              value={249}
+              value={290}
               className="allgo-tap allgo-cta mt-5 block rounded-full py-3 text-center font-bold text-white hover:opacity-90"
               style={{ backgroundColor: ORANGE }}
             />
@@ -232,7 +226,7 @@ export default async function MembresiaPage() {
         </p>
         {foundingOpen && (
           <p className="mt-4 text-sm font-bold" style={{ color: BLUE }}>
-            Los cupos founding se agotan. Quedan {remaining} de 50.
+            Los cupos founding se agotan pronto. Asegura tu precio de fundador.
           </p>
         )}
       </section>

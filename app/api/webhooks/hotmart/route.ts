@@ -17,7 +17,7 @@ const supabaseAdmin = createClient(
 const OFFER_PLAN: Record<string, PlanType> = {
   ghy5gvr9: 'founding', // Founding $19/mo
   zk0d9b2e: 'monthly', // Mensual $29/mo
-  '2nx7unav': 'annual', // Anual $249/yr
+  '2nx7unav': 'annual', // Anual $290/yr
 }
 
 export async function POST(req: NextRequest) {

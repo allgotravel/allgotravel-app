@@ -841,7 +841,7 @@ function StepPricing({ t, uid }: { t: T; uid: string | null }) { // step 6
               </p>
             </div>
             <div className="text-right shrink-0">
-              <p className="text-white font-extrabold text-3xl leading-none">$249</p>
+              <p className="text-white font-extrabold text-3xl leading-none">$290</p>
               <p className="text-white/55 text-xs mt-0.5">{t('/año', '/year')}</p>
             </div>
           </div>
@@ -850,7 +850,7 @@ function StepPricing({ t, uid }: { t: T; uid: string | null }) { // step 6
             disabled={finishing}
             className="w-full bg-white/20 hover:bg-white/30 active:scale-[0.98] disabled:opacity-60 border border-white/30 text-white font-bold text-base py-4 rounded-xl transition-all duration-200"
           >
-            {finishing ? '···' : t('Comenzar anual — $249', 'Start annual — $249')} →
+            {finishing ? '···' : t('Comenzar anual — $290', 'Start annual — $290')} →
           </button>
         </div>
       </div>
