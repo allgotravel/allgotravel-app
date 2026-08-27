@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Checklist GRATIS: Viajar con tu Perro de Servicio | AllGo Travel App</title>
+<meta name="description" content="Descarga gratis el checklist de 5 cosas que revisar antes de viajar con tu perro de servicio. Formulario DOT, microchip, requisitos por país y más.">
+<style>
+ :root{--teal:#0E7C86;--teald:#0A4F57;--tealL:#E3F1F2;--gold:#E0A100;--ink:#1F2A2E;--grey:#5B686D;}
+ *{box-sizing:border-box;margin:0;padding:0}
+ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:var(--ink);line-height:1.6;background:var(--tealL)}
+ img{max-width:100%;display:block}
+ .brandbar{background:var(--gold);height:6px}
+ .toplogo{background:var(--teald);text-align:center;padding:14px 0}
+ .toplogo span{color:#fff;font-weight:800;letter-spacing:.5px;font-size:1.05rem}
+ .toplogo span b{color:var(--gold)}
+ .wrap{max-width:680px;margin:0 auto;padding:0 20px}
+ .btn{display:inline-block;background:var(--gold);color:#1a1a1a;font-weight:800;font-size:1.15rem;padding:16px 34px;border-radius:40px;text-decoration:none;box-shadow:0 6px 20px rgba(224,161,0,.35);transition:transform .15s;cursor:pointer;border:none}
+ .btn:hover{transform:translateY(-2px)}
+ .hero{padding:46px 0 30px;text-align:center}
+ .tag{display:inline-block;background:#fff;border:1px solid var(--teal);color:var(--teal);padding:6px 16px;border-radius:20px;font-size:.82rem;font-weight:800;letter-spacing:.5px;margin-bottom:18px}
+ h1{font-size:2rem;line-height:1.18;color:var(--teald);margin-bottom:14px}
+ h1 b{color:var(--gold)}
+ .sub{font-size:1.08rem;color:var(--grey);margin:0 auto 8px;max-width:560px}
+ .card{background:#fff;border-radius:20px;box-shadow:0 14px 40px rgba(14,124,134,.14);padding:30px 26px;margin:22px 0 10px;text-align:center}
+ .card h2{color:var(--teald);font-size:1.25rem;margin-bottom:6px}
+ .card p.small{color:var(--grey);font-size:.96rem;margin-bottom:18px}
+ form{display:flex;gap:10px;max-width:460px;margin:0 auto}
+ input[type=email]{flex:1;padding:15px 18px;border:1.5px solid #cfe0e1;border-radius:40px;font-size:1rem}
+ form .btn{padding:15px 24px;font-size:1rem;white-space:nowrap}
+ .bullets{list-style:none;max-width:460px;margin:20px auto 0;text-align:left;display:grid;gap:8px}
+ .bullets li{padding-left:28px;position:relative;color:#26424a;font-size:1rem}
+ .bullets li:before{content:"✓";position:absolute;left:0;color:var(--teal);font-weight:900}
+ .done{display:none}
+ .done .check{font-size:44px}
+ .done h2{color:var(--teald);font-size:1.5rem;margin:6px 0 8px}
+ .done p{color:var(--grey);margin-bottom:20px}
+ .fine{color:var(--grey);font-size:.86rem;margin-top:14px}
+ footer{color:var(--grey);text-align:center;padding:26px 20px 40px;font-size:.85rem}
+ footer strong{color:var(--teald)}
+ @media(max-width:560px){h1{font-size:1.55rem} form{flex-direction:column}}
+</style>
+
+<!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','1402403141746407');fbq('track','PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1402403141746407&ev=PageView&noscript=1"/></noscript>
+</head>
+<body>
+<div class="brandbar"></div>
+<div class="toplogo"><span>AllGo <b>Travel App</b> 🐾</span></div>
+
+<div class="hero">
+ <div class="wrap">
+  <span class="tag">DESCARGA GRATIS</span>
+  <h1>5 cosas que revisar <b>antes de viajar</b> con tu perro de servicio</h1>
+  <p class="sub">El checklist rápido para llegar al aeropuerto con calma y con todo en orden. En 1 página, listo para descargar.</p>
+ </div>
+</div>
+
+<div class="wrap">
+ <!-- FORM STATE -->
+ <div class="card" id="optinCard">
+  <h2>Te lo envío gratis 💌</h2>
+  <p class="small">Déjame tu correo y descárgalo al instante.</p>
+  <form id="optinForm" onsubmit="return sendOptin(event)">
+   <input id="optinEmail" type="email" placeholder="Tu mejor correo" required>
+   <button class="btn" type="submit">Enviarme el checklist →</button>
+  </form>
+  <ul class="bullets">
+   <li>El formulario del DOT (gratis, y lo único que piden en vuelos de EE.UU.)</li>
+   <li>Microchip y vacunas: qué revisar antes de comprar el vuelo</li>
+   <li>Requisitos por país y el "Modo Mostrador" para el check-in</li>
+  </ul>
+  <p class="fine">Sin spam. Puedes darte de baja cuando quieras.</p>
+ </div>
+
+ <!-- SUCCESS STATE -->
+ <div class="card done" id="doneCard">
+  <div class="check">🎉🐾</div>
+  <h2>¡Listo! Aquí está tu checklist</h2>
+  <p>Descárgalo ahora — y revisa tu correo, que te voy a enviar más tips para viajar tranquila con tu perro. 💚</p>
+  <a class="btn" id="dlBtn" href="/checklist-perro.pdf" download onclick="try{fbq('track','ViewContent',{content_name:'Checklist descarga'});}catch(_){}">Descargar el checklist (PDF) →</a>
+  <p class="fine">Si no descarga, escríbeme y te lo mando por correo.</p>
+ </div>
+</div>
+
+<footer>
+ <div class="wrap">
+  <p><strong>AllGo Travel App</strong> · Viaja con tu Perro de Servicio</p>
+  <p style="margin-top:6px">Esta guía es orientación informativa, no asesoría legal. Verifica siempre con tu aerolínea y el país de destino.</p>
+  <p style="margin-top:6px">© 2026 AllGo Travel App</p>
+ </div>
+</footer>
+
+<script>
+function sendOptin(ev){ev.preventDefault();
+ var el=document.getElementById('optinEmail');var e=(el.value||'').trim();
+ if(!e||e.indexOf('@')<0||e.indexOf('.')<0){el.style.outline='2px solid #ffb3b3';return false;}
+ try{fbq('track','Lead',{content_name:'Checklist gratis'});}catch(_){}
+ try{fetch('https://ywtkkxpuebwqvmylzwew.supabase.co/rest/v1/leads',{method:'POST',headers:{'apikey':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl3dGtreHB1ZWJ3cXZteWx6d2V3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI0MjE0MjEsImV4cCI6MjA5Nzk5NzQyMX0.8xGdNeqpGygiA3w8QhCxk3rmKOfkJb4btbbOqCJfDxk','Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl3dGtreHB1ZWJ3cXZteWx6d2V3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI0MjE0MjEsImV4cCI6MjA5Nzk5NzQyMX0.8xGdNeqpGygiA3w8QhCxk3rmKOfkJb4btbbOqCJfDxk','Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({email:e,source:'checklist-gratis',meta:{origen:'gratis-page'}})}).catch(function(){});}catch(_){}
+ document.getElementById('optinCard').style.display='none';
+ document.getElementById('doneCard').style.display='block';
+ window.scrollTo({top:0,behavior:'smooth'});
+ return false;}
+</script>
+</body>
+</html>
