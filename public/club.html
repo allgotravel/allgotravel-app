@@ -90,7 +90,7 @@ fbq('init','1402403141746407');fbq('track','PageView');
 <!-- HERO -->
 <div class="hero">
  <div class="wrap">
-  <span class="tag">🐾 Sé de los primeros miembros</span>
+  <span class="tag">🐾 Precio de fundador/a · 50% OFF por tiempo limitado</span>
   <h1>Únete al <b>AllGo Club</b> y viaja accesible sin miedo, todo el año</h1>
   <p class="sub">La app AllGo, todas mis guías, una comunidad que te entiende, recursos nuevos cada mes y descuentos de viaje — en un solo lugar.</p>
   <a class="btn" href="#unirme" onclick="return goClub(event)">Quiero unirme →</a>
@@ -121,10 +121,10 @@ fbq('init','1402403141746407');fbq('track','PageView');
   <p class="lead">Una membresía, todo incluido. Cancela cuando quieras, con 7 días de garantía.</p>
   <div class="tiers" style="grid-template-columns:1fr;max-width:480px">
    <div class="tier best">
-    <div class="badge">MEMBRESÍA COMPLETA</div>
+    <div class="badge">PRECIO DE FUNDADOR/A · 50% OFF</div>
     <h3>AllGo Club</h3>
-    <div class="price">$29<small>/mes</small></div>
-    <div class="year">o $290/año — ¡2 meses gratis! 🎉</div>
+    <div class="price"><span style="font-size:1.4rem;color:var(--grey);text-decoration:line-through;font-weight:700;margin-right:8px">$29</span>$14.99<small>/mes</small></div>
+    <div class="year">🔒 50% OFF · precio congelado mientras seas miembro</div>
     <ul>
      <li>La app AllGo + todas las guías incluidas</li>
      <li>Comunidad privada de viajeros</li>
@@ -185,8 +185,8 @@ fbq('init','1402403141746407');fbq('track','PageView');
 
 <script>
 /* ====== Checkout de la membresía (App AllGo, Hotmart) ====== */
-var CLUB_CHECKOUT_URL = "https://pay.hotmart.com/Q107023060D";   // membresía $29/mes o $290/año
-var CLUB_VIP_URL      = "https://pay.hotmart.com/Q107023060D";
+var CLUB_CHECKOUT_URL = "https://pay.hotmart.com/Q107023060D?off=osgbatei";   // plan FUNDADOR $14.99/mes (50% OFF)
+var CLUB_VIP_URL      = "https://pay.hotmart.com/Q107023060D?off=osgbatei";
 /* ========================================================== */
 function _go(url){
   try{fbq('track','InitiateCheckout',{content_name:'AllGo Club'});}catch(_){}
