@@ -90,10 +90,10 @@ fbq('init','1402403141746407');fbq('track','PageView');
 <!-- HERO -->
 <div class="hero">
  <div class="wrap">
-  <span class="tag">🐾 Oferta de Fundadores · Cupos limitados</span>
+  <span class="tag">🐾 Sé de los primeros miembros</span>
   <h1>Únete al <b>AllGo Club</b> y viaja accesible sin miedo, todo el año</h1>
-  <p class="sub">Todas mis guías, una comunidad que te entiende, recursos nuevos cada mes y descuentos de viaje — en un solo lugar.</p>
-  <a class="btn" href="#unirme" onclick="return goClub(event)">Quiero ser fundador/a →</a>
+  <p class="sub">La app AllGo, todas mis guías, una comunidad que te entiende, recursos nuevos cada mes y descuentos de viaje — en un solo lugar.</p>
+  <a class="btn" href="#unirme" onclick="return goClub(event)">Quiero unirme →</a>
   <span class="mini">Cancela cuando quieras · Garantía de 7 días</span>
  </div>
 </div>
@@ -117,33 +117,23 @@ fbq('init','1402403141746407');fbq('track','PageView');
 <!-- TIERS -->
 <section id="unirme">
  <div class="wrap">
-  <h2>Elige tu plan 💳</h2>
-  <p class="lead">Precio de <b>fundador/a</b> para los primeros miembros — se queda contigo mientras seas parte.</p>
-  <div class="tiers">
+  <h2>Únete al Club 💳</h2>
+  <p class="lead">Una membresía, todo incluido. Cancela cuando quieras, con 7 días de garantía.</p>
+  <div class="tiers" style="grid-template-columns:1fr;max-width:480px">
    <div class="tier best">
-    <div class="badge">MÁS POPULAR</div>
-    <h3>Member</h3>
-    <div class="price">$9<small>/mes</small></div>
-    <div class="year">o $79/año (2 meses gratis)</div>
-    <ul>
-     <li>Todas las guías incluidas</li>
-     <li>Comunidad privada</li>
-     <li>Recurso nuevo cada mes</li>
-     <li>Descuentos de viaje</li>
-    </ul>
-    <a class="btn" href="#" onclick="return goClub(event)">Unirme como Member →</a>
-   </div>
-   <div class="tier">
-    <h3>VIP</h3>
+    <div class="badge">MEMBRESÍA COMPLETA</div>
+    <h3>AllGo Club</h3>
     <div class="price">$29<small>/mes</small></div>
-    <div class="year">o $290/año</div>
+    <div class="year">o $290/año — ¡2 meses gratis! 🎉</div>
     <ul>
-     <li>Todo lo de Member</li>
-     <li>Acceso anticipado a lo nuevo</li>
-     <li>Sesión grupal mensual de novedades</li>
-     <li>Perks premium de aliados</li>
+     <li>La app AllGo + todas las guías incluidas</li>
+     <li>Comunidad privada de viajeros</li>
+     <li>Recursos nuevos cada mes</li>
+     <li>Descuentos y perks de viaje</li>
+     <li>Novedades y cambios de reglas, primero tú</li>
     </ul>
-    <a class="btn teal" href="#" onclick="return goClubVip(event)">Unirme como VIP →</a>
+    <a class="btn" href="#" onclick="return goClub(event)">Unirme al Club →</a>
+    <div style="color:var(--grey);font-size:.9rem;margin-top:12px">🛡️ Garantía de 7 días · Cancela cuando quieras</div>
    </div>
   </div>
   <div style="text-align:center;margin-top:22px"><span style="color:var(--grey);font-size:.95rem">Cancela cuando quieras · Sin ataduras 🐾</span></div>
@@ -182,8 +172,8 @@ fbq('init','1402403141746407');fbq('track','PageView');
 <section class="final">
  <div class="wrap">
   <h2>Viajar accesible no tiene que darte miedo 🐾</h2>
-  <p>Únete al AllGo Club como fundador/a y ten todo resuelto, todo el año.</p>
-  <a class="btn" href="#" onclick="return goClub(event)">Quiero ser fundador/a →</a>
+  <p>Únete al AllGo Club y ten todo resuelto, todo el año.</p>
+  <a class="btn" href="#" onclick="return goClub(event)">Quiero unirme →</a>
  </div>
 </section>
 
@@ -194,10 +184,10 @@ fbq('init','1402403141746407');fbq('track','PageView');
 </footer>
 
 <script>
-/* ====== PEGA AQUÍ LOS LINKS DE CHECKOUT DE HOTMART (membresía) ====== */
-var CLUB_CHECKOUT_URL = "PEGA-AQUI-LINK-MEMBER";   // plan Member $9/mes
-var CLUB_VIP_URL      = "PEGA-AQUI-LINK-VIP";      // plan VIP $29/mes
-/* =================================================================== */
+/* ====== Checkout de la membresía (App AllGo, Hotmart) ====== */
+var CLUB_CHECKOUT_URL = "https://pay.hotmart.com/Q107023060D";   // membresía $29/mes o $290/año
+var CLUB_VIP_URL      = "https://pay.hotmart.com/Q107023060D";
+/* ========================================================== */
 function _go(url){
   try{fbq('track','InitiateCheckout',{content_name:'AllGo Club'});}catch(_){}
   if(!url || url.indexOf('PEGA-AQUI')===0){ alert('Falta pegar el link de checkout de la membresía en Hotmart.'); return false; }
