@@ -11,7 +11,7 @@ const FOUNDING_LIMIT = 50
 
 // Suscripción "Membresía AllGo Travel" — Hotmart producto Q107023060D
 const HOTMART = {
-  founding: 'https://pay.hotmart.com/Q107023060D?off=ghy5gvr9',
+  founding: 'https://pay.hotmart.com/Q107023060D?off=osgbatei', // plan FUNDADOR $14.99/mes (50% OFF)
   monthly: 'https://pay.hotmart.com/Q107023060D?off=zk0d9b2e',
   annual: 'https://pay.hotmart.com/Q107023060D?off=2nx7unav',
 }
@@ -110,10 +110,11 @@ export default async function MembresiaPage() {
               className="relative rounded-2xl bg-white p-6 shadow-lg flex flex-col"
               style={{ border: `2px solid ${ORANGE}` }}
             >
-              <h3 className="text-lg font-extrabold" style={{ color: BLUE }}>Founding</h3>
-              <p className="mt-1 text-xs text-gray-500">Precio de fundador, por tiempo limitado</p>
+              <h3 className="text-lg font-extrabold" style={{ color: BLUE }}>Fundador</h3>
+              <p className="mt-1 text-xs text-gray-500">50% OFF · precio congelado, por tiempo limitado</p>
               <div className="mt-4">
-                <span className="text-4xl font-extrabold">$19</span>
+                <span className="text-lg font-bold text-gray-400 line-through mr-1">$29</span>
+                <span className="text-4xl font-extrabold">$14.99</span>
                 <span className="text-gray-500">/mes</span>
               </div>
               <ul className="mt-4 space-y-2 text-sm text-gray-700 flex-1">
@@ -125,7 +126,7 @@ export default async function MembresiaPage() {
                 href={HOTMART.founding}
                 label="Unirme ahora →"
                 plan="founding"
-                value={19}
+                value={14.99}
                 className="allgo-tap allgo-cta mt-5 block rounded-full py-3 text-center font-bold text-white hover:opacity-90"
                 style={{ backgroundColor: ORANGE }}
               />
