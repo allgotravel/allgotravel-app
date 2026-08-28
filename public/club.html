@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AllGo Club — La comunidad para viajar accesible | AllGo Travel App</title>
+<meta name="description" content="Únete al AllGo Club: todas las guías, comunidad privada, recursos nuevos cada mes y descuentos de viaje. Oferta de fundadores por tiempo limitado.">
+<style>
+ :root{--teal:#0E7C86;--teald:#0A4F57;--tealL:#E3F1F2;--gold:#E0A100;--ink:#1F2A2E;--grey:#5B686D;}
+ *{box-sizing:border-box;margin:0;padding:0}
+ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:var(--ink);line-height:1.6;background:#fff}
+ img{max-width:100%;display:block}
+ .wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+ .btn{display:inline-block;background:var(--gold);color:#1a1a1a;font-weight:800;font-size:1.15rem;padding:16px 34px;border-radius:40px;text-decoration:none;box-shadow:0 6px 20px rgba(224,161,0,.35);transition:transform .15s;cursor:pointer;border:none}
+ .btn:hover{transform:translateY(-2px)}
+ .btn.teal{background:var(--teal);color:#fff}
+ .brandbar{background:var(--gold);height:6px}
+ .toplogo{background:var(--teald);text-align:center;padding:14px 0}
+ .toplogo span{color:#fff;font-weight:800;letter-spacing:.5px;font-size:1.05rem}
+ .toplogo span b{color:var(--gold)}
+ /* HERO */
+ .hero{background:linear-gradient(160deg,var(--teald),var(--teal));color:#fff;padding:52px 0 56px;text-align:center}
+ .tag{display:inline-block;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);padding:7px 18px;border-radius:20px;font-size:.82rem;font-weight:800;letter-spacing:1px;margin-bottom:20px;text-transform:uppercase}
+ .hero h1{font-size:2.5rem;line-height:1.15;margin:0 auto 16px;max-width:760px}
+ .hero h1 b{color:var(--gold)}
+ .hero .sub{font-size:1.12rem;color:#DCF0F1;margin:0 auto 28px;max-width:620px}
+ .hero .btn{font-size:1.2rem}
+ .hero .mini{display:block;margin-top:14px;color:#BFE0E2;font-size:.9rem}
+ section{padding:54px 0}
+ h2{font-size:1.95rem;color:var(--teald);margin-bottom:12px;text-align:center}
+ .lead{color:var(--grey);font-size:1.08rem;margin:0 auto 34px;max-width:640px;text-align:center}
+ /* BENEFITS */
+ .benefits{background:var(--tealL)}
+ .bgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:840px;margin:0 auto}
+ .bcard{background:#fff;border:1px solid #D5E4DF;border-radius:16px;padding:22px 24px;box-shadow:0 6px 18px rgba(14,124,134,.06)}
+ .bcard .ic{font-size:26px;margin-bottom:8px}
+ .bcard h3{color:var(--teald);font-size:1.08rem;margin-bottom:4px}
+ .bcard p{color:var(--grey);font-size:.98rem}
+ /* TIERS */
+ .tiers{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:820px;margin:0 auto}
+ .tier{border:2px solid #D5E4DF;border-radius:20px;padding:30px 26px;text-align:center;background:#fff;position:relative}
+ .tier.best{border-color:var(--gold);box-shadow:0 14px 40px rgba(224,161,0,.15)}
+ .tier .badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--gold);color:#1a1a1a;font-weight:800;font-size:.78rem;padding:5px 16px;border-radius:20px;letter-spacing:.5px}
+ .tier h3{color:var(--teald);font-size:1.25rem;margin-bottom:6px}
+ .tier .price{font-size:2.6rem;color:var(--teald);font-weight:800;line-height:1}
+ .tier .price small{font-size:1rem;color:var(--grey);font-weight:600}
+ .tier .year{color:var(--grey);font-size:.92rem;margin:4px 0 14px}
+ .tier ul{list-style:none;text-align:left;margin:16px 0 20px;display:grid;gap:8px}
+ .tier li{padding-left:26px;position:relative;font-size:.98rem}
+ .tier li:before{content:"✓";position:absolute;left:0;color:var(--teal);font-weight:900}
+ /* GUARANTEE / PROOF */
+ .proof{background:var(--tealL)}
+ .cards{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:840px;margin:0 auto 26px}
+ .qcard{background:#fff;border:1px solid #cfe6e7;border-radius:16px;padding:24px;box-shadow:0 8px 22px rgba(14,124,134,.08)}
+ .stars{color:var(--gold);letter-spacing:2px;margin-bottom:10px}
+ .qcard p{font-size:1.02rem;color:#20343a;margin-bottom:12px}
+ .qcard .who{font-weight:800;color:var(--teald)}
+ .guarantee{max-width:640px;margin:0 auto;display:flex;align-items:center;gap:16px;background:#fff;border:1px solid var(--gold);border-radius:14px;padding:20px 24px}
+ .guarantee .sh{font-size:32px}
+ .guarantee h3{margin:0 0 3px;color:var(--teald);font-size:1.08rem}
+ .guarantee p{margin:0;color:var(--grey);font-size:.96rem}
+ /* FAQ */
+ .faq{max-width:760px;margin:0 auto}
+ details{border-bottom:1px solid #e2ecea;padding:16px 4px}
+ summary{font-weight:700;color:var(--teald);cursor:pointer;font-size:1.05rem}
+ details p{color:var(--grey);margin-top:10px}
+ /* FINAL */
+ .final{background:var(--teald);color:#fff;text-align:center}
+ .final h2{color:#fff;font-size:2.1rem}
+ .final p{color:#CDEBEE;font-size:1.12rem;margin:12px auto 26px;max-width:560px}
+ footer{background:#0a3438;color:#9fbfc2;text-align:center;padding:32px 20px;font-size:.9rem}
+ footer strong{color:#fff}
+ @media(max-width:800px){.hero h1{font-size:1.9rem}h2{font-size:1.55rem}.bgrid,.tiers,.cards{grid-template-columns:1fr}}
+</style>
+<!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','1402403141746407');fbq('track','PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1402403141746407&ev=PageView&noscript=1"/></noscript>
+</head>
+<body>
+<div class="brandbar"></div>
+<div class="toplogo"><span>AllGo <b>Travel App</b> 🐾</span></div>
+
+<!-- HERO -->
+<div class="hero">
+ <div class="wrap">
+  <span class="tag">🐾 Oferta de Fundadores · Cupos limitados</span>
+  <h1>Únete al <b>AllGo Club</b> y viaja accesible sin miedo, todo el año</h1>
+  <p class="sub">Todas mis guías, una comunidad que te entiende, recursos nuevos cada mes y descuentos de viaje — en un solo lugar.</p>
+  <a class="btn" href="#unirme" onclick="return goClub(event)">Quiero ser fundador/a →</a>
+  <span class="mini">Cancela cuando quieras · Garantía de 7 días</span>
+ </div>
+</div>
+
+<!-- BENEFITS -->
+<section class="benefits">
+ <div class="wrap">
+  <h2>Todo lo que recibes 🎁</h2>
+  <p class="lead">El AllGo Club es tu compañero de viaje todo el año — no una compra suelta.</p>
+  <div class="bgrid">
+   <div class="bcard"><div class="ic">📚</div><h3>Todas las guías incluidas</h3><p>Perro de servicio, cruceros, silla eléctrica, destinos… y todas las nuevas, sin pagar aparte.</p></div>
+   <div class="bcard"><div class="ic">💬</div><h3>Comunidad privada</h3><p>Un grupo de viajeros que te entiende, para preguntar, compartir y no sentirte sola en el proceso.</p></div>
+   <div class="bcard"><div class="ic">🗓️</div><h3>Recurso nuevo cada mes</h3><p>Checklists de destinos, novedades de aerolíneas y tips de temporada, siempre frescos.</p></div>
+   <div class="bcard"><div class="ic">🏷️</div><h3>Descuentos y perks</h3><p>Beneficios en hoteles, seguros, arneses y experiencias de nuestros aliados.</p></div>
+   <div class="bcard"><div class="ic">⚡</div><h3>Novedades primero</h3><p>Cambios de reglas y ofertas de viaje accesible, antes que nadie.</p></div>
+   <div class="bcard"><div class="ic">🐾</div><h3>Hecho con propósito</h3><p>Creado por Yadira, que viaja con su perra de servicio Luna. Te acompaño de verdad.</p></div>
+  </div>
+ </div>
+</section>
+
+<!-- TIERS -->
+<section id="unirme">
+ <div class="wrap">
+  <h2>Elige tu plan 💳</h2>
+  <p class="lead">Precio de <b>fundador/a</b> para los primeros miembros — se queda contigo mientras seas parte.</p>
+  <div class="tiers">
+   <div class="tier best">
+    <div class="badge">MÁS POPULAR</div>
+    <h3>Member</h3>
+    <div class="price">$9<small>/mes</small></div>
+    <div class="year">o $79/año (2 meses gratis)</div>
+    <ul>
+     <li>Todas las guías incluidas</li>
+     <li>Comunidad privada</li>
+     <li>Recurso nuevo cada mes</li>
+     <li>Descuentos de viaje</li>
+    </ul>
+    <a class="btn" href="#" onclick="return goClub(event)">Unirme como Member →</a>
+   </div>
+   <div class="tier">
+    <h3>VIP</h3>
+    <div class="price">$29<small>/mes</small></div>
+    <div class="year">o $290/año</div>
+    <ul>
+     <li>Todo lo de Member</li>
+     <li>Acceso anticipado a lo nuevo</li>
+     <li>Sesión grupal mensual de novedades</li>
+     <li>Perks premium de aliados</li>
+    </ul>
+    <a class="btn teal" href="#" onclick="return goClubVip(event)">Unirme como VIP →</a>
+   </div>
+  </div>
+  <div style="text-align:center;margin-top:22px"><span style="color:var(--grey);font-size:.95rem">Cancela cuando quieras · Sin ataduras 🐾</span></div>
+ </div>
+</section>
+
+<!-- PROOF + GUARANTEE -->
+<section class="proof">
+ <div class="wrap">
+  <h2>Viajeras reales, tranquilidad real 💚</h2>
+  <div class="cards">
+   <div class="qcard"><div class="stars">★★★★★</div><p>"Es espectacular, muy práctico y excelente ayuda. Cada información hace más fácil cada trámite."</p><div class="who">@miamiglamcreations</div></div>
+   <div class="qcard"><div class="stars">★★★★★</div><p>"No tenía idea de que el microchip era importante para viajar. Toda la información es de muchísima ayuda."</p><div class="who">Sandra · viaja con Muffin 🐾</div></div>
+  </div>
+  <div class="guarantee">
+   <div class="sh">🛡️</div>
+   <div><h3>Garantía de 7 días</h3><p>Entra, mira todo por dentro, y si no es para ti, te devolvemos tu dinero. Sin riesgo.</p></div>
+  </div>
+ </div>
+</section>
+
+<!-- FAQ -->
+<section>
+ <div class="wrap">
+  <h2>Preguntas frecuentes</h2>
+  <div class="faq">
+   <details><summary>¿Qué es exactamente el AllGo Club?</summary><p>Una membresía mensual (o anual) que te da acceso a todas mis guías, una comunidad privada, recursos nuevos cada mes y descuentos de viaje accesible. Todo en un solo lugar, siempre actualizado.</p></details>
+   <details><summary>¿Puedo cancelar cuando quiera?</summary><p>Sí, en cualquier momento y sin preguntas. Además tienes 7 días de garantía.</p></details>
+   <details><summary>¿Ya compré una guía, la pierdo?</summary><p>Para nada. Dentro del Club tienes TODAS las guías incluidas, así que sumas mucho más.</p></details>
+   <details><summary>¿Esto es para mí si apenas empiezo a viajar con mi perro?</summary><p>Sí. El Club te acompaña desde el primer viaje, con todo lo que necesitas paso a paso y una comunidad que ya lo vivió.</p></details>
+  </div>
+ </div>
+</section>
+
+<!-- FINAL -->
+<section class="final">
+ <div class="wrap">
+  <h2>Viajar accesible no tiene que darte miedo 🐾</h2>
+  <p>Únete al AllGo Club como fundador/a y ten todo resuelto, todo el año.</p>
+  <a class="btn" href="#" onclick="return goClub(event)">Quiero ser fundador/a →</a>
+ </div>
+</section>
+
+<footer>
+ <p><strong>AllGo Travel App</strong> · AllGo Club</p>
+ <p style="margin-top:6px">Cancela cuando quieras. Esta información es orientación, no asesoría legal ni veterinaria.</p>
+ <p style="margin-top:6px">© 2026 AllGo Travel App</p>
+</footer>
+
+<script>
+/* ====== PEGA AQUÍ LOS LINKS DE CHECKOUT DE HOTMART (membresía) ====== */
+var CLUB_CHECKOUT_URL = "PEGA-AQUI-LINK-MEMBER";   // plan Member $9/mes
+var CLUB_VIP_URL      = "PEGA-AQUI-LINK-VIP";      // plan VIP $29/mes
+/* =================================================================== */
+function _go(url){
+  try{fbq('track','InitiateCheckout',{content_name:'AllGo Club'});}catch(_){}
+  if(!url || url.indexOf('PEGA-AQUI')===0){ alert('Falta pegar el link de checkout de la membresía en Hotmart.'); return false; }
+  window.location.href=url; return false;
+}
+function goClub(ev){ if(ev)ev.preventDefault(); return _go(CLUB_CHECKOUT_URL); }
+function goClubVip(ev){ if(ev)ev.preventDefault(); return _go(CLUB_VIP_URL); }
+</script>
+</body>
+</html>
