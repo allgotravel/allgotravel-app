@@ -6,44 +6,49 @@
 <title>AllGo Travel Club — La comunidad para viajar accesible | AllGo Travel App</title>
 <meta name="description" content="Únete al AllGo Travel Club: todas las guías, comunidad privada, recursos nuevos cada mes y descuentos de viaje. Oferta de fundadores por tiempo limitado.">
 <style>
- :root{--teal:#0E7C86;--teald:#0A4F57;--tealL:#E3F1F2;--gold:#E0A100;--ink:#1F2A2E;--grey:#5B686D;}
+ :root{--teal:#1B6FB5;--teald:#0E4E85;--tealL:#E7F1F9;--gold:#F97316;--ink:#1F2A2E;--grey:#5B686D;}
  *{box-sizing:border-box;margin:0;padding:0}
  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:var(--ink);line-height:1.6;background:#fff}
  img{max-width:100%;display:block}
  .wrap{max-width:1000px;margin:0 auto;padding:0 20px}
- .btn{display:inline-block;background:var(--gold);color:#1a1a1a;font-weight:800;font-size:1.15rem;padding:16px 34px;border-radius:40px;text-decoration:none;box-shadow:0 6px 20px rgba(224,161,0,.35);transition:transform .15s;cursor:pointer;border:none}
+ .btn{display:inline-block;background:var(--gold);color:#fff;font-weight:800;font-size:1.15rem;padding:16px 34px;border-radius:40px;text-decoration:none;box-shadow:0 6px 20px rgba(249,115,22,.35);transition:transform .15s;cursor:pointer;border:none}
  .btn:hover{transform:translateY(-2px)}
  .btn.teal{background:var(--teal);color:#fff}
  .brandbar{background:var(--gold);height:6px}
- .toplogo{background:var(--teald);text-align:center;padding:14px 0}
- .toplogo span{color:#fff;font-weight:800;letter-spacing:.5px;font-size:1.05rem}
- .toplogo span b{color:var(--gold)}
+ .toplogo{background:var(--teald);padding:12px 0}
+ .toplogo .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px}
+ .toplogo span.brand{color:#fff;font-weight:800;letter-spacing:.5px;font-size:1.05rem}
+ .toplogo span.brand b{color:var(--gold)}
+ .langsw{display:inline-flex;background:rgba(255,255,255,.16);border-radius:20px;padding:3px}
+ .langsw button{border:none;background:transparent;color:#fff;font-weight:800;font-size:.8rem;padding:5px 13px;border-radius:16px;cursor:pointer;transition:.15s}
+ .langsw button.on{background:#fff;color:var(--teald)}
  /* HERO */
  .hero{background:linear-gradient(160deg,var(--teald),var(--teal));color:#fff;padding:52px 0 56px;text-align:center}
  .tag{display:inline-block;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);padding:7px 18px;border-radius:20px;font-size:.82rem;font-weight:800;letter-spacing:1px;margin-bottom:20px;text-transform:uppercase}
  .hero h1{font-size:2.5rem;line-height:1.15;margin:0 auto 16px;max-width:760px}
  .hero h1 b{color:var(--gold)}
- .hero .sub{font-size:1.12rem;color:#DCF0F1;margin:0 auto 28px;max-width:620px}
+ .hero .sub{font-size:1.12rem;color:#DCE9F5;margin:0 auto 28px;max-width:620px}
  .hero .btn{font-size:1.2rem}
- .hero .mini{display:block;margin-top:14px;color:#BFE0E2;font-size:.9rem}
+ .hero .mini{display:block;margin-top:14px;color:#BAD4EC;font-size:.9rem}
  section{padding:54px 0}
  h2{font-size:1.95rem;color:var(--teald);margin-bottom:12px;text-align:center}
  .lead{color:var(--grey);font-size:1.08rem;margin:0 auto 34px;max-width:640px;text-align:center}
  /* BENEFITS */
  .benefits{background:var(--tealL)}
  .bgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:840px;margin:0 auto}
- .bcard{background:#fff;border:1px solid #D5E4DF;border-radius:16px;padding:22px 24px;box-shadow:0 6px 18px rgba(14,124,134,.06)}
+ .bcard{background:#fff;border:1px solid #D6E4F0;border-radius:16px;padding:22px 24px;box-shadow:0 6px 18px rgba(27,111,181,.06)}
  .bcard .ic{font-size:26px;margin-bottom:8px}
  .bcard h3{color:var(--teald);font-size:1.08rem;margin-bottom:4px}
  .bcard p{color:var(--grey);font-size:.98rem}
  /* TIERS */
  .tiers{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:820px;margin:0 auto}
- .tier{border:2px solid #D5E4DF;border-radius:20px;padding:30px 26px;text-align:center;background:#fff;position:relative}
- .tier.best{border-color:var(--gold);box-shadow:0 14px 40px rgba(224,161,0,.15)}
- .tier .badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--gold);color:#1a1a1a;font-weight:800;font-size:.78rem;padding:5px 16px;border-radius:20px;letter-spacing:.5px}
+ .tier{border:2px solid #D6E4F0;border-radius:20px;padding:30px 26px;text-align:center;background:#fff;position:relative}
+ .tier.best{border-color:var(--gold);box-shadow:0 14px 40px rgba(249,115,22,.15)}
+ .tier .badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--gold);color:#fff;font-weight:800;font-size:.78rem;padding:5px 16px;border-radius:20px;letter-spacing:.5px}
  .tier h3{color:var(--teald);font-size:1.25rem;margin-bottom:6px}
  .tier .price{font-size:2.6rem;color:var(--teald);font-weight:800;line-height:1}
  .tier .price small{font-size:1rem;color:var(--grey);font-weight:600}
+ .tier .price .was{font-size:1.4rem;color:var(--grey);text-decoration:line-through;font-weight:700;margin-right:8px}
  .tier .year{color:var(--grey);font-size:.92rem;margin:4px 0 14px}
  .tier ul{list-style:none;text-align:left;margin:16px 0 20px;display:grid;gap:8px}
  .tier li{padding-left:26px;position:relative;font-size:.98rem}
@@ -51,7 +56,7 @@
  /* GUARANTEE / PROOF */
  .proof{background:var(--tealL)}
  .cards{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:840px;margin:0 auto 26px}
- .qcard{background:#fff;border:1px solid #cfe6e7;border-radius:16px;padding:24px;box-shadow:0 8px 22px rgba(14,124,134,.08)}
+ .qcard{background:#fff;border:1px solid #cfe0f0;border-radius:16px;padding:24px;box-shadow:0 8px 22px rgba(27,111,181,.08)}
  .stars{color:var(--gold);letter-spacing:2px;margin-bottom:10px}
  .qcard p{font-size:1.02rem;color:#20343a;margin-bottom:12px}
  .qcard .who{font-weight:800;color:var(--teald)}
@@ -61,14 +66,14 @@
  .guarantee p{margin:0;color:var(--grey);font-size:.96rem}
  /* FAQ */
  .faq{max-width:760px;margin:0 auto}
- details{border-bottom:1px solid #e2ecea;padding:16px 4px}
+ details{border-bottom:1px solid #e2ecf2;padding:16px 4px}
  summary{font-weight:700;color:var(--teald);cursor:pointer;font-size:1.05rem}
  details p{color:var(--grey);margin-top:10px}
  /* FINAL */
  .final{background:var(--teald);color:#fff;text-align:center}
  .final h2{color:#fff;font-size:2.1rem}
- .final p{color:#CDEBEE;font-size:1.12rem;margin:12px auto 26px;max-width:560px}
- footer{background:#0a3438;color:#9fbfc2;text-align:center;padding:32px 20px;font-size:.9rem}
+ .final p{color:#CFE2F5;font-size:1.12rem;margin:12px auto 26px;max-width:560px}
+ footer{background:#0a3a5c;color:#a9c6e0;text-align:center;padding:32px 20px;font-size:.9rem}
  footer strong{color:#fff}
  @media(max-width:800px){.hero h1{font-size:1.9rem}h2{font-size:1.55rem}.bgrid,.tiers,.cards{grid-template-columns:1fr}}
 </style>
@@ -85,31 +90,39 @@ fbq('init','1402403141746407');fbq('track','PageView');
 </head>
 <body>
 <div class="brandbar"></div>
-<div class="toplogo"><span>AllGo <b>Travel App</b> 🐾</span></div>
+<div class="toplogo">
+ <div class="wrap">
+  <span class="brand">AllGo <b>Travel App</b> 🐾</span>
+  <div class="langsw">
+   <button id="lang-es" class="on" onclick="setLang('es')">ES</button>
+   <button id="lang-en" onclick="setLang('en')">EN</button>
+  </div>
+ </div>
+</div>
 
 <!-- HERO -->
 <div class="hero">
  <div class="wrap">
-  <span class="tag">🐾 Precio de fundador/a · 50% OFF por tiempo limitado</span>
-  <h1>Únete al <b>AllGo Travel Club</b> y viaja accesible sin miedo, todo el año</h1>
-  <p class="sub">La app AllGo, todas mis guías, una comunidad que te entiende, recursos nuevos cada mes y descuentos de viaje — en un solo lugar.</p>
-  <a class="btn" href="#unirme" onclick="return goClub(event)">Quiero unirme →</a>
-  <span class="mini">Cancela cuando quieras · Garantía de 7 días</span>
+  <span class="tag" data-i18n="tag">🐾 Precio de fundador/a · 50% OFF por tiempo limitado</span>
+  <h1 data-i18n="h1">Únete al <b>AllGo Travel Club</b> y viaja accesible sin miedo, todo el año</h1>
+  <p class="sub" data-i18n="sub">La app AllGo, todas mis guías, una comunidad que te entiende, recursos nuevos cada mes y descuentos de viaje — en un solo lugar.</p>
+  <a class="btn" href="#unirme" onclick="return goClub(event)" data-i18n="cta1">Quiero unirme →</a>
+  <span class="mini" data-i18n="mini">Cancela cuando quieras · Garantía de 7 días</span>
  </div>
 </div>
 
 <!-- BENEFITS -->
 <section class="benefits">
  <div class="wrap">
-  <h2>Todo lo que recibes 🎁</h2>
-  <p class="lead">El AllGo Travel Club es tu compañero de viaje todo el año — no una compra suelta.</p>
+  <h2 data-i18n="ben_h2">Todo lo que recibes 🎁</h2>
+  <p class="lead" data-i18n="ben_lead">El AllGo Travel Club es tu compañero de viaje todo el año — no una compra suelta.</p>
   <div class="bgrid">
-   <div class="bcard"><div class="ic">📚</div><h3>Todas las guías incluidas</h3><p>Perro de servicio, cruceros, silla eléctrica, destinos… y todas las nuevas, sin pagar aparte.</p></div>
-   <div class="bcard"><div class="ic">💬</div><h3>Comunidad privada</h3><p>Un grupo de viajeros que te entiende, para preguntar, compartir y no sentirte sola en el proceso.</p></div>
-   <div class="bcard"><div class="ic">🗓️</div><h3>Recurso nuevo cada mes</h3><p>Checklists de destinos, novedades de aerolíneas y tips de temporada, siempre frescos.</p></div>
-   <div class="bcard"><div class="ic">🏷️</div><h3>Descuentos y perks</h3><p>Beneficios en hoteles, seguros, arneses y experiencias de nuestros aliados.</p></div>
-   <div class="bcard"><div class="ic">⚡</div><h3>Novedades primero</h3><p>Cambios de reglas y ofertas de viaje accesible, antes que nadie.</p></div>
-   <div class="bcard"><div class="ic">🐾</div><h3>Hecho con propósito</h3><p>Creado por Yadira, que viaja con su perra de servicio Luna. Te acompaño de verdad.</p></div>
+   <div class="bcard"><div class="ic">📚</div><h3 data-i18n="c1t">Todas las guías incluidas</h3><p data-i18n="c1d">Perro de servicio, cruceros, silla eléctrica, destinos… y todas las nuevas, sin pagar aparte.</p></div>
+   <div class="bcard"><div class="ic">💬</div><h3 data-i18n="c2t">Comunidad privada</h3><p data-i18n="c2d">Un grupo de viajeros que te entiende, para preguntar, compartir y no sentirte sola en el proceso.</p></div>
+   <div class="bcard"><div class="ic">🗓️</div><h3 data-i18n="c3t">Recurso nuevo cada mes</h3><p data-i18n="c3d">Checklists de destinos, novedades de aerolíneas y tips de temporada, siempre frescos.</p></div>
+   <div class="bcard"><div class="ic">🏷️</div><h3 data-i18n="c4t">Descuentos y perks</h3><p data-i18n="c4d">Beneficios en hoteles, seguros, arneses y experiencias de nuestros aliados.</p></div>
+   <div class="bcard"><div class="ic">⚡</div><h3 data-i18n="c5t">Novedades primero</h3><p data-i18n="c5d">Cambios de reglas y ofertas de viaje accesible, antes que nadie.</p></div>
+   <div class="bcard"><div class="ic">🐾</div><h3 data-i18n="c6t">Hecho con propósito</h3><p data-i18n="c6d">Creado por Yadira, que viaja con su perra de servicio Luna. Te acompaño de verdad.</p></div>
   </div>
  </div>
 </section>
@@ -117,40 +130,40 @@ fbq('init','1402403141746407');fbq('track','PageView');
 <!-- TIERS -->
 <section id="unirme">
  <div class="wrap">
-  <h2>Únete al Club 💳</h2>
-  <p class="lead">Una membresía, todo incluido. Cancela cuando quieras, con 7 días de garantía.</p>
+  <h2 data-i18n="t_h2">Únete al Club 💳</h2>
+  <p class="lead" data-i18n="t_lead">Una membresía, todo incluido. Cancela cuando quieras, con 7 días de garantía.</p>
   <div class="tiers" style="grid-template-columns:1fr;max-width:480px">
    <div class="tier best">
-    <div class="badge">PRECIO DE FUNDADOR/A · 50% OFF</div>
+    <div class="badge" data-i18n="badge">PRECIO DE FUNDADOR/A · 50% OFF</div>
     <h3>AllGo Travel Club</h3>
-    <div class="price"><span style="font-size:1.4rem;color:var(--grey);text-decoration:line-through;font-weight:700;margin-right:8px">$29</span>$14.99<small>/mes</small></div>
-    <div class="year">🔒 50% OFF · precio congelado mientras seas miembro</div>
+    <div class="price"><span class="was">$29</span>$14.99<small data-i18n="permo">/mes</small></div>
+    <div class="year" data-i18n="year">🔒 50% OFF · precio congelado mientras seas miembro</div>
     <ul>
-     <li>La app AllGo + todas las guías incluidas</li>
-     <li>Comunidad privada de viajeros</li>
-     <li>Recursos nuevos cada mes</li>
-     <li>Descuentos y perks de viaje</li>
-     <li>Novedades y cambios de reglas, primero tú</li>
+     <li data-i18n="li1">La app AllGo + todas las guías incluidas</li>
+     <li data-i18n="li2">Comunidad privada de viajeros</li>
+     <li data-i18n="li3">Recursos nuevos cada mes</li>
+     <li data-i18n="li4">Descuentos y perks de viaje</li>
+     <li data-i18n="li5">Novedades y cambios de reglas, primero tú</li>
     </ul>
-    <a class="btn" href="#" onclick="return goClub(event)">Unirme al Club →</a>
-    <div style="color:var(--grey);font-size:.9rem;margin-top:12px">🛡️ Garantía de 7 días · Cancela cuando quieras</div>
+    <a class="btn" href="#" onclick="return goClub(event)" data-i18n="t_cta">Unirme al Club →</a>
+    <div style="color:var(--grey);font-size:.9rem;margin-top:12px" data-i18n="t_note">🛡️ Garantía de 7 días · Cancela cuando quieras</div>
    </div>
   </div>
-  <div style="text-align:center;margin-top:22px"><span style="color:var(--grey);font-size:.95rem">Cancela cuando quieras · Sin ataduras 🐾</span></div>
+  <div style="text-align:center;margin-top:22px"><span style="color:var(--grey);font-size:.95rem" data-i18n="t_bottom">Cancela cuando quieras · Sin ataduras 🐾</span></div>
  </div>
 </section>
 
 <!-- PROOF + GUARANTEE -->
 <section class="proof">
  <div class="wrap">
-  <h2>Viajeras reales, tranquilidad real 💚</h2>
+  <h2 data-i18n="p_h2">Viajeras reales, tranquilidad real 💚</h2>
   <div class="cards">
-   <div class="qcard"><div class="stars">★★★★★</div><p>"Es espectacular, muy práctico y excelente ayuda. Cada información hace más fácil cada trámite."</p><div class="who">@miamiglamcreations</div></div>
-   <div class="qcard"><div class="stars">★★★★★</div><p>"No tenía idea de que el microchip era importante para viajar. Toda la información es de muchísima ayuda."</p><div class="who">Sandra · viaja con Muffin 🐾</div></div>
+   <div class="qcard"><div class="stars">★★★★★</div><p data-i18n="q1">"Es espectacular, muy práctico y excelente ayuda. Cada información hace más fácil cada trámite."</p><div class="who">@miamiglamcreations</div></div>
+   <div class="qcard"><div class="stars">★★★★★</div><p data-i18n="q2">"No tenía idea de que el microchip era importante para viajar. Toda la información es de muchísima ayuda."</p><div class="who" data-i18n="who2">Sandra · viaja con Muffin 🐾</div></div>
   </div>
   <div class="guarantee">
    <div class="sh">🛡️</div>
-   <div><h3>Garantía de 7 días</h3><p>Entra, mira todo por dentro, y si no es para ti, te devolvemos tu dinero. Sin riesgo.</p></div>
+   <div><h3 data-i18n="g_h3">Garantía de 7 días</h3><p data-i18n="g_p">Entra, mira todo por dentro, y si no es para ti, te devolvemos tu dinero. Sin riesgo.</p></div>
   </div>
  </div>
 </section>
@@ -158,12 +171,12 @@ fbq('init','1402403141746407');fbq('track','PageView');
 <!-- FAQ -->
 <section>
  <div class="wrap">
-  <h2>Preguntas frecuentes</h2>
+  <h2 data-i18n="f_h2">Preguntas frecuentes</h2>
   <div class="faq">
-   <details><summary>¿Qué es exactamente el AllGo Travel Club?</summary><p>Una membresía mensual (o anual) que te da acceso a todas mis guías, una comunidad privada, recursos nuevos cada mes y descuentos de viaje accesible. Todo en un solo lugar, siempre actualizado.</p></details>
-   <details><summary>¿Puedo cancelar cuando quiera?</summary><p>Sí, en cualquier momento y sin preguntas. Además tienes 7 días de garantía.</p></details>
-   <details><summary>¿Ya compré una guía, la pierdo?</summary><p>Para nada. Dentro del Club tienes TODAS las guías incluidas, así que sumas mucho más.</p></details>
-   <details><summary>¿Esto es para mí si apenas empiezo a viajar con mi perro?</summary><p>Sí. El Club te acompaña desde el primer viaje, con todo lo que necesitas paso a paso y una comunidad que ya lo vivió.</p></details>
+   <details><summary data-i18n="f1q">¿Qué es exactamente el AllGo Travel Club?</summary><p data-i18n="f1a">Una membresía mensual (o anual) que te da acceso a todas mis guías, una comunidad privada, recursos nuevos cada mes y descuentos de viaje accesible. Todo en un solo lugar, siempre actualizado.</p></details>
+   <details><summary data-i18n="f2q">¿Puedo cancelar cuando quiera?</summary><p data-i18n="f2a">Sí, en cualquier momento y sin preguntas. Además tienes 7 días de garantía.</p></details>
+   <details><summary data-i18n="f3q">¿Ya compré una guía, la pierdo?</summary><p data-i18n="f3a">Para nada. Dentro del Club tienes TODAS las guías incluidas, así que sumas mucho más.</p></details>
+   <details><summary data-i18n="f4q">¿Esto es para mí si apenas empiezo a viajar con mi perro?</summary><p data-i18n="f4a">Sí. El Club te acompaña desde el primer viaje, con todo lo que necesitas paso a paso y una comunidad que ya lo vivió.</p></details>
   </div>
  </div>
 </section>
@@ -171,15 +184,15 @@ fbq('init','1402403141746407');fbq('track','PageView');
 <!-- FINAL -->
 <section class="final">
  <div class="wrap">
-  <h2>Viajar accesible no tiene que darte miedo 🐾</h2>
-  <p>Únete al AllGo Travel Club y ten todo resuelto, todo el año.</p>
-  <a class="btn" href="#" onclick="return goClub(event)">Quiero unirme →</a>
+  <h2 data-i18n="fin_h2">Viajar accesible no tiene que darte miedo 🐾</h2>
+  <p data-i18n="fin_p">Únete al AllGo Travel Club y ten todo resuelto, todo el año.</p>
+  <a class="btn" href="#" onclick="return goClub(event)" data-i18n="fin_cta">Quiero unirme →</a>
  </div>
 </section>
 
 <footer>
  <p><strong>AllGo Travel App</strong> · AllGo Travel Club</p>
- <p style="margin-top:6px">Cancela cuando quieras. Esta información es orientación, no asesoría legal ni veterinaria.</p>
+ <p style="margin-top:6px" data-i18n="foot2">Cancela cuando quieras. Esta información es orientación, no asesoría legal ni veterinaria.</p>
  <p style="margin-top:6px">© 2026 AllGo Travel App</p>
 </footer>
 
@@ -195,6 +208,123 @@ function _go(url){
 }
 function goClub(ev){ if(ev)ev.preventDefault(); return _go(CLUB_CHECKOUT_URL); }
 function goClubVip(ev){ if(ev)ev.preventDefault(); return _go(CLUB_VIP_URL); }
+
+/* ====== Bilingüe ES / EN ====== */
+var I18N={
+ en:{
+  tag:"🐾 Founder price · 50% OFF for a limited time",
+  h1:"Join the <b>AllGo Travel Club</b> and travel accessibly without fear, all year long",
+  sub:"The AllGo app, all my guides, a community that gets you, new resources every month and travel discounts — all in one place.",
+  cta1:"I want to join →",
+  mini:"Cancel anytime · 7-day guarantee",
+  ben_h2:"Everything you get 🎁",
+  ben_lead:"The AllGo Travel Club is your travel companion all year — not a one-time purchase.",
+  c1t:"All guides included", c1d:"Service dog, cruises, power wheelchair, destinations… and every new one, at no extra cost.",
+  c2t:"Private community", c2d:"A group of travelers who understand you — to ask, share and never feel alone in the process.",
+  c3t:"New resource every month", c3d:"Destination checklists, airline updates and seasonal tips, always fresh.",
+  c4t:"Discounts & perks", c4d:"Benefits on hotels, insurance, harnesses and experiences from our partners.",
+  c5t:"News first", c5d:"Rule changes and accessible-travel deals, before anyone else.",
+  c6t:"Made with purpose", c6d:"Created by Yadira, who travels with her service dog Luna. I'm truly with you.",
+  t_h2:"Join the Club 💳",
+  t_lead:"One membership, all included. Cancel anytime, with a 7-day guarantee.",
+  badge:"FOUNDER PRICE · 50% OFF",
+  permo:"/mo",
+  year:"🔒 50% OFF · price locked while you're a member",
+  li1:"The AllGo app + all guides included",
+  li2:"Private community of travelers",
+  li3:"New resources every month",
+  li4:"Travel discounts & perks",
+  li5:"Updates and rule changes, you first",
+  t_cta:"Join the Club →",
+  t_note:"🛡️ 7-day guarantee · Cancel anytime",
+  t_bottom:"Cancel anytime · No strings 🐾",
+  p_h2:"Real travelers, real peace of mind 💚",
+  q1:"\"It's spectacular, very practical and a great help. Every bit of info makes each step easier.\"",
+  q2:"\"I had no idea the microchip mattered for travel. All the information is incredibly helpful.\"",
+  who2:"Sandra · travels with Muffin 🐾",
+  g_h3:"7-day guarantee",
+  g_p:"Join, see everything inside, and if it's not for you, we'll refund you. No risk.",
+  f_h2:"Frequently asked questions",
+  f1q:"What exactly is the AllGo Travel Club?",
+  f1a:"A monthly (or annual) membership that gives you access to all my guides, a private community, new resources every month and accessible-travel discounts. All in one place, always updated.",
+  f2q:"Can I cancel anytime?",
+  f2a:"Yes, anytime and no questions asked. Plus you have a 7-day guarantee.",
+  f3q:"I already bought a guide — do I lose it?",
+  f3a:"Not at all. Inside the Club you get ALL guides included, so you gain much more.",
+  f4q:"Is this for me if I'm just starting to travel with my dog?",
+  f4a:"Yes. The Club is with you from your first trip, with everything you need step by step and a community that's been there.",
+  fin_h2:"Accessible travel doesn't have to be scary 🐾",
+  fin_p:"Join the AllGo Travel Club and have it all sorted, all year long.",
+  fin_cta:"I want to join →",
+  foot2:"Cancel anytime. This information is guidance, not legal or veterinary advice."
+ },
+ es:{
+  tag:"🐾 Precio de fundador/a · 50% OFF por tiempo limitado",
+  h1:"Únete al <b>AllGo Travel Club</b> y viaja accesible sin miedo, todo el año",
+  sub:"La app AllGo, todas mis guías, una comunidad que te entiende, recursos nuevos cada mes y descuentos de viaje — en un solo lugar.",
+  cta1:"Quiero unirme →",
+  mini:"Cancela cuando quieras · Garantía de 7 días",
+  ben_h2:"Todo lo que recibes 🎁",
+  ben_lead:"El AllGo Travel Club es tu compañero de viaje todo el año — no una compra suelta.",
+  c1t:"Todas las guías incluidas", c1d:"Perro de servicio, cruceros, silla eléctrica, destinos… y todas las nuevas, sin pagar aparte.",
+  c2t:"Comunidad privada", c2d:"Un grupo de viajeros que te entiende, para preguntar, compartir y no sentirte sola en el proceso.",
+  c3t:"Recurso nuevo cada mes", c3d:"Checklists de destinos, novedades de aerolíneas y tips de temporada, siempre frescos.",
+  c4t:"Descuentos y perks", c4d:"Beneficios en hoteles, seguros, arneses y experiencias de nuestros aliados.",
+  c5t:"Novedades primero", c5d:"Cambios de reglas y ofertas de viaje accesible, antes que nadie.",
+  c6t:"Hecho con propósito", c6d:"Creado por Yadira, que viaja con su perra de servicio Luna. Te acompaño de verdad.",
+  t_h2:"Únete al Club 💳",
+  t_lead:"Una membresía, todo incluido. Cancela cuando quieras, con 7 días de garantía.",
+  badge:"PRECIO DE FUNDADOR/A · 50% OFF",
+  permo:"/mes",
+  year:"🔒 50% OFF · precio congelado mientras seas miembro",
+  li1:"La app AllGo + todas las guías incluidas",
+  li2:"Comunidad privada de viajeros",
+  li3:"Recursos nuevos cada mes",
+  li4:"Descuentos y perks de viaje",
+  li5:"Novedades y cambios de reglas, primero tú",
+  t_cta:"Unirme al Club →",
+  t_note:"🛡️ Garantía de 7 días · Cancela cuando quieras",
+  t_bottom:"Cancela cuando quieras · Sin ataduras 🐾",
+  p_h2:"Viajeras reales, tranquilidad real 💚",
+  q1:"\"Es espectacular, muy práctico y excelente ayuda. Cada información hace más fácil cada trámite.\"",
+  q2:"\"No tenía idea de que el microchip era importante para viajar. Toda la información es de muchísima ayuda.\"",
+  who2:"Sandra · viaja con Muffin 🐾",
+  g_h3:"Garantía de 7 días",
+  g_p:"Entra, mira todo por dentro, y si no es para ti, te devolvemos tu dinero. Sin riesgo.",
+  f_h2:"Preguntas frecuentes",
+  f1q:"¿Qué es exactamente el AllGo Travel Club?",
+  f1a:"Una membresía mensual (o anual) que te da acceso a todas mis guías, una comunidad privada, recursos nuevos cada mes y descuentos de viaje accesible. Todo en un solo lugar, siempre actualizado.",
+  f2q:"¿Puedo cancelar cuando quiera?",
+  f2a:"Sí, en cualquier momento y sin preguntas. Además tienes 7 días de garantía.",
+  f3q:"¿Ya compré una guía, la pierdo?",
+  f3a:"Para nada. Dentro del Club tienes TODAS las guías incluidas, así que sumas mucho más.",
+  f4q:"¿Esto es para mí si apenas empiezo a viajar con mi perro?",
+  f4a:"Sí. El Club te acompaña desde el primer viaje, con todo lo que necesitas paso a paso y una comunidad que ya lo vivió.",
+  fin_h2:"Viajar accesible no tiene que darte miedo 🐾",
+  fin_p:"Únete al AllGo Travel Club y ten todo resuelto, todo el año.",
+  fin_cta:"Quiero unirme →",
+  foot2:"Cancela cuando quieras. Esta información es orientación, no asesoría legal ni veterinaria."
+ }
+};
+function setLang(l){
+  if(!I18N[l]) l='es';
+  document.documentElement.lang=l;
+  var d=I18N[l];
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var k=el.getAttribute('data-i18n');
+    if(d[k]!=null) el.innerHTML=d[k];
+  });
+  var es=document.getElementById('lang-es'), en=document.getElementById('lang-en');
+  if(es) es.classList.toggle('on',l==='es');
+  if(en) en.classList.toggle('on',l==='en');
+  try{localStorage.setItem('allgo_lang',l);}catch(_){}
+}
+(function(){
+  var l='es';
+  try{var v=localStorage.getItem('allgo_lang'); if(v){l=v;}
+      else if((navigator.language||'').toLowerCase().indexOf('en')===0){l='en';}}catch(_){}
+  setLang(l);
+})();
 </script>
 </body>
 </html>
