@@ -53,13 +53,23 @@ function Cross() {
   )
 }
 
+function AnnualTag() {
+  return (
+    <span className="inline-block rounded-full px-2.5 py-0.5 text-xs font-bold text-white whitespace-nowrap" style={{ backgroundColor: ORANGE }}>
+      Plan anual
+    </span>
+  )
+}
+
 const COMPARISON: { label: string; free: React.ReactNode; member: React.ReactNode }[] = [
-  { label: 'Directorio de aerolíneas', free: <span className="text-gray-500 text-sm">3 de muestra</span>, member: <span className="font-semibold" style={{ color: BLUE }}>Las 25, verificadas</span> },
-  { label: 'Ebook «Viaja con tu Perro de Servicio»', free: <Check />, member: <Check /> },
-  { label: 'Service Dog Travel Hub (7 módulos)', free: <Cross />, member: <Check /> },
+  { label: 'Aerolíneas verificadas (accesibilidad + perro de servicio)', free: <span className="text-gray-500 text-sm">3 de muestra</span>, member: <span className="font-semibold" style={{ color: BLUE }}>Las 25</span> },
+  { label: 'Cruceros accesibles', free: <Cross />, member: <Check /> },
+  { label: 'Destinos y países accesibles', free: <Cross />, member: <Check /> },
   { label: 'Alli, tu asistente de viaje', free: <span className="text-gray-500 text-sm">Limitada</span>, member: <span className="font-semibold" style={{ color: BLUE }}>Ilimitada</span> },
-  { label: 'Formularios y documentos descargables', free: <Cross />, member: <Check /> },
-  { label: 'Alertas de cambios de política', free: <Cross />, member: <Check /> },
+  { label: 'Alertas de cambios de reglas', free: <Cross />, member: <Check /> },
+  { label: 'Formularios y trámites de viaje', free: <Cross />, member: <Check /> },
+  { label: 'Comunidad privada de miembros', free: <Cross />, member: <Check /> },
+  { label: 'Guías descargables para conservar (ebook, silla y más)', free: <Cross />, member: <AnnualTag /> },
 ]
 
 export default async function MembresiaPage() {
@@ -81,14 +91,16 @@ export default async function MembresiaPage() {
           className="rounded-full mx-auto mb-5"
         />
         <p className="text-sm font-semibold tracking-wide" style={{ color: ORANGE }}>
-          MEMBRESÍA ALLGO TRAVEL
+          MEMBRESÍA ALLGO TRAVEL APP
         </p>
         <h1 className="mt-2 text-3xl sm:text-4xl font-extrabold leading-tight max-w-2xl mx-auto">
-          Viaja con tu perro de servicio, sin adivinar nada
+          Viaja accesible sin miedo, sin adivinar nada
         </h1>
         <p className="mt-4 text-white/80 max-w-xl mx-auto">
-          Acceso completo al directorio verificado de 25 aerolíneas, el Service Dog
-          Travel Hub y Alli sin límites. Cada dato con su fuente oficial y su fecha.
+          Para quienes viajan con movilidad reducida, con un peque con necesidades
+          especiales, cuidando a un ser querido, con una condición invisible, como
+          adulto mayor o con su perro de servicio. Aerolíneas verificadas, cruceros y
+          destinos accesibles, alertas y Alli sin límites — con su fuente oficial y su fecha.
         </p>
 
         {foundingOpen && (
@@ -118,9 +130,9 @@ export default async function MembresiaPage() {
                 <span className="text-gray-500">/mes</span>
               </div>
               <ul className="mt-4 space-y-2 text-sm text-gray-700 flex-1">
-                <li>✅ Todo el acceso MEMBER</li>
-                <li>✅ Precio congelado de fundador</li>
-                <li>✅ Insignia de miembro fundador</li>
+                <li>✅ Acceso a todo el app mientras seas miembro</li>
+                <li>✅ Precio congelado de fundador/a</li>
+                <li>✅ Insignia de miembro fundador/a</li>
               </ul>
               <PlanButton
                 href={HOTMART.founding}
@@ -142,8 +154,9 @@ export default async function MembresiaPage() {
               <span className="text-gray-500">/mes</span>
             </div>
             <ul className="mt-4 space-y-2 text-sm text-gray-700 flex-1">
-              <li>✅ Acceso completo MEMBER</li>
-              <li>✅ Sin permanencia</li>
+              <li>✅ Acceso a todo el app mientras seas miembro</li>
+              <li>✅ Comunidad privada de miembros</li>
+              <li>✅ Sin permanencia, cancela cuando quieras</li>
             </ul>
             <PlanButton
               href={HOTMART.monthly}
@@ -174,9 +187,10 @@ export default async function MembresiaPage() {
               <span className="text-gray-500">/año</span>
             </div>
             <ul className="mt-4 space-y-2 text-sm text-gray-700 flex-1">
-              <li>✅ Acceso completo MEMBER</li>
-              <li>✅ Equivale a ~$24/mes</li>
-              <li>✅ 2 meses gratis vs mensual</li>
+              <li>✅ Todo lo del plan mensual</li>
+              <li>✅ Guías descargables para conservar (ebook, silla y más)</li>
+              <li>✅ Comunidad privada de miembros</li>
+              <li>✅ 2 meses gratis (equivale a ~$24/mes)</li>
             </ul>
             <PlanButton
               href={HOTMART.annual}
