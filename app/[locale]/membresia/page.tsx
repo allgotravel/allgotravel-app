@@ -204,16 +204,13 @@ export default async function MembresiaPage() {
           )}
         </div>
         <div className="mx-auto mt-6 max-w-2xl rounded-2xl bg-white p-5 shadow-sm" style={{ border: `2px solid ${ORANGE}` }}>
-          <p className="text-xs font-bold" style={{ color: ORANGE }}>🎁 BONO EXCLUSIVO DEL PLAN ANUAL</p>
-          <h3 className="mt-1 text-lg font-extrabold" style={{ color: BLUE }}>Kit de Plantillas para Conservar</h3>
-          <p className="mt-1 text-sm text-gray-600">Descargables para imprimir y usar — <strong>tuyas para siempre, aunque canceles.</strong></p>
-          <ul className="mt-3 grid gap-1.5 text-sm text-gray-700 sm:grid-cols-2">
-            <li>📋 Checklist de viaje accesible</li>
-            <li>🗺️ Planificador de viaje</li>
-            <li>🪪 Tarjeta de comunicación</li>
-            <li>📒 Registro de solicitudes de accesibilidad</li>
-            <li>🩺 Ficha médica y de emergencia</li>
-            <li>🌎 En español e inglés</li>
+          <p className="text-xs font-bold" style={{ color: ORANGE }}>🎁 BONOS EXCLUSIVOS DEL PLAN ANUAL</p>
+          <h3 className="mt-1 text-lg font-extrabold" style={{ color: BLUE }}>Guías descargables para conservar</h3>
+          <p className="mt-1 text-sm text-gray-600"><strong>Tuyas para siempre, aunque canceles.</strong></p>
+          <ul className="mt-3 grid gap-2 text-sm text-gray-700">
+            <li>📘 <strong>Ebook «Viaja con tu Perro de Servicio»</strong> (español e inglés)</li>
+            <li>♿ <strong>Guía «Vuela con tu Silla Eléctrica»</strong> — baterías y reglas 2026</li>
+            <li>📋 <strong>Kit de Plantillas para Conservar</strong> — checklist, planificador, tarjeta de comunicación, registro de accesibilidad y ficha médica</li>
           </ul>
         </div>
         <p className="mt-4 text-center text-xs text-gray-400">
