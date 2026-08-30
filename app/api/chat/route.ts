@@ -2,6 +2,7 @@ import Anthropic from '@anthropic-ai/sdk'
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import type { Profile } from '@/types/profile'
+import { MOBILITY_TRAVEL_KB } from '@/lib/alliKnowledge'
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
@@ -308,7 +309,7 @@ existe en un idioma, tradúcelo tú y acláralo: "Esto es una traducción de
 la política oficial en inglés."`
 
 function buildSystemPrompt(profile: Profile | null, locale: string, hoy: string): string {
-  const parts: string[] = [ALLI_BASE_PROMPT, '', `Fecha de hoy: ${hoy}.`]
+  const parts: string[] = [ALLI_BASE_PROMPT, MOBILITY_TRAVEL_KB, '', `Fecha de hoy: ${hoy}.`]
 
   if (!profile) return parts.join('\n')
 
