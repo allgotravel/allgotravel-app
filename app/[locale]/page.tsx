@@ -211,6 +211,24 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── FAMILY BANNER ── */}
+      <section className="relative">
+        <div className="relative h-[300px] sm:h-[460px] w-full overflow-hidden">
+          <Image
+            src="/hero-familia.png"
+            alt="Familia feliz viajando con su perro de servicio en el aeropuerto"
+            fill
+            priority
+            className="object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-blue-950/80 via-blue-950/10 to-transparent" />
+          <div className="absolute bottom-0 inset-x-0 p-6 sm:p-10 text-center">
+            <p className="text-white text-2xl sm:text-4xl font-extrabold drop-shadow-lg">Viajar en familia, sin barreras 💙🧡</p>
+            <p className="text-white/85 text-sm sm:text-lg mt-2 drop-shadow">Personas reales. Viajes reales. Con su perro de servicio.</p>
+          </div>
+        </div>
+      </section>
+
       {/* ── FEATURES ── */}
       <section className="py-24 px-4 bg-gray-50">
         <div className="max-w-5xl mx-auto">
@@ -230,6 +248,40 @@ export default function HomePage() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── MÍRALO EN ACCIÓN ── */}
+      <section className="py-24 px-4 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <span className="inline-block bg-blue-100 text-blue-700 text-sm font-bold px-4 py-1.5 rounded-full mb-4">🎬 Míralo en acción</span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">Pregúntale a Ali. Te responde con la fuente y la fecha.</h2>
+            <p className="text-gray-500 max-w-xl mx-auto">Requisitos reales por aerolínea, verificados y al día. Y si prefieres, le hablas con tu voz 🎤 — sin escribir.</p>
+          </div>
+          <div className="flex gap-5 overflow-x-auto pb-4 snap-x sm:grid sm:grid-cols-4 sm:gap-6 sm:overflow-visible">
+            {[
+              { src: '/ali-1.png', step: '1', label: 'Haces tu pregunta' },
+              { src: '/ali-2.png', step: '2', label: 'Ali te responde' },
+              { src: '/ali-3.png', step: '3', label: 'Con cada detalle' },
+              { src: '/ali-4.png', step: '4', label: 'Fuente y fecha ✅' },
+            ].map((s, i) => (
+              <div key={i} style={{ animationDelay: `${i * 90}ms` }} className="allgo-rise snap-center shrink-0 w-60 sm:w-auto flex flex-col items-center gap-3">
+                <div className="rounded-3xl overflow-hidden border-4 border-gray-900 shadow-xl bg-black w-full">
+                  <Image src={s.src} alt={`Ali, paso ${s.step}: ${s.label}`} width={320} height={694} className="w-full h-auto" />
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-6 h-6 rounded-full bg-orange-500 text-white text-xs font-bold flex items-center justify-center shrink-0">{s.step}</span>
+                  <span className="text-gray-700 text-sm font-medium">{s.label}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="text-center mt-10">
+            <a href="/prueba-ali.html" className="allgo-tap allgo-cta inline-flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-bold px-8 py-4 rounded-full text-base shadow-lg shadow-orange-500/20">
+              🤖 Prueba a Ali gratis
+            </a>
           </div>
         </div>
       </section>
