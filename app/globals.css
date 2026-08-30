@@ -81,8 +81,80 @@ body {
   animation: allgoShine 3.2s ease-in-out infinite;
 }
 
+/* ───────────────────────────────────────────────
+   AllGo — capa FUTURISTA ✨
+   Aurora animada, rejilla HUD, orbes que flotan,
+   texto con degradado y resplandor neón.
+   Todo se apaga con "reducir movimiento".
+   ─────────────────────────────────────────────── */
+@keyframes allgoAurora {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes allgoOrb {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%      { transform: translate(22px, -26px) scale(1.08); }
+  66%      { transform: translate(-16px, 16px) scale(0.95); }
+}
+@keyframes allgoGridPan {
+  from { background-position: 0 0; }
+  to   { background-position: 60px 60px; }
+}
+@keyframes allgoGradText {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+
+/* Aurora animada para fondos oscuros (hero, etc.) */
+.allgo-aurora {
+  background: linear-gradient(120deg, #0a1a4f, #123a8a, #0e7d74, #1a2b7a);
+  background-size: 300% 300%;
+  animation: allgoAurora 18s ease-in-out infinite;
+}
+
+/* Rejilla futurista tenue tipo HUD (se desvanece en los bordes) */
+.allgo-grid {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 60px 60px;
+  animation: allgoGridPan 14s linear infinite;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 38%, #000 30%, transparent 74%);
+          mask-image: radial-gradient(ellipse at 50% 38%, #000 30%, transparent 74%);
+}
+
+/* Orbes que derivan lentamente */
+.allgo-orb   { animation: allgoOrb 15s ease-in-out infinite; }
+.allgo-orb-2 { animation: allgoOrb 19s ease-in-out infinite reverse; }
+.allgo-orb-3 { animation: allgoOrb 23s ease-in-out infinite; }
+
+/* Texto con degradado animado (naranja → cian → naranja) */
+.allgo-gradient-text {
+  background: linear-gradient(90deg, #fb923c, #22d3ee, #fb923c);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+          color: transparent;
+  animation: allgoGradText 6s ease-in-out infinite;
+}
+
+/* Resplandor neón para el CTA principal */
+.allgo-glow {
+  box-shadow: 0 0 22px rgba(249,115,22,0.45), 0 0 4px rgba(249,115,22,0.6);
+}
+.allgo-glow:hover {
+  box-shadow: 0 0 36px rgba(249,115,22,0.7), 0 0 8px rgba(249,115,22,0.85);
+}
+
+/* Halo azulado al pasar sobre tarjetas */
+.allgo-tap:hover { box-shadow: 0 12px 32px -12px rgba(30,64,175,0.4); }
+
 @media (prefers-reduced-motion: reduce) {
-  .allgo-rise, .allgo-pop, .allgo-cta, .allgo-float, .allgo-shine { animation: none; }
+  .allgo-rise, .allgo-pop, .allgo-cta, .allgo-float, .allgo-shine,
+  .allgo-aurora, .allgo-grid, .allgo-orb, .allgo-orb-2, .allgo-orb-3,
+  .allgo-gradient-text { animation: none; }
   .allgo-tap { transition: none; }
   .allgo-tap:hover, .allgo-tap:active { transform: none; }
 }
