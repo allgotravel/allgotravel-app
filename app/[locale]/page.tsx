@@ -160,8 +160,17 @@ export default function HomePage() {
             </Link>
           </div>
 
+          {/* Social proof above the fold */}
+          <div className="mt-10 flex flex-col items-center gap-1.5 max-w-md">
+            <div className="flex items-center gap-0.5 text-orange-300 text-lg tracking-wide">★★★★★</div>
+            <p className="text-white/85 text-sm sm:text-base leading-relaxed italic">
+              &ldquo;No tenía idea de los requisitos para viajar con mi perra… AllGo me salvó el viaje.&rdquo;
+            </p>
+            <p className="text-white/55 text-xs">— Sandra, viajó a España con Muffin 🦮</p>
+          </div>
+
           {/* Scroll indicator */}
-          <div className="mt-16 flex flex-col items-center gap-2 text-white/40 text-xs">
+          <div className="mt-12 flex flex-col items-center gap-2 text-white/40 text-xs">
             <div className="w-px h-8 bg-white/20" />
             <span>↓</span>
           </div>
@@ -180,6 +189,23 @@ export default function HomePage() {
             <div key={i}>
               <p className="text-3xl font-extrabold text-orange-300">{s.num}</p>
               <p className="text-sm text-white/80 mt-1">{s.label}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── TRUST BAR ── */}
+      <section className="bg-white border-b border-gray-100">
+        <div className="max-w-5xl mx-auto px-4 py-6 grid grid-cols-2 sm:grid-cols-4 gap-5 text-center">
+          {[
+            { icon: '✅', label: 'Info verificada, con fuente y fecha' },
+            { icon: '🚢', label: 'Aerolíneas y cruceros al día' },
+            { icon: '💛', label: 'Creado por una familia que viaja con discapacidad' },
+            { icon: '🔓', label: 'Empieza gratis · cancela cuando quieras' },
+          ].map((item, i) => (
+            <div key={i} className="flex flex-col items-center gap-1.5">
+              <span className="text-2xl">{item.icon}</span>
+              <span className="text-gray-600 text-xs sm:text-sm font-medium leading-snug">{item.label}</span>
             </div>
           ))}
         </div>
@@ -234,6 +260,7 @@ export default function HomePage() {
               <Link href="/membresia" className="allgo-tap allgo-cta mt-5 block rounded-full bg-orange-500 py-3 text-center font-bold text-white hover:bg-orange-600">
                 Hazte miembro →
               </Link>
+              <p className="mt-3 text-center text-xs text-gray-500">🔒 Prueba a Ali gratis · cancela cuando quieras</p>
             </div>
 
             {/* Ebook */}
@@ -264,6 +291,49 @@ export default function HomePage() {
               <Link href="/register" className="allgo-tap mt-5 block rounded-full border-2 border-gray-200 py-3 text-center font-bold text-gray-700 hover:bg-gray-50">
                 Crear cuenta gratis
               </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── TESTIMONIOS ── */}
+      <section className="py-24 px-4 bg-gradient-to-b from-orange-50 to-white">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-14">
+            <span className="inline-block bg-orange-100 text-orange-600 text-sm font-bold px-4 py-1.5 rounded-full mb-4">⭐ Familias reales</span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">Viajaron sin miedo. Tú también puedes.</h2>
+            <p className="text-gray-500 max-w-xl mx-auto">Lo que dicen quienes ya usaron AllGo para su viaje.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Sandra */}
+            <div className="allgo-rise flex flex-col rounded-2xl bg-white p-7 shadow-md border border-orange-100" style={{ animationDelay: '0ms' }}>
+              <div className="flex items-center gap-0.5 text-orange-400 text-lg mb-3">★★★★★</div>
+              <p className="text-gray-700 leading-relaxed flex-1">
+                &ldquo;No tenía idea del microchip ni de que la vacuna de la rabia va 21 días antes. AllGo me lo explicó todo, paso a paso. Viajé a España con Muffin sin un solo susto.&rdquo;
+              </p>
+              <div className="mt-5 flex items-center gap-3">
+                <div className="w-11 h-11 rounded-full bg-orange-100 flex items-center justify-center text-xl">🦮</div>
+                <div>
+                  <p className="font-bold text-gray-900 text-sm">Sandra</p>
+                  <p className="text-gray-400 text-xs">Viajó a España con su perra de servicio</p>
+                </div>
+              </div>
+            </div>
+
+            {/* @miamiglamcreations */}
+            <div className="allgo-rise flex flex-col rounded-2xl bg-white p-7 shadow-md border border-orange-100" style={{ animationDelay: '90ms' }}>
+              <div className="flex items-center gap-0.5 text-orange-400 text-lg mb-3">★★★★★</div>
+              <p className="text-gray-700 leading-relaxed flex-1">
+                &ldquo;Es espectacular, muy práctico. Ojalá lo hubiera tenido en mis viajes anteriores — te ahorra dudas y estrés.&rdquo;
+              </p>
+              <div className="mt-5 flex items-center gap-3">
+                <div className="w-11 h-11 rounded-full bg-blue-100 flex items-center justify-center text-xl">💬</div>
+                <div>
+                  <p className="font-bold text-gray-900 text-sm">@miamiglamcreations</p>
+                  <p className="text-gray-400 text-xs">Instagram</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -398,6 +468,33 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── FAQ ── */}
+      <section className="py-24 px-4 bg-gray-50">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-12">
+            <span className="inline-block bg-blue-100 text-blue-700 text-sm font-bold px-4 py-1.5 rounded-full mb-4">❓ Preguntas frecuentes</span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900">Antes de decidir, resolvamos tus dudas</h2>
+          </div>
+          <div className="space-y-4">
+            {[
+              { q: '¿Tengo que pagar para probar?', a: 'No. Puedes crear tu cuenta y hablar con Ali gratis. Solo pagas la membresía cuando quieras todo el poder, sin límites.' },
+              { q: '¿Puedo cancelar cuando quiera?', a: 'Sí. La membresía es mensual y sin permanencia. Cancelas cuando quieras, en un clic.' },
+              { q: '¿De dónde sale la información?', a: 'De fuentes oficiales (aerolíneas, DOT, navieras), siempre con su fuente y su fecha. Nunca inventamos un dato.' },
+              { q: '¿Sirve para cruceros, no solo aviones?', a: 'Sí. Incluye requisitos por aerolínea y por crucero 🚢, además del Service Dog Travel Hub con 7 módulos.' },
+              { q: '¿Funciona en mi teléfono?', a: 'Sí. AllGo funciona en teléfono, tablet y computadora. No tienes que descargar nada — le puedes hablar a Ali con tu voz 🎤.' },
+            ].map((item, i) => (
+              <details key={i} className="group rounded-2xl bg-white border border-gray-100 shadow-sm px-6 py-4 [&_summary]:list-none">
+                <summary className="flex items-center justify-between cursor-pointer font-bold text-gray-900">
+                  {item.q}
+                  <span className="text-orange-500 text-xl transition-transform group-open:rotate-45">+</span>
+                </summary>
+                <p className="mt-3 text-gray-600 text-sm leading-relaxed">{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── FINAL CTA ── */}
       <section className="py-24 px-4 bg-white">
         <div className="max-w-2xl mx-auto text-center">
@@ -445,8 +542,12 @@ export default function HomePage() {
           </div>
           <div className="flex gap-4 text-gray-500 text-xs">
             <Link href="/nosotros" className="hover:text-white transition">Nuestra Historia</Link>
+            <Link href="/membresia" className="hover:text-white transition">Planes</Link>
           </div>
-          <p className="text-gray-500 text-xs">© 2026 AllGo Travel App. {t('footerRights')}</p>
+          <div className="text-center sm:text-right">
+            <p className="text-gray-400 text-xs">All Go Travel LLC · Weston, FL 🇺🇸</p>
+            <p className="text-gray-500 text-xs mt-0.5">© 2026 AllGo Travel App. {t('footerRights')}</p>
+          </div>
         </div>
       </footer>
 
