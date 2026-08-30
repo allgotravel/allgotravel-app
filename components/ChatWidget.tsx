@@ -240,7 +240,7 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
       <button
         onClick={() => setOpen(o => !o)}
         aria-label={open ? t('close') : t('open')}
-        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-teal-600 hover:bg-teal-700 text-white shadow-lg flex items-center justify-center text-2xl transition-transform active:scale-95"
+        className="allgo-float allgo-glow fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full allgo-aurora ring-2 ring-white/40 text-white shadow-lg flex items-center justify-center text-2xl transition-transform active:scale-95"
       >
         {open ? '✕' : '💬'}
       </button>
@@ -249,9 +249,10 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
       {open && (
         <div className="fixed bottom-24 right-6 z-50 w-[360px] max-w-[calc(100vw-2rem)] flex flex-col rounded-2xl shadow-2xl border border-gray-200 bg-white overflow-hidden">
           {/* Header */}
-          <div className="bg-teal-600 text-white px-4 py-3 flex items-center gap-2">
-            <span className="text-xl">🌍</span>
-            <div>
+          <div className="allgo-aurora relative overflow-hidden text-white px-4 py-3 flex items-center gap-2">
+            <div className="allgo-grid pointer-events-none absolute inset-0" />
+            <span className="relative text-xl allgo-float inline-block">🌍</span>
+            <div className="relative">
               <p className="font-semibold leading-tight">{t('title')}</p>
               <p className="text-xs text-teal-100">{t('subtitle')}</p>
             </div>

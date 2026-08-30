@@ -35,10 +35,14 @@ function computeCompletion(profile: Profile): { score: number; missing: string[]
 function GreetingSection({ name }: { name: string }) {
   const t = useTranslations('dashboard')
   return (
-    <div>
-      <h1 className="text-3xl font-bold text-[#1B6FB5]">
+    <div className="allgo-aurora relative overflow-hidden rounded-3xl p-8 shadow-xl">
+      <div className="allgo-grid pointer-events-none absolute inset-0" />
+      <div className="allgo-orb pointer-events-none absolute -top-10 -right-8 w-40 h-40 rounded-full bg-orange-400/25 blur-2xl" />
+      <div className="allgo-orb-2 pointer-events-none absolute -bottom-12 -left-6 w-44 h-44 rounded-full bg-cyan-400/25 blur-2xl" />
+      <h1 className="relative text-3xl font-bold text-white drop-shadow-sm">
         {name ? t('greeting', { name }) : t('greetingFallback')}
       </h1>
+      <p className="relative mt-1 text-sm font-medium text-white/80">AllGo Travel App 🌍</p>
     </div>
   )
 }
