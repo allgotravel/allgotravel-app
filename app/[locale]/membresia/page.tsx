@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { createClient } from '@supabase/supabase-js'
+import { getLocale } from 'next-intl/server'
 import PlanButton from './PlanButton'
 
 export const dynamic = 'force-dynamic'
@@ -53,28 +54,33 @@ function Cross() {
   )
 }
 
-function AnnualTag() {
+function AnnualTag({ en }: { en: boolean }) {
   return (
     <span className="inline-block rounded-full px-2.5 py-0.5 text-xs font-bold text-white whitespace-nowrap" style={{ backgroundColor: ORANGE }}>
-      Plan anual
+      {en ? 'Annual plan' : 'Plan anual'}
     </span>
   )
 }
 
-const COMPARISON: { label: string; free: React.ReactNode; member: React.ReactNode }[] = [
-  { label: 'Aerolíneas verificadas (accesibilidad + perro de servicio)', free: <span className="text-gray-500 text-sm">3 de muestra</span>, member: <span className="font-semibold" style={{ color: BLUE }}>Las 25</span> },
-  { label: 'Cruceros accesibles', free: <Cross />, member: <Check /> },
-  { label: 'Destinos y países accesibles', free: <Cross />, member: <Check /> },
-  { label: 'Alli, tu asistente de viaje', free: <span className="text-gray-500 text-sm">Limitada</span>, member: <span className="font-semibold" style={{ color: BLUE }}>Ilimitada</span> },
-  { label: 'Alertas de cambios de reglas', free: <Cross />, member: <Check /> },
-  { label: 'Formularios y trámites de viaje', free: <Cross />, member: <Check /> },
-  { label: 'Comunidad privada de miembros', free: <Cross />, member: <Check /> },
-  { label: 'Guías descargables para conservar (ebook, silla y más)', free: <Cross />, member: <AnnualTag /> },
-]
+function getComparison(en: boolean): { label: string; free: React.ReactNode; member: React.ReactNode }[] {
+  return [
+    { label: en ? 'Verified airlines (accessibility + service dog)' : 'Aerolíneas verificadas (accesibilidad + perro de servicio)', free: <span className="text-gray-500 text-sm">{en ? '3 samples' : '3 de muestra'}</span>, member: <span className="font-semibold" style={{ color: BLUE }}>{en ? 'All 25' : 'Las 25'}</span> },
+    { label: en ? 'Accessible cruises' : 'Cruceros accesibles', free: <Cross />, member: <Check /> },
+    { label: en ? 'Accessible destinations and countries' : 'Destinos y países accesibles', free: <Cross />, member: <Check /> },
+    { label: en ? 'Alli, your travel assistant' : 'Alli, tu asistente de viaje', free: <span className="text-gray-500 text-sm">{en ? 'Limited' : 'Limitada'}</span>, member: <span className="font-semibold" style={{ color: BLUE }}>{en ? 'Unlimited' : 'Ilimitada'}</span> },
+    { label: en ? 'Rule-change alerts' : 'Alertas de cambios de reglas', free: <Cross />, member: <Check /> },
+    { label: en ? 'Travel forms and paperwork' : 'Formularios y trámites de viaje', free: <Cross />, member: <Check /> },
+    { label: en ? 'Private members community' : 'Comunidad privada de miembros', free: <Cross />, member: <Check /> },
+    { label: en ? 'Downloadable guides to keep (ebook, wheelchair and more)' : 'Guías descargables para conservar (ebook, silla y más)', free: <Cross />, member: <AnnualTag en={en} /> },
+  ]
+}
 
 export default async function MembresiaPage() {
+  const locale = await getLocale()
+  const en = locale === 'en'
   const remaining = await getFoundingRemaining()
   const foundingOpen = remaining > 0
+  const COMPARISON = getComparison(en)
 
   return (
     <main className="min-h-screen bg-[#f5f8f8] text-[#16292b]">
@@ -85,22 +91,21 @@ export default async function MembresiaPage() {
       >
         <Image
           src="/logo-allgo.jpg"
-          alt="AllGo Travel"
+          alt="AllGo Travel App"
           width={72}
           height={72}
           className="rounded-full mx-auto mb-5"
         />
         <p className="text-sm font-semibold tracking-wide" style={{ color: ORANGE }}>
-          MEMBRESÍA ALLGO TRAVEL APP
+          {en ? 'ALLGO TRAVEL APP MEMBERSHIP' : 'MEMBRESÍA ALLGO TRAVEL APP'}
         </p>
         <h1 className="mt-2 text-3xl sm:text-4xl font-extrabold leading-tight max-w-2xl mx-auto">
-          Viaja accesible sin miedo, sin adivinar nada
+          {en ? 'Travel accessible without fear, without guessing' : 'Viaja accesible sin miedo, sin adivinar nada'}
         </h1>
         <p className="mt-4 text-white/80 max-w-xl mx-auto">
-          Para quienes viajan con movilidad reducida, con un peque con necesidades
-          especiales, cuidando a un ser querido, con una condición invisible, como
-          adulto mayor o con su perro de servicio. Aerolíneas verificadas, cruceros y
-          destinos accesibles, alertas y Alli sin límites — con su fuente oficial y su fecha.
+          {en
+            ? 'For anyone who travels with reduced mobility, with a little one who has special needs, caring for a loved one, with an invisible condition, as an older adult, or with their service dog. Verified airlines, accessible cruises and destinations, alerts and Alli without limits — each with its official source and date.'
+            : 'Para quienes viajan con movilidad reducida, con un peque con necesidades especiales, cuidando a un ser querido, con una condición invisible, como adulto mayor o con su perro de servicio. Aerolíneas verificadas, cruceros y destinos accesibles, alertas y Alli sin límites — con su fuente oficial y su fecha.'}
         </p>
 
         {foundingOpen && (
@@ -108,7 +113,7 @@ export default async function MembresiaPage() {
             className="inline-flex items-center gap-2 mt-6 rounded-full px-5 py-2 text-sm font-bold"
             style={{ backgroundColor: ORANGE, color: BLUE_DARK }}
           >
-            🔥 Cupos founding limitados
+            {en ? '🔥 Limited founding spots' : '🔥 Cupos founding limitados'}
           </div>
         )}
       </section>
@@ -122,21 +127,21 @@ export default async function MembresiaPage() {
               className="relative rounded-2xl bg-white p-6 shadow-lg flex flex-col"
               style={{ border: `2px solid ${ORANGE}` }}
             >
-              <h3 className="text-lg font-extrabold" style={{ color: BLUE }}>Fundador</h3>
-              <p className="mt-1 text-xs text-gray-500">50% OFF · precio congelado, por tiempo limitado</p>
+              <h3 className="text-lg font-extrabold" style={{ color: BLUE }}>{en ? 'Founder' : 'Fundador'}</h3>
+              <p className="mt-1 text-xs text-gray-500">{en ? '50% OFF · locked-in price, for a limited time' : '50% OFF · precio congelado, por tiempo limitado'}</p>
               <div className="mt-4">
                 <span className="text-lg font-bold text-gray-400 line-through mr-1">$29</span>
                 <span className="text-4xl font-extrabold">$14.99</span>
-                <span className="text-gray-500">/mes</span>
+                <span className="text-gray-500">{en ? '/mo' : '/mes'}</span>
               </div>
               <ul className="mt-4 space-y-2 text-sm text-gray-700 flex-1">
-                <li>✅ Acceso a todo el app mientras seas miembro</li>
-                <li>✅ Precio congelado de fundador/a</li>
-                <li>✅ Insignia de miembro fundador/a</li>
+                <li>{en ? '✅ Access to the whole app while you’re a member' : '✅ Acceso a todo el app mientras seas miembro'}</li>
+                <li>{en ? '✅ Locked-in founder price' : '✅ Precio congelado de fundador/a'}</li>
+                <li>{en ? '✅ Founding member badge' : '✅ Insignia de miembro fundador/a'}</li>
               </ul>
               <PlanButton
                 href={HOTMART.founding}
-                label="Unirme ahora →"
+                label={en ? 'Join now →' : 'Unirme ahora →'}
                 plan="founding"
                 value={14.99}
                 className="allgo-tap allgo-cta mt-5 block rounded-full py-3 text-center font-bold text-white hover:opacity-90"
@@ -147,20 +152,20 @@ export default async function MembresiaPage() {
 
           {/* Mensual */}
           <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100 flex flex-col">
-            <h3 className="text-lg font-extrabold" style={{ color: BLUE }}>Mensual</h3>
-            <p className="mt-1 text-xs text-gray-500">Flexible, cancela cuando quieras</p>
+            <h3 className="text-lg font-extrabold" style={{ color: BLUE }}>{en ? 'Monthly' : 'Mensual'}</h3>
+            <p className="mt-1 text-xs text-gray-500">{en ? 'Flexible, cancel anytime' : 'Flexible, cancela cuando quieras'}</p>
             <div className="mt-4">
               <span className="text-4xl font-extrabold">$29</span>
-              <span className="text-gray-500">/mes</span>
+              <span className="text-gray-500">{en ? '/mo' : '/mes'}</span>
             </div>
             <ul className="mt-4 space-y-2 text-sm text-gray-700 flex-1">
-              <li>✅ Acceso a todo el app mientras seas miembro</li>
-              <li>✅ Comunidad privada de miembros</li>
-              <li>✅ Sin permanencia, cancela cuando quieras</li>
+              <li>{en ? '✅ Access to the whole app while you’re a member' : '✅ Acceso a todo el app mientras seas miembro'}</li>
+              <li>{en ? '✅ Private members community' : '✅ Comunidad privada de miembros'}</li>
+              <li>{en ? '✅ No commitment, cancel anytime' : '✅ Sin permanencia, cancela cuando quieras'}</li>
             </ul>
             <PlanButton
               href={HOTMART.monthly}
-              label="Elegir mensual"
+              label={en ? 'Choose monthly' : 'Elegir mensual'}
               plan="monthly"
               value={29}
               className="allgo-tap mt-5 block rounded-full py-3 text-center font-bold border hover:bg-gray-50"
@@ -178,23 +183,23 @@ export default async function MembresiaPage() {
               className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full px-3 py-1 text-xs font-bold text-white whitespace-nowrap"
               style={{ backgroundColor: BLUE }}
             >
-              Mejor valor
+              {en ? 'Best value' : 'Mejor valor'}
             </div>
-            <h3 className="text-lg font-extrabold" style={{ color: BLUE }}>Anual</h3>
-            <p className="mt-1 text-xs font-semibold" style={{ color: ORANGE }}>Ahorra $58 = 2 meses gratis</p>
+            <h3 className="text-lg font-extrabold" style={{ color: BLUE }}>{en ? 'Annual' : 'Anual'}</h3>
+            <p className="mt-1 text-xs font-semibold" style={{ color: ORANGE }}>{en ? 'Save $58 = 2 months free' : 'Ahorra $58 = 2 meses gratis'}</p>
             <div className="mt-4">
               <span className="text-4xl font-extrabold">$290</span>
-              <span className="text-gray-500">/año</span>
+              <span className="text-gray-500">{en ? '/yr' : '/año'}</span>
             </div>
             <ul className="mt-4 space-y-2 text-sm text-gray-700 flex-1">
-              <li>✅ Todo lo del plan mensual</li>
-              <li>✅ Guías descargables para conservar (ebook, silla y más)</li>
-              <li>✅ Comunidad privada de miembros</li>
-              <li>✅ 2 meses gratis (equivale a ~$24/mes)</li>
+              <li>{en ? '✅ Everything in the monthly plan' : '✅ Todo lo del plan mensual'}</li>
+              <li>{en ? '✅ Downloadable guides to keep (ebook, wheelchair and more)' : '✅ Guías descargables para conservar (ebook, silla y más)'}</li>
+              <li>{en ? '✅ Private members community' : '✅ Comunidad privada de miembros'}</li>
+              <li>{en ? '✅ 2 months free (about ~$24/mo)' : '✅ 2 meses gratis (equivale a ~$24/mes)'}</li>
             </ul>
             <PlanButton
               href={HOTMART.annual}
-              label="Elegir anual →"
+              label={en ? 'Choose annual →' : 'Elegir anual →'}
               plan="annual"
               value={290}
               className="allgo-tap allgo-cta mt-5 block rounded-full py-3 text-center font-bold text-white hover:opacity-90"
@@ -204,28 +209,28 @@ export default async function MembresiaPage() {
           )}
         </div>
         <div className="mx-auto mt-6 max-w-2xl rounded-2xl bg-white p-5 shadow-sm" style={{ border: `2px solid ${ORANGE}` }}>
-          <p className="text-xs font-bold" style={{ color: ORANGE }}>🎁 BONOS EXCLUSIVOS DEL PLAN ANUAL</p>
-          <h3 className="mt-1 text-lg font-extrabold" style={{ color: BLUE }}>Guías descargables para conservar</h3>
-          <p className="mt-1 text-sm text-gray-600"><strong>Tuyas para siempre, aunque canceles.</strong></p>
+          <p className="text-xs font-bold" style={{ color: ORANGE }}>{en ? '🎁 EXCLUSIVE ANNUAL PLAN BONUSES' : '🎁 BONOS EXCLUSIVOS DEL PLAN ANUAL'}</p>
+          <h3 className="mt-1 text-lg font-extrabold" style={{ color: BLUE }}>{en ? 'Downloadable guides to keep' : 'Guías descargables para conservar'}</h3>
+          <p className="mt-1 text-sm text-gray-600"><strong>{en ? 'Yours forever, even if you cancel.' : 'Tuyas para siempre, aunque canceles.'}</strong></p>
           <ul className="mt-3 grid gap-2 text-sm text-gray-700">
-            <li>📘 <strong>Ebook «Viaja con tu Perro de Servicio»</strong> (español e inglés)</li>
-            <li>♿ <strong>Guía «Vuela con tu Silla Eléctrica»</strong> — baterías y reglas 2026</li>
-            <li>📋 <strong>Kit de Plantillas para Conservar</strong> — checklist, planificador, tarjeta de comunicación, registro de accesibilidad y ficha médica</li>
+            <li>📘 {en ? <><strong>Ebook “Travel with Your Service Dog”</strong> (Spanish and English)</> : <><strong>Ebook «Viaja con tu Perro de Servicio»</strong> (español e inglés)</>}</li>
+            <li>♿ {en ? <><strong>Guide “Fly with Your Electric Wheelchair”</strong> — batteries and 2026 rules</> : <><strong>Guía «Vuela con tu Silla Eléctrica»</strong> — baterías y reglas 2026</>}</li>
+            <li>📋 {en ? <><strong>Templates Kit to Keep</strong> — checklist, planner, communication card, accessibility log and medical sheet</> : <><strong>Kit de Plantillas para Conservar</strong> — checklist, planificador, tarjeta de comunicación, registro de accesibilidad y ficha médica</>}</li>
           </ul>
         </div>
         <p className="mt-4 text-center text-xs text-gray-400">
-          Pago seguro con Hotmart · Cancela cuando quieras
+          {en ? 'Secure payment with Hotmart · Cancel anytime' : 'Pago seguro con Hotmart · Cancela cuando quieras'}
         </p>
       </section>
 
       {/* Comparativa FREE vs MEMBER */}
       <section className="px-5 py-12">
         <h2 className="text-center text-2xl font-extrabold" style={{ color: BLUE }}>
-          Qué incluye cada nivel
+          {en ? 'What each level includes' : 'Qué incluye cada nivel'}
         </h2>
         <div className="mx-auto mt-6 max-w-3xl overflow-hidden rounded-2xl bg-white shadow-sm border border-gray-100">
           <div className="grid grid-cols-[1fr_90px_110px] items-center px-5 py-4" style={{ backgroundColor: BLUE, color: 'white' }}>
-            <span className="text-sm font-bold">Beneficio</span>
+            <span className="text-sm font-bold">{en ? 'Benefit' : 'Beneficio'}</span>
             <span className="text-center text-sm font-bold">Free</span>
             <span className="text-center text-sm font-bold" style={{ color: ORANGE }}>Member</span>
           </div>
@@ -245,13 +250,13 @@ export default async function MembresiaPage() {
       {/* Cierre de confianza */}
       <section className="px-5 pb-16 text-center">
         <p className="mx-auto max-w-xl text-sm text-gray-600">
-          Cada política se verifica en la fuente oficial de la aerolínea o la
-          autoridad, con su fecha. Nunca inventamos un dato: si no está verificado,
-          te lo decimos.
+          {en
+            ? 'Every policy is verified against the airline’s or authority’s official source, with its date. We never make up a fact: if it isn’t verified, we tell you.'
+            : 'Cada política se verifica en la fuente oficial de la aerolínea o la autoridad, con su fecha. Nunca inventamos un dato: si no está verificado, te lo decimos.'}
         </p>
         {foundingOpen && (
           <p className="mt-4 text-sm font-bold" style={{ color: BLUE }}>
-            Los cupos founding se agotan pronto. Asegura tu precio de fundador.
+            {en ? 'Founding spots are running out fast. Lock in your founder price.' : 'Los cupos founding se agotan pronto. Asegura tu precio de fundador.'}
           </p>
         )}
       </section>

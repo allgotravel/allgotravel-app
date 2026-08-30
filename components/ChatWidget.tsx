@@ -63,6 +63,7 @@ interface ChatWidgetProps {
 export default function ChatWidget({ userId }: ChatWidgetProps) {
   const t = useTranslations('chat')
   const locale = useLocale()
+  const en = locale === 'en'
 
   const [open, setOpen] = useState(false)
   const [messages, setMessages] = useState<Message[]>([])
@@ -290,14 +291,14 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
                   {ttsSupported && msg.role === 'assistant' && msg.content && !(loading && i === messages.length - 1) && (
                     <button
                       onClick={() => speakText(msg.content, i)}
-                      title={speakingIndex === i ? 'Detener voz' : 'Escuchar respuesta'}
+                      title={speakingIndex === i ? (en ? 'Stop voice' : 'Detener voz') : (en ? 'Listen to response' : 'Escuchar respuesta')}
                       className={`flex items-center gap-1 text-xs px-2 py-0.5 rounded-full transition-all duration-200 ${
                         speakingIndex === i
                           ? 'bg-teal-100 text-teal-700 border border-teal-300 animate-pulse'
                           : 'text-gray-400 hover:text-teal-600 hover:bg-teal-50 border border-transparent'
                       }`}
                     >
-                      {speakingIndex === i ? '🔊 Reproduciendo...' : '🔈 Escuchar'}
+                      {speakingIndex === i ? (en ? '🔊 Playing...' : '🔊 Reproduciendo...') : (en ? '🔈 Listen' : '🔈 Escuchar')}
                     </button>
                   )}
                 </div>
@@ -323,7 +324,7 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
               <button
                 onClick={toggleListening}
                 disabled={loading}
-                aria-label={isListening ? 'Detener grabación' : 'Iniciar grabación de voz'}
+                aria-label={isListening ? (en ? 'Stop recording' : 'Detener grabación') : (en ? 'Start voice recording' : 'Iniciar grabación de voz')}
                 className={`shrink-0 w-10 h-10 rounded-xl text-white flex items-center justify-center disabled:opacity-40 transition ${
                   isListening
                     ? 'bg-red-500 hover:bg-red-600 animate-pulse'

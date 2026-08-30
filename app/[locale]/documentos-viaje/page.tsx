@@ -12,99 +12,124 @@ const AIRLINES = [
     name: 'American Airlines',
     flag: '🇺🇸',
     allowed: '✅ Psiquiátricos + Servicio',
+    allowedEn: '✅ Psychiatric + Service',
     notice: '48 horas',
+    noticeEn: '48 hours',
     notes: 'Debe completar formularios DOT',
+    notesEn: 'Must complete DOT forms',
     tier: 'us',
   },
   {
     name: 'United Airlines',
     flag: '🇺🇸',
     allowed: '✅ Solo animales de servicio',
+    allowedEn: '✅ Service animals only',
     notice: '48 horas',
+    noticeEn: '48 hours',
     notes: 'Animales de apoyo emocional necesitan formulario DOT',
+    notesEn: 'Emotional support animals need DOT form',
     tier: 'us',
   },
   {
     name: 'Delta Air Lines',
     flag: '🇺🇸',
     allowed: '✅ Solo animales de servicio',
+    allowedEn: '✅ Service animals only',
     notice: '48 horas',
+    noticeEn: '48 hours',
     notes: 'Sin animales de apoyo emocional desde 2021',
+    notesEn: 'No emotional support animals since 2021',
     tier: 'us',
   },
   {
     name: 'JetBlue',
     flag: '🇺🇸',
     allowed: '✅ Solo animales de servicio',
+    allowedEn: '✅ Service animals only',
     notice: '48 horas',
+    noticeEn: '48 hours',
     notes: 'Requerido: formularios DOT',
+    notesEn: 'Required: DOT forms',
     tier: 'us',
   },
   {
     name: 'Southwest Airlines',
     flag: '🇺🇸',
     allowed: '✅ Solo animales de servicio',
+    allowedEn: '✅ Service animals only',
     notice: 'Sin aviso previo requerido',
+    noticeEn: 'No advance notice required',
     notes: 'Política más flexible',
+    notesEn: 'More flexible policy',
     tier: 'us',
   },
   {
     name: 'Copa Airlines',
     flag: '🇵🇦',
     allowed: '✅ Varía según ruta',
+    allowedEn: '✅ Varies by route',
     notice: '48–72 horas',
+    noticeEn: '48–72 hours',
     notes: 'Verificar reglas por ruta específica',
+    notesEn: 'Check rules for the specific route',
     tier: 'latam',
   },
   {
     name: 'Avianca',
     flag: '🇨🇴',
     allowed: '✅ Rutas limitadas',
+    allowedEn: '✅ Limited routes',
     notice: '72 horas',
+    noticeEn: '72 hours',
     notes: 'Requiere: cert. veterinaria + formulario equivalente al DOT',
+    notesEn: 'Requires: veterinary cert. + DOT-equivalent form',
     tier: 'latam',
   },
   {
     name: 'LATAM Airlines',
     flag: '🇧🇷',
     allowed: '✅ Limitado',
+    allowedEn: '✅ Limited',
     notice: '72 horas',
+    noticeEn: '72 hours',
     notes: 'Solo perros guía en algunas rutas',
+    notesEn: 'Guide dogs only on some routes',
     tier: 'latam',
   },
 ]
 
 const COUNTRIES = [
   // América del Norte
-  { flag: '🇺🇸', name: 'EE.UU. / USA', law: 'ACAA aplica — destino más accesible', level: 'green' },
-  { flag: '🇵🇷', name: 'Puerto Rico', law: 'Territorio de EE.UU. — ACAA aplica', level: 'green' },
-  { flag: '🇨🇦', name: 'Canadá', law: 'Canada Transportation Act — perros de servicio permitidos en todos los vuelos', level: 'green' },
-  { flag: '🇲🇽', name: 'México', law: 'Perros guía protegidos por ley federal (NOM)', level: 'amber' },
+  { flag: '🇺🇸', name: 'EE.UU. / USA', nameEn: 'United States', law: 'ACAA aplica — destino más accesible', lawEn: 'ACAA applies — most accessible destination', level: 'green' },
+  { flag: '🇵🇷', name: 'Puerto Rico', nameEn: 'Puerto Rico', law: 'Territorio de EE.UU. — ACAA aplica', lawEn: 'U.S. territory — ACAA applies', level: 'green' },
+  { flag: '🇨🇦', name: 'Canadá', nameEn: 'Canada', law: 'Canada Transportation Act — perros de servicio permitidos en todos los vuelos', lawEn: 'Canada Transportation Act — service dogs allowed on all flights', level: 'green' },
+  { flag: '🇲🇽', name: 'México', nameEn: 'Mexico', law: 'Perros guía protegidos por ley federal (NOM)', lawEn: 'Guide dogs protected by federal law (NOM)', level: 'amber' },
   // Caribe y LATAM
-  { flag: '🇩🇴', name: 'Rep. Dominicana', law: 'Sin ley específica — aerolíneas varían', level: 'red' },
-  { flag: '🇨🇷', name: 'Costa Rica', law: 'Sin ley nacional, pero generalmente aceptado', level: 'amber' },
-  { flag: '🇨🇴', name: 'Colombia', law: 'Ley 1618 — perros guía permitidos en transporte público', level: 'amber' },
-  { flag: '🇧🇷', name: 'Brasil', law: 'ABNT NBR 9050 — perros guía totalmente protegidos', level: 'amber' },
-  { flag: '🇦🇷', name: 'Argentina', law: 'Ley 22.431 — perros guía protegidos; animales de servicio permitidos', level: 'amber' },
-  { flag: '🇵🇪', name: 'Perú', law: 'Ley 29830 — perros guía con certificado permitidos', level: 'amber' },
-  { flag: '🇵🇦', name: 'Panamá', law: 'Decreto Ejecutivo 27 — perros guía permitidos en espacios públicos', level: 'amber' },
-  { flag: '🇨🇺', name: 'Cuba', law: 'No hay ley de animales de servicio — solo perros guía visuales en algunos hoteles', level: 'red' },
+  { flag: '🇩🇴', name: 'Rep. Dominicana', nameEn: 'Dominican Republic', law: 'Sin ley específica — aerolíneas varían', lawEn: 'No specific law — airlines vary', level: 'red' },
+  { flag: '🇨🇷', name: 'Costa Rica', nameEn: 'Costa Rica', law: 'Sin ley nacional, pero generalmente aceptado', lawEn: 'No national law, but generally accepted', level: 'amber' },
+  { flag: '🇨🇴', name: 'Colombia', nameEn: 'Colombia', law: 'Ley 1618 — perros guía permitidos en transporte público', lawEn: 'Law 1618 — guide dogs allowed on public transport', level: 'amber' },
+  { flag: '🇧🇷', name: 'Brasil', nameEn: 'Brazil', law: 'ABNT NBR 9050 — perros guía totalmente protegidos', lawEn: 'ABNT NBR 9050 — guide dogs fully protected', level: 'amber' },
+  { flag: '🇦🇷', name: 'Argentina', nameEn: 'Argentina', law: 'Ley 22.431 — perros guía protegidos; animales de servicio permitidos', lawEn: 'Law 22.431 — guide dogs protected; service animals allowed', level: 'amber' },
+  { flag: '🇵🇪', name: 'Perú', nameEn: 'Peru', law: 'Ley 29830 — perros guía con certificado permitidos', lawEn: 'Law 29830 — certified guide dogs allowed', level: 'amber' },
+  { flag: '🇵🇦', name: 'Panamá', nameEn: 'Panama', law: 'Decreto Ejecutivo 27 — perros guía permitidos en espacios públicos', lawEn: 'Executive Decree 27 — guide dogs allowed in public spaces', level: 'amber' },
+  { flag: '🇨🇺', name: 'Cuba', nameEn: 'Cuba', law: 'No hay ley de animales de servicio — solo perros guía visuales en algunos hoteles', lawEn: 'No service animal law — only visual guide dogs in some hotels', level: 'red' },
   // Europa
-  { flag: '🇪🇸', name: 'España', law: 'Reglamento UE 1107/2006 — animales de asistencia garantizados en todos los vuelos UE', level: 'green' },
-  { flag: '🇫🇷', name: 'Francia', law: 'Reglamento UE 1107/2006 — perros guía y de asistencia permitidos', level: 'green' },
-  { flag: '🇩🇪', name: 'Alemania', law: 'Reglamento UE 1107/2006 + Gleichstellungsgesetz — protección completa', level: 'green' },
-  { flag: '🇳🇱', name: 'Países Bajos', law: 'Reglamento UE 1107/2006 — uno de los más accesibles de Europa', level: 'green' },
-  { flag: '🇬🇧', name: 'Reino Unido', law: 'Equality Act 2010 — animales de servicio protegidos post-Brexit', level: 'green' },
-  { flag: '🇮🇹', name: 'Italia', law: 'Reglamento UE 1107/2006 — perros guía permitidos en cabina', level: 'green' },
-  { flag: '🇵🇹', name: 'Portugal', law: 'Reglamento UE 1107/2006 — acceso garantizado en vuelos UE', level: 'green' },
+  { flag: '🇪🇸', name: 'España', nameEn: 'Spain', law: 'Reglamento UE 1107/2006 — animales de asistencia garantizados en todos los vuelos UE', lawEn: 'EU Regulation 1107/2006 — assistance animals guaranteed on all EU flights', level: 'green' },
+  { flag: '🇫🇷', name: 'Francia', nameEn: 'France', law: 'Reglamento UE 1107/2006 — perros guía y de asistencia permitidos', lawEn: 'EU Regulation 1107/2006 — guide and assistance dogs allowed', level: 'green' },
+  { flag: '🇩🇪', name: 'Alemania', nameEn: 'Germany', law: 'Reglamento UE 1107/2006 + Gleichstellungsgesetz — protección completa', lawEn: 'EU Regulation 1107/2006 + Gleichstellungsgesetz — full protection', level: 'green' },
+  { flag: '🇳🇱', name: 'Países Bajos', nameEn: 'Netherlands', law: 'Reglamento UE 1107/2006 — uno de los más accesibles de Europa', lawEn: 'EU Regulation 1107/2006 — one of the most accessible in Europe', level: 'green' },
+  { flag: '🇬🇧', name: 'Reino Unido', nameEn: 'United Kingdom', law: 'Equality Act 2010 — animales de servicio protegidos post-Brexit', lawEn: 'Equality Act 2010 — service animals protected post-Brexit', level: 'green' },
+  { flag: '🇮🇹', name: 'Italia', nameEn: 'Italy', law: 'Reglamento UE 1107/2006 — perros guía permitidos en cabina', lawEn: 'EU Regulation 1107/2006 — guide dogs allowed in cabin', level: 'green' },
+  { flag: '🇵🇹', name: 'Portugal', nameEn: 'Portugal', law: 'Reglamento UE 1107/2006 — acceso garantizado en vuelos UE', lawEn: 'EU Regulation 1107/2006 — guaranteed access on EU flights', level: 'green' },
   // Asia-Pacífico
-  { flag: '🇯🇵', name: 'Japón', law: 'Ley de Asistencia a Personas con Discapacidad — perros guía, sordos y físicos permitidos', level: 'green' },
-  { flag: '🇸🇬', name: 'Singapur', law: 'Misguided Dogs and Assistance Dogs Act — acceso garantizado en transporte y espacios públicos', level: 'green' },
-  { flag: '🇦🇺', name: 'Australia', law: 'Disability Discrimination Act 1992 — animales de asistencia con amplia protección legal', level: 'green' },
+  { flag: '🇯🇵', name: 'Japón', nameEn: 'Japan', law: 'Ley de Asistencia a Personas con Discapacidad — perros guía, sordos y físicos permitidos', lawEn: 'Law on Assistance for Persons with Disabilities — guide, hearing and mobility dogs allowed', level: 'green' },
+  { flag: '🇸🇬', name: 'Singapur', nameEn: 'Singapore', law: 'Misguided Dogs and Assistance Dogs Act — acceso garantizado en transporte y espacios públicos', lawEn: 'Misguided Dogs and Assistance Dogs Act — guaranteed access on transport and in public spaces', level: 'green' },
+  { flag: '🇦🇺', name: 'Australia', nameEn: 'Australia', law: 'Disability Discrimination Act 1992 — animales de asistencia con amplia protección legal', lawEn: 'Disability Discrimination Act 1992 — assistance animals with broad legal protection', level: 'green' },
 ]
 
 export default async function DocumentosViajePage() {
   const locale = await getLocale()
+  const en = locale === 'en'
   const supabase = await createSupabaseServer()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect(`/${locale}/login`)
@@ -224,11 +249,11 @@ export default async function DocumentosViajePage() {
           <div className="flex gap-4 mb-4 text-xs font-medium flex-wrap">
             <span className="flex items-center gap-1.5">
               <span className="inline-block w-3 h-3 rounded-full bg-green-400"></span>
-              Aerolíneas EE.UU. — política clara
+              {en ? 'U.S. airlines — clear policy' : 'Aerolíneas EE.UU. — política clara'}
             </span>
             <span className="flex items-center gap-1.5">
               <span className="inline-block w-3 h-3 rounded-full bg-amber-400"></span>
-              Aerolíneas LATAM — política variable
+              {en ? 'LATAM airlines — variable policy' : 'Aerolíneas LATAM — política variable'}
             </span>
           </div>
 
@@ -255,9 +280,9 @@ export default async function DocumentosViajePage() {
                   <span>{airline.flag}</span>
                   <span className="leading-tight">{airline.name}</span>
                 </div>
-                <div className="text-gray-700 text-xs leading-relaxed">{airline.allowed}</div>
-                <div className="text-gray-600 text-xs">{airline.notice}</div>
-                <div className="hidden sm:block text-gray-500 text-xs leading-relaxed">{airline.notes}</div>
+                <div className="text-gray-700 text-xs leading-relaxed">{en ? airline.allowedEn : airline.allowed}</div>
+                <div className="text-gray-600 text-xs">{en ? airline.noticeEn : airline.notice}</div>
+                <div className="hidden sm:block text-gray-500 text-xs leading-relaxed">{en ? airline.notesEn : airline.notes}</div>
               </div>
             ))}
           </div>
@@ -289,7 +314,7 @@ export default async function DocumentosViajePage() {
                       ? 'text-amber-800'
                       : 'text-red-800'
                   }`}>
-                    {country.name}
+                    {en ? country.nameEn : country.name}
                   </p>
                   <p className={`text-xs mt-0.5 leading-relaxed ${
                     country.level === 'green'
@@ -298,7 +323,7 @@ export default async function DocumentosViajePage() {
                       ? 'text-amber-700'
                       : 'text-red-700'
                   }`}>
-                    {country.law}
+                    {en ? country.lawEn : country.law}
                   </p>
                 </div>
               </div>
@@ -307,7 +332,7 @@ export default async function DocumentosViajePage() {
         </section>
 
         <p className="no-print text-center text-xs text-gray-400 pb-4">
-          AllGo Travel · Turismo accesible para todos 🌍
+          {en ? 'AllGo Travel App · Accessible travel for everyone 🌍' : 'AllGo Travel App · Turismo accesible para todos 🌍'}
         </p>
       </div>
     </main>

@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation'
-import { useTranslations } from 'next-intl'
+import { useTranslations, useLocale } from 'next-intl'
 import { createSupabaseServer } from '@/lib/supabase-server'
 import { Link } from '@/i18n/navigation'
 import { Profile } from '@/types/profile'
@@ -18,13 +18,13 @@ const DISABILITY_ICONS: Record<string, string> = {
 }
 
 // ── Retention: profile completion score ──────────────────────────────────────
-function computeCompletion(profile: Profile): { score: number; missing: string[] } {
+function computeCompletion(profile: Profile, en: boolean): { score: number; missing: string[] } {
   const checks = [
-    { done: !!profile.full_name,                              label: 'Nombre' },
-    { done: profile.disability_types.length > 0,             label: 'Necesidades de accesibilidad' },
-    { done: !!profile.chronic_conditions,                     label: 'Condiciones crónicas' },
-    { done: profile.medications.length > 0,                   label: 'Medicamentos' },
-    { done: !!profile.invisible_needs,                        label: 'Necesidades invisibles' },
+    { done: !!profile.full_name,                  label: en ? 'Name' : 'Nombre' },
+    { done: profile.disability_types.length > 0,  label: en ? 'Accessibility needs' : 'Necesidades de accesibilidad' },
+    { done: !!profile.chronic_conditions,         label: en ? 'Chronic conditions' : 'Condiciones crónicas' },
+    { done: profile.medications.length > 0,       label: en ? 'Medications' : 'Medicamentos' },
+    { done: !!profile.invisible_needs,            label: en ? 'Invisible needs' : 'Necesidades invisibles' },
   ]
   const done = checks.filter(c => c.done).length
   const missing = checks.filter(c => !c.done).map(c => c.label)
@@ -49,35 +49,41 @@ function GreetingSection({ name }: { name: string }) {
 
 // ── Retention: Kit de Viaje + completion meter ────────────────────────────────
 function KitDeViajeCard({ profile }: { profile: Profile }) {
-  const { score, missing } = computeCompletion(profile)
+  const locale = useLocale()
+  const en = locale === 'en'
+  const { score, missing } = computeCompletion(profile, en)
 
   const items = [
     {
       icon: '♿',
-      label: 'Perfil de accesibilidad',
+      label: en ? 'Accessibility profile' : 'Perfil de accesibilidad',
       value: profile.disability_types.length > 0
-        ? `${profile.disability_types.length} tipo${profile.disability_types.length > 1 ? 's' : ''} registrado${profile.disability_types.length > 1 ? 's' : ''}`
+        ? (en
+            ? `${profile.disability_types.length} type${profile.disability_types.length > 1 ? 's' : ''} saved`
+            : `${profile.disability_types.length} tipo${profile.disability_types.length > 1 ? 's' : ''} registrado${profile.disability_types.length > 1 ? 's' : ''}`)
         : null,
       href: '/perfil',
     },
     {
       icon: '🏥',
-      label: 'Tarjeta Médica',
+      label: en ? 'Medical Card' : 'Tarjeta Médica',
       value: profile.medications.length > 0
-        ? `${profile.medications.length} medicamento${profile.medications.length > 1 ? 's' : ''} guardado${profile.medications.length > 1 ? 's' : ''}`
-        : profile.chronic_conditions ? 'Condiciones guardadas' : null,
+        ? (en
+            ? `${profile.medications.length} medication${profile.medications.length > 1 ? 's' : ''} saved`
+            : `${profile.medications.length} medicamento${profile.medications.length > 1 ? 's' : ''} guardado${profile.medications.length > 1 ? 's' : ''}`)
+        : profile.chronic_conditions ? (en ? 'Conditions saved' : 'Condiciones guardadas') : null,
       href: '/tarjeta-medica',
     },
     {
       icon: '💬',
-      label: 'Tarjeta de Comunicación',
-      value: profile.full_name ? 'Lista para usar' : null,
+      label: en ? 'Communication Card' : 'Tarjeta de Comunicación',
+      value: profile.full_name ? (en ? 'Ready to use' : 'Lista para usar') : null,
       href: '/tarjeta-comunicacion',
     },
     {
       icon: '📄',
-      label: 'Documentos de viaje',
-      value: 'Regulaciones de 22 países',
+      label: en ? 'Travel Documents' : 'Documentos de viaje',
+      value: en ? 'Regulations for 22 countries' : 'Regulaciones de 22 países',
       href: '/documentos-viaje',
     },
   ]
@@ -86,9 +92,9 @@ function KitDeViajeCard({ profile }: { profile: Profile }) {
     <div className="bg-white rounded-2xl shadow p-6">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-base font-bold text-gray-800">🧳 Tu kit de viaje AllGo</h2>
+        <h2 className="text-base font-bold text-gray-800">🧳 {en ? 'Your AllGo travel kit' : 'Tu kit de viaje AllGo'}</h2>
         <span className="text-xs font-bold text-[#1B6FB5] bg-blue-50 px-2.5 py-1 rounded-full">
-          {score}% completo
+          {score}% {en ? 'complete' : 'completo'}
         </span>
       </div>
 
@@ -108,15 +114,15 @@ function KitDeViajeCard({ profile }: { profile: Profile }) {
       </div>
       {score < 100 && missing.length > 0 && (
         <p className="text-xs text-gray-400 mb-4">
-          Falta: {missing.slice(0, 2).join(', ')}{missing.length > 2 ? ` y ${missing.length - 2} más` : ''}
+          {en ? 'Missing' : 'Falta'}: {missing.slice(0, 2).join(', ')}{missing.length > 2 ? (en ? ` and ${missing.length - 2} more` : ` y ${missing.length - 2} más`) : ''}
           {' · '}
           <Link href="/perfil" className="text-[#1B6FB5] font-semibold hover:underline">
-            Completar →
+            {en ? 'Complete →' : 'Completar →'}
           </Link>
         </p>
       )}
       {score === 100 && (
-        <p className="text-xs text-teal-600 font-semibold mb-4">✅ Perfil 100% completo — tu kit está listo</p>
+        <p className="text-xs text-teal-600 font-semibold mb-4">✅ {en ? 'Profile 100% complete — your kit is ready' : 'Perfil 100% completo — tu kit está listo'}</p>
       )}
 
       {/* Items */}
@@ -135,7 +141,7 @@ function KitDeViajeCard({ profile }: { profile: Profile }) {
               {item.value ? (
                 <p className="text-xs text-teal-600 font-medium mt-0.5">✅ {item.value}</p>
               ) : (
-                <p className="text-xs text-orange-400 font-medium mt-0.5">⚠️ Pendiente — completar</p>
+                <p className="text-xs text-orange-400 font-medium mt-0.5">⚠️ {en ? 'Pending — complete' : 'Pendiente — completar'}</p>
               )}
             </div>
           </Link>
@@ -148,13 +154,15 @@ function KitDeViajeCard({ profile }: { profile: Profile }) {
 // ── Quick Access Cards ────────────────────────────────────────────────────────
 function QuickAccessCards({ member }: { member: boolean }) {
   const t = useTranslations('dashboard')
+  const locale = useLocale()
+  const en = locale === 'en'
 
   const cards = [
     {
       href: '/hub',
       icon: '🐕‍🦺',
       title: 'Service Dog Travel Hub',
-      desc: 'Requisitos, formularios, checklist y alertas',
+      desc: en ? 'Requirements, forms, checklist and alerts' : 'Requisitos, formularios, checklist y alertas',
       bg: 'bg-[#0E4E85]',
       premium: true,
     },
@@ -215,13 +223,13 @@ function QuickAccessCards({ member }: { member: boolean }) {
             >
               {locked && (
                 <span className="absolute top-2 right-2 text-[10px] font-bold bg-white/95 text-gray-800 rounded-full px-2 py-0.5 flex items-center gap-1">
-                  🔒 Miembros
+                  🔒 {en ? 'Members' : 'Miembros'}
                 </span>
               )}
               <span className="text-3xl allgo-float inline-block group-hover:scale-110 transition-transform duration-200" style={{ animationDelay: `${i * 250}ms` }}>{card.icon}</span>
               <span className="font-semibold text-sm leading-tight">{card.title}</span>
               <span className="text-xs opacity-80 leading-tight">
-                {locked ? 'Hazte miembro para desbloquear →' : card.desc}
+                {locked ? (en ? 'Become a member to unlock →' : 'Hazte miembro para desbloquear →') : card.desc}
               </span>
             </Link>
           )
@@ -234,6 +242,8 @@ function QuickAccessCards({ member }: { member: boolean }) {
 // ── Retention: Alli tip with CTA ──────────────────────────────────────────────
 function AlliTipCard() {
   const t = useTranslations('dashboard')
+  const locale = useLocale()
+  const en = locale === 'en'
   const tips = [
     t('tip0'), t('tip1'), t('tip2'), t('tip3'),
     t('tip4'), t('tip5'), t('tip6'),
@@ -252,7 +262,7 @@ function AlliTipCard() {
         href="/planificador"
         className="allgo-tap inline-flex items-center gap-2 bg-orange-50 hover:bg-orange-100 text-orange-600 font-bold text-sm px-4 py-2.5 rounded-xl"
       >
-        💬 Háblame de tu próximo viaje →
+        💬 {en ? 'Tell me about your next trip →' : 'Háblame de tu próximo viaje →'}
       </Link>
     </div>
   )
@@ -260,27 +270,31 @@ function AlliTipCard() {
 
 // ── Retention: Next Trip CTA ──────────────────────────────────────────────────
 function NextTripCard() {
+  const locale = useLocale()
+  const en = locale === 'en'
   return (
     <div className="bg-gradient-to-br from-[#1B6FB5] to-teal-600 rounded-2xl shadow p-6 text-white">
       <div className="flex items-center gap-2 mb-3">
         <span className="text-2xl">✈️</span>
-        <h2 className="font-extrabold text-lg leading-tight">¿A dónde vas después?</h2>
+        <h2 className="font-extrabold text-lg leading-tight">{en ? 'Where to next?' : '¿A dónde vas después?'}</h2>
       </div>
       <p className="text-white/80 text-sm leading-relaxed mb-4">
-        Planifica tu próxima aventura accesible — Alli tiene todo listo para ti.
+        {en
+          ? 'Plan your next accessible adventure — Alli has everything ready for you.'
+          : 'Planifica tu próxima aventura accesible — Alli tiene todo listo para ti.'}
       </p>
       <div className="flex flex-col sm:flex-row gap-3">
         <Link
           href="/planificador"
           className="allgo-tap allgo-cta flex-1 bg-white text-[#1B6FB5] font-bold text-sm text-center px-4 py-3 rounded-xl hover:bg-orange-50 shadow"
         >
-          🗺️ Planificar viaje
+          🗺️ {en ? 'Plan a trip' : 'Planificar viaje'}
         </Link>
         <Link
           href="/destinos"
           className="allgo-tap flex-1 bg-white/20 border border-white/30 text-white font-bold text-sm text-center px-4 py-3 rounded-xl hover:bg-white/30"
         >
-          🌍 Ver destinos
+          🌍 {en ? 'See destinations' : 'Ver destinos'}
         </Link>
       </div>
     </div>
@@ -289,17 +303,23 @@ function NextTripCard() {
 
 // ── Retention: "No pierdas esto" — value reminder ────────────────────────────
 function ValueReminderCard({ profile }: { profile: Profile }) {
+  const locale = useLocale()
+  const en = locale === 'en'
   const hasData = profile.medications.length > 0 || profile.chronic_conditions || profile.disability_types.length > 0
 
   if (!hasData) return null
 
   const items = [
     profile.disability_types.length > 0 &&
-      `${profile.disability_types.length} necesidad${profile.disability_types.length > 1 ? 'es' : ''} de accesibilidad`,
+      (en
+        ? `${profile.disability_types.length} accessibility need${profile.disability_types.length > 1 ? 's' : ''}`
+        : `${profile.disability_types.length} necesidad${profile.disability_types.length > 1 ? 'es' : ''} de accesibilidad`),
     profile.medications.length > 0 &&
-      `${profile.medications.length} medicamento${profile.medications.length > 1 ? 's' : ''} guardado${profile.medications.length > 1 ? 's' : ''}`,
-    profile.chronic_conditions && 'Condiciones crónicas registradas',
-    profile.invisible_needs && 'Necesidades invisibles documentadas',
+      (en
+        ? `${profile.medications.length} medication${profile.medications.length > 1 ? 's' : ''} saved`
+        : `${profile.medications.length} medicamento${profile.medications.length > 1 ? 's' : ''} guardado${profile.medications.length > 1 ? 's' : ''}`),
+    profile.chronic_conditions && (en ? 'Chronic conditions on file' : 'Condiciones crónicas registradas'),
+    profile.invisible_needs && (en ? 'Invisible needs documented' : 'Necesidades invisibles documentadas'),
   ].filter(Boolean) as string[]
 
   return (
@@ -308,7 +328,7 @@ function ValueReminderCard({ profile }: { profile: Profile }) {
         <span className="text-2xl shrink-0">🔐</span>
         <div>
           <p className="font-bold text-amber-800 text-sm mb-1">
-            Tu perfil médico está guardado y seguro
+            {en ? 'Your medical profile is saved and secure' : 'Tu perfil médico está guardado y seguro'}
           </p>
           <ul className="space-y-0.5">
             {items.map((item, i) => (
@@ -318,7 +338,7 @@ function ValueReminderCard({ profile }: { profile: Profile }) {
             ))}
           </ul>
           <p className="text-xs text-amber-600 mt-2 font-medium">
-            Esta información viaja contigo en cada aventura. 🌍
+            {en ? 'This info travels with you on every adventure. 🌍' : 'Esta información viaja contigo en cada aventura. 🌍'}
           </p>
         </div>
       </div>
@@ -361,6 +381,7 @@ export default async function DashboardPage({
   if (!profile?.onboarding_completed) redirect('/onboarding')
 
   const isDev = process.env.NODE_ENV === 'development'
+  const en = locale === 'en'
   // Acceso por niveles: FREE entra al app; las funciones premium se muestran con candado.
   const member = isDev || profile?.subscription_status === 'active'
 
@@ -415,24 +436,37 @@ export default async function DashboardPage({
         {/* 7. Nuestra Historia */}
         <div className="bg-white rounded-2xl shadow p-6">
           <div className="flex items-center gap-2 mb-4">
-            <span className="inline-block bg-orange-100 text-orange-600 text-xs font-bold px-3 py-1 rounded-full">💛 Nuestra Historia</span>
+            <span className="inline-block bg-orange-100 text-orange-600 text-xs font-bold px-3 py-1 rounded-full">💛 {en ? 'Our Story' : 'Nuestra Historia'}</span>
           </div>
           <div className="flex flex-col gap-4 items-center">
             {/* Óvalo grande — misma proporción que la imagen, se ve completa */}
             <div className="w-64 h-80 rounded-full overflow-hidden shadow-xl ring-4 ring-orange-100">
-              <Image src="/yadira-familia.jpg" alt="Yadira, su familia y su perrita" width={720} height={899} className="object-cover w-full h-full" />
+              <Image src="/yadira-familia.jpg" alt={en ? 'Yadira, her family and her dog' : 'Yadira, su familia y su perrita'} width={720} height={899} className="object-cover w-full h-full" />
             </div>
             <div className="text-center">
-              <p className="font-bold text-blue-700 text-sm">Yadira y familia</p>
-              <p className="text-gray-400 text-xs">Fundadora · AllGo Travel</p>
+              <p className="font-bold text-blue-700 text-sm">{en ? 'Yadira and family' : 'Yadira y familia'}</p>
+              <p className="text-gray-400 text-xs">{en ? 'Founder · AllGo Travel App' : 'Fundadora · AllGo Travel App'}</p>
             </div>
             <div className="space-y-3 text-gray-600 text-sm leading-relaxed">
-              <p><strong className="text-gray-900">AllGo Travel nació de una historia personal.</strong></p>
-              <p>Yadira, cubano-americana y profesional del área de salud, lleva años viajando junto a su padre con discapacidad. De esa experiencia nació AllGo Travel — un espacio donde los viajes se diseñan desde la inclusión, para que personas con discapacidad y sus familias puedan explorar el mundo con libertad y dignidad.</p>
-              <p className="text-blue-700 font-semibold">Porque todos merecen descubrir el mundo. 🌍</p>
-              <Link href="/nosotros" className="inline-block mt-1 text-orange-500 hover:text-orange-600 font-semibold text-xs underline">
-                Leer historia completa →
-              </Link>
+              {en ? (
+                <>
+                  <p><strong className="text-gray-900">AllGo Travel App was born from a personal story.</strong></p>
+                  <p>Yadira, a Cuban-American healthcare professional, has spent years traveling alongside her father, who has a disability. That experience gave rise to AllGo Travel App — a space where travel is designed around inclusion, so people with disabilities and their families can explore the world with freedom and dignity.</p>
+                  <p className="text-blue-700 font-semibold">Because everyone deserves to discover the world. 🌍</p>
+                  <Link href="/nosotros" className="inline-block mt-1 text-orange-500 hover:text-orange-600 font-semibold text-xs underline">
+                    Read the full story →
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <p><strong className="text-gray-900">AllGo Travel App nació de una historia personal.</strong></p>
+                  <p>Yadira, cubano-americana y profesional del área de salud, lleva años viajando junto a su padre con discapacidad. De esa experiencia nació AllGo Travel App — un espacio donde los viajes se diseñan desde la inclusión, para que personas con discapacidad y sus familias puedan explorar el mundo con libertad y dignidad.</p>
+                  <p className="text-blue-700 font-semibold">Porque todos merecen descubrir el mundo. 🌍</p>
+                  <Link href="/nosotros" className="inline-block mt-1 text-orange-500 hover:text-orange-600 font-semibold text-xs underline">
+                    Leer historia completa →
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>

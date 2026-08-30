@@ -1,5 +1,6 @@
 import { redirect } from 'next/navigation'
 import Image from 'next/image'
+import { getLocale } from 'next-intl/server'
 import { createSupabaseServer } from '@/lib/supabase-server'
 import { Link } from '@/i18n/navigation'
 import { Profile, DISABILITY_ICONS, DISABILITY_LABELS } from '@/types/profile'
@@ -9,6 +10,9 @@ import MedicalQRCode from '@/components/MedicalQRCode'
 export const dynamic = 'force-dynamic'
 
 export default async function TarjetaMedicaPage() {
+  const locale = await getLocale()
+  const en = locale === 'en'
+
   const supabase = await createSupabaseServer()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
@@ -52,7 +56,7 @@ export default async function TarjetaMedicaPage() {
         <Link href="/dashboard" className="text-[#1B6FB5] hover:underline text-sm font-medium">
           ← Dashboard
         </Link>
-        <PrintButton label="Imprimir / Save as PDF" />
+        <PrintButton label={en ? 'Print / Save as PDF' : 'Imprimir / Save as PDF'} />
       </div>
 
       {/* Medical card */}
@@ -62,15 +66,15 @@ export default async function TarjetaMedicaPage() {
           <div className="relative w-12 h-12 flex-shrink-0">
             <Image
               src="/logo-allgo.jpg"
-              alt="AllGo Travel"
+              alt="AllGo Travel App"
               fill
               className="object-contain rounded-lg"
             />
           </div>
           <div>
-            <p className="text-xs font-semibold uppercase tracking-widest opacity-80">AllGo Travel</p>
-            <h1 className="text-xl font-bold leading-tight">Tarjeta Médica de Viaje</h1>
-            <p className="text-xs opacity-70">Travel Medical Card</p>
+            <p className="text-xs font-semibold uppercase tracking-widest opacity-80">AllGo Travel App</p>
+            <h1 className="text-xl font-bold leading-tight">{en ? 'Travel Medical Card' : 'Tarjeta Médica de Viaje'}</h1>
+            <p className="text-xs opacity-70">{en ? 'Tarjeta Médica de Viaje' : 'Travel Medical Card'}</p>
           </div>
           <div className="ml-auto text-right">
             <span className="text-3xl">🏥</span>
@@ -82,7 +86,7 @@ export default async function TarjetaMedicaPage() {
           <div className="md:col-span-2 space-y-6">
             {/* Name */}
             <div>
-              <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Nombre / Name</p>
+              <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">{en ? 'Name / Nombre' : 'Nombre / Name'}</p>
               <p className="text-2xl font-bold text-gray-800">
                 {safeProfile.full_name || '—'}
               </p>
@@ -92,7 +96,7 @@ export default async function TarjetaMedicaPage() {
             {safeProfile.disability_types.length > 0 && (
               <div>
                 <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">
-                  Necesidades de accesibilidad / Accessibility needs
+                  {en ? 'Accessibility needs / Necesidades de accesibilidad' : 'Necesidades de accesibilidad / Accessibility needs'}
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {safeProfile.disability_types.map(type => (
@@ -111,7 +115,7 @@ export default async function TarjetaMedicaPage() {
             {safeProfile.chronic_conditions && (
               <div>
                 <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">
-                  Condiciones crónicas / Chronic conditions
+                  {en ? 'Chronic conditions / Condiciones crónicas' : 'Condiciones crónicas / Chronic conditions'}
                 </p>
                 <p className="text-gray-700 text-sm leading-relaxed">{safeProfile.chronic_conditions}</p>
               </div>
@@ -121,7 +125,7 @@ export default async function TarjetaMedicaPage() {
             {safeProfile.allergies && (
               <div className="bg-red-50 border border-red-200 rounded-xl p-3">
                 <p className="text-xs font-bold text-red-600 uppercase tracking-wide mb-1">
-                  ⚠️ Alergias / Allergies
+                  ⚠️ {en ? 'Allergies / Alergias' : 'Alergias / Allergies'}
                 </p>
                 <p className="text-gray-800 text-sm leading-relaxed">{safeProfile.allergies}</p>
               </div>
@@ -131,7 +135,7 @@ export default async function TarjetaMedicaPage() {
             {safeProfile.invisible_needs && (
               <div>
                 <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">
-                  Necesidades invisibles / Invisible needs
+                  {en ? 'Invisible needs / Necesidades invisibles' : 'Necesidades invisibles / Invisible needs'}
                 </p>
                 <p className="text-gray-700 text-sm leading-relaxed">{safeProfile.invisible_needs}</p>
               </div>
@@ -141,7 +145,7 @@ export default async function TarjetaMedicaPage() {
             {safeProfile.medications.length > 0 && (
               <div>
                 <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">
-                  Medicamentos / Medications
+                  {en ? 'Medications / Medicamentos' : 'Medicamentos / Medications'}
                 </p>
                 <div className="space-y-1">
                   {safeProfile.medications.map((med, i) => (
@@ -162,12 +166,16 @@ export default async function TarjetaMedicaPage() {
 
             {/* Emergency message */}
             <div className="bg-red-50 border border-red-200 rounded-xl p-4">
-              <p className="text-xs font-bold text-red-600 uppercase tracking-wide mb-2">⚠️ Emergencia / Emergency</p>
+              <p className="text-xs font-bold text-red-600 uppercase tracking-wide mb-2">⚠️ {en ? 'Emergency / Emergencia' : 'Emergencia / Emergency'}</p>
               <p className="text-sm text-gray-800 leading-relaxed">
-                Esta persona viaja con necesidades especiales de accesibilidad. Por favor contacte a su acompañante.
+                {en
+                  ? 'This person travels with special accessibility needs. Please contact their companion.'
+                  : 'Esta persona viaja con necesidades especiales de accesibilidad. Por favor contacte a su acompañante.'}
               </p>
               <p className="text-sm text-gray-600 leading-relaxed mt-1 italic">
-                This person travels with special accessibility needs. Please contact their companion.
+                {en
+                  ? 'Esta persona viaja con necesidades especiales de accesibilidad. Por favor contacte a su acompañante.'
+                  : 'This person travels with special accessibility needs. Please contact their companion.'}
               </p>
             </div>
           </div>
@@ -177,8 +185,8 @@ export default async function TarjetaMedicaPage() {
             <MedicalQRCode token={profile?.emergency_token ?? null} />
 
             <div className="mt-2 text-center">
-              <p className="text-xs text-gray-400">Generado por / Generated by</p>
-              <p className="text-sm font-bold text-[#1B6FB5]">AllGo Travel</p>
+              <p className="text-xs text-gray-400">{en ? 'Generated by / Generado por' : 'Generado por / Generated by'}</p>
+              <p className="text-sm font-bold text-[#1B6FB5]">AllGo Travel App</p>
               <p className="text-xs text-gray-400">allgotravel.app</p>
             </div>
           </div>
@@ -187,7 +195,7 @@ export default async function TarjetaMedicaPage() {
         {/* Footer stripe */}
         <div className="bg-[#0D9488] px-8 py-3 flex items-center justify-between">
           <p className="text-white text-xs opacity-80">
-            🌍 allgotravel.app — Turismo accesible para todos
+            🌍 allgotravel.app — {en ? 'Accessible travel for everyone' : 'Turismo accesible para todos'}
           </p>
           <span className="text-white text-xs opacity-60">
             {new Date().getFullYear()}

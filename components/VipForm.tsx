@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useLocale } from 'next-intl'
 
 type Fields = {
   name: string
@@ -48,6 +49,7 @@ const CSS = `
 `
 
 export default function VipForm() {
+  const en = useLocale() === 'en'
   const [f, setF] = useState<Fields>(EMPTY)
   const [state, setState] = useState<'idle' | 'sending' | 'done' | 'error'>('idle')
 
@@ -87,8 +89,12 @@ export default function VipForm() {
         <style>{CSS}</style>
         <div className="done">
           <div className="em">🎉</div>
-          <h3>¡Recibido! Empezamos con tu viaje.</h3>
-          <p>Guardamos tus datos y te contactaremos por WhatsApp para arrancar tu experiencia VIP. 🐾</p>
+          <h3>{en ? 'Got it! Your trip starts now.' : '¡Recibido! Empezamos con tu viaje.'}</h3>
+          <p>
+            {en
+              ? 'We saved your details and will reach out on WhatsApp to kick off your VIP experience. 🐾'
+              : 'Guardamos tus datos y te contactaremos por WhatsApp para arrancar tu experiencia VIP. 🐾'}
+          </p>
         </div>
       </div>
     )
@@ -97,16 +103,16 @@ export default function VipForm() {
   return (
     <div className="vipform">
       <style>{CSS}</style>
-      <h3>Reserva tu experiencia VIP</h3>
-      <div className="sub">Cuéntanos de tu viaje y arrancamos de inmediato.</div>
+      <h3>{en ? 'Book your VIP experience' : 'Reserva tu experiencia VIP'}</h3>
+      <div className="sub">{en ? 'Tell us about your trip and we get started right away.' : 'Cuéntanos de tu viaje y arrancamos de inmediato.'}</div>
 
-      <label>Nombre completo</label>
-      <input value={f.name} onChange={(e) => set('name', e.target.value)} placeholder="Tu nombre" />
+      <label>{en ? 'Full name' : 'Nombre completo'}</label>
+      <input value={f.name} onChange={(e) => set('name', e.target.value)} placeholder={en ? 'Your name' : 'Tu nombre'} />
 
       <div className="row">
         <div>
-          <label>Correo</label>
-          <input type="email" value={f.email} onChange={(e) => set('email', e.target.value)} placeholder="tu@correo.com" />
+          <label>{en ? 'Email' : 'Correo'}</label>
+          <input type="email" value={f.email} onChange={(e) => set('email', e.target.value)} placeholder={en ? 'you@email.com' : 'tu@correo.com'} />
         </div>
         <div>
           <label>WhatsApp</label>
@@ -114,45 +120,45 @@ export default function VipForm() {
         </div>
       </div>
 
-      <label>¿A dónde viajas?</label>
-      <input value={f.destination} onChange={(e) => set('destination', e.target.value)} placeholder="Ciudad / país de destino" />
+      <label>{en ? 'Where are you traveling?' : '¿A dónde viajas?'}</label>
+      <input value={f.destination} onChange={(e) => set('destination', e.target.value)} placeholder={en ? 'Destination city / country' : 'Ciudad / país de destino'} />
 
       <div className="row">
         <div>
-          <label>Fechas (aprox.)</label>
-          <input value={f.travel_dates} onChange={(e) => set('travel_dates', e.target.value)} placeholder="Ej: 15-22 sep" />
+          <label>{en ? 'Dates (approx.)' : 'Fechas (aprox.)'}</label>
+          <input value={f.travel_dates} onChange={(e) => set('travel_dates', e.target.value)} placeholder={en ? 'E.g. Sep 15-22' : 'Ej: 15-22 sep'} />
         </div>
         <div>
-          <label>Aerolínea (si la tienes)</label>
-          <input value={f.airline} onChange={(e) => set('airline', e.target.value)} placeholder="Ej: United" />
+          <label>{en ? 'Airline (if you have one)' : 'Aerolínea (si la tienes)'}</label>
+          <input value={f.airline} onChange={(e) => set('airline', e.target.value)} placeholder={en ? 'E.g. United' : 'Ej: United'} />
         </div>
       </div>
 
       <div className="row">
         <div>
-          <label>Tu perro — nombre y raza</label>
-          <input value={f.dog_info} onChange={(e) => set('dog_info', e.target.value)} placeholder="Ej: Luna, frenchie" />
+          <label>{en ? 'Your dog — name and breed' : 'Tu perro — nombre y raza'}</label>
+          <input value={f.dog_info} onChange={(e) => set('dog_info', e.target.value)} placeholder={en ? 'E.g. Luna, frenchie' : 'Ej: Luna, frenchie'} />
         </div>
         <div>
-          <label>Tipo de servicio</label>
+          <label>{en ? 'Service type' : 'Tipo de servicio'}</label>
           <select value={f.service_type} onChange={(e) => set('service_type', e.target.value)}>
-            <option>Perro de servicio</option>
-            <option>Perro de servicio psiquiátrico</option>
-            <option>En entrenamiento</option>
-            <option>Otro</option>
+            <option value="Perro de servicio">{en ? 'Service dog' : 'Perro de servicio'}</option>
+            <option value="Perro de servicio psiquiátrico">{en ? 'Psychiatric service dog' : 'Perro de servicio psiquiátrico'}</option>
+            <option value="En entrenamiento">{en ? 'In training' : 'En entrenamiento'}</option>
+            <option value="Otro">{en ? 'Other' : 'Otro'}</option>
           </select>
         </div>
       </div>
 
-      <label>Necesidades especiales o notas</label>
-      <textarea rows={3} value={f.notes} onChange={(e) => set('notes', e.target.value)} placeholder="Cuéntanos cualquier detalle que debamos saber…" />
+      <label>{en ? 'Special needs or notes' : 'Necesidades especiales o notas'}</label>
+      <textarea rows={3} value={f.notes} onChange={(e) => set('notes', e.target.value)} placeholder={en ? 'Tell us anything we should know…' : 'Cuéntanos cualquier detalle que debamos saber…'} />
 
-      {state === 'error' && <p className="err">Revisa tu correo e inténtalo de nuevo.</p>}
+      {state === 'error' && <p className="err">{en ? 'Please check your email and try again.' : 'Revisa tu correo e inténtalo de nuevo.'}</p>}
 
       <button className="cta" onClick={submit} disabled={state === 'sending'}>
-        {state === 'sending' ? 'Enviando…' : (<>Reservar mi experiencia <span className="g">VIP</span> →</>)}
+        {state === 'sending' ? (en ? 'Sending…' : 'Enviando…') : (<>{en ? 'Book my ' : 'Reservar mi experiencia '}<span className="g">VIP</span>{en ? ' experience ' : ' '}→</>)}
       </button>
-      <div className="trust">Pago único de $297 · Empezamos apenas recibamos tus datos</div>
+      <div className="trust">{en ? 'One-time payment of $297 · We start as soon as we get your details' : 'Pago único de $297 · Empezamos apenas recibamos tus datos'}</div>
     </div>
   )
 }

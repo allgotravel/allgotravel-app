@@ -9,8 +9,9 @@ const ALL_DISABILITY_FILTERS: DisabilityType[] = ['motriz', 'visual', 'auditiva'
 const ALL_ATTRACTION_FILTERS: AttractionType[] = ['termales', 'fincas', 'parques_naturales', 'spas', 'playas', 'museos', 'parques_tematicos', 'gastronomia', 'cultura']
 
 function StarRating({ rating }: { rating: number }) {
+  const locale = useLocale()
   return (
-    <div className="flex gap-0.5" aria-label={`Accesibilidad: ${rating} de 5`}>
+    <div className="flex gap-0.5" aria-label={locale === 'es' ? `Accesibilidad: ${rating} de 5` : `Accessibility: ${rating} of 5`}>
       {[1, 2, 3, 4, 5].map(n => (
         <span key={n} className={n <= rating ? 'text-teal-500' : 'text-gray-200'}>♿</span>
       ))}

@@ -7,14 +7,25 @@ export const dynamic = 'force-dynamic'
 
 type Included = { icon: string; title: string; text: string }
 
-const INCLUDED: Included[] = [
-  { icon: '🔎', title: 'Verificación de tu ruta exacta', text: 'Revisamos tu aerolínea y tu país de destino, con la fuente oficial y la fecha. Nada de suposiciones.' },
-  { icon: '📄', title: 'Dossier de viaje personalizado (PDF)', text: 'Todo tu caso en un solo documento elegante: requisitos, formularios, contactos y pasos, listo para llevar.' },
-  { icon: '📋', title: 'Tus documentos, preparados', text: 'Dejamos listo tu formulario del DOT y tu checklist, paso a paso, para tu caso.' },
-  { icon: '🗺️', title: 'Itinerario accesible', text: 'Hoteles accesibles verificados, áreas de alivio del aeropuerto y tiempos, en un plan claro que puedes seguir.' },
-  { icon: '💬', title: 'Soporte prioritario por WhatsApp', text: 'Nos escribes antes y durante el viaje y te respondemos rápido. Nunca estás solo.' },
-  { icon: '🛡️', title: 'Garantía de tranquilidad', text: 'Revisamos y ajustamos hasta que todo quede claro. Tu objetivo: viajar sin sorpresas.' },
-]
+function getIncluded(en: boolean): Included[] {
+  return en
+    ? [
+        { icon: '🔎', title: 'Verification of your exact route', text: 'We check your airline and your destination country, with the official source and date. No guesswork.' },
+        { icon: '📄', title: 'Personalized travel dossier (PDF)', text: 'Your whole case in one elegant document: requirements, forms, contacts and steps, ready to carry.' },
+        { icon: '📋', title: 'Your documents, prepared', text: 'We get your DOT form and checklist ready, step by step, for your case.' },
+        { icon: '🗺️', title: 'Accessible itinerary', text: 'Verified accessible hotels, airport relief areas and timings, in a clear plan you can follow.' },
+        { icon: '💬', title: 'Priority WhatsApp support', text: 'You message us before and during the trip and we reply fast. You are never alone.' },
+        { icon: '🛡️', title: 'Peace-of-mind guarantee', text: 'We review and adjust until everything is clear. Your goal: travel without surprises.' },
+      ]
+    : [
+        { icon: '🔎', title: 'Verificación de tu ruta exacta', text: 'Revisamos tu aerolínea y tu país de destino, con la fuente oficial y la fecha. Nada de suposiciones.' },
+        { icon: '📄', title: 'Dossier de viaje personalizado (PDF)', text: 'Todo tu caso en un solo documento elegante: requisitos, formularios, contactos y pasos, listo para llevar.' },
+        { icon: '📋', title: 'Tus documentos, preparados', text: 'Dejamos listo tu formulario del DOT y tu checklist, paso a paso, para tu caso.' },
+        { icon: '🗺️', title: 'Itinerario accesible', text: 'Hoteles accesibles verificados, áreas de alivio del aeropuerto y tiempos, en un plan claro que puedes seguir.' },
+        { icon: '💬', title: 'Soporte prioritario por WhatsApp', text: 'Nos escribes antes y durante el viaje y te respondemos rápido. Nunca estás solo.' },
+        { icon: '🛡️', title: 'Garantía de tranquilidad', text: 'Revisamos y ajustamos hasta que todo quede claro. Tu objetivo: viajar sin sorpresas.' },
+      ]
+}
 
 const CSS = `
 .vip{--navy:#0a2440;--navy2:#0e3a63;--gold:#d9b45b;--gold-l:#f3d68a;--gold-d:#b8912f;--cream:#faf7f0;--ink:#1b2733;--muted:#6b7683;--line:#ece4d2;background:var(--cream);color:var(--ink);min-height:100vh}
@@ -57,6 +68,8 @@ const CSS = `
 export default async function VipPage() {
   const locale = await getLocale()
   await requireMember(locale)
+  const en = locale === 'en'
+  const INCLUDED = getIncluded(en)
 
   return (
     <main className="vip">
@@ -68,23 +81,28 @@ export default async function VipPage() {
         <span className="spark" style={{ top: 70, left: '44%', animationDelay: '1.2s' }}>✧</span>
         <span className="spark" style={{ top: 120, left: '84%', animationDelay: '2.1s' }}>✦</span>
         <div style={{ maxWidth: 560, margin: '0 auto' }}>
-          <Link href="/dashboard" className="back">← Inicio</Link>
-          <div className="crown">👑 EXPERIENCIA VIP · SOLO MIEMBROS</div>
-          <h1 className="h1 serif">Tu viaje, <span className="g">planificado por un especialista</span></h1>
+          <Link href="/dashboard" className="back">← {en ? 'Home' : 'Inicio'}</Link>
+          <div className="crown">👑 {en ? 'VIP EXPERIENCE · MEMBERS ONLY' : 'EXPERIENCIA VIP · SOLO MIEMBROS'}</div>
+          <h1 className="h1 serif">
+            {en
+              ? <>Your trip, <span className="g">planned by a specialist</span></>
+              : <>Tu viaje, <span className="g">planificado por un especialista</span></>}
+          </h1>
           <p className="lead">
-            Nosotros hacemos todo el trabajo por ti: verificamos tu ruta, preparamos tus documentos y armamos tu
-            itinerario. Tú solo viajas tranquilo.
+            {en
+              ? 'We do all the work for you: we verify your route, prepare your documents and build your itinerary. You just travel with peace of mind.'
+              : 'Nosotros hacemos todo el trabajo por ti: verificamos tu ruta, preparamos tus documentos y armamos tu itinerario. Tú solo viajas tranquilo.'}
           </p>
           <div className="priceRow">
             <span className="price serif"><span className="cur">$</span>297</span>
-            <span className="per">PAGO ÚNICO · POR VIAJE</span>
+            <span className="per">{en ? 'ONE-TIME · PER TRIP' : 'PAGO ÚNICO · POR VIAJE'}</span>
           </div>
         </div>
       </section>
 
       <section className="sec">
-        <div className="eyebrow">Servicio hecho para ti</div>
-        <h2 className="h2 serif">Qué incluye tu paquete VIP</h2>
+        <div className="eyebrow">{en ? 'Service made for you' : 'Servicio hecho para ti'}</div>
+        <h2 className="h2 serif">{en ? "What's included in your VIP package" : 'Qué incluye tu paquete VIP'}</h2>
         <div className="rule" />
         <ul className="inc">
           {INCLUDED.map((it) => (
@@ -100,8 +118,9 @@ export default async function VipPage() {
         <div className="who">
           <span>✨</span>
           <div>
-            <b>Ideal si</b> tienes un viaje importante pronto, una ruta complicada, o simplemente quieres que alguien
-            se encargue de todo por ti.
+            {en
+              ? <><b>Ideal if</b> you have an important trip coming up, a complicated route, or you simply want someone to handle everything for you.</>
+              : <><b>Ideal si</b> tienes un viaje importante pronto, una ruta complicada, o simplemente quieres que alguien se encargue de todo por ti.</>}
           </div>
         </div>
       </section>

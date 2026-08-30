@@ -66,6 +66,7 @@ function Field({ label, value }: { label: string; value: string | null }) {
 
 export default async function HubCrucerosPage() {
   const locale = await getLocale()
+  const en = locale === 'en'
   await requireMember(locale)
 
   const supabase = await createSupabaseServer()
@@ -83,10 +84,11 @@ export default async function HubCrucerosPage() {
       <section className="px-5 pt-10 pb-8 text-white" style={{ background: `linear-gradient(135deg, ${BLUE}, #0E4E85)` }}>
         <div className="max-w-3xl mx-auto">
           <Link href="/hub" className="text-white/70 hover:text-white text-sm font-medium">← Hub</Link>
-          <h1 className="mt-3 text-3xl font-extrabold">🚢 Requisitos por Crucero</h1>
+          <h1 className="mt-3 text-3xl font-extrabold">🚢 {en ? 'Requirements by Cruise Line' : 'Requisitos por Crucero'}</h1>
           <p className="mt-2 text-white/80">
-            {lines.length} navieras verificadas. Toca cada una para ver los requisitos de perro de servicio,
-            accesibilidad y movilidad reducida, con su fuente oficial y la fecha de verificación.
+            {en
+              ? `${lines.length} verified cruise lines. Tap any one to see the requirements for service dogs, accessibility, and reduced mobility, with its official source and the date it was verified.`
+              : `${lines.length} navieras verificadas. Toca cada una para ver los requisitos de perro de servicio, accesibilidad y movilidad reducida, con su fuente oficial y la fecha de verificación.`}
           </p>
         </div>
       </section>
@@ -108,9 +110,9 @@ export default async function HubCrucerosPage() {
                   <div className="min-w-0">
                     <p className="font-bold text-gray-800">{c.name}</p>
                     <div className="mt-1.5 flex flex-wrap gap-1.5">
-                      <Badge state={dog} label="Perro de servicio" />
-                      <Badge state={esa} label={esa === 'no' ? 'ESA no' : 'ESA'} />
-                      {cabin === 'yes' || cabin === 'limited' ? <Badge state="limited" label="Camarote accesible" /> : null}
+                      <Badge state={dog} label={en ? 'Service dog' : 'Perro de servicio'} />
+                      <Badge state={esa} label={esa === 'no' ? (en ? 'No ESA' : 'ESA no') : 'ESA'} />
+                      {cabin === 'yes' || cabin === 'limited' ? <Badge state="limited" label={en ? 'Accessible cabin' : 'Camarote accesible'} /> : null}
                     </div>
                   </div>
                   <span className="text-gray-400 group-open:rotate-180 transition shrink-0">▾</span>
@@ -118,14 +120,14 @@ export default async function HubCrucerosPage() {
                 <div className="allgo-rise px-5 pb-5 pt-1 space-y-2 border-t border-gray-100">
                   {p ? (
                     <>
-                      <Field label="Perro de servicio" value={p.acepta_perro_servicio} />
-                      <Field label="Apoyo emocional (ESA)" value={p.acepta_esa} />
-                      <Field label="Aviso previo" value={p.aviso_previo} />
-                      <Field label="Documentos" value={p.documentos} />
-                      <Field label="Áreas de alivio" value={p.areas_alivio} />
-                      <Field label="Camarotes accesibles / movilidad" value={p.camarotes_accesibles} />
-                      <Field label="Contacto de accesibilidad" value={p.contacto_accesibilidad} />
-                      <Field label="Notas" value={p.notas} />
+                      <Field label={en ? 'Service dog' : 'Perro de servicio'} value={p.acepta_perro_servicio} />
+                      <Field label={en ? 'Emotional support (ESA)' : 'Apoyo emocional (ESA)'} value={p.acepta_esa} />
+                      <Field label={en ? 'Advance notice' : 'Aviso previo'} value={p.aviso_previo} />
+                      <Field label={en ? 'Documents' : 'Documentos'} value={p.documentos} />
+                      <Field label={en ? 'Relief areas' : 'Áreas de alivio'} value={p.areas_alivio} />
+                      <Field label={en ? 'Accessible cabins / mobility' : 'Camarotes accesibles / movilidad'} value={p.camarotes_accesibles} />
+                      <Field label={en ? 'Accessibility contact' : 'Contacto de accesibilidad'} value={p.contacto_accesibilidad} />
+                      <Field label={en ? 'Notes' : 'Notas'} value={p.notas} />
                       {p.url_reserva && (
                         <a
                           href={p.url_reserva}
@@ -134,20 +136,20 @@ export default async function HubCrucerosPage() {
                           className="allgo-tap allgo-cta mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-extrabold text-white sm:w-auto"
                           style={{ background: 'linear-gradient(135deg, #F97316, #ea6a0a)' }}
                         >
-                          🚢 Reservar en {c.name} →
+                          🚢 {en ? `Book with ${c.name} →` : `Reservar en ${c.name} →`}
                         </a>
                       )}
                       <div className="pt-2 flex flex-wrap items-center gap-3 text-xs text-gray-400">
-                        {p.fecha_verificacion && <span>Verificado: {p.fecha_verificacion}</span>}
+                        {p.fecha_verificacion && <span>{en ? 'Verified' : 'Verificado'}: {p.fecha_verificacion}</span>}
                         {p.url_fuente && (
                           <a href={p.url_fuente} target="_blank" rel="noopener noreferrer" className="allgo-tap inline-block font-semibold underline" style={{ color: BLUE }}>
-                            Fuente oficial →
+                            {en ? 'Official source →' : 'Fuente oficial →'}
                           </a>
                         )}
                       </div>
                     </>
                   ) : (
-                    <p className="text-sm text-gray-500">Política en verificación. No mostramos datos sin confirmar.</p>
+                    <p className="text-sm text-gray-500">{en ? 'Policy under verification. We don’t show unconfirmed data.' : 'Política en verificación. No mostramos datos sin confirmar.'}</p>
                   )}
                 </div>
               </details>
@@ -155,8 +157,9 @@ export default async function HubCrucerosPage() {
           })}
         </div>
         <p className="mt-8 text-center text-xs text-gray-400">
-          Cada política se verifica en la fuente oficial de la naviera. Que el crucero deje subir a tu perro
-          no garantiza que pueda bajar en cada puerto: confirma siempre las reglas del país antes de viajar.
+          {en
+            ? 'Every policy is verified against the cruise line’s official source. A cruise letting your dog board doesn’t guarantee it can disembark at every port: always confirm each country’s rules before you travel.'
+            : 'Cada política se verifica en la fuente oficial de la naviera. Que el crucero deje subir a tu perro no garantiza que pueda bajar en cada puerto: confirma siempre las reglas del país antes de viajar.'}
         </p>
       </section>
     </main>

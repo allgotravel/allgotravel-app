@@ -65,6 +65,7 @@ function Field({ label, value }: { label: string; value: string | null }) {
 
 export default async function HubAerolineasPage() {
   const locale = await getLocale()
+  const en = locale === 'en'
   await requireMember(locale)
 
   const supabase = await createSupabaseServer()
@@ -80,7 +81,7 @@ export default async function HubAerolineasPage() {
   // Agrupar por región
   const groups = new Map<string, Airline[]>()
   for (const a of airlines) {
-    const key = a.region || a.country || 'Otras'
+    const key = a.region || a.country || (en ? 'Other' : 'Otras')
     if (!groups.has(key)) groups.set(key, [])
     groups.get(key)!.push(a)
   }
@@ -90,10 +91,11 @@ export default async function HubAerolineasPage() {
       <section className="px-5 pt-10 pb-8 text-white" style={{ background: `linear-gradient(135deg, ${BLUE}, #0E4E85)` }}>
         <div className="max-w-3xl mx-auto">
           <Link href="/hub" className="text-white/70 hover:text-white text-sm font-medium">← Hub</Link>
-          <h1 className="mt-3 text-3xl font-extrabold">✈️ Requisitos por Aerolínea</h1>
+          <h1 className="mt-3 text-3xl font-extrabold">✈️ {en ? 'Requirements by Airline' : 'Requisitos por Aerolínea'}</h1>
           <p className="mt-2 text-white/80">
-            {airlines.length} aerolíneas verificadas. Toca cada una para ver todos los requisitos, con su
-            fuente oficial y la fecha de verificación.
+            {en
+              ? `${airlines.length} verified airlines. Tap any one to see all the requirements, with its official source and the date it was verified.`
+              : `${airlines.length} aerolíneas verificadas. Toca cada una para ver todos los requisitos, con su fuente oficial y la fecha de verificación.`}
           </p>
         </div>
       </section>
@@ -115,9 +117,9 @@ export default async function HubAerolineasPage() {
                         <div className="min-w-0">
                           <p className="font-bold text-gray-800">{a.name}</p>
                           <div className="mt-1.5 flex flex-wrap gap-1.5">
-                            <Badge state={dog} label="Perro de servicio" />
-                            <Badge state={esa} label={esa === 'no' ? 'ESA no' : 'ESA'} />
-                            {dot === 'yes' || dot === 'limited' ? <Badge state="limited" label="Formulario DOT" /> : null}
+                            <Badge state={dog} label={en ? 'Service dog' : 'Perro de servicio'} />
+                            <Badge state={esa} label={esa === 'no' ? (en ? 'No ESA' : 'ESA no') : 'ESA'} />
+                            {dot === 'yes' || dot === 'limited' ? <Badge state="limited" label={en ? 'DOT form' : 'Formulario DOT'} /> : null}
                           </div>
                         </div>
                         <span className="text-gray-400 group-open:rotate-180 transition shrink-0">▾</span>
@@ -125,23 +127,23 @@ export default async function HubAerolineasPage() {
                       <div className="px-5 pb-5 pt-1 space-y-2 border-t border-gray-100">
                         {p ? (
                           <>
-                            <Field label="Perro de servicio" value={p.acepta_perro_servicio} />
-                            <Field label="Apoyo emocional (ESA)" value={p.acepta_esa} />
-                            <Field label="Formulario DOT" value={p.exige_dot} />
-                            <Field label="Aviso previo (horas)" value={p.horas_anticipacion} />
-                            <Field label="Tamaño / peso" value={p.restriccion_tamano_peso} />
-                            <Field label="Notas" value={p.notas} />
+                            <Field label={en ? 'Service dog' : 'Perro de servicio'} value={p.acepta_perro_servicio} />
+                            <Field label={en ? 'Emotional support (ESA)' : 'Apoyo emocional (ESA)'} value={p.acepta_esa} />
+                            <Field label={en ? 'DOT form' : 'Formulario DOT'} value={p.exige_dot} />
+                            <Field label={en ? 'Advance notice (hours)' : 'Aviso previo (horas)'} value={p.horas_anticipacion} />
+                            <Field label={en ? 'Size / weight' : 'Tamaño / peso'} value={p.restriccion_tamano_peso} />
+                            <Field label={en ? 'Notes' : 'Notas'} value={p.notas} />
                             <div className="pt-2 flex flex-wrap items-center gap-3 text-xs text-gray-400">
-                              {p.fecha_verificacion && <span>Verificado: {p.fecha_verificacion}</span>}
+                              {p.fecha_verificacion && <span>{en ? 'Verified' : 'Verificado'}: {p.fecha_verificacion}</span>}
                               {p.url_fuente && (
                                 <a href={p.url_fuente} target="_blank" rel="noopener noreferrer" className="font-semibold underline" style={{ color: BLUE }}>
-                                  Fuente oficial →
+                                  {en ? 'Official source →' : 'Fuente oficial →'}
                                 </a>
                               )}
                             </div>
                           </>
                         ) : (
-                          <p className="text-sm text-gray-500">Política en verificación. No mostramos datos sin confirmar.</p>
+                          <p className="text-sm text-gray-500">{en ? 'Policy under verification. We don’t show unconfirmed data.' : 'Política en verificación. No mostramos datos sin confirmar.'}</p>
                         )}
                       </div>
                     </details>
@@ -152,8 +154,9 @@ export default async function HubAerolineasPage() {
           ))}
         </div>
         <p className="mt-8 text-center text-xs text-gray-400">
-          Cada política se verifica en la fuente oficial de la aerolínea. Confirma siempre antes de volar,
-          porque las reglas pueden cambiar.
+          {en
+            ? 'Every policy is verified against the airline’s official source. Always confirm before you fly, because rules can change.'
+            : 'Cada política se verifica en la fuente oficial de la aerolínea. Confirma siempre antes de volar, porque las reglas pueden cambiar.'}
         </p>
       </section>
     </main>

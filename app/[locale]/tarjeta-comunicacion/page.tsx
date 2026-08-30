@@ -1,4 +1,5 @@
 import { redirect } from 'next/navigation'
+import { getLocale } from 'next-intl/server'
 import { createSupabaseServer } from '@/lib/supabase-server'
 import { Link } from '@/i18n/navigation'
 import PrintButton from '@/components/PrintButton'
@@ -73,6 +74,9 @@ const CARDS = [
 ]
 
 export default async function TarjetaComunicacionPage() {
+  const locale = await getLocale()
+  const en = locale === 'en'
+
   const supabase = await createSupabaseServer()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
@@ -94,17 +98,21 @@ export default async function TarjetaComunicacionPage() {
             ← Dashboard
           </Link>
           <h1 className="text-2xl font-bold text-gray-800 mt-1">
-            Tarjeta de Comunicación
+            {en ? 'Communication Card' : 'Tarjeta de Comunicación'}
           </h1>
           <p className="text-gray-500 text-sm">
-            Muestra estas tarjetas en pantalla o imprímelas para usar en tu destino.
+            {en
+              ? 'Show these cards on screen or print them to use at your destination.'
+              : 'Muestra estas tarjetas en pantalla o imprímelas para usar en tu destino.'}
             <br />
             <span className="text-gray-400">
-              Show these cards on screen or print them to use at your destination.
+              {en
+                ? 'Muestra estas tarjetas en pantalla o imprímelas para usar en tu destino.'
+                : 'Show these cards on screen or print them to use at your destination.'}
             </span>
           </p>
         </div>
-        <PrintButton label="Imprimir / Save as PDF" />
+        <PrintButton label={en ? 'Print / Save as PDF' : 'Imprimir / Save as PDF'} />
       </div>
 
       {/* Cards grid */}
@@ -115,14 +123,14 @@ export default async function TarjetaComunicacionPage() {
             className={`${card.bg} ${card.border} ${card.text} border-2 rounded-2xl shadow p-6 flex flex-col items-center text-center gap-3`}
           >
             <span className="text-6xl leading-none">{card.icon}</span>
-            <p className="font-bold text-base leading-snug">{card.es}</p>
-            <p className="text-sm text-gray-500 leading-snug">{card.en}</p>
+            <p className="font-bold text-base leading-snug">{en ? card.en : card.es}</p>
+            <p className="text-sm text-gray-500 leading-snug">{en ? card.es : card.en}</p>
           </div>
         ))}
       </div>
 
       <p className="no-print text-center text-xs text-gray-400 mt-8">
-        AllGo Travel · Turismo accesible para todos 🌍
+        AllGo Travel App · {en ? 'Accessible travel for everyone' : 'Turismo accesible para todos'} 🌍
       </p>
     </main>
   )

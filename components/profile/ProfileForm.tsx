@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import { useTranslations } from 'next-intl'
+import { useTranslations, useLocale } from 'next-intl'
 import { createSupabaseBrowser } from '@/lib/supabase-browser'
 import {
   Profile, DisabilityType, Medication, GroupMember,
@@ -19,6 +19,7 @@ export default function ProfileForm({ profile }: Props) {
   const supabase = createSupabaseBrowser()
   const t = useTranslations('profile')
   const tD = useTranslations('disabilities')
+  const en = useLocale() === 'en'
   const [form, setForm] = useState<Profile>(profile)
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
@@ -178,16 +179,18 @@ export default function ProfileForm({ profile }: Props) {
 
       {/* Alergias (crítico en emergencias) */}
       <section className="bg-white rounded-2xl shadow p-6 space-y-4">
-        <h2 className="text-lg font-semibold text-teal-700">⚠️ Alergias / Allergies</h2>
+        <h2 className="text-lg font-semibold text-teal-700">⚠️ {en ? 'Allergies' : 'Alergias'}</h2>
         <p className="text-sm text-gray-500">
-          Muy importante en una emergencia: medicamentos, alimentos, materiales (látex), etc.
+          {en
+            ? 'Very important in an emergency: medications, foods, materials (latex), etc.'
+            : 'Muy importante en una emergencia: medicamentos, alimentos, materiales (látex), etc.'}
         </p>
         <textarea
           value={form.allergies ?? ''}
           onChange={e => setForm(p => ({ ...p, allergies: e.target.value }))}
           rows={3}
           className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-400"
-          placeholder="Ej: Penicilina, maní, látex…"
+          placeholder={en ? 'E.g.: Penicillin, peanuts, latex…' : 'Ej: Penicilina, maní, látex…'}
         />
       </section>
 
@@ -285,7 +288,7 @@ export default function ProfileForm({ profile }: Props) {
           {form.group_members.map((member, i) => (
             <div key={i} className="border border-gray-200 rounded-xl p-4 space-y-3">
               <div className="flex justify-between">
-                <span className="text-sm font-medium text-gray-600">Miembro {i + 1}</span>
+                <span className="text-sm font-medium text-gray-600">{en ? 'Member' : 'Miembro'} {i + 1}</span>
                 <button type="button" onClick={() => removeGroupMember(i)} className="text-red-400 hover:text-red-600 text-sm">
                   {t('sections.memberRemove')}
                 </button>
