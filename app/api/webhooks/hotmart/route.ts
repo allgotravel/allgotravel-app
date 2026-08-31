@@ -15,7 +15,8 @@ const supabaseAdmin = createClient(
 
 // Offer codes from the Hotmart product (Q107023060D)
 const OFFER_PLAN: Record<string, PlanType> = {
-  ghy5gvr9: 'founding', // Founding $19/mo
+  osgbatei: 'founding', // Club fundador $14.99/mo (oferta activa)
+  ghy5gvr9: 'founding', // Founding $19/mo (oferta vieja/eliminada)
   zk0d9b2e: 'monthly', // Mensual $29/mo
   '2nx7unav': 'annual', // Anual $290/yr
 }

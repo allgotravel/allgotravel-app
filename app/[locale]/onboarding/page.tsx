@@ -793,11 +793,11 @@ function StepPricing({ t, uid }: { t: T; uid: string | null }) { // step 6
           </div>
 
           <button
-            onClick={() => finish('https://pay.hotmart.com/Q107023060D?off=ghy5gvr9')}
+            onClick={() => finish('https://pay.hotmart.com/Q107023060D?off=osgbatei')}
             disabled={finishing}
             className="w-full bg-orange-500 hover:bg-orange-400 active:scale-[0.98] disabled:opacity-60 text-white font-extrabold text-base py-4 rounded-xl shadow-lg shadow-orange-500/30 transition-all duration-200"
           >
-            {finishing ? '···' : t('Unirme por $19/mes', 'Join for $19/mo')} →
+            {finishing ? '···' : t('Unirme por $14.99/mes', 'Join for $14.99/mo')} →
           </button>
           <p className="text-center text-orange-200/70 text-xs mt-2">
             {t('✅ Pago seguro · 🔒 Garantía 7 días', '✅ Secure payment · 🔒 7-day guarantee')}
