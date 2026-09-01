@@ -147,6 +147,7 @@ fbq('init','1402403141746407');fbq('track','PageView');
     </ul>
     <a class="btn" href="#" onclick="return goClub(event)" data-i18n="t_cta">Unirme al Club →</a>
     <div style="color:var(--grey);font-size:.9rem;margin-top:12px" data-i18n="t_note">🛡️ Garantía de 7 días · Cancela cuando quieras</div>
+    <div style="margin-top:14px"><a href="#" onclick="return goClubAnnual(event)" style="color:var(--grey);font-size:.92rem;text-decoration:underline" data-i18n="t_annual">¿Prefieres pagar por año? Plan anual (2 meses gratis) →</a></div>
    </div>
   </div>
   <div style="text-align:center;margin-top:22px"><span style="color:var(--grey);font-size:.95rem" data-i18n="t_bottom">Cancela cuando quieras · Sin ataduras 🐾</span></div>
@@ -199,7 +200,7 @@ fbq('init','1402403141746407');fbq('track','PageView');
 <script>
 /* ====== Checkout de la membresía (App AllGo, Hotmart) ====== */
 var CLUB_CHECKOUT_URL = "https://pay.hotmart.com/Q107023060D?off=osgbatei";   // plan FUNDADOR $14.99/mes (50% OFF)
-var CLUB_VIP_URL      = "https://pay.hotmart.com/Q107023060D?off=osgbatei";
+var CLUB_ANNUAL_URL   = "https://pay.hotmart.com/Q107023060D?off=2nx7unav"; // plan ANUAL $290/año (2 meses gratis)
 /* ========================================================== */
 function _go(url){
   try{fbq('track','InitiateCheckout',{content_name:'AllGo Travel Club'});}catch(_){}
@@ -207,7 +208,7 @@ function _go(url){
   window.location.href=url; return false;
 }
 function goClub(ev){ if(ev)ev.preventDefault(); return _go(CLUB_CHECKOUT_URL); }
-function goClubVip(ev){ if(ev)ev.preventDefault(); return _go(CLUB_VIP_URL); }
+function goClubAnnual(ev){ if(ev)ev.preventDefault(); return _go(CLUB_ANNUAL_URL); }
 
 /* ====== Bilingüe ES / EN ====== */
 var I18N={
@@ -237,6 +238,7 @@ var I18N={
   li5:"Updates and rule changes, you first",
   t_cta:"Join the Club →",
   t_note:"🛡️ 7-day guarantee · Cancel anytime",
+  t_annual:"Prefer to pay yearly? Annual plan (2 months free) →",
   t_bottom:"Cancel anytime · No strings 🐾",
   p_h2:"Real travelers, real peace of mind 💚",
   q1:"\"It's spectacular, very practical and a great help. Every bit of info makes each step easier.\"",
@@ -284,6 +286,7 @@ var I18N={
   li5:"Novedades y cambios de reglas, primero tú",
   t_cta:"Unirme al Club →",
   t_note:"🛡️ Garantía de 7 días · Cancela cuando quieras",
+  t_annual:"¿Prefieres pagar por año? Plan anual (2 meses gratis) →",
   t_bottom:"Cancela cuando quieras · Sin ataduras 🐾",
   p_h2:"Viajeras reales, tranquilidad real 💚",
   q1:"\"Es espectacular, muy práctico y excelente ayuda. Cada información hace más fácil cada trámite.\"",

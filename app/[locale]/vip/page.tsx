@@ -1,5 +1,6 @@
 import { getLocale } from 'next-intl/server'
 import { Link } from '@/i18n/navigation'
+import { redirect } from 'next/navigation'
 import { requireMember } from '@/lib/subscription'
 import VipForm from '@/components/VipForm'
 
@@ -67,6 +68,8 @@ const CSS = `
 
 export default async function VipPage() {
   const locale = await getLocale()
+  // VIP aparcado (1-sep-2026): servicio done-for-you no ofrecido por ahora. Redirige al Club.
+  redirect(`/${locale}/membresia`)
   await requireMember(locale)
   const en = locale === 'en'
   const INCLUDED = getIncluded(en)
