@@ -6,6 +6,7 @@ import { Link } from '@/i18n/navigation'
 import { Profile, DISABILITY_ICONS, DISABILITY_LABELS } from '@/types/profile'
 import PrintButton from '@/components/PrintButton'
 import MedicalQRCode from '@/components/MedicalQRCode'
+import { formatMedTimes } from '@/lib/medtime'
 
 export const dynamic = 'force-dynamic'
 
@@ -155,7 +156,7 @@ export default async function TarjetaMedicaPage() {
                         <span className="font-semibold">{med.name}</span>
                         {med.dose && <span className="text-gray-500"> — {med.dose}</span>}
                         {med.times?.length > 0 && (
-                          <span className="text-gray-400"> ({med.times.join(', ')})</span>
+                          <span className="text-gray-400"> ({formatMedTimes(med.times)})</span>
                         )}
                       </span>
                     </div>

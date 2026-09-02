@@ -19,6 +19,19 @@ export interface GroupMember {
   disability_types: DisabilityType[]
 }
 
+export interface ServiceDog {
+  has: boolean
+  name?: string
+  breed?: string
+  size?: string
+  tasks?: string
+  microchip?: string
+  trained_dot?: boolean
+  vet_name?: string
+  vet_phone?: string
+  vaccines_current?: boolean
+}
+
 export interface Profile {
   id: string
   email: string
@@ -33,6 +46,10 @@ export interface Profile {
   is_group_profile: boolean
   group_members: GroupMember[]
   preferred_language: 'es' | 'en'
+  blood_type?: string | null
+  emergency_contact_name?: string | null
+  emergency_contact_phone?: string | null
+  service_dog?: ServiceDog | null
   onboarding_completed?: boolean
   created_at: string
   updated_at: string

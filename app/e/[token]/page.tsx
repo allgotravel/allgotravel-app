@@ -1,5 +1,6 @@
 import { supabase } from '@/lib/supabase'
-import { Medication } from '@/types/profile'
+import { Medication, ServiceDog } from '@/types/profile'
+import { formatMedTimes } from '@/lib/medtime'
 
 export const dynamic = 'force-dynamic'
 
@@ -9,6 +10,11 @@ interface EmergencyCard {
   allergies: string | null
   invisible_needs: string | null
   medications: Medication[] | null
+  blood_type: string | null
+  emergency_contact_name: string | null
+  emergency_contact_phone: string | null
+  disability_types: string[] | null
+  service_dog: ServiceDog | null
 }
 
 export default async function EmergencyCardPage({
@@ -47,6 +53,7 @@ export default async function EmergencyCardPage({
   }
 
   const meds = card.medications ?? []
+  const dog = card.service_dog
 
   return (
     <main className="min-h-screen bg-gray-100 py-10 px-4">
@@ -90,6 +97,38 @@ export default async function EmergencyCardPage({
             </p>
           </div>
 
+          {/* Contacto de emergencia + tipo de sangre (arriba, muy visible) */}
+          {(card.emergency_contact_name || card.emergency_contact_phone || card.blood_type) && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {(card.emergency_contact_name || card.emergency_contact_phone) && (
+                <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
+                  <p className="text-xs font-bold text-[#1B6FB5] uppercase tracking-wide mb-1">
+                    📞 Contacto de emergencia / Emergency contact
+                  </p>
+                  <p className="text-gray-800 text-base font-semibold">
+                    {card.emergency_contact_name || '—'}
+                  </p>
+                  {card.emergency_contact_phone && (
+                    <a
+                      href={`tel:${card.emergency_contact_phone}`}
+                      className="text-[#1B6FB5] text-lg font-bold underline"
+                    >
+                      {card.emergency_contact_phone}
+                    </a>
+                  )}
+                </div>
+              )}
+              {card.blood_type && (
+                <div className="bg-red-50 border border-red-200 rounded-xl p-4">
+                  <p className="text-xs font-bold text-red-600 uppercase tracking-wide mb-1">
+                    🩸 Tipo de sangre / Blood type
+                  </p>
+                  <p className="text-2xl font-extrabold text-gray-800">{card.blood_type}</p>
+                </div>
+              )}
+            </div>
+          )}
+
           {card.allergies && (
             <div className="bg-red-50 border border-red-200 rounded-xl p-4">
               <p className="text-xs font-bold text-red-600 uppercase tracking-wide mb-1">
@@ -104,7 +143,7 @@ export default async function EmergencyCardPage({
           {card.chronic_conditions && (
             <div>
               <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">
-                Condiciones crónicas / Chronic conditions
+                Condiciones médicas / Medical conditions
               </p>
               <p className="text-gray-700 text-sm leading-relaxed">
                 {card.chronic_conditions}
@@ -143,12 +182,60 @@ export default async function EmergencyCardPage({
                       {m.times?.length > 0 && (
                         <span className="text-gray-400">
                           {' '}
-                          ({m.times.join(', ')})
+                          ({formatMedTimes(m.times)})
                         </span>
                       )}
                     </span>
                   </div>
                 ))}
+              </div>
+            </div>
+          )}
+
+          {/* Perro de servicio */}
+          {dog?.has && (
+            <div className="bg-amber-50 border border-amber-200 rounded-xl p-4">
+              <p className="text-xs font-bold text-amber-700 uppercase tracking-wide mb-2">
+                🐕‍🦺 Perro de servicio / Service dog
+              </p>
+              <div className="space-y-1 text-sm text-gray-800">
+                {dog.name && (
+                  <p><span className="font-semibold">Nombre / Name:</span> {dog.name}</p>
+                )}
+                {(dog.breed || dog.size) && (
+                  <p>
+                    <span className="font-semibold">Raza / Breed:</span>{' '}
+                    {[dog.breed, dog.size].filter(Boolean).join(' · ')}
+                  </p>
+                )}
+                {dog.tasks && (
+                  <p><span className="font-semibold">Tareas / Tasks:</span> {dog.tasks}</p>
+                )}
+                {dog.microchip && (
+                  <p><span className="font-semibold">🔎 Microchip:</span> {dog.microchip}</p>
+                )}
+                {dog.trained_dot && (
+                  <p className="text-emerald-700 font-medium">
+                    ✓ Entrenado · formulario del DOT en regla / Trained · DOT form on file
+                  </p>
+                )}
+                {(dog.vet_name || dog.vet_phone) && (
+                  <p>
+                    <span className="font-semibold">Veterinario / Vet:</span>{' '}
+                    {dog.vet_name}
+                    {dog.vet_phone && (
+                      <>
+                        {' — '}
+                        <a href={`tel:${dog.vet_phone}`} className="text-[#1B6FB5] underline font-semibold">
+                          {dog.vet_phone}
+                        </a>
+                      </>
+                    )}
+                  </p>
+                )}
+                {dog.vaccines_current && (
+                  <p className="text-emerald-700 font-medium">✓ Vacunas al día / Vaccines current</p>
+                )}
               </div>
             </div>
           )}

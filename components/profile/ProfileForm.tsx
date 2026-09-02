@@ -6,6 +6,7 @@ import {
   Profile, DisabilityType, Medication, GroupMember,
   DISABILITY_ICONS, TIMEZONES,
 } from '@/types/profile'
+import MedTimePicker from './MedTimePicker'
 
 const ALL_DISABILITIES: DisabilityType[] = [
   'motriz', 'visual', 'auditiva', 'autismo', 'cognitiva', 'cronica_invisible', 'mixta',
@@ -42,6 +43,14 @@ export default function ProfileForm({ profile }: Props) {
       } else {
         meds[index] = { ...meds[index], [field]: value }
       }
+      return { ...prev, medications: meds }
+    })
+  }
+
+  function setMedTimes(index: number, times: string[]) {
+    setForm(prev => {
+      const meds = [...prev.medications]
+      meds[index] = { ...meds[index], times }
       return { ...prev, medications: meds }
     })
   }
@@ -194,6 +203,76 @@ export default function ProfileForm({ profile }: Props) {
         />
       </section>
 
+      {/* Contacto de emergencia + tipo de sangre */}
+      <section className="bg-white rounded-2xl shadow p-6 space-y-5">
+        <h2 className="text-lg font-semibold text-teal-700">
+          🚨 {en ? 'Emergency info' : 'Información de emergencia'}
+        </h2>
+        <p className="text-sm text-gray-500">
+          {en
+            ? 'This appears when someone scans your medical card.'
+            : 'Esto aparece cuando alguien escanea tu tarjeta médica.'}
+        </p>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label className="block text-base font-semibold text-gray-700 mb-1">
+              {en ? 'Emergency contact — name' : 'Contacto de emergencia — nombre'}
+            </label>
+            <input
+              type="text"
+              value={form.emergency_contact_name ?? ''}
+              onChange={e => setForm(p => ({ ...p, emergency_contact_name: e.target.value }))}
+              className="w-full border-2 border-gray-300 rounded-xl px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-teal-400"
+              placeholder={en ? 'E.g.: María (daughter)' : 'Ej: María (hija)'}
+            />
+          </div>
+          <div>
+            <label className="block text-base font-semibold text-gray-700 mb-1">
+              {en ? 'Emergency contact — phone' : 'Contacto de emergencia — teléfono'}
+            </label>
+            <input
+              type="tel"
+              inputMode="tel"
+              value={form.emergency_contact_phone ?? ''}
+              onChange={e => setForm(p => ({ ...p, emergency_contact_phone: e.target.value }))}
+              className="w-full border-2 border-gray-300 rounded-xl px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-teal-400"
+              placeholder="+1 305 555 0123"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label className="block text-base font-semibold text-gray-700 mb-2">
+            🩸 {en ? 'Blood type' : 'Tipo de sangre'}
+          </label>
+          <div className="grid grid-cols-4 gap-2">
+            {['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'].map(bt => {
+              const on = form.blood_type === bt
+              return (
+                <button
+                  key={bt}
+                  type="button"
+                  aria-pressed={on}
+                  onClick={() => setForm(p => ({ ...p, blood_type: on ? null : bt }))}
+                  className={
+                    'min-h-[56px] rounded-xl border-2 text-lg font-extrabold transition ' +
+                    (on
+                      ? 'bg-teal-600 border-teal-600 text-white shadow'
+                      : 'bg-white border-gray-300 text-gray-800 hover:border-teal-400')
+                  }
+                >
+                  {on ? '✓ ' : ''}{bt}
+                </button>
+              )
+            })}
+          </div>
+          <p className="text-xs text-gray-400 mt-1">
+            {en ? 'Tap again to remove.' : 'Toca de nuevo para quitar.'}
+          </p>
+        </div>
+      </section>
+
       {/* Medicamentos */}
       <section className="bg-white rounded-2xl shadow p-6 space-y-4">
         <div className="flex items-center justify-between">
@@ -252,13 +331,11 @@ export default function ProfileForm({ profile }: Props) {
               </div>
             </div>
             <div>
-              <label className="block text-xs text-gray-500 mb-1">{t('sections.medTimes')}</label>
-              <input
-                type="text"
-                value={med.times.join(', ')}
-                onChange={e => updateMedication(i, 'times', e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400"
-                placeholder={t('sections.medTimesPlaceholder')}
+              <label className="block text-sm font-semibold text-gray-700 mb-2">{t('sections.medTimes')}</label>
+              <MedTimePicker
+                value={med.times}
+                onChange={times => setMedTimes(i, times)}
+                en={en}
               />
             </div>
           </div>
@@ -266,6 +343,156 @@ export default function ProfileForm({ profile }: Props) {
 
         {form.medications.length === 0 && (
           <p className="text-sm text-gray-400 text-center py-4">{t('sections.noMedications')}</p>
+        )}
+      </section>
+
+      {/* Perro de servicio */}
+      <section className="bg-white rounded-2xl shadow p-6 space-y-5">
+        <h2 className="text-lg font-semibold text-teal-700">
+          🐕‍🦺 {en ? 'Service dog' : 'Perro de servicio'}
+        </h2>
+        <p className="text-sm text-gray-500">
+          {en
+            ? 'If you travel with a service dog, this info appears on your emergency card.'
+            : 'Si viajas con un perro de servicio, esta información aparece en tu tarjeta de emergencia.'}
+        </p>
+
+        {/* ¿Viajas con perro de servicio? */}
+        <div className="flex gap-3">
+          {[true, false].map(val => {
+            const on = (form.service_dog?.has ?? false) === val
+            return (
+              <button
+                key={String(val)}
+                type="button"
+                aria-pressed={on}
+                onClick={() =>
+                  setForm(p => ({
+                    ...p,
+                    service_dog: { ...(p.service_dog ?? { has: false }), has: val },
+                  }))
+                }
+                className={
+                  'flex-1 min-h-[56px] rounded-xl border-2 text-lg font-bold transition ' +
+                  (on
+                    ? 'bg-teal-600 border-teal-600 text-white shadow'
+                    : 'bg-white border-gray-300 text-gray-800 hover:border-teal-400')
+                }
+              >
+                {val ? (en ? 'Yes, I do' : 'Sí, viajo con uno') : (en ? 'No' : 'No')}
+              </button>
+            )
+          })}
+        </div>
+
+        {form.service_dog?.has && (
+          <div className="space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-base font-semibold text-gray-700 mb-1">
+                  {en ? "Dog's name" : 'Nombre del perro'}
+                </label>
+                <input
+                  type="text"
+                  value={form.service_dog?.name ?? ''}
+                  onChange={e => setForm(p => ({ ...p, service_dog: { ...(p.service_dog ?? { has: true }), name: e.target.value } }))}
+                  className="w-full border-2 border-gray-300 rounded-xl px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-teal-400"
+                  placeholder={en ? 'E.g.: Muffin' : 'Ej: Muffin'}
+                />
+              </div>
+              <div>
+                <label className="block text-base font-semibold text-gray-700 mb-1">
+                  {en ? 'Breed and size' : 'Raza y tamaño'}
+                </label>
+                <input
+                  type="text"
+                  value={form.service_dog?.breed ?? ''}
+                  onChange={e => setForm(p => ({ ...p, service_dog: { ...(p.service_dog ?? { has: true }), breed: e.target.value } }))}
+                  className="w-full border-2 border-gray-300 rounded-xl px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-teal-400"
+                  placeholder={en ? 'E.g.: Labrador, large' : 'Ej: Labrador, grande'}
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-base font-semibold text-gray-700 mb-1">
+                {en ? 'What tasks does it do / why you need it' : 'Qué tareas hace / por qué lo necesitas'}
+              </label>
+              <textarea
+                value={form.service_dog?.tasks ?? ''}
+                onChange={e => setForm(p => ({ ...p, service_dog: { ...(p.service_dog ?? { has: true }), tasks: e.target.value } }))}
+                rows={2}
+                className="w-full border-2 border-gray-300 rounded-xl px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-teal-400"
+                placeholder={en ? 'E.g.: alerts to low blood sugar, guides me' : 'Ej: me avisa bajones de azúcar, me guía'}
+              />
+            </div>
+
+            <div>
+              <label className="block text-base font-semibold text-gray-700 mb-1">
+                🔎 {en ? 'Microchip number' : 'Número de microchip'}
+              </label>
+              <input
+                type="text"
+                inputMode="numeric"
+                value={form.service_dog?.microchip ?? ''}
+                onChange={e => setForm(p => ({ ...p, service_dog: { ...(p.service_dog ?? { has: true }), microchip: e.target.value } }))}
+                className="w-full border-2 border-gray-300 rounded-xl px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-teal-400"
+                placeholder={en ? 'E.g.: 985141000123456' : 'Ej: 985141000123456'}
+              />
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-base font-semibold text-gray-700 mb-1">
+                  {en ? 'Vet — name' : 'Veterinario — nombre'}
+                </label>
+                <input
+                  type="text"
+                  value={form.service_dog?.vet_name ?? ''}
+                  onChange={e => setForm(p => ({ ...p, service_dog: { ...(p.service_dog ?? { has: true }), vet_name: e.target.value } }))}
+                  className="w-full border-2 border-gray-300 rounded-xl px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-teal-400"
+                />
+              </div>
+              <div>
+                <label className="block text-base font-semibold text-gray-700 mb-1">
+                  {en ? 'Vet — phone' : 'Veterinario — teléfono'}
+                </label>
+                <input
+                  type="tel"
+                  inputMode="tel"
+                  value={form.service_dog?.vet_phone ?? ''}
+                  onChange={e => setForm(p => ({ ...p, service_dog: { ...(p.service_dog ?? { has: true }), vet_phone: e.target.value } }))}
+                  className="w-full border-2 border-gray-300 rounded-xl px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-teal-400"
+                  placeholder="+1 305 555 0123"
+                />
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-3">
+              {[
+                { key: 'trained_dot' as const, es: 'Entrenado · formulario DOT en regla', en: 'Trained · DOT form on file' },
+                { key: 'vaccines_current' as const, es: 'Vacunas al día', en: 'Vaccines up to date' },
+              ].map(item => {
+                const on = Boolean(form.service_dog?.[item.key])
+                return (
+                  <button
+                    key={item.key}
+                    type="button"
+                    aria-pressed={on}
+                    onClick={() => setForm(p => ({ ...p, service_dog: { ...(p.service_dog ?? { has: true }), [item.key]: !on } }))}
+                    className={
+                      'flex-1 min-h-[56px] rounded-xl border-2 text-base font-semibold px-3 transition ' +
+                      (on
+                        ? 'bg-emerald-600 border-emerald-600 text-white shadow'
+                        : 'bg-white border-gray-300 text-gray-700 hover:border-emerald-400')
+                    }
+                  >
+                    {on ? '✓ ' : ''}{en ? item.en : item.es}
+                  </button>
+                )
+              })}
+            </div>
+          </div>
         )}
       </section>
 

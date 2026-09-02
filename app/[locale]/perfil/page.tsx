@@ -69,6 +69,10 @@ export default async function PerfilPage() {
     is_group_profile: profile?.is_group_profile ?? false,
     group_members: profile?.group_members ?? [],
     preferred_language: profile?.preferred_language ?? 'es',
+    blood_type: profile?.blood_type ?? null,
+    emergency_contact_name: profile?.emergency_contact_name ?? null,
+    emergency_contact_phone: profile?.emergency_contact_phone ?? null,
+    service_dog: profile?.service_dog ?? null,
     created_at: profile?.created_at ?? new Date().toISOString(),
     updated_at: profile?.updated_at ?? new Date().toISOString(),
   }
