@@ -71,7 +71,7 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
   const [loading, setLoading] = useState(false)
   const [conversationId, setConversationId] = useState<string | undefined>()
   const [isListening, setIsListening] = useState(false)
-  const [speechSupported, setSpeechSupported] = useState(false)
+  const [micHint, setMicHint] = useState(false)
   const [ttsSupported, setTtsSupported] = useState(false)
   const [speakingIndex, setSpeakingIndex] = useState<number | null>(null)
   const bottomRef = useRef<HTMLDivElement>(null)
@@ -79,9 +79,11 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
   const recognitionRef = useRef<SpeechRecognitionInstance | null>(null)
 
   useEffect(() => {
-    const w = window as Window & { SpeechRecognition?: new () => SpeechRecognitionInstance; webkitSpeechRecognition?: new () => SpeechRecognitionInstance }
-    if (w.SpeechRecognition || w.webkitSpeechRecognition) setSpeechSupported(true)
-    if (typeof window !== 'undefined' && 'speechSynthesis' in window) setTtsSupported(true)
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      setTtsSupported(true)
+      // Precargar las voces (iOS/Chrome las cargan async)
+      window.speechSynthesis.getVoices()
+    }
   }, [])
 
   function pickBestVoice(lang: string): SpeechSynthesisVoice | null {
@@ -144,7 +146,13 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
 
     const w = window as Window & { SpeechRecognition?: new () => SpeechRecognitionInstance; webkitSpeechRecognition?: new () => SpeechRecognitionInstance }
     const SR = w.SpeechRecognition || w.webkitSpeechRecognition
-    if (!SR) return
+    if (!SR) {
+      // iPhone y navegadores sin reconocimiento: guiar al dictado del teclado (siempre funciona)
+      inputRef.current?.focus()
+      setMicHint(true)
+      setTimeout(() => setMicHint(false), 7000)
+      return
+    }
 
     const recognition = new SR()
     recognition.lang = navigator.language.startsWith('en') ? 'en-US' : 'es-ES'
@@ -308,7 +316,14 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
           </div>
 
           {/* Input */}
-          <div className="p-3 border-t border-gray-200 bg-white flex gap-2 items-end">
+          <div className="relative p-3 border-t border-gray-200 bg-white flex gap-2 items-end">
+            {micHint && (
+              <div className="absolute -top-2 left-3 right-3 -translate-y-full bg-gray-900 text-white text-xs rounded-xl px-3 py-2 shadow-lg">
+                {en
+                  ? 'On iPhone: tap the 🎤 on your keyboard to talk to Alli.'
+                  : 'En iPhone: toca el 🎤 de tu teclado para hablarle a Alli.'}
+              </div>
+            )}
             <textarea
               ref={inputRef}
               value={input}
@@ -320,20 +335,19 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
               className="flex-1 resize-none rounded-xl border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 disabled:opacity-50 max-h-28 overflow-y-auto"
               style={{ fieldSizing: 'content' } as React.CSSProperties}
             />
-            {speechSupported && (
-              <button
-                onClick={toggleListening}
-                disabled={loading}
-                aria-label={isListening ? (en ? 'Stop recording' : 'Detener grabación') : (en ? 'Start voice recording' : 'Iniciar grabación de voz')}
-                className={`shrink-0 w-10 h-10 rounded-xl text-white flex items-center justify-center disabled:opacity-40 transition ${
-                  isListening
-                    ? 'bg-red-500 hover:bg-red-600 animate-pulse'
-                    : 'bg-gray-400 hover:bg-gray-500'
-                }`}
-              >
-                🎤
-              </button>
-            )}
+            <button
+              onClick={toggleListening}
+              disabled={loading}
+              aria-label={isListening ? (en ? 'Stop recording' : 'Detener grabación') : (en ? 'Talk to Alli' : 'Hablarle a Alli')}
+              title={en ? 'Talk to Alli' : 'Hablarle a Alli'}
+              className={`shrink-0 w-10 h-10 rounded-xl text-white flex items-center justify-center disabled:opacity-40 transition ${
+                isListening
+                  ? 'bg-red-500 hover:bg-red-600 animate-pulse'
+                  : 'bg-teal-500 hover:bg-teal-600'
+              }`}
+            >
+              🎤
+            </button>
             <button
               onClick={sendMessage}
               disabled={loading || !input.trim()}
