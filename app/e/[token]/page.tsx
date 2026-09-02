@@ -75,7 +75,7 @@ export default async function EmergencyCardPage({
         {/* Emergency banner */}
         <div className="bg-red-50 border-b border-red-200 px-8 py-4">
           <p className="text-xs font-bold text-red-600 uppercase tracking-wide mb-1">
-            ⚠️ Información de emergencia / Emergency information
+            <span className="allgo-heartbeat">⚠️</span> Información de emergencia / Emergency information
           </p>
           <p className="text-sm text-gray-800 leading-relaxed">
             Esta persona viaja con necesidades especiales de accesibilidad. Por
@@ -121,7 +121,7 @@ export default async function EmergencyCardPage({
               {card.blood_type && (
                 <div className="bg-red-50 border border-red-200 rounded-xl p-4">
                   <p className="text-xs font-bold text-red-600 uppercase tracking-wide mb-1">
-                    🩸 Tipo de sangre / Blood type
+                    <span className="allgo-blood">🩸</span> Tipo de sangre / Blood type
                   </p>
                   <p className="text-2xl font-extrabold text-gray-800">{card.blood_type}</p>
                 </div>
@@ -196,7 +196,7 @@ export default async function EmergencyCardPage({
           {dog?.has && (
             <div className="bg-amber-50 border border-amber-200 rounded-xl p-4">
               <p className="text-xs font-bold text-amber-700 uppercase tracking-wide mb-2">
-                🐕‍🦺 Perro de servicio / Service dog
+                <span className="allgo-dog">🐕‍🦺</span> Perro de servicio / Service dog
               </p>
               <div className="space-y-1 text-sm text-gray-800">
                 {dog.name && (

@@ -151,10 +151,26 @@ body {
 /* Halo azulado al pasar sobre tarjetas */
 .allgo-tap:hover { box-shadow: 0 12px 32px -12px rgba(30,64,175,0.4); }
 
+/* ── Iconos animados (salud / emergencia) ─────────────────────────────── */
+@keyframes allgoPillWiggle { 0%,100%{transform:rotate(-8deg)} 50%{transform:rotate(8deg)} }
+@keyframes allgoBloodDrip { 0%,100%{transform:translateY(0) scale(1)} 50%{transform:translateY(3px) scale(1.1)} }
+@keyframes allgoAlarmRing { 0%,72%,100%{transform:rotate(0)} 12%,36%,60%{transform:rotate(-14deg)} 24%,48%{transform:rotate(14deg)} }
+@keyframes allgoHeartbeat { 0%,100%{transform:scale(1)} 15%{transform:scale(1.22)} 30%{transform:scale(1)} 45%{transform:scale(1.16)} 60%{transform:scale(1)} }
+@keyframes allgoUrgentPulse { 0%,100%{opacity:1} 50%{opacity:.35} }
+@keyframes allgoDogWag { 0%,100%{transform:rotate(-6deg)} 50%{transform:rotate(6deg)} }
+
+.allgo-pill { display:inline-block; animation: allgoPillWiggle 1.6s ease-in-out infinite; transform-origin:center; }
+.allgo-blood { display:inline-block; animation: allgoBloodDrip 1.8s ease-in-out infinite; transform-origin:top center; }
+.allgo-alarm { display:inline-block; animation: allgoAlarmRing 2.2s ease-in-out infinite; transform-origin:top center; }
+.allgo-heartbeat { display:inline-block; animation: allgoHeartbeat 1.5s ease-in-out infinite; }
+.allgo-urgent { animation: allgoUrgentPulse 1.1s ease-in-out infinite; }
+.allgo-dog { display:inline-block; animation: allgoDogWag 1.4s ease-in-out infinite; transform-origin:bottom center; }
+
 @media (prefers-reduced-motion: reduce) {
   .allgo-rise, .allgo-pop, .allgo-cta, .allgo-float, .allgo-shine,
   .allgo-aurora, .allgo-grid, .allgo-orb, .allgo-orb-2, .allgo-orb-3,
-  .allgo-gradient-text { animation: none; }
+  .allgo-gradient-text,
+  .allgo-pill, .allgo-blood, .allgo-alarm, .allgo-heartbeat, .allgo-urgent, .allgo-dog { animation: none; }
   .allgo-tap { transition: none; }
   .allgo-tap:hover, .allgo-tap:active { transform: none; }
 }

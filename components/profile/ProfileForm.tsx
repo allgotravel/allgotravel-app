@@ -206,7 +206,7 @@ export default function ProfileForm({ profile }: Props) {
       {/* Contacto de emergencia + tipo de sangre */}
       <section className="bg-white rounded-2xl shadow p-6 space-y-5">
         <h2 className="text-lg font-semibold text-teal-700">
-          🚨 {en ? 'Emergency info' : 'Información de emergencia'}
+          <span className="allgo-alarm">🚨</span> {en ? 'Emergency info' : 'Información de emergencia'}
         </h2>
         <p className="text-sm text-gray-500">
           {en
@@ -244,7 +244,7 @@ export default function ProfileForm({ profile }: Props) {
 
         <div>
           <label className="block text-base font-semibold text-gray-700 mb-2">
-            🩸 {en ? 'Blood type' : 'Tipo de sangre'}
+            <span className="allgo-blood">🩸</span> {en ? 'Blood type' : 'Tipo de sangre'}
           </label>
           <div className="grid grid-cols-4 gap-2">
             {['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'].map(bt => {
@@ -277,7 +277,7 @@ export default function ProfileForm({ profile }: Props) {
       <section className="bg-white rounded-2xl shadow p-6 space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-lg font-semibold text-teal-700">{t('sections.medications')}</h2>
+            <h2 className="text-lg font-semibold text-teal-700"><span className="allgo-pill">💊</span> {t('sections.medications')}</h2>
             <p className="text-sm text-gray-500 mt-1">{t('sections.medicationsHint')}</p>
           </div>
           <button
@@ -349,7 +349,7 @@ export default function ProfileForm({ profile }: Props) {
       {/* Perro de servicio */}
       <section className="bg-white rounded-2xl shadow p-6 space-y-5">
         <h2 className="text-lg font-semibold text-teal-700">
-          🐕‍🦺 {en ? 'Service dog' : 'Perro de servicio'}
+          <span className="allgo-dog">🐕‍🦺</span> {en ? 'Service dog' : 'Perro de servicio'}
         </h2>
         <p className="text-sm text-gray-500">
           {en

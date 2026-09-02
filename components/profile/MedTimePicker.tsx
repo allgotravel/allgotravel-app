@@ -45,6 +45,7 @@ export default function MedTimePicker({ value, onChange, en = false }: Props) {
   return (
     <div>
       <p className="text-base text-gray-700 mb-3 font-medium">
+        <span className="allgo-alarm mr-1">⏰</span>
         {en
           ? 'Tap the times you take this medicine'
           : 'Toca las horas en que tomas este medicamento'}

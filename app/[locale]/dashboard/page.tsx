@@ -3,9 +3,54 @@ import { useTranslations, useLocale } from 'next-intl'
 import { createSupabaseServer } from '@/lib/supabase-server'
 import { Link } from '@/i18n/navigation'
 import { Profile } from '@/types/profile'
+import { TravelDocument, expiryStatus, docTypeDef } from '@/lib/expiry'
 import Image from 'next/image'
 
 export const dynamic = 'force-dynamic'
+
+// ── Próximos vencimientos (Bóveda de Viaje) ──────────────────────────────────
+function UpcomingDocsCard({ docs, en }: { docs: TravelDocument[]; en: boolean }) {
+  const withDate = docs
+    .filter(d => d.expiry_date)
+    .map(d => ({ d, st: expiryStatus(d.expiry_date) }))
+    .sort((a, b) => (a.st.daysLeft ?? 99999) - (b.st.daysLeft ?? 99999))
+
+  return (
+    <div className="bg-white rounded-2xl shadow p-6">
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-base font-bold text-gray-800">📅 {en ? 'Upcoming expirations' : 'Próximos vencimientos'}</h2>
+        <Link href="/documentos" className="text-xs font-bold text-[#1B6FB5] hover:underline">
+          {en ? 'Open Vault →' : 'Abrir Bóveda →'}
+        </Link>
+      </div>
+      {withDate.length === 0 ? (
+        <p className="text-sm text-gray-400">
+          {en
+            ? 'Add your documents and Alli will warn you 90, 60 and 30 days before they expire.'
+            : 'Agrega tus documentos y Alli te avisará 90, 60 y 30 días antes de que venzan.'}{' '}
+          <Link href="/documentos" className="text-[#1B6FB5] font-semibold hover:underline">
+            {en ? 'Add →' : 'Agregar →'}
+          </Link>
+        </p>
+      ) : (
+        <div className="space-y-2">
+          {withDate.slice(0, 4).map(({ d, st }) => {
+            const def = docTypeDef(d.doc_type)
+            return (
+              <div key={d.id} className={`flex items-center justify-between rounded-xl border px-3 py-2 ${st.bg}`}>
+                <span className="text-sm font-semibold text-gray-700">
+                  {def?.icon} {en ? def?.en : def?.es}
+                  {d.owner === 'dog' && ' 🐕‍🦺'}
+                </span>
+                <span className={`text-xs font-bold ${st.color}`}><span className={st.level === 'd30' || st.level === 'expired' ? 'allgo-urgent' : ''}>{st.badge}</span> {en ? st.labelEn : st.labelEs}</span>
+              </div>
+            )
+          })}
+        </div>
+      )}
+    </div>
+  )
+}
 
 const DISABILITY_ICONS: Record<string, string> = {
   motriz: '♿',
@@ -199,6 +244,14 @@ function QuickAccessCards({ member }: { member: boolean }) {
       premium: false,
     },
     {
+      href: '/documentos',
+      icon: '📁',
+      title: en ? 'Travel Vault' : 'Bóveda de Viaje',
+      desc: en ? 'Documents + expiry reminders' : 'Documentos + avisos de vencimiento',
+      bg: 'bg-emerald-600',
+      premium: false,
+    },
+    {
       href: '/documentos-viaje',
       icon: '📄',
       title: t('cardDocuments'),
@@ -380,6 +433,12 @@ export default async function DashboardPage({
 
   if (!profile?.onboarding_completed) redirect('/onboarding')
 
+  const { data: docsData } = await supabase
+    .from('documents')
+    .select('*')
+    .eq('user_id', user.id)
+  const docs = (docsData ?? []) as TravelDocument[]
+
   const isDev = process.env.NODE_ENV === 'development'
   const en = locale === 'en'
   // Acceso por niveles: FREE entra al app; las funciones premium se muestran con candado.
@@ -420,6 +479,9 @@ export default async function DashboardPage({
 
         {/* 2. Kit de viaje — completion + investment hook */}
         <KitDeViajeCard profile={safeProfile} />
+
+        {/* 2b. Próximos vencimientos — Bóveda de Viaje */}
+        <UpcomingDocsCard docs={docs} en={en} />
 
         {/* 3. Quick access to all tools */}
         <QuickAccessCards member={member} />
