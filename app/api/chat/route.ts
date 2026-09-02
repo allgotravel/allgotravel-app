@@ -2,6 +2,7 @@ import Anthropic from '@anthropic-ai/sdk'
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import type { Profile } from '@/types/profile'
+import { expiryStatus, docTypeDef, type TravelDocument } from '@/lib/expiry'
 import { MOBILITY_TRAVEL_KB } from '@/lib/alliKnowledge'
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
@@ -308,7 +309,7 @@ español e inglés, usa la versión del idioma de la conversación. Si solo
 existe en un idioma, tradúcelo tú y acláralo: "Esto es una traducción de
 la política oficial en inglés."`
 
-function buildSystemPrompt(profile: Profile | null, locale: string, hoy: string): string {
+function buildSystemPrompt(profile: Profile | null, locale: string, hoy: string, docsSummary = ''): string {
   const parts: string[] = [ALLI_BASE_PROMPT, MOBILITY_TRAVEL_KB, '', `Fecha de hoy: ${hoy}.`]
 
   if (!profile) return parts.join('\n')
@@ -350,6 +351,14 @@ function buildSystemPrompt(profile: Profile | null, locale: string, hoy: string)
     parts.push(`\nTen en cuenta estas necesidades en cada recomendación.`)
   }
 
+  if (docsSummary) {
+    parts.push(
+      locale === 'en'
+        ? `\n## Upcoming document expirations\n${docsSummary}\nProactively and warmly remind the traveler about these, and offer to explain how to renew each one.`
+        : `\n## Documentos por vencer\n${docsSummary}\nRecuérdale estos vencimientos de forma cálida y proactiva, y ofrécele explicarle cómo renovar cada uno.`,
+    )
+  }
+
   return parts.join('\n')
 }
 
@@ -379,8 +388,31 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'membership_required' }, { status: 403 })
     }
 
+    // Vencimientos próximos para que Alli avise proactivamente.
+    let docsSummary = ''
+    if (userId) {
+      const { data: docsData } = await supabaseAdmin
+        .from('documents')
+        .select('*')
+        .eq('user_id', userId)
+      const upcoming = ((docsData ?? []) as TravelDocument[])
+        .filter(d => d.expiry_date)
+        .map(d => ({ d, st: expiryStatus(d.expiry_date) }))
+        .filter(x => x.st.level !== 'ok' && x.st.level !== 'none')
+        .sort((a, b) => (a.st.daysLeft ?? 0) - (b.st.daysLeft ?? 0))
+      if (upcoming.length) {
+        docsSummary = upcoming
+          .map(({ d, st }) => {
+            const def = docTypeDef(d.doc_type)
+            const name = (locale === 'en' ? def?.en : def?.es) || d.doc_type
+            return `${name}${d.owner === 'dog' ? ' (perro/dog)' : ''}: ${st.daysLeft} ${locale === 'en' ? 'days' : 'días'}`
+          })
+          .join('; ')
+      }
+    }
+
     const hoy = new Date().toISOString().slice(0, 10)
-    const systemPrompt = buildSystemPrompt(profile, locale, hoy)
+    const systemPrompt = buildSystemPrompt(profile, locale, hoy, docsSummary)
 
     // Historial de la conversación en formato de la API.
     const convo: Anthropic.MessageParam[] = messages.map(

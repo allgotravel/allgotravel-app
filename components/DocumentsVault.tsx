@@ -6,6 +6,7 @@ import {
   TravelDocument, DocOwner, DOC_TYPES, docTypeDef,
   expiryStatus, daysUntil,
 } from '@/lib/expiry'
+import { buildDocsIcs, downloadIcs } from '@/lib/ics'
 
 interface Props {
   initialDocs: TravelDocument[]
@@ -107,6 +108,18 @@ export default function DocumentsVault({ initialDocs, userId, en = false }: Prop
           )
         })}
       </div>
+
+      {/* Poner recordatorios en el calendario del teléfono */}
+      {docs.some(d => d.expiry_date) && (
+        <button
+          type="button"
+          onClick={() => downloadIcs('avisos-documentos-allgo.ics', buildDocsIcs(docs, en))}
+          className="w-full min-h-[56px] rounded-2xl bg-[#1B6FB5] text-white text-base font-bold shadow hover:bg-blue-700 flex items-center justify-center gap-2"
+        >
+          <span className="allgo-alarm">📅</span>
+          {en ? 'Add reminders to my phone (90/60/30 days)' : 'Poner avisos en mi teléfono (90/60/30 días)'}
+        </button>
+      )}
 
       {/* Botón agregar */}
       {!adding && (

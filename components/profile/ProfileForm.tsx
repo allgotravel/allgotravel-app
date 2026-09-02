@@ -7,6 +7,7 @@ import {
   DISABILITY_ICONS, TIMEZONES,
 } from '@/types/profile'
 import MedTimePicker from './MedTimePicker'
+import { buildMedsIcs, downloadIcs } from '@/lib/ics'
 
 const ALL_DISABILITIES: DisabilityType[] = [
   'motriz', 'visual', 'auditiva', 'autismo', 'cognitiva', 'cronica_invisible', 'mixta',
@@ -343,6 +344,17 @@ export default function ProfileForm({ profile }: Props) {
 
         {form.medications.length === 0 && (
           <p className="text-sm text-gray-400 text-center py-4">{t('sections.noMedications')}</p>
+        )}
+
+        {form.medications.some(m => m.name && m.times?.length > 0) && (
+          <button
+            type="button"
+            onClick={() => downloadIcs('alarmas-medicamentos-allgo.ics', buildMedsIcs(form.medications, en))}
+            className="w-full min-h-[56px] rounded-2xl bg-[#F97316] text-white text-base font-bold shadow hover:bg-orange-600 flex items-center justify-center gap-2"
+          >
+            <span className="allgo-alarm">⏰</span>
+            {en ? 'Set medication alarms on my phone' : 'Poner alarmas de mis medicamentos en el teléfono'}
+          </button>
         )}
       </section>
 
