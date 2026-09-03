@@ -24,10 +24,10 @@ const CONFETTI_DATA = Array.from({ length: 60 }, (_, i) => ({
 
 const DISABILITY_OPTIONS = [
   { id: 'motriz',            emoji: '♿',  es: 'Movilidad reducida',     en: 'Reduced mobility' },
-  { id: 'visual',            emoji: '👁️', es: 'Baja visión',    en: 'Visual impairment' },
-  { id: 'auditiva',          emoji: '👂', es: 'Baja audición',  en: 'Hearing impairment' },
+  { id: 'visual',            emoji: '👁️', es: 'Discapacidad visual',    en: 'Visual impairment' },
+  { id: 'auditiva',          emoji: '👂', es: 'Discapacidad auditiva',  en: 'Hearing impairment' },
   { id: 'autismo',           emoji: '🧩', es: 'Autismo',                en: 'Autism' },
-  { id: 'cognitiva',         emoji: '🧠', es: 'Dificultad cognitiva', en: 'Cognitive disability' },
+  { id: 'cognitiva',         emoji: '🧠', es: 'Discapacidad cognitiva', en: 'Cognitive disability' },
   { id: 'cronica_invisible', emoji: '🫀', es: 'Enfermedad invisible',   en: 'Invisible illness' },
   { id: 'animal_servicio',   emoji: '🐕', es: 'Animal de servicio',     en: 'Service animal' },
   { id: 'mixta',             emoji: '👨‍👩‍👧', es: 'Viajo con familia',   en: 'Traveling with family' },
@@ -35,7 +35,7 @@ const DISABILITY_OPTIONS = [
 
 const FEATURES = [
   { es: '🌍 Alli, tu asistente IA — responde en segundos, 24/7',           en: '🌍 Alli, your AI assistant — responds in seconds, 24/7' },
-  { es: '✈️ Planificador de viajes personalizado a tus necesidades',       en: '✈️ Trip planner personalized to your disability' },
+  { es: '✈️ Planificador de viajes personalizado a tu discapacidad',       en: '✈️ Trip planner personalized to your disability' },
   { es: '🗺️ 24+ destinos con rating real de accesibilidad verificado',     en: '🗺️ 24+ destinations with verified real accessibility ratings' },
   { es: '🏥 Tarjeta Médica de Viaje — lista para imprimir o mostrar',      en: '🏥 Travel Medical Card — ready to print or show' },
   { es: '💬 Tarjeta de Comunicación de emergencia en tu idioma',           en: '💬 Emergency Communication Card in your language' },
@@ -141,7 +141,7 @@ function StepWelcome({ t, onNext }: { t: T; onNext: () => void }) {
             style={{ animation: 'fadeInUp 0.5s ease-out 1.8s both' }}
           >
             {t(
-              'El 87% de las personas con movilidad reducida dicen que viajar es complicado.',
+              'El 87% de las personas con discapacidad dicen que viajar es complicado.',
               '87% of people with disabilities say travel is complicated.'
             )}
           </p>
@@ -750,7 +750,7 @@ function StepPricing({ t, uid }: { t: T; uid: string | null }) { // step 6
         </div>
         <p className="text-white/60 text-xs leading-snug">
           {t(
-            'Cientos de viajeros con movilidad reducida ya confían en AllGo para cada viaje',
+            'Cientos de viajeros con discapacidad ya confían en AllGo para cada viaje',
             'Hundreds of travelers with disabilities already trust AllGo for every trip'
           )}
         </p>

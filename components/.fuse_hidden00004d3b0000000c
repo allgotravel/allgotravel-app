@@ -42,7 +42,7 @@ function DestinationModal({ destination, userId, onClose }: ModalProps) {
     setLoading(true)
 
     const question = locale === 'es'
-      ? `Dame consejos prácticos y detallados de accesibilidad para viajar a ${destination.name}, ${destination.country}. Incluye: mejores hoteles accesibles, cómo moverse, qué actividades son más accesibles, y consejos específicos para viajeros con movilidad reducida, visual y auditiva. Sé concreto y práctico.`
+      ? `Dame consejos prácticos y detallados de accesibilidad para viajar a ${destination.name}, ${destination.country}. Incluye: mejores hoteles accesibles, cómo moverse, qué actividades son más accesibles, y consejos específicos para viajeros con discapacidad motriz, visual y auditiva. Sé concreto y práctico.`
       : `Give me practical and detailed accessibility tips for traveling to ${destination.name}, ${destination.country}. Include: best accessible hotels, how to get around, which activities are most accessible, and specific tips for travelers with motor, visual, and hearing disabilities. Be concrete and practical.`
 
     try {

@@ -49,14 +49,14 @@ export default async function NosotrosPage() {
             <p className="text-lg">
               {en
                 ? 'Yadira, a Cuban-American healthcare professional, has spent years traveling alongside her father, who lives with a disability. Every trip revealed the same reality: an industry that is not ready for everyone.'
-                : 'Yadira, cubano-americana y profesional del área de salud, lleva años viajando junto a su padre con movilidad reducida. Cada viaje revelaba la misma realidad: una industria que no está preparada para todos.'}
+                : 'Yadira, cubano-americana y profesional del área de salud, lleva años viajando junto a su padre con discapacidad. Cada viaje revelaba la misma realidad: una industria que no está preparada para todos.'}
             </p>
 
             <div className="bg-blue-50 rounded-2xl p-6 border border-blue-100">
               <p className="text-gray-700 text-lg">
                 {en
                   ? <>Out of that experience, AllGo Travel App was born — not as one more agency, but as an <strong className="text-blue-700">act of love and justice</strong>. A place where travel is designed with inclusion in mind, so that people with disabilities and their families can explore the world with freedom, safety and dignity.</>
-                  : <>De esa experiencia nació AllGo Travel App — no como una agencia más, sino como un <strong className="text-blue-700">acto de amor y justicia</strong>. Un espacio donde los viajes se diseñan desde la inclusión, para que personas con movilidad reducida y sus familias puedan explorar el mundo con libertad, seguridad y dignidad.</>}
+                  : <>De esa experiencia nació AllGo Travel App — no como una agencia más, sino como un <strong className="text-blue-700">acto de amor y justicia</strong>. Un espacio donde los viajes se diseñan desde la inclusión, para que personas con discapacidad y sus familias puedan explorar el mundo con libertad, seguridad y dignidad.</>}
               </p>
             </div>
 

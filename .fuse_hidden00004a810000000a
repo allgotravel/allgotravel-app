@@ -227,7 +227,7 @@ function buildSteps(s, a, lang) {
   if (s.c1 === "no") {
     out.push(
       es
-        ? "El primer paso es una consulta con un profesional con licencia. Un perro de servicio se define por la movilidad reducida que asiste."
+        ? "El primer paso es una consulta con un profesional con licencia. Un perro de servicio se define por la discapacidad que asiste."
         : "The first step is a consultation with a licensed professional. A service dog is defined by the disability it assists with."
     );
   }

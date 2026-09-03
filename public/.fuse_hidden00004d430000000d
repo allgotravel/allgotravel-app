@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Turismo Sin Fronteras — Guía de Viaje Accesible e Inclusivo | AllGo Travel App</title>
-<meta name="description" content="La guía bilingüe para viajar con movilidad reducida, baja visión, sordera o neurodivergencia sin sustos: destinos accesibles verificados, checklists, cómo pedir asistencia, tarjeta de comunicación y capítulo de cruceros. Por $37.">
+<meta name="description" content="La guía bilingüe para viajar con movilidad reducida, discapacidad visual, sordera o neurodivergencia sin sustos: destinos accesibles verificados, checklists, cómo pedir asistencia, tarjeta de comunicación y capítulo de cruceros. Por $37.">
 <style>
  :root{--teal:#0E7C86;--teald:#0A4F57;--tealL:#E3F1F2;--gold:#E0A100;--ink:#1F2A2E;--grey:#5B686D;}
  *{box-sizing:border-box;margin:0;padding:0}
@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function(){
           <span class="en">Traveling with a disability shouldn't be a gamble.</span>
         </h1>
         <p class="sub">
-          <span class="es">Movilidad reducida, baja visión, sordera, neurodivergencia… El mundo es más accesible de lo que crees — si sabes a dónde ir, qué pedir y cómo prepararte. Esta guía te lo explica paso a paso.</span>
+          <span class="es">Movilidad reducida, discapacidad visual, sordera, neurodivergencia… El mundo es más accesible de lo que crees — si sabes a dónde ir, qué pedir y cómo prepararte. Esta guía te lo explica paso a paso.</span>
           <span class="en">Reduced mobility, low vision, deafness, neurodivergence… The world is more accessible than you think — if you know where to go, what to ask for, and how to prepare. This guide walks you through all of it, step by step.</span>
         </p>
         <a class="btn" href="https://pay.hotmart.com/O106521584H" target="_blank" rel="noopener"><span class="es">Consíguela por $37 →</span><span class="en">Get it for $37 →</span></a>
@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function(){
     </p>
     <ul>
       <li><span class="es">Viajeros con movilidad reducida o silla de ruedas</span><span class="en">Travelers with reduced mobility or wheelchairs</span></li>
-      <li><span class="es">Personas con baja visión o sordera</span><span class="en">People with low vision or deafness</span></li>
+      <li><span class="es">Personas con discapacidad visual o sordera</span><span class="en">People with low vision or deafness</span></li>
       <li><span class="es">Viajeros neurodivergentes</span><span class="en">Neurodivergent travelers</span></li>
       <li><span class="es">Adultos mayores que quieren seguir viajando</span><span class="en">Older adults who want to keep traveling</span></li>
       <li><span class="es">Cuidadores y familias que viajan juntos</span><span class="en">Caregivers and families traveling together</span></li>

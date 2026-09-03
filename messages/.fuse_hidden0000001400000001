@@ -19,7 +19,7 @@
     "statsChatbot": "IA accesible 24/7",
     "statsGroup": "Planificador grupal",
     "featuresTitle": "Todo lo que necesitas para viajar con confianza",
-    "featuresSubtitle": "Diseñado desde el primer día para viajeros con movilidad reducida y grupos familiares.",
+    "featuresSubtitle": "Diseñado desde el primer día para viajeros con discapacidad y grupos familiares.",
     "feature1Title": "Alli, tu asistente IA",
     "feature1Desc": "Asistente de viaje que conoce tu perfil de accesibilidad y el de cada miembro de tu grupo. Responde en español e inglés, 24 horas al día.",
     "feature2Title": "Planificador familiar",
@@ -68,7 +68,7 @@
     "saved": "¡Guardado!",
     "sections": {
       "personal": "Datos personales",
-      "disabilities": "Tipo(s) de accesibilidad",
+      "disabilities": "Tipo(s) de discapacidad",
       "disabilitiesHint": "Selecciona todos los que apliquen.",
       "chronic": "Enfermedades crónicas o invisibles",
       "chronicHint": "Escribe tus condiciones (ej: fibromialgia, POTS, diabetes tipo 1).",
@@ -175,9 +175,9 @@
     "tip1": "Investiga las facilidades de accesibilidad de tu hotel antes de reservar. Pide confirmación escrita de las adaptaciones que necesitas.",
     "tip2": "Descarga mapas offline de tu destino. En caso de emergencia, podrás orientarte sin necesidad de internet.",
     "tip3": "Lleva siempre tus medicamentos en tu equipaje de mano, nunca en la maleta documentada. Incluye el doble de la cantidad que necesitas.",
-    "tip4": "Investiga si tu destino tiene aplicaciones de transporte adaptado. Muchas ciudades ofrecen opciones específicas para personas con movilidad reducida.",
+    "tip4": "Investiga si tu destino tiene aplicaciones de transporte adaptado. Muchas ciudades ofrecen opciones específicas para personas con discapacidad.",
     "tip5": "Comunica tus necesidades al tripulante de vuelo al abordar. Ellos pueden ayudarte con el proceso de embarque y desembarque.",
-    "tip6": "Busca grupos de viajeros con tu mismas necesidades en redes sociales. Sus experiencias directas son invaluables para planificar tu viaje.",
+    "tip6": "Busca grupos de viajeros con tu misma discapacidad en redes sociales. Sus experiencias directas son invaluables para planificar tu viaje.",
     "installLink": "📲 Instalar en tu dispositivo"
   },
   "instalar": {

@@ -134,7 +134,7 @@ export default function ProfileForm({ profile }: Props) {
         </div>
       </section>
 
-      {/* Tipos de accesibilidad */}
+      {/* Tipos de discapacidad */}
       <section className="bg-white rounded-2xl shadow p-6 space-y-4">
         <h2 className="text-lg font-semibold text-teal-700">{t('sections.disabilities')}</h2>
         <p className="text-sm text-gray-500">{t('sections.disabilitiesHint')}</p>

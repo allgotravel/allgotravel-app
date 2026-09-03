@@ -528,7 +528,7 @@ export default async function DashboardPage({
               ) : (
                 <>
                   <p><strong className="text-gray-900">AllGo Travel App nació de una historia personal.</strong></p>
-                  <p>Yadira, cubano-americana y profesional del área de salud, lleva años viajando junto a su padre con movilidad reducida. De esa experiencia nació AllGo Travel App — un espacio donde los viajes se diseñan desde la inclusión, para que personas con movilidad reducida y sus familias puedan explorar el mundo con libertad y dignidad.</p>
+                  <p>Yadira, cubano-americana y profesional del área de salud, lleva años viajando junto a su padre con discapacidad. De esa experiencia nació AllGo Travel App — un espacio donde los viajes se diseñan desde la inclusión, para que personas con discapacidad y sus familias puedan explorar el mundo con libertad y dignidad.</p>
                   <p className="text-blue-700 font-semibold">Porque todos merecen descubrir el mundo. 🌍</p>
                   <Link href="/nosotros" className="inline-block mt-1 text-orange-500 hover:text-orange-600 font-semibold text-xs underline">
                     Leer historia completa →

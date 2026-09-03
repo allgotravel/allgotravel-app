@@ -284,7 +284,7 @@ está vacío, en null o marcado como "no publicado":
   internet. No existe un registro oficial de perros de servicio en
   Estados Unidos. Si el usuario pregunta dónde conseguir uno, explica
   que no existe tal registro y que lo que necesita es que el perro esté
-  entrenado para tareas específicas relacionadas con sus necesidades.
+  entrenado para tareas específicas relacionadas con su discapacidad.
 
 - NUNCA das consejo médico ni legal. Puedes citar la norma; no
   interpretes cómo aplica al caso médico o legal específico de la
@@ -336,7 +336,7 @@ function buildSystemPrompt(profile: Profile | null, locale: string, hoy: string,
     parts.push(`## Perfil del viajero`)
     if (profile.full_name) parts.push(`- Nombre: ${profile.full_name}`)
     if (profile.disability_types?.length)
-      parts.push(`- Tipos de accesibilidad: ${profile.disability_types.join(', ')}`)
+      parts.push(`- Tipos de discapacidad: ${profile.disability_types.join(', ')}`)
     if (profile.chronic_conditions)
       parts.push(`- Condiciones crónicas/invisibles: ${profile.chronic_conditions}`)
     if (profile.invisible_needs)

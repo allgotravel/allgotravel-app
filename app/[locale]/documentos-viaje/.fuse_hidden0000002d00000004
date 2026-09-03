@@ -122,7 +122,7 @@ const COUNTRIES = [
   { flag: '🇮🇹', name: 'Italia', nameEn: 'Italy', law: 'Reglamento UE 1107/2006 — perros guía permitidos en cabina', lawEn: 'EU Regulation 1107/2006 — guide dogs allowed in cabin', level: 'green' },
   { flag: '🇵🇹', name: 'Portugal', nameEn: 'Portugal', law: 'Reglamento UE 1107/2006 — acceso garantizado en vuelos UE', lawEn: 'EU Regulation 1107/2006 — guaranteed access on EU flights', level: 'green' },
   // Asia-Pacífico
-  { flag: '🇯🇵', name: 'Japón', nameEn: 'Japan', law: 'Ley de Asistencia a Personas con Necesidades Especiales — perros guía, sordos y físicos permitidos', lawEn: 'Law on Assistance for Persons with Disabilities — guide, hearing and mobility dogs allowed', level: 'green' },
+  { flag: '🇯🇵', name: 'Japón', nameEn: 'Japan', law: 'Ley de Asistencia a Personas con Discapacidad — perros guía, sordos y físicos permitidos', lawEn: 'Law on Assistance for Persons with Disabilities — guide, hearing and mobility dogs allowed', level: 'green' },
   { flag: '🇸🇬', name: 'Singapur', nameEn: 'Singapore', law: 'Misguided Dogs and Assistance Dogs Act — acceso garantizado en transporte y espacios públicos', lawEn: 'Misguided Dogs and Assistance Dogs Act — guaranteed access on transport and in public spaces', level: 'green' },
   { flag: '🇦🇺', name: 'Australia', nameEn: 'Australia', law: 'Disability Discrimination Act 1992 — animales de asistencia con amplia protección legal', lawEn: 'Disability Discrimination Act 1992 — assistance animals with broad legal protection', level: 'green' },
 ]

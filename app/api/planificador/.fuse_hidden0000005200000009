@@ -33,7 +33,7 @@ function buildPlanPrompt(
     }
 
     const travelerNeeds = [
-      profile?.disability_types?.length && `Necesidades: ${profile.disability_types.join(', ')}`,
+      profile?.disability_types?.length && `Discapacidades: ${profile.disability_types.join(', ')}`,
       profile?.chronic_conditions && `Condiciones crónicas: ${profile.chronic_conditions}`,
       profile?.invisible_needs && `Necesidades invisibles: ${profile.invisible_needs}`,
       profile?.medications?.length && `Medicamentos: ${profile.medications.map(m => `${m.name} ${m.dose}`).join(', ')}`,
