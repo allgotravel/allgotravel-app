@@ -10,6 +10,7 @@ export interface TravelDocument {
   label: string | null
   expiry_date: string | null // "YYYY-MM-DD"
   note: string | null
+  file_path?: string | null // ruta en el bucket 'vault' (foto/escaneo)
 }
 
 export type ExpiryLevel = 'none' | 'ok' | 'd90' | 'd60' | 'd30' | 'expired'

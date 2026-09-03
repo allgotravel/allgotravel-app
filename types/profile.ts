@@ -11,6 +11,7 @@ export interface Medication {
   name: string
   dose: string
   times: string[] // "08:00", "20:00"
+  refill_date?: string // "YYYY-MM-DD" fecha estimada de resurtido
 }
 
 export interface GroupMember {
@@ -30,6 +31,7 @@ export interface ServiceDog {
   vet_name?: string
   vet_phone?: string
   vaccines_current?: boolean
+  rabies_date?: string // "YYYY-MM-DD" vencimiento de la antirrábica
 }
 
 export interface Profile {
@@ -49,6 +51,21 @@ export interface Profile {
   blood_type?: string | null
   emergency_contact_name?: string | null
   emergency_contact_phone?: string | null
+  doctor_name?: string | null
+  doctor_phone?: string | null
+  insurance_name?: string | null
+  insurance_policy?: string | null
+  insurance_phone?: string | null
+  organ_donor?: boolean | null
+  primary_language?: string | null
+  weight?: string | null
+  allergy_severity?: string | null
+  medical_devices?: string | null
+  emergency_contact2_name?: string | null
+  emergency_contact2_phone?: string | null
+  emergency_contact3_name?: string | null
+  emergency_contact3_phone?: string | null
+  known_traveler_number?: string | null
   service_dog?: ServiceDog | null
   onboarding_completed?: boolean
   created_at: string

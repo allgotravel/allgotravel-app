@@ -22,7 +22,13 @@ export default function DocumentsVault({ initialDocs, userId, en = false }: Prop
   const [docType, setDocType] = useState('')
   const [label, setLabel] = useState('')
   const [expiry, setExpiry] = useState('')
+  const [file, setFile] = useState<File | null>(null)
   const [saving, setSaving] = useState(false)
+
+  async function openFile(path: string) {
+    const { data } = await supabase.storage.from('vault').createSignedUrl(path, 120)
+    if (data?.signedUrl) window.open(data.signedUrl, '_blank')
+  }
 
   const sorted = [...docs].sort((a, b) => {
     const da = daysUntil(a.expiry_date)
@@ -44,11 +50,21 @@ export default function DocumentsVault({ initialDocs, userId, en = false }: Prop
       note: null,
     }
     const { data, error } = await supabase.from('documents').insert(row).select().single()
+    let saved = data as TravelDocument | null
+    if (!error && saved && file) {
+      const ext = file.name.split('.').pop() || 'jpg'
+      const path = `${userId}/${saved.id}.${ext}`
+      const up = await supabase.storage.from('vault').upload(path, file, { upsert: true })
+      if (!up.error) {
+        await supabase.from('documents').update({ file_path: path }).eq('id', saved.id)
+        saved = { ...saved, file_path: path }
+      }
+    }
     setSaving(false)
-    if (!error && data) {
-      setDocs(prev => [data as TravelDocument, ...prev])
+    if (!error && saved) {
+      setDocs(prev => [saved as TravelDocument, ...prev])
       setAdding(false)
-      setDocType(''); setLabel(''); setExpiry(''); setOwner('person')
+      setDocType(''); setLabel(''); setExpiry(''); setOwner('person'); setFile(null)
     }
   }
 
@@ -98,6 +114,15 @@ export default function DocumentsVault({ initialDocs, userId, en = false }: Prop
                   ×
                 </button>
               </div>
+              {doc.file_path && (
+                <button
+                  type="button"
+                  onClick={() => openFile(doc.file_path as string)}
+                  className="mt-3 inline-flex items-center gap-2 bg-white border-2 border-gray-300 rounded-xl px-4 py-2 text-sm font-semibold text-gray-700 hover:border-teal-400"
+                >
+                  📎 {en ? 'View document' : 'Ver documento'}
+                </button>
+              )}
               {showRenew && def && (
                 <p className="mt-3 text-sm text-gray-700 bg-white/70 rounded-xl p-3 border border-gray-200">
                   <span className="font-semibold">{en ? 'How to renew: ' : 'Cómo renovar: '}</span>
@@ -206,6 +231,20 @@ export default function DocumentsVault({ initialDocs, userId, en = false }: Prop
               className="w-full border-2 border-gray-300 rounded-xl px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-teal-400"
               placeholder={en ? 'E.g.: number, country…' : 'Ej: número, país…'}
             />
+          </div>
+
+          {/* Foto / escaneo del documento */}
+          <div>
+            <label className="block text-base font-semibold text-gray-700 mb-1">
+              📎 {en ? 'Photo or scan (optional)' : 'Foto o escaneo (opcional)'}
+            </label>
+            <input
+              type="file"
+              accept="image/*,application/pdf"
+              onChange={e => setFile(e.target.files?.[0] ?? null)}
+              className="w-full text-base file:mr-3 file:py-3 file:px-4 file:rounded-xl file:border-0 file:bg-teal-600 file:text-white file:font-semibold"
+            />
+            {file && <p className="text-sm text-gray-500 mt-1">✓ {file.name}</p>}
           </div>
 
           <div className="flex gap-3">

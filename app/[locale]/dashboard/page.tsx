@@ -4,6 +4,9 @@ import { createSupabaseServer } from '@/lib/supabase-server'
 import { Link } from '@/i18n/navigation'
 import { Profile } from '@/types/profile'
 import { TravelDocument, expiryStatus, docTypeDef } from '@/lib/expiry'
+import A11yToggle from '@/components/A11yToggle'
+import SosButton from '@/components/SosButton'
+import MedCheckIn from '@/components/MedCheckIn'
 import Image from 'next/image'
 
 export const dynamic = 'force-dynamic'
@@ -483,6 +486,9 @@ export default async function DashboardPage({
         {/* 2b. Próximos vencimientos — Bóveda de Viaje */}
         <UpcomingDocsCard docs={docs} en={en} />
 
+        {/* 2c. Medicamentos de hoy — registro */}
+        <MedCheckIn meds={safeProfile.medications} userId={user.id} en={en} />
+
         {/* 3. Quick access to all tools */}
         <QuickAccessCards member={member} />
 
@@ -533,10 +539,20 @@ export default async function DashboardPage({
           </div>
         </div>
 
+        {/* Accesibilidad */}
+        <A11yToggle en={en} />
+
         {/* 8. Install PWA */}
         <InstallAppBanner />
 
       </div>
+
+      {/* Botón SOS flotante */}
+      <SosButton
+        contactName={profile?.emergency_contact_name ?? null}
+        contactPhone={profile?.emergency_contact_phone ?? null}
+        en={en}
+      />
     </main>
   )
 }

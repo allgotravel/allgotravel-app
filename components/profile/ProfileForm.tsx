@@ -202,6 +202,22 @@ export default function ProfileForm({ profile }: Props) {
           className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-400"
           placeholder={en ? 'E.g.: Penicillin, peanuts, latex…' : 'Ej: Penicilina, maní, látex…'}
         />
+        <div>
+          <label className="block text-base font-semibold text-gray-700 mb-2">
+            {en ? 'How severe?' : '¿Qué tan grave?'}
+          </label>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            {(['Leve', 'Moderada', 'Grave', 'Anafilaxia'] as const).map(sev => {
+              const on = form.allergy_severity === sev
+              return (
+                <button key={sev} type="button" aria-pressed={on}
+                  onClick={() => setForm(p => ({ ...p, allergy_severity: on ? null : sev }))}
+                  className={'min-h-[52px] rounded-xl border-2 text-base font-semibold ' + (on ? 'bg-red-600 border-red-600 text-white' : 'bg-white border-gray-300 text-gray-800')}
+                >{on ? '✓ ' : ''}{sev}</button>
+              )
+            })}
+          </div>
+        </div>
       </section>
 
       {/* Contacto de emergencia + tipo de sangre */}
@@ -272,6 +288,121 @@ export default function ProfileForm({ profile }: Props) {
             {en ? 'Tap again to remove.' : 'Toca de nuevo para quitar.'}
           </p>
         </div>
+
+        {/* Médico */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label className="block text-base font-semibold text-gray-700 mb-1">
+              🩺 {en ? 'Doctor — name' : 'Médico — nombre'}
+            </label>
+            <input
+              type="text"
+              value={form.doctor_name ?? ''}
+              onChange={e => setForm(p => ({ ...p, doctor_name: e.target.value }))}
+              className="w-full border-2 border-gray-300 rounded-xl px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-teal-400"
+              placeholder={en ? 'E.g.: Dr. Pérez' : 'Ej: Dra. Pérez'}
+            />
+          </div>
+          <div>
+            <label className="block text-base font-semibold text-gray-700 mb-1">
+              {en ? 'Doctor — phone' : 'Médico — teléfono'}
+            </label>
+            <input
+              type="tel"
+              inputMode="tel"
+              value={form.doctor_phone ?? ''}
+              onChange={e => setForm(p => ({ ...p, doctor_phone: e.target.value }))}
+              className="w-full border-2 border-gray-300 rounded-xl px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-teal-400"
+              placeholder="+1 305 555 0123"
+            />
+          </div>
+        </div>
+
+        {/* Seguro */}
+        <div>
+          <label className="block text-base font-semibold text-gray-700 mb-1">
+            🛡️ {en ? 'Insurance' : 'Seguro'}
+          </label>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <input
+              type="text"
+              value={form.insurance_name ?? ''}
+              onChange={e => setForm(p => ({ ...p, insurance_name: e.target.value }))}
+              className="w-full border-2 border-gray-300 rounded-xl px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-teal-400"
+              placeholder={en ? 'Company' : 'Aseguradora'}
+            />
+            <input
+              type="text"
+              value={form.insurance_policy ?? ''}
+              onChange={e => setForm(p => ({ ...p, insurance_policy: e.target.value }))}
+              className="w-full border-2 border-gray-300 rounded-xl px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-teal-400"
+              placeholder={en ? 'Policy #' : 'N.º de póliza'}
+            />
+            <input
+              type="tel"
+              inputMode="tel"
+              value={form.insurance_phone ?? ''}
+              onChange={e => setForm(p => ({ ...p, insurance_phone: e.target.value }))}
+              className="w-full border-2 border-gray-300 rounded-xl px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-teal-400"
+              placeholder={en ? 'Phone' : 'Teléfono'}
+            />
+          </div>
+        </div>
+
+        {/* Contactos de emergencia 2 y 3 */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label className="block text-base font-semibold text-gray-700 mb-1">{en ? 'Contact 2 — name' : 'Contacto 2 — nombre'}</label>
+            <input type="text" value={form.emergency_contact2_name ?? ''} onChange={e => setForm(p => ({ ...p, emergency_contact2_name: e.target.value }))} className="w-full border-2 border-gray-300 rounded-xl px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-teal-400" />
+          </div>
+          <div>
+            <label className="block text-base font-semibold text-gray-700 mb-1">{en ? 'Contact 2 — phone' : 'Contacto 2 — teléfono'}</label>
+            <input type="tel" inputMode="tel" value={form.emergency_contact2_phone ?? ''} onChange={e => setForm(p => ({ ...p, emergency_contact2_phone: e.target.value }))} className="w-full border-2 border-gray-300 rounded-xl px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-teal-400" />
+          </div>
+          <div>
+            <label className="block text-base font-semibold text-gray-700 mb-1">{en ? 'Contact 3 — name' : 'Contacto 3 — nombre'}</label>
+            <input type="text" value={form.emergency_contact3_name ?? ''} onChange={e => setForm(p => ({ ...p, emergency_contact3_name: e.target.value }))} className="w-full border-2 border-gray-300 rounded-xl px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-teal-400" />
+          </div>
+          <div>
+            <label className="block text-base font-semibold text-gray-700 mb-1">{en ? 'Contact 3 — phone' : 'Contacto 3 — teléfono'}</label>
+            <input type="tel" inputMode="tel" value={form.emergency_contact3_phone ?? ''} onChange={e => setForm(p => ({ ...p, emergency_contact3_phone: e.target.value }))} className="w-full border-2 border-gray-300 rounded-xl px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-teal-400" />
+          </div>
+        </div>
+
+        {/* Peso, idioma, donante */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label className="block text-base font-semibold text-gray-700 mb-1">⚖️ {en ? 'Weight' : 'Peso'}</label>
+            <input type="text" value={form.weight ?? ''} onChange={e => setForm(p => ({ ...p, weight: e.target.value }))} className="w-full border-2 border-gray-300 rounded-xl px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-teal-400" placeholder={en ? 'E.g.: 70 kg / 154 lb' : 'Ej: 70 kg / 154 lb'} />
+          </div>
+          <div>
+            <label className="block text-base font-semibold text-gray-700 mb-1">🗣️ {en ? 'Language you speak' : 'Idioma que hablas'}</label>
+            <input type="text" value={form.primary_language ?? ''} onChange={e => setForm(p => ({ ...p, primary_language: e.target.value }))} className="w-full border-2 border-gray-300 rounded-xl px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-teal-400" placeholder={en ? 'E.g.: Spanish' : 'Ej: Español'} />
+          </div>
+        </div>
+        <div className="flex gap-3">
+          {[true, false].map(val => {
+            const on = form.organ_donor === val
+            return (
+              <button key={String(val)} type="button" aria-pressed={on}
+                onClick={() => setForm(p => ({ ...p, organ_donor: val }))}
+                className={'flex-1 min-h-[52px] rounded-xl border-2 text-base font-bold ' + (on ? 'bg-emerald-600 border-emerald-600 text-white' : 'bg-white border-gray-300 text-gray-800')}
+              >💚 {val ? (en ? 'Organ donor: Yes' : 'Donante de órganos: Sí') : (en ? 'Organ donor: No' : 'Donante: No')}</button>
+            )
+          })}
+        </div>
+
+        {/* Dispositivos médicos */}
+        <div>
+          <label className="block text-base font-semibold text-gray-700 mb-1">🔧 {en ? 'Medical devices' : 'Dispositivos médicos'}</label>
+          <input type="text" value={form.medical_devices ?? ''} onChange={e => setForm(p => ({ ...p, medical_devices: e.target.value }))} className="w-full border-2 border-gray-300 rounded-xl px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-teal-400" placeholder={en ? 'E.g.: pacemaker, insulin pump' : 'Ej: marcapasos, bomba de insulina'} />
+        </div>
+
+        {/* TSA PreCheck / Known Traveler Number */}
+        <div>
+          <label className="block text-base font-semibold text-gray-700 mb-1">✈️ {en ? 'TSA PreCheck / Known Traveler Number' : 'TSA PreCheck / Número de viajero (KTN)'}</label>
+          <input type="text" inputMode="numeric" value={form.known_traveler_number ?? ''} onChange={e => setForm(p => ({ ...p, known_traveler_number: e.target.value }))} className="w-full border-2 border-gray-300 rounded-xl px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-teal-400" />
+        </div>
       </section>
 
       {/* Medicamentos */}
@@ -337,6 +468,17 @@ export default function ProfileForm({ profile }: Props) {
                 value={med.times}
                 onChange={times => setMedTimes(i, times)}
                 en={en}
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-1">
+                🔁 {en ? 'Refill date (optional)' : 'Fecha de resurtido (opcional)'}
+              </label>
+              <input
+                type="date"
+                value={med.refill_date ?? ''}
+                onChange={e => updateMedication(i, 'refill_date', e.target.value)}
+                className="w-full border-2 border-gray-300 rounded-xl px-4 py-2.5 text-base focus:outline-none focus:ring-2 focus:ring-teal-400"
               />
             </div>
           </div>
@@ -478,6 +620,18 @@ export default function ProfileForm({ profile }: Props) {
                   placeholder="+1 305 555 0123"
                 />
               </div>
+            </div>
+
+            <div>
+              <label className="block text-base font-semibold text-gray-700 mb-1">
+                💉 {en ? 'Rabies vaccine expiry date' : 'Vencimiento de la vacuna antirrábica'}
+              </label>
+              <input
+                type="date"
+                value={form.service_dog?.rabies_date ?? ''}
+                onChange={e => setForm(p => ({ ...p, service_dog: { ...(p.service_dog ?? { has: true }), rabies_date: e.target.value } }))}
+                className="w-full border-2 border-gray-300 rounded-xl px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-teal-400"
+              />
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3">

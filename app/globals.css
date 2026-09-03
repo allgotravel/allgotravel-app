@@ -151,6 +151,12 @@ body {
 /* Halo azulado al pasar sobre tarjetas */
 .allgo-tap:hover { box-shadow: 0 12px 32px -12px rgba(30,64,175,0.4); }
 
+/* ── Modo accesible (texto grande / alto contraste) ───────────────────── */
+html.a11y-large { font-size: 118%; }
+html.a11y-large-xl { font-size: 132%; }
+html.a11y-contrast body { filter: contrast(1.18) saturate(1.08); }
+html.a11y-contrast a, html.a11y-contrast button { text-decoration-thickness: 2px; }
+
 /* ── Iconos animados (salud / emergencia) ─────────────────────────────── */
 @keyframes allgoPillWiggle { 0%,100%{transform:rotate(-8deg)} 50%{transform:rotate(8deg)} }
 @keyframes allgoBloodDrip { 0%,100%{transform:translateY(0) scale(1)} 50%{transform:translateY(3px) scale(1.1)} }

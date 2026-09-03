@@ -120,6 +120,32 @@ export function buildMedsIcs(meds: Medication[], en = false): string {
       )
     }
   }
+  // Avisos de resurtido (7 días antes de la fecha)
+  for (const med of meds) {
+    if (!med.name || !med.refill_date) continue
+    const d = new Date(med.refill_date + 'T00:00:00')
+    if (isNaN(d.getTime())) continue
+    const remind = new Date(d)
+    remind.setDate(remind.getDate() - 7)
+    const when = remind >= today ? remind : d
+    const summary = (en ? '🔁 Refill: ' : '🔁 Resurtir: ') + med.name
+    events.push(
+      [
+        'BEGIN:VEVENT',
+        `UID:${uid()}`,
+        `DTSTAMP:${ymd(today)}T000000Z`,
+        `DTSTART;VALUE=DATE:${ymd(when)}`,
+        `SUMMARY:${esc(summary)}`,
+        'BEGIN:VALARM',
+        'TRIGGER:PT0S',
+        'ACTION:DISPLAY',
+        `DESCRIPTION:${esc(summary)}`,
+        'END:VALARM',
+        'END:VEVENT',
+      ].join('\r\n'),
+    )
+  }
+
   return wrap(events)
 }
 

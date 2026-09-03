@@ -15,6 +15,20 @@ interface EmergencyCard {
   emergency_contact_phone: string | null
   disability_types: string[] | null
   service_dog: ServiceDog | null
+  doctor_name: string | null
+  doctor_phone: string | null
+  insurance_name: string | null
+  insurance_policy: string | null
+  insurance_phone: string | null
+  organ_donor: boolean | null
+  primary_language: string | null
+  weight: string | null
+  allergy_severity: string | null
+  medical_devices: string | null
+  emergency_contact2_name: string | null
+  emergency_contact2_phone: string | null
+  emergency_contact3_name: string | null
+  emergency_contact3_phone: string | null
 }
 
 export default async function EmergencyCardPage({
@@ -129,6 +143,46 @@ export default async function EmergencyCardPage({
             </div>
           )}
 
+          {/* Contactos de emergencia adicionales */}
+          {(card.emergency_contact2_name || card.emergency_contact2_phone || card.emergency_contact3_name || card.emergency_contact3_phone) && (
+            <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 space-y-2">
+              <p className="text-xs font-bold text-[#1B6FB5] uppercase tracking-wide">
+                📞 Más contactos / More contacts
+              </p>
+              {(card.emergency_contact2_name || card.emergency_contact2_phone) && (
+                <p className="text-gray-800 text-sm">
+                  {card.emergency_contact2_name}
+                  {card.emergency_contact2_phone && (
+                    <>{card.emergency_contact2_name ? ' — ' : ''}<a href={`tel:${card.emergency_contact2_phone}`} className="text-[#1B6FB5] font-semibold underline">{card.emergency_contact2_phone}</a></>
+                  )}
+                </p>
+              )}
+              {(card.emergency_contact3_name || card.emergency_contact3_phone) && (
+                <p className="text-gray-800 text-sm">
+                  {card.emergency_contact3_name}
+                  {card.emergency_contact3_phone && (
+                    <>{card.emergency_contact3_name ? ' — ' : ''}<a href={`tel:${card.emergency_contact3_phone}`} className="text-[#1B6FB5] font-semibold underline">{card.emergency_contact3_phone}</a></>
+                  )}
+                </p>
+              )}
+            </div>
+          )}
+
+          {/* Datos vitales */}
+          {(card.weight || card.primary_language || card.organ_donor) && (
+            <div className="flex flex-wrap gap-3 text-sm">
+              {card.weight && (
+                <span className="bg-gray-100 rounded-lg px-3 py-1.5"><span className="font-semibold">⚖️ Peso / Weight:</span> {card.weight}</span>
+              )}
+              {card.primary_language && (
+                <span className="bg-gray-100 rounded-lg px-3 py-1.5"><span className="font-semibold">🗣️ Idioma / Language:</span> {card.primary_language}</span>
+              )}
+              {card.organ_donor && (
+                <span className="bg-emerald-50 text-emerald-700 rounded-lg px-3 py-1.5 font-semibold">💚 Donante de órganos / Organ donor</span>
+              )}
+            </div>
+          )}
+
           {card.allergies && (
             <div className="bg-red-50 border border-red-200 rounded-xl p-4">
               <p className="text-xs font-bold text-red-600 uppercase tracking-wide mb-1">
@@ -136,6 +190,11 @@ export default async function EmergencyCardPage({
               </p>
               <p className="text-gray-800 text-sm leading-relaxed">
                 {card.allergies}
+                {card.allergy_severity && (
+                  <span className="block mt-1 font-bold text-red-700">
+                    Severidad / Severity: {card.allergy_severity}
+                  </span>
+                )}
               </p>
             </div>
           )}
@@ -159,6 +218,15 @@ export default async function EmergencyCardPage({
               <p className="text-gray-700 text-sm leading-relaxed">
                 {card.invisible_needs}
               </p>
+            </div>
+          )}
+
+          {card.medical_devices && (
+            <div>
+              <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">
+                🔧 Dispositivos médicos / Medical devices
+              </p>
+              <p className="text-gray-700 text-sm leading-relaxed">{card.medical_devices}</p>
             </div>
           )}
 
@@ -189,6 +257,46 @@ export default async function EmergencyCardPage({
                   </div>
                 ))}
               </div>
+            </div>
+          )}
+
+          {/* Médico */}
+          {(card.doctor_name || card.doctor_phone) && (
+            <div>
+              <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">
+                🩺 Médico / Doctor
+              </p>
+              <p className="text-gray-800 text-sm">
+                {card.doctor_name}
+                {card.doctor_phone && (
+                  <>
+                    {card.doctor_name ? ' — ' : ''}
+                    <a href={`tel:${card.doctor_phone}`} className="text-[#1B6FB5] font-semibold underline">
+                      {card.doctor_phone}
+                    </a>
+                  </>
+                )}
+              </p>
+            </div>
+          )}
+
+          {/* Seguro */}
+          {(card.insurance_name || card.insurance_policy || card.insurance_phone) && (
+            <div>
+              <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">
+                🛡️ Seguro / Insurance
+              </p>
+              <p className="text-gray-800 text-sm">
+                {card.insurance_name}
+                {card.insurance_policy && (
+                  <span className="text-gray-600">{card.insurance_name ? ' · ' : ''}Póliza / Policy: {card.insurance_policy}</span>
+                )}
+              </p>
+              {card.insurance_phone && (
+                <a href={`tel:${card.insurance_phone}`} className="text-[#1B6FB5] text-sm font-semibold underline">
+                  {card.insurance_phone}
+                </a>
+              )}
             </div>
           )}
 
@@ -235,6 +343,9 @@ export default async function EmergencyCardPage({
                 )}
                 {dog.vaccines_current && (
                   <p className="text-emerald-700 font-medium">✓ Vacunas al día / Vaccines current</p>
+                )}
+                {dog.rabies_date && (
+                  <p><span className="font-semibold">💉 Antirrábica vence / Rabies expires:</span> {dog.rabies_date}</p>
                 )}
               </div>
             </div>
