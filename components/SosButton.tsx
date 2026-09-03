@@ -37,7 +37,7 @@ export default function SosButton({ contactName, contactPhone, en = false }: Pro
         type="button"
         onClick={() => setOpen(true)}
         aria-label="SOS"
-        className="fixed bottom-5 right-5 z-40 allgo-heartbeat bg-red-600 hover:bg-red-700 text-white font-extrabold text-lg rounded-full w-20 h-20 shadow-xl flex items-center justify-center"
+        className="fixed bottom-6 left-5 z-40 allgo-heartbeat bg-red-600 hover:bg-red-700 text-white font-extrabold text-lg rounded-full w-16 h-16 shadow-xl flex items-center justify-center ring-2 ring-white/50"
       >
         SOS
       </button>
