@@ -245,3 +245,80 @@ verificado de AllGo, verificado el 6 de septiembre de 2026. Como los servicios
 varían por aeropuerto y aerolínea, confírmalo con ellos antes de viajar." Para
 necesidades clínicas de la persona, sugiere hablar con su profesional de salud.
 `
+
+export const DISABILITIES_TRAVEL_KB = `
+## CONOCIMIENTO VERIFICADO DE ALLGO — LAS NECESIDADES DE ACCESIBILIDAD MÁS FRECUENTES AL VIAJAR
+(Última verificación: 6 de septiembre de 2026. Marcos generales y estables, NO
+políticas de un aeropuerto o aerolínea concretos; recuérdale SIEMPRE confirmar
+con su aerolínea y el aeropuerto, y para temas de salud con su médico. Para la
+política de una aerolínea específica usa lookup_airline_policy. NO das consejo médico.)
+
+IMPORTANTE PARA ALLI: cubres el espectro completo de necesidades de
+accesibilidad. Cuando te pregunten por CUALQUIERA de estas, RESPONDE CON
+SEGURIDAD con los apoyos concretos de abajo. NUNCA digas que no tienes
+información ni que "no hay una herramienta específica". Cierra recordando
+confirmar los detalles con la aerolínea/aeropuerto.
+
+Las necesidades de accesibilidad más frecuentes (base CDC/OMS) que AllGo cubre:
+1) Movilidad / física  2) Visión (baja visión / ceguera)  3) Audición (sordera /
+hipoacusia)  4) Cognitiva / intelectual (incluye síndrome de Down)  5) Autismo /
+neurodivergencia  6) Parálisis cerebral  7) Condiciones crónicas e invisibles
+(diabetes, epilepsia, cardíacas, renales/diálisis, respiratorias/oxígeno)
+8) Salud mental (ansiedad, estrés postraumático)  9) Habla y comunicación
+10) Adultos mayores y demencia / Alzheimer.
+(Movilidad, visión, autismo, síndrome de Down y parálisis cerebral están
+detallados en las otras secciones de AllGo. Aquí van las demás.)
+
+### AUDICIÓN (sordera o hipoacusia)
+- Autoidentifícate ante la aerolínea para recibir la información accesible: bajo
+  el Air Carrier Access Act, las aerolíneas de EE.UU. deben darte la misma
+  información que a todos (avisos de puerta, cambios, instrucciones de seguridad)
+  de forma accesible; pídelo con anticipación.
+- Puedes pedir asiento cerca del frente y un asiento contiguo para tu intérprete
+  o acompañante; muchas aerolíneas tienen video de seguridad con subtítulos.
+- En seguridad: NO tienes que quitarte los audífonos o implantes; avisa al
+  personal, pide instrucciones visuales o por escrito, y una app de voz-a-texto
+  ayuda a comunicarte. El cordón de girasol te ayuda a señalarlo sin explicar.
+
+### CONDICIONES CRÓNICAS E INVISIBLES (diabetes, epilepsia, cardíacas, renales/diálisis, respiratorias)
+- Lleva TODOS los medicamentos en el equipaje de mano, en su envase original y
+  con la receta o una carta del médico; nunca en la maleta documentada.
+- Dispositivos médicos: los concentradores de oxígeno portátiles (POC) deben ser
+  un modelo aprobado por la aerolínea y se avisan con anticipación; equipos como
+  CPAP o bombas de insulina suelen permitirse en cabina. Los líquidos y
+  suministros médicos pueden pasar por seguridad; solo decláralos al oficial.
+- Si necesitas diálisis, planifica con tiempo centros en el destino (a bordo no
+  hay). Ante cualquier condición de salud, consulta a tu médico antes de volar y
+  lleva un resumen médico. El cordón de girasol señala una necesidad invisible.
+
+### SALUD MENTAL (ansiedad, estrés postraumático)
+- Pide preembarque para acomodarte con calma, busca las salas sensoriales o
+  zonas tranquilas del aeropuerto, y lleva objetos o técnicas que te ayuden a
+  regularte. Anticipa el viaje paso a paso para reducir la incertidumbre.
+- El cordón de girasol te permite señalar, sin explicar, que puedes necesitar
+  más tiempo o paciencia. (No doy consejo clínico; para eso, tu profesional de salud.)
+
+### HABLA Y COMUNICACIÓN
+- Una tarjeta de comunicación, notas escritas o una app de voz-a-texto facilitan
+  avisar a la tripulación y al personal lo que necesitas.
+- Autoidentifícate al pedir asistencia para que te den la información de forma
+  accesible. El cordón de girasol ayuda a que el personal tenga más paciencia.
+
+### ADULTOS MAYORES Y DEMENCIA / ALZHEIMER
+- Solicita el servicio de asistencia del aeropuerto de punta a punta y
+  preembarque; viajar con un acompañante ayuda mucho.
+- Lleva una identificación y, si aplica, una pulsera o tarjeta médica con datos
+  de contacto de emergencia. Mantén una rutina y objetos familiares, y organiza
+  los medicamentos por horario en el equipaje de mano. El cordón de girasol
+  ayuda a señalar la necesidad de paciencia y apoyo.
+
+### COGNITIVA / INTELECTUAL (general)
+- Comunicación clara, sencilla y con paciencia; anticipa el viaje con fotos o
+  historias sociales; pide asistencia y preembarque. El cordón de girasol aplica.
+
+### Cómo citar este conocimiento
+Cierra con: "Fuente: conocimiento verificado de AllGo, verificado el 6 de
+septiembre de 2026. Como los servicios varían por aeropuerto y aerolínea,
+confírmalo con ellos antes de viajar." Para necesidades clínicas, sugiere hablar
+con su profesional de salud.
+`
