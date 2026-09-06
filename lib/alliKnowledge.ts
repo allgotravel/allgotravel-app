@@ -139,3 +139,109 @@ EE.UU., Convenio de Montreal, o regulación local de taxis), verificado el 30 de
 agosto de 2026." Y recuerda a la persona confirmar los detalles finos con su
 aerolínea u operador local.
 `
+
+export const AUTISM_TRAVEL_KB = `
+## CONOCIMIENTO VERIFICADO DE ALLGO — VIAJAR CON UNA PERSONA CON AUTISMO / NEURODIVERGENTE
+(Última verificación: 6 de septiembre de 2026. Son marcos generales y estables,
+NO políticas de un aeropuerto o aerolínea concretos; los servicios varían por
+lugar, así que recuérdale SIEMPRE confirmar en la web del aeropuerto y con su
+aerolínea. Para la política de una aerolínea específica usa lookup_airline_policy.)
+
+IMPORTANTE PARA ALLI: cuando te pregunten sobre viajar con una persona con
+autismo o neurodivergente, RESPONDE CON SEGURIDAD usando esta sección. NO digas
+"no tengo una herramienta específica" ni que no tienes información — SÍ la
+tienes aquí. Da los apoyos concretos y cierra recordando confirmar los detalles
+con el aeropuerto/aerolínea.
+
+### A) Antes de viajar (preparación)
+- Avisa con anticipación al equipo de asistencia especial de la aerolínea y, si
+  se puede, al aeropuerto, para que preparen los apoyos.
+- Programas de "ensayo" o práctica en aeropuertos: en EE.UU. existe "Wings for
+  Autism" / "Wings for All" (y programas similares en otros países), donde la
+  familia practica todo el proceso —check-in, seguridad, abordar— en un día de
+  simulacro, antes del viaje real. Se buscan por el nombre + el aeropuerto.
+- Cordón de girasol (Hidden Disabilities Sunflower): programa internacional. Es
+  un cordón/lanyard verde con girasoles que la persona lleva puesto; el personal
+  capacitado entiende, SIN que tengas que explicar nada, que puede necesitar más
+  tiempo, paciencia o apoyo. Muchos aeropuertos y aerolíneas lo dan gratis en sus
+  mostradores, o se pide en la web del programa (hdsunflower.com).
+
+### B) En el aeropuerto
+- Salas sensoriales / espacios de calma: muchos aeropuertos grandes tienen
+  "sensory rooms" o zonas tranquilas, lejos del ruido y la multitud, para
+  regularse antes del vuelo. Verifica en la web del aeropuerto si el tuyo tiene.
+- Asistencia en el control de seguridad: en EE.UU. existe "TSA Cares" — llamas
+  con 72 horas de anticipación y te ayudan a pasar seguridad con más calma y
+  apoyo personalizado. En otros países se pide "asistencia especial" al
+  aeropuerto/aerolínea.
+- Preembarque / abordar primero: casi siempre puedes solicitarlo, para
+  acomodarse con calma y sin la presión de la fila.
+
+### C) Durante el viaje (apoyos prácticos)
+- Lleva audífonos o orejeras para el ruido, objetos de confort/regulación,
+  snacks conocidos y actividades favoritas (tablet, juguete).
+- Una tarjeta de comunicación o una nota breve para avisar a la tripulación de
+  las necesidades de tu peque puede ayudar mucho.
+- Explica el viaje con antelación con historias sociales o fotos del proceso
+  (aeropuerto, seguridad, avión) para reducir la ansiedad de lo desconocido.
+
+### Cómo citar este conocimiento
+Responde con calidez y seguridad, y cierra con algo como: "Fuente: conocimiento
+verificado de AllGo, verificado el 6 de septiembre de 2026. Como los servicios
+varían por aeropuerto y aerolínea, confírmalo con ellos antes de viajar." NO das
+consejo médico; para necesidades clínicas de la persona, sugiere hablar con su
+profesional de salud.
+`
+
+export const SPECIAL_NEEDS_TRAVEL_KB = `
+## CONOCIMIENTO VERIFICADO DE ALLGO — VIAJAR CON SÍNDROME DE DOWN, BAJA VISIÓN/CEGUERA Y PARÁLISIS CEREBRAL
+(Última verificación: 6 de septiembre de 2026. Marcos generales y estables, NO
+políticas de un aeropuerto o aerolínea concretos; recuérdale SIEMPRE confirmar
+en la web del aeropuerto y con su aerolínea. Para la política de una aerolínea
+específica usa lookup_airline_policy. NO das consejo médico.)
+
+IMPORTANTE PARA ALLI: cuando te pregunten por viajar con una persona con
+síndrome de Down, con baja visión o ceguera, o con parálisis cerebral, RESPONDE
+CON SEGURIDAD usando esta sección. NO digas que no tienes información — SÍ la
+tienes aquí. Da apoyos concretos y cierra recordando confirmar detalles con el
+aeropuerto/aerolínea.
+
+### 1) SÍNDROME DE DOWN
+- El cordón de girasol (Hidden Disabilities Sunflower) también aplica: lo lleva
+  puesto la persona y el personal capacitado entiende, sin explicaciones, que
+  puede necesitar más tiempo, paciencia y apoyo.
+- Pide asistencia especial a la aerolínea y preembarque para acomodarse con calma.
+- Comunicación clara, sencilla y con paciencia; anticipa el viaje con fotos o
+  historias sociales para reducir la ansiedad de lo desconocido.
+- Si hay una condición de salud asociada (p. ej. del corazón), consulta con su
+  médico antes de volar y lleva sus documentos/medicamentos en el equipaje de mano.
+
+### 2) BAJA VISIÓN O CEGUERA (débil visual)
+- Servicio de "meet and assist": el aeropuerto puede asignar a alguien que
+  acompañe/guíe a la persona desde el check-in hasta la puerta y el asiento.
+  Se solicita con anticipación a la aerolínea o al aeropuerto.
+- A bordo, la tripulación da un briefing de seguridad individual y una
+  orientación de dónde está todo (asiento, baño, botón de llamada).
+- El bastón blanco se permite en cabina. Si viaja con perro guía, hay requisitos
+  y papeles según la aerolínea y el país (revisa con lookup_airline_policy y las
+  reglas del destino).
+- Pide la información del vuelo en formato accesible y activa las funciones de
+  accesibilidad del teléfono (lector de pantalla, apps de navegación).
+
+### 3) PARÁLISIS CEREBRAL
+- Asistencia con silla de ruedas en el aeropuerto de punta a punta, preembarque y
+  transferencia asistida al asiento; solicítalo con anticipación.
+- Si viaja con su propia silla de ruedas (manual o eléctrica), aplica todo lo de
+  la sección de movilidad: etiquétala, lleva instrucciones de manejo, y conoce
+  tus derechos si llega dañada. (Ver el conocimiento de movilidad de AllGo.)
+- Pide asiento con más espacio; ten en cuenta que el baño accesible a bordo es
+  limitado, así que planifica. El cordón de girasol también ayuda.
+- Si hay dificultad del habla, una tarjeta de comunicación o notas escritas
+  facilitan avisar a la tripulación lo que se necesita.
+
+### Cómo citar este conocimiento
+Responde con calidez y seguridad, y cierra con algo como: "Fuente: conocimiento
+verificado de AllGo, verificado el 6 de septiembre de 2026. Como los servicios
+varían por aeropuerto y aerolínea, confírmalo con ellos antes de viajar." Para
+necesidades clínicas de la persona, sugiere hablar con su profesional de salud.
+`
