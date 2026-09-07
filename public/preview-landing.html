@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AllGo Travel App — Viajar sin límites es para todos</title>
+<style>
+  :root{
+    --navy:#0E2536; --navy2:#123049; --teal:#12B5A6; --orange:#FF6B35;
+    --cream:#FDF7F0; --ink:#0E2536; --muted:#5C7285; --white:#ffffff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);background:var(--cream);overflow-x:hidden;line-height:1.5}
+  .wrap{max-width:520px;margin:0 auto;position:relative}
+  /* reveal */
+  .rv{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+  .rv.in{opacity:1;transform:none}
+  .d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}
+
+  /* HERO */
+  .hero{position:relative;padding:66px 24px 54px;text-align:center;color:var(--white);
+    background:radial-gradient(120% 90% at 50% 0%,#17405c 0%,var(--navy) 55%,#091a27 100%);overflow:hidden}
+  .hero::before,.hero::after{content:"";position:absolute;border-radius:50%;filter:blur(2px);opacity:.5}
+  .hero::before{width:220px;height:220px;background:radial-gradient(circle,#12B5A6 0%,transparent 70%);top:-40px;right:-60px}
+  .hero::after{width:260px;height:260px;background:radial-gradient(circle,#FF6B35 0%,transparent 70%);bottom:-90px;left:-80px;opacity:.35}
+  .badge{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
+    background:rgba(18,181,166,.18);color:#6Fe9dc;border:1px solid rgba(18,181,166,.4);
+    padding:7px 14px;border-radius:999px;margin-bottom:22px}
+  .logo{width:74px;height:74px;border-radius:22px;margin:0 auto 18px;display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(135deg,var(--teal),#0c8f83);box-shadow:0 12px 30px rgba(18,181,166,.35);
+    font-size:34px}
+  h1{font-size:33px;line-height:1.12;font-weight:800;letter-spacing:-.5px;margin-bottom:14px}
+  h1 .hl{color:var(--orange)}
+  .sub{font-size:16px;color:#c9d8e4;max-width:400px;margin:0 auto 26px}
+  .cta{display:inline-flex;align-items:center;gap:8px;background:var(--orange);color:#fff;font-weight:800;
+    font-size:17px;padding:16px 30px;border-radius:999px;text-decoration:none;
+    box-shadow:0 12px 26px rgba(255,107,53,.42);transition:transform .2s}
+  .cta:active{transform:scale(.97)}
+  .cta.small{padding:14px 26px;font-size:15px}
+  .nocard{display:block;margin-top:12px;font-size:13px;color:#9db3c4}
+
+  /* TRUST BAR */
+  .trust{background:var(--navy2);color:#cfe0ec;padding:16px 20px;display:flex;justify-content:center;gap:8px;
+    flex-wrap:wrap;font-size:12.5px;font-weight:600}
+  .trust span{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+  .trust b{color:var(--teal)}
+
+  section{padding:52px 24px}
+  .eyebrow{font-size:12px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
+  h2{font-size:26px;font-weight:800;letter-spacing:-.4px;line-height:1.18;margin-bottom:14px}
+  p.lead{font-size:16px;color:var(--muted)}
+
+  /* ALLI CHAT MOCK */
+  .phone{background:#fff;border-radius:26px;padding:18px 16px 20px;box-shadow:0 20px 50px rgba(14,37,54,.16);
+    border:1px solid #eadfd2}
+  .ah{display:flex;align-items:center;gap:10px;padding-bottom:14px;border-bottom:1px solid #f0e8dd;margin-bottom:14px}
+  .ah .av{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,var(--teal),#0c8f83);
+    display:flex;align-items:center;justify-content:center;font-size:18px}
+  .ah .nm{font-weight:800;font-size:15px}
+  .ah .on{font-size:12px;color:#25b07a;font-weight:600}
+  .bub{max-width:88%;padding:12px 14px;border-radius:16px;font-size:14px;margin-bottom:10px;line-height:1.45}
+  .bub.u{margin-left:auto;background:var(--navy);color:#fff;border-bottom-right-radius:5px}
+  .bub.a{background:#f3ece2;color:var(--ink);border-bottom-left-radius:5px}
+  .src{font-size:12px;color:var(--muted);background:#eef7f5;border-left:3px solid var(--teal);
+    padding:8px 10px;border-radius:8px;margin-top:2px}
+
+  /* GRID 10 */
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:22px}
+  .card{background:#fff;border:1px solid #efe6d9;border-radius:16px;padding:15px 14px;font-weight:700;font-size:13.5px;
+    display:flex;align-items:center;gap:9px;box-shadow:0 4px 14px rgba(14,37,54,.04)}
+  .card .ic{font-size:19px}
+
+  /* STORY */
+  .story{background:linear-gradient(160deg,#123049,#0E2536);color:#fff}
+  .story h2{color:#fff}
+  .story p{color:#c9d8e4;font-size:15.5px;margin-bottom:14px}
+  .founder{font-size:13px;color:var(--teal);font-weight:700}
+
+  /* TESTIMONIAL */
+  .quote{background:#fff;border-radius:20px;padding:26px 22px;box-shadow:0 14px 40px rgba(14,37,54,.08);
+    border:1px solid #efe6d9;text-align:center}
+  .stars{color:#FFB020;font-size:18px;letter-spacing:2px;margin-bottom:10px}
+  .quote p{font-size:16.5px;font-style:italic;color:var(--ink);margin-bottom:14px}
+  .who{font-weight:800;font-size:14px}.who span{display:block;color:var(--muted);font-weight:500;font-size:12.5px}
+
+  /* FINAL */
+  .final{text-align:center;background:radial-gradient(120% 100% at 50% 0%,#17405c,#0E2536)}
+  .final h2{color:#fff}.final p{color:#c9d8e4;margin-bottom:24px}
+
+  footer{background:#091a27;color:#7f97a8;text-align:center;padding:26px 20px;font-size:12.5px}
+  footer b{color:#cfe0ec}
+
+  /* sticky cta */
+  .sticky{position:fixed;left:0;right:0;bottom:0;z-index:50;padding:12px 16px calc(12px + env(safe-area-inset-bottom));
+    background:rgba(253,247,240,.92);backdrop-filter:blur(8px);border-top:1px solid #ecdfce;
+    display:flex;justify-content:center;transform:translateY(120%);transition:transform .4s ease}
+  .sticky.show{transform:none}
+  .sticky a{width:100%;max-width:420px;text-align:center;justify-content:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="badge rv">✨ Prueba gratis · sin tarjeta</div>
+    <div class="logo rv d1">🌍</div>
+    <h1 class="rv d1">Viajar sin límites<br><span class="hl">es para todos</span></h1>
+    <p class="sub rv d2">Planifica tu viaje accesible con <b style="color:#fff">Alli</b>, tu asistente con IA. Te dice exactamente qué pedir, con el dato verificado, su fuente y su fecha.</p>
+    <a class="cta rv d3" href="https://allgotravel.app/prueba-ali.html">Prueba a Alli gratis →</a>
+    <span class="nocard rv d3">No pedimos tarjeta. Empieza en 10 segundos.</span>
+  </header>
+
+  <!-- TRUST -->
+  <div class="trust">
+    <span>🔎 <b>Verificado</b> con fuente</span>
+    <span>📅 <b>Con fecha</b></span>
+    <span>💛 <b>Nunca</b> inventamos</span>
+  </div>
+
+  <!-- PROBLEM -->
+  <section>
+    <div class="eyebrow rv">El problema</div>
+    <h2 class="rv d1">Viajar con una necesidad especial no debería dar miedo.</h2>
+    <p class="lead rv d2">La información está dispersa, desactualizada y muchas veces equivocada. Y un dato mal te puede costar el vuelo. AllGo Travel App reúne todo en un solo lugar, verificado, para que viajes con seguridad.</p>
+  </section>
+
+  <!-- ALLI DEMO -->
+  <section style="padding-top:8px">
+    <div class="eyebrow rv">Alli en acción</div>
+    <h2 class="rv d1">Pregúntale. Te responde con la fuente.</h2>
+    <div class="phone rv d2" style="margin-top:20px">
+      <div class="ah"><div class="av">🐾</div><div><div class="nm">Alli</div><div class="on">● en línea</div></div></div>
+      <div class="bub u">¿Cómo viajo en avión con una persona con autismo?</div>
+      <div class="bub a">Puedes pedir asistencia especial y preembarque, buscar las salas sensoriales del aeropuerto y usar el cordón de girasol 🌻 para que el personal te dé más tiempo, sin explicar nada.</div>
+      <div class="src">📎 Fuente: conocimiento verificado de AllGo · Verificado: sep 2026</div>
+    </div>
+  </section>
+
+  <!-- COVERS 10 -->
+  <section style="padding-top:8px">
+    <div class="eyebrow rv">Para todos</div>
+    <h2 class="rv d1">Alli conoce las necesidades más comunes al viajar.</h2>
+    <div class="grid">
+      <div class="card rv d1"><span class="ic">♿</span>Movilidad</div>
+      <div class="card rv d1"><span class="ic">👁️</span>Baja visión</div>
+      <div class="card rv d2"><span class="ic">🦻</span>Audición</div>
+      <div class="card rv d2"><span class="ic">🧠</span>Autismo</div>
+      <div class="card rv d3"><span class="ic">💙</span>Síndrome de Down</div>
+      <div class="card rv d3"><span class="ic">🩺</span>Condiciones crónicas</div>
+      <div class="card rv d4"><span class="ic">🫂</span>Salud mental</div>
+      <div class="card rv d4"><span class="ic">🧓</span>Adultos mayores</div>
+    </div>
+  </section>
+
+  <!-- STORY -->
+  <section class="story">
+    <div class="eyebrow rv" style="color:#6Fe9dc">Por qué existe</div>
+    <h2 class="rv d1">Nació de una historia real.</h2>
+    <p class="rv d2">AllGo Travel App nació de vivir en carne propia lo difícil que es viajar cuando el mundo no está pensado para ti. Por eso Alli verifica cada política en su fuente oficial, con su fecha. Nunca inventamos un dato.</p>
+    <p class="founder rv d3">— Yadira Suárez, fundadora</p>
+  </section>
+
+  <!-- TESTIMONIAL -->
+  <section>
+    <div class="quote rv d1">
+      <div class="stars">★★★★★</div>
+      <p>“Por fin información clara y confiable. Viajé con mi perro de servicio sin miedo a que me rechazaran en el aeropuerto.”</p>
+      <div class="who">Sandra <span>Viajó a España con Muffin 🐕‍🦺</span></div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final">
+    <h2 class="rv">Tu próximo viaje empieza aquí.</h2>
+    <p class="rv d1">Pregúntale a Alli lo que quieras. Gratis, sin tarjeta.</p>
+    <a class="cta rv d2" href="https://allgotravel.app/prueba-ali.html">Prueba a Alli gratis →</a>
+  </section>
+
+  <footer>
+    <b>AllGo Travel App</b><br>allgotravel.app · @allgotravelapp<br>Turismo accesible con IA 🌍
+  </footer>
+
+</div>
+
+<!-- STICKY -->
+<div class="sticky" id="sticky">
+  <a class="cta small" href="https://allgotravel.app/prueba-ali.html">Prueba a Alli gratis →</a>
+</div>
+
+<script>
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.15});
+  document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+  const hero=document.querySelector('.hero'),sticky=document.getElementById('sticky');
+  const so=new IntersectionObserver((es)=>{es.forEach(e=>{sticky.classList.toggle('show',!e.isIntersecting)})},{threshold:0});
+  so.observe(hero);
+</script>
+</body>
+</html>
