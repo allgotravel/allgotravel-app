@@ -17,37 +17,31 @@
   .container{max-width:1120px;margin:0 auto;padding:0 24px}
   a{text-decoration:none}
 
-  /* ---------- reveal ---------- */
   .rv{opacity:0;transform:translateY(34px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
   .rv.in{opacity:1;transform:none}
   .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}.d5{transition-delay:.5s}
 
-  /* ---------- nav ---------- */
   nav{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:space-between;
-    padding:14px 24px;background:rgba(8,19,38,0);backdrop-filter:blur(0);transition:background .3s,backdrop-filter .3s;}
+    padding:14px 24px;transition:background .3s,backdrop-filter .3s}
   nav.stuck{background:rgba(8,19,38,.72);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.06)}
-  nav .brand{display:flex;align-items:center;gap:9px;color:#fff;font-weight:800;font-size:15px;letter-spacing:.2px}
+  nav .brand{display:flex;align-items:center;gap:9px;color:#fff;font-weight:800;font-size:15px}
   nav .brand .dot{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--teal),var(--purple));
     display:flex;align-items:center;justify-content:center;font-size:16px}
   nav .nbtn{color:#fff;font-weight:700;font-size:13px;background:linear-gradient(135deg,var(--orange),#ff8a5c);
     padding:9px 16px;border-radius:999px;box-shadow:0 6px 18px rgba(255,107,53,.4)}
 
-  /* ---------- HERO ---------- */
   .hero{position:relative;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;
-    text-align:center;color:#fff;padding:100px 24px 70px;overflow:hidden;isolation:isolate}
+    text-align:center;color:#fff;padding:100px 24px 80px;overflow:hidden;isolation:isolate}
   .hero .bg{position:absolute;inset:0;z-index:-3;
-    background:
-      radial-gradient(60% 50% at 20% 15%, rgba(124,92,255,.45), transparent 60%),
-      radial-gradient(55% 50% at 85% 25%, rgba(22,199,182,.42), transparent 60%),
-      radial-gradient(70% 60% at 50% 110%, rgba(255,107,53,.28), transparent 60%),
-      linear-gradient(180deg,#0a1730,#081326 60%,#060f20);}
-  .hero .aurora{position:absolute;inset:-20% -20% auto -20%;height:80%;z-index:-2;filter:blur(60px);opacity:.55;
-    background:conic-gradient(from 0deg,#16C7B6,#7C5CFF,#FF6B35,#16C7B6);
-    animation:spin 26s linear infinite;border-radius:50%}
+    background:radial-gradient(60% 50% at 20% 15%,rgba(124,92,255,.45),transparent 60%),
+      radial-gradient(55% 50% at 85% 25%,rgba(22,199,182,.42),transparent 60%),
+      radial-gradient(70% 60% at 50% 110%,rgba(255,107,53,.28),transparent 60%),
+      linear-gradient(180deg,#0a1730,#081326 60%,#060f20)}
+  .aurora{position:absolute;inset:-20% -20% auto -20%;height:80%;z-index:-2;filter:blur(60px);opacity:.55;
+    background:conic-gradient(from 0deg,#16C7B6,#7C5CFF,#FF6B35,#16C7B6);animation:spin 26s linear infinite;border-radius:50%}
   @keyframes spin{to{transform:rotate(360deg)}}
   .stars{position:absolute;inset:0;z-index:-1;pointer-events:none}
-  .stars i{position:absolute;width:2px;height:2px;background:#fff;border-radius:50%;opacity:.7;
-    animation:tw 3s ease-in-out infinite}
+  .stars i{position:absolute;width:2px;height:2px;background:#fff;border-radius:50%;animation:tw 3s ease-in-out infinite}
   @keyframes tw{0%,100%{opacity:.15}50%{opacity:.9}}
   .orb{position:absolute;border-radius:50%;filter:blur(2px);z-index:-1}
   .orb.o1{width:14px;height:14px;background:var(--teal);top:24%;left:14%;box-shadow:0 0 24px var(--teal)}
@@ -57,16 +51,14 @@
   .badge{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:700;letter-spacing:.4px;
     text-transform:uppercase;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);
     color:#cfe9e4;padding:8px 16px;border-radius:999px;margin-bottom:26px;backdrop-filter:blur(6px)}
-  .badge .pulse{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 0 rgba(22,199,182,.7);
-    animation:pulse 2s infinite}
+  .badge .pulse{width:8px;height:8px;border-radius:50%;background:var(--teal);animation:pulse 2s infinite}
   @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(22,199,182,.6)}70%{box-shadow:0 0 0 10px rgba(22,199,182,0)}100%{box-shadow:0 0 0 0 rgba(22,199,182,0)}}
   .globe{width:92px;height:92px;border-radius:50%;margin:0 auto 22px;display:flex;align-items:center;justify-content:center;
     font-size:44px;background:radial-gradient(circle at 35% 30%,#1c6f66,#0b3b37);
     box-shadow:0 0 0 6px rgba(22,199,182,.12),0 20px 60px rgba(22,199,182,.35);animation:float 6s ease-in-out infinite}
   @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
   .hero h1{font-size:clamp(38px,7vw,74px);line-height:1.04;font-weight:900;letter-spacing:-1.5px;margin-bottom:20px;max-width:14ch}
-  .hero h1 .grad{background:linear-gradient(100deg,#16C7B6,#7C5CFF 55%,#FF6B35);-webkit-background-clip:text;
-    background-clip:text;color:transparent}
+  .hero h1 .grad{background:linear-gradient(100deg,#16C7B6,#7C5CFF 55%,#FF6B35);-webkit-background-clip:text;background-clip:text;color:transparent}
   .hero .sub{font-size:clamp(16px,2.2vw,20px);color:#c6d6e4;max-width:620px;margin:0 auto 34px}
   .hero .sub b{color:#fff}
   .cta{display:inline-flex;align-items:center;gap:10px;font-weight:800;color:#fff;
@@ -74,6 +66,7 @@
     box-shadow:0 14px 40px rgba(255,107,53,.5);transition:transform .2s,box-shadow .2s;position:relative;overflow:hidden}
   .cta:hover{transform:translateY(-2px);box-shadow:0 18px 50px rgba(255,107,53,.6)}
   .cta:active{transform:scale(.97)}
+  .cta.ghost{background:transparent;border:1.5px solid rgba(255,255,255,.35);box-shadow:none;color:#fff}
   .cta .sheen{position:absolute;top:0;left:-60%;width:40%;height:100%;
     background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);animation:sheen 3.5s infinite}
   @keyframes sheen{0%{left:-60%}55%,100%{left:130%}}
@@ -82,7 +75,6 @@
     letter-spacing:1px;animation:bob 2s ease-in-out infinite}
   @keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,7px)}}
 
-  /* ---------- trust marquee ---------- */
   .marq{background:#0b1d33;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);
     overflow:hidden;white-space:nowrap;padding:14px 0}
   .marq .track{display:inline-block;animation:scrollx 22s linear infinite}
@@ -90,17 +82,26 @@
   .marq b{color:var(--teal)}
   @keyframes scrollx{to{transform:translateX(-50%)}}
 
-  /* ---------- light sections ---------- */
   .light{background:var(--cream);color:var(--ink)}
   section{padding:clamp(60px,9vw,110px) 0}
+  .center{text-align:center}
+  .center p.lead{margin-left:auto;margin-right:auto}
   .eyebrow{font-size:12.5px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--teal2);margin-bottom:14px}
   h2{font-size:clamp(26px,4vw,42px);font-weight:900;letter-spacing:-.8px;line-height:1.14;margin-bottom:16px}
   p.lead{font-size:clamp(16px,2vw,19px);color:var(--muted);max-width:640px}
   .two{display:grid;grid-template-columns:1fr;gap:44px;align-items:center}
-  @media(min-width:860px){.two{grid-template-columns:1.05fr .95fr;gap:60px}
-    .two.rev>.txt{order:2}}
+  @media(min-width:860px){.two{grid-template-columns:1.05fr .95fr;gap:60px}.two.rev>.txt{order:2}}
 
-  /* Alli device */
+  /* steps */
+  .steps{display:grid;grid-template-columns:1fr;gap:18px;margin-top:40px}
+  @media(min-width:760px){.steps{grid-template-columns:repeat(3,1fr);gap:22px}}
+  .step{background:rgba(255,255,255,.7);border:1px solid #efe6d9;border-radius:20px;padding:28px 22px;position:relative;transition:transform .25s,box-shadow .25s}
+  .step:hover{transform:translateY(-5px);box-shadow:0 16px 34px rgba(14,37,54,.1)}
+  .step .num{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;
+    background:linear-gradient(135deg,var(--teal),var(--purple));margin-bottom:16px;font-size:17px}
+  .step h3{font-size:19px;font-weight:800;margin-bottom:8px}
+  .step p{color:var(--muted);font-size:15px}
+
   .phone{background:#fff;border-radius:30px;padding:20px 18px 22px;max-width:400px;margin:0 auto;
     box-shadow:0 30px 80px rgba(8,19,38,.28);border:1px solid #eadfce;position:relative}
   .phone::before{content:"";position:absolute;inset:-2px;border-radius:32px;z-index:-1;
@@ -115,11 +116,9 @@
   .bub.a{background:#f3ece2;color:var(--ink);border-bottom-left-radius:5px}
   .cursor{display:inline-block;width:2px;height:15px;background:var(--teal2);margin-left:1px;animation:blink .8s steps(1) infinite;vertical-align:-2px}
   @keyframes blink{50%{opacity:0}}
-  .src{font-size:12px;color:var(--muted);background:#eef8f6;border-left:3px solid var(--teal);
-    padding:9px 11px;border-radius:9px;opacity:0;transform:translateY(10px);transition:.5s}
+  .src{font-size:12px;color:var(--muted);background:#eef8f6;border-left:3px solid var(--teal);padding:9px 11px;border-radius:9px;opacity:0;transform:translateY(10px);transition:.5s}
   .src.show{opacity:1;transform:none}
 
-  /* stats */
   .stats{background:linear-gradient(160deg,#0c2340,#081326);color:#fff}
   .statgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:26px;text-align:center}
   @media(min-width:760px){.statgrid{grid-template-columns:repeat(4,1fr)}}
@@ -127,30 +126,43 @@
     background:linear-gradient(120deg,#16C7B6,#7C5CFF);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1}
   .stat .l{color:#9fb4c6;font-size:13.5px;font-weight:600;margin-top:8px}
 
-  /* needs grid */
   .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:34px}
   @media(min-width:760px){.grid{grid-template-columns:repeat(4,1fr)}}
   .card{background:rgba(255,255,255,.7);border:1px solid #efe6d9;border-radius:18px;padding:20px 16px;font-weight:800;
-    font-size:14px;display:flex;flex-direction:column;gap:10px;align-items:flex-start;transition:transform .25s,box-shadow .25s,border-color .25s;backdrop-filter:blur(4px)}
+    font-size:14px;display:flex;flex-direction:column;gap:10px;align-items:flex-start;transition:transform .25s,box-shadow .25s,border-color .25s}
   .card:hover{transform:translateY(-5px);box-shadow:0 16px 34px rgba(14,37,54,.12);border-color:var(--teal)}
   .card .ic{font-size:26px}
 
-  /* story */
+  /* membership */
+  .plan{background:linear-gradient(160deg,#0e2740,#0a1b30);border:1px solid rgba(255,255,255,.1);border-radius:26px;
+    max-width:440px;margin:36px auto 0;padding:34px 30px;color:#fff;position:relative;overflow:hidden;
+    box-shadow:0 30px 70px rgba(0,0,0,.35)}
+  .plan::before{content:"";position:absolute;inset:-1px;border-radius:26px;z-index:-1;
+    background:linear-gradient(135deg,var(--teal),var(--purple),var(--orange));opacity:.6;filter:blur(16px)}
+  .plan .tag{display:inline-block;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1px;
+    color:#0a1b30;background:var(--teal);padding:5px 12px;border-radius:999px;margin-bottom:16px}
+  .plan .price{font-size:46px;font-weight:900;letter-spacing:-1px}.plan .price small{font-size:16px;color:#9fb4c6;font-weight:600}
+  .plan ul{list-style:none;margin:20px 0 24px;text-align:left}
+  .plan li{padding:9px 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:15px;display:flex;gap:10px;align-items:flex-start}
+  .plan li:last-child{border-bottom:none}.plan li b{color:var(--teal)}
+  .plan .fine{font-size:12.5px;color:#8 da;color:#8fa6b8;margin-top:12px}
+
+  /* community */
+  .comm{background:linear-gradient(135deg,#0d3b2f,#0a2b3f);color:#fff;text-align:center}
+  .comm h2{color:#fff}.comm p{color:#bfe0d6;max-width:600px;margin:0 auto 8px;font-size:clamp(16px,2vw,19px)}
+
   .story{position:relative;color:#fff;overflow:hidden;
     background:radial-gradient(70% 80% at 80% 10%,rgba(124,92,255,.35),transparent 60%),linear-gradient(160deg,#0e2740,#081326)}
   .story h2{color:#fff}.story p{color:#c6d6e4;font-size:clamp(16px,2vw,19px);margin-bottom:16px;max-width:640px}
   .founder{font-weight:800;color:var(--teal)}
 
-  /* testimonial */
   .quote{max-width:720px;margin:0 auto;text-align:center;background:#fff;border:1px solid #efe6d9;border-radius:26px;
     padding:40px 30px;box-shadow:0 24px 60px rgba(14,37,54,.1)}
   .stars2{color:#FFB020;font-size:22px;letter-spacing:3px;margin-bottom:14px}
   .quote p{font-size:clamp(18px,2.4vw,24px);font-style:italic;font-weight:600;margin-bottom:18px;line-height:1.4}
   .who{font-weight:800}.who span{display:block;color:var(--muted);font-weight:500;font-size:13px;margin-top:3px}
 
-  /* final */
-  .final{position:relative;text-align:center;color:#fff;overflow:hidden;
-    background:radial-gradient(80% 100% at 50% 0%,#123a5c,#081326)}
+  .final{position:relative;text-align:center;color:#fff;overflow:hidden;background:radial-gradient(80% 100% at 50% 0%,#123a5c,#081326)}
   .final .aurora{opacity:.4}
   .final h2{color:#fff;font-size:clamp(30px,5vw,52px)}
   .final p{color:#c6d6e4;margin:0 auto 30px;max-width:520px;font-size:clamp(16px,2vw,19px)}
@@ -164,27 +176,25 @@
   .sticky.show{transform:none}
   .sticky a{width:100%;max-width:440px;justify-content:center;padding:15px 26px;font-size:16px}
 
-  @media(prefers-reduced-motion:reduce){
-    *{animation:none!important}
-    .rv{opacity:1;transform:none;transition:none}
-    .bub,.src{opacity:1;transform:none}
-  }
+  .progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:70;
+    background:linear-gradient(90deg,var(--teal),var(--purple),var(--orange));box-shadow:0 0 10px rgba(22,199,182,.6)}
+  .hero .spot{position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:0;transition:opacity .5s;
+    background:radial-gradient(320px circle at var(--mx,50%) var(--my,40%),rgba(124,92,255,.20),transparent 62%)}
+  .tilt{transform:perspective(700px) rotateX(var(--rx,0)) rotateY(var(--ry,0));transition:transform .12s ease-out;transform-style:preserve-3d}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important}.rv{opacity:1;transform:none;transition:none}.bub,.src{opacity:1;transform:none}.tilt{transform:none!important}}
 </style>
 </head>
 <body>
+<div class="progress" id="progress"></div>
 
 <nav id="nav">
   <div class="brand"><span class="dot">🌍</span>AllGo Travel App</div>
   <a class="nbtn" href="https://allgotravel.app/prueba-ali.html">Prueba gratis</a>
 </nav>
 
-<!-- HERO -->
 <header class="hero">
-  <div class="bg"></div>
-  <div class="aurora"></div>
-  <div class="stars" id="stars"></div>
+  <div class="bg"></div><div class="aurora"></div><div class="spot" id="spot"></div><div class="stars" id="stars"></div>
   <span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span>
-
   <div class="badge rv"><span class="pulse"></span> Prueba gratis · sin tarjeta</div>
   <div class="globe rv d1">🌍</div>
   <h1 class="rv d1">Viajar sin límites <span class="grad">es para todos</span></h1>
@@ -194,20 +204,27 @@
   <div class="scrollcue">desliza ↓</div>
 </header>
 
-<!-- MARQUEE -->
-<div class="marq">
-  <div class="track" id="marqtrack">
-    <span>🔎 <b>Verificado</b> con fuente</span><span>📅 <b>Con fecha</b></span><span>💛 <b>Nunca</b> inventamos</span>
-    <span>✈️ Aerolíneas</span><span>🚢 Cruceros</span><span>🐕‍🦺 Perro de servicio</span><span>🌻 Cordón de girasol</span>
-  </div>
-</div>
+<div class="marq"><div class="track" id="marqtrack">
+  <span>🔎 <b>Verificado</b> con fuente</span><span>📅 <b>Con fecha</b></span><span>💛 <b>Nunca</b> inventamos</span>
+  <span>✈️ Aerolíneas</span><span>🚢 Cruceros</span><span>🐕‍🦺 Perro de servicio</span><span>🌻 Cordón de girasol</span>
+</div></div>
 
-<!-- PROBLEM -->
 <div class="light">
 <section><div class="container">
   <div class="eyebrow rv">El problema</div>
   <h2 class="rv d1">Viajar con una necesidad especial<br>no debería dar miedo.</h2>
   <p class="lead rv d2">La información está dispersa, desactualizada y muchas veces equivocada. Y un dato mal te puede costar el vuelo. AllGo Travel App lo reúne todo en un solo lugar, verificado, para que viajes con seguridad.</p>
+</div></section>
+
+<!-- CÓMO FUNCIONA -->
+<section style="padding-top:0"><div class="container center">
+  <div class="eyebrow rv">Cómo funciona</div>
+  <h2 class="rv d1">Tres pasos. Cero estrés.</h2>
+  <div class="steps">
+    <div class="step rv d1"><div class="num">1</div><h3>Pregúntale a Alli</h3><p>Escríbele tu duda: aerolínea, país, crucero, perro de servicio o necesidad de accesibilidad.</p></div>
+    <div class="step rv d2"><div class="num">2</div><h3>Recibe el dato verificado</h3><p>Alli te responde con la información exacta, su fuente oficial y su fecha. Nunca inventa nada.</p></div>
+    <div class="step rv d3"><div class="num">3</div><h3>Viaja tranquilo</h3><p>Llegas al aeropuerto con todo en regla y sin sustos. Solo disfrutas tu viaje.</p></div>
+  </div>
 </div></section>
 
 <!-- ALLI DEMO -->
@@ -221,8 +238,7 @@
     <div class="rv d2">
       <div class="phone" id="phone">
         <div class="ah"><div class="av">🐾</div><div><div class="nm">Alli</div><div class="on">● en línea</div></div></div>
-        <div class="bub u" id="b1"></div>
-        <div class="bub a" id="b2"></div>
+        <div class="bub u" id="b1"></div><div class="bub a" id="b2"></div>
         <div class="src" id="src">📎 Fuente: conocimiento verificado de AllGo · Verificado: sep 2026</div>
       </div>
     </div>
@@ -230,17 +246,15 @@
 </div></section>
 </div>
 
-<!-- STATS -->
 <section class="stats"><div class="container">
   <div class="statgrid">
     <div class="stat rv"><div class="n" data-n="25">0</div><div class="l">Aerolíneas verificadas</div></div>
     <div class="stat rv d1"><div class="n" data-n="10">0</div><div class="l">Necesidades cubiertas</div></div>
     <div class="stat rv d2"><div class="n" data-n="100" data-suf="%">0</div><div class="l">Datos con fuente</div></div>
-    <div class="stat rv d3"><div class="n" data-n="0" data-txt="∞">0</div><div class="l">Destinos por descubrir</div></div>
+    <div class="stat rv d3"><div class="n" data-txt="∞">0</div><div class="l">Destinos por descubrir</div></div>
   </div>
 </div></section>
 
-<!-- NEEDS -->
 <div class="light">
 <section><div class="container">
   <div class="eyebrow rv">Para todos</div>
@@ -258,7 +272,33 @@
 </div></section>
 </div>
 
-<!-- STORY -->
+<!-- MEMBRESÍA -->
+<section class="stats" style="background:linear-gradient(160deg,#0a1f38,#081326)"><div class="container center">
+  <div class="eyebrow rv" style="color:#7fe9dd">AllGo Travel Club</div>
+  <h2 class="rv d1" style="color:#fff">Todo tu viaje, en un solo lugar.</h2>
+  <p class="lead rv d2" style="color:#9fb4c6;margin:0 auto">Una membresía pensada para acompañarte en cada viaje y en el día a día.</p>
+  <div class="plan rv d2">
+    <span class="tag">Membresía</span>
+    <div class="price">$14.99 <small>/mes</small></div>
+    <ul>
+      <li><b>✓</b> Alli sin límites, siempre contigo</li>
+      <li><b>✓</b> Guías verificadas por aerolínea, país y crucero</li>
+      <li><b>✓</b> Tarjeta médica y de comunicación con código QR</li>
+      <li><b>✓</b> Una comunidad para viajar acompañado</li>
+    </ul>
+    <a class="cta" href="https://allgotravel.app/club.html" style="width:100%;justify-content:center"><span class="sheen"></span>Únete al Club →</a>
+    <div class="fine">Cancela cuando quieras.</div>
+  </div>
+</div></section>
+
+<!-- COMUNIDAD -->
+<section class="comm"><div class="container">
+  <div class="eyebrow rv" style="color:#7fe9dd">Comunidad</div>
+  <h2 class="rv d1">Nadie viaja solo.</h2>
+  <p class="rv d2">En nuestra comunidad compartimos experiencias, resolvemos dudas y nos acompañamos. Porque viajar con una necesidad especial se siente distinto cuando sabes que no estás sola.</p>
+  <p class="rv d3" style="color:#8fd4c4;font-weight:700">💬 Una comunidad que crece contigo</p>
+</div></section>
+
 <section class="story"><div class="aurora" style="opacity:.25"></div><div class="container">
   <div class="eyebrow rv" style="color:#7fe9dd">Por qué existe</div>
   <h2 class="rv d1">Nació de una historia real.</h2>
@@ -266,7 +306,6 @@
   <p class="founder rv d3">— Yadira Suárez, fundadora</p>
 </div></section>
 
-<!-- TESTIMONIAL -->
 <div class="light">
 <section><div class="container">
   <div class="quote rv">
@@ -277,7 +316,6 @@
 </div></section>
 </div>
 
-<!-- FINAL -->
 <section class="final"><div class="aurora"></div><div class="container">
   <h2 class="rv">Tu próximo viaje<br>empieza aquí.</h2>
   <p class="rv d1">Pregúntale a Alli lo que quieras. Gratis, sin tarjeta.</p>
@@ -293,51 +331,57 @@
 </div>
 
 <script>
-  const reduce = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-
-  // stars
+  const reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
   const sc=document.getElementById('stars');
-  for(let i=0;i<60;i++){const s=document.createElement('i');s.style.top=Math.random()*100+'%';
-    s.style.left=Math.random()*100+'%';s.style.animationDelay=(Math.random()*3)+'s';
-    s.style.opacity=(.2+Math.random()*.6);sc.appendChild(s);}
-
-  // duplicate marquee for seamless loop
+  for(let i=0;i<60;i++){const s=document.createElement('i');s.style.top=Math.random()*100+'%';s.style.left=Math.random()*100+'%';
+    s.style.animationDelay=(Math.random()*3)+'s';s.style.opacity=(.2+Math.random()*.6);sc.appendChild(s);}
   const mt=document.getElementById('marqtrack');mt.innerHTML+=mt.innerHTML;
-
-  // reveal
   const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.14});
   document.querySelectorAll('.rv').forEach(el=>io.observe(el));
-
-  // nav + sticky
   const nav=document.getElementById('nav'),sticky=document.getElementById('sticky'),hero=document.querySelector('.hero');
   const so=new IntersectionObserver((es)=>{es.forEach(e=>{nav.classList.toggle('stuck',!e.isIntersecting);sticky.classList.toggle('show',!e.isIntersecting);})},{threshold:0,rootMargin:'-70px 0px 0px 0px'});
   so.observe(hero);
-
-  // parallax orbs (throttled)
   if(!reduce){let ticking=false;const orbs=document.querySelectorAll('.orb');
     window.addEventListener('scroll',()=>{if(!ticking){requestAnimationFrame(()=>{const y=window.scrollY;
       orbs.forEach((o,i)=>{o.style.transform='translateY('+(y*(0.12+i*0.06))+'px)';});ticking=false;});ticking=true;}});}
-
-  // typewriter Alli
-  function type(el,txt,cb){if(reduce){el.textContent=txt;cb&&cb();return;}
+  function type(el,txt,cb){if(reduce){el.textContent=txt;el.classList.add('show');cb&&cb();return;}
     el.classList.add('show');let i=0;const cur=document.createElement('span');cur.className='cursor';el.appendChild(cur);
     const t=setInterval(()=>{cur.remove();el.textContent=txt.slice(0,i++);el.appendChild(cur);
       if(i>txt.length){clearInterval(t);cur.remove();cb&&cb();}},22);}
-  const b1=document.getElementById('b1'),b2=document.getElementById('b2'),src=document.getElementById('src');
-  let typed=false;
+  const b1=document.getElementById('b1'),b2=document.getElementById('b2'),src=document.getElementById('src');let typed=false;
   const po=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting&&!typed){typed=true;
     type(b1,'¿Cómo viajo en avión con una persona con autismo?',()=>{
       setTimeout(()=>type(b2,'Puedes pedir asistencia especial y preembarque, buscar las salas sensoriales del aeropuerto y usar el cordón de girasol 🌻 para que el personal te dé más tiempo, sin explicar nada.',()=>{
-        setTimeout(()=>src.classList.add('show'),200);}),450);});
-    po.disconnect();}})},{threshold:.4});
+        setTimeout(()=>src.classList.add('show'),200);}),450);});po.disconnect();}})},{threshold:.4});
   po.observe(document.getElementById('phone'));
-
-  // count-up stats
   function countUp(el){const target=+el.dataset.n,suf=el.dataset.suf||'',txt=el.dataset.txt;
     if(txt){el.textContent=txt;return;}if(reduce){el.textContent=target+suf;return;}
     let c=0;const step=Math.max(1,Math.round(target/45));const t=setInterval(()=>{c+=step;if(c>=target){c=target;clearInterval(t);}el.textContent=c+suf;},26);}
   const cs=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){countUp(e.target);cs.unobserve(e.target);}})},{threshold:.6});
   document.querySelectorAll('.stat .n').forEach(el=>cs.observe(el));
+
+  // scroll progress bar
+  const pb=document.getElementById('progress');
+  window.addEventListener('scroll',()=>{const h=document.documentElement;const p=h.scrollTop/(h.scrollHeight-h.clientHeight);
+    pb.style.width=(p*100)+'%';},{passive:true});
+
+  // hero spotlight follows pointer (desktop)
+  const spot=document.getElementById('spot');
+  if(!reduce&&window.matchMedia('(pointer:fine)').matches){
+    hero.addEventListener('pointermove',(e)=>{const r=hero.getBoundingClientRect();
+      spot.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');
+      spot.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%');spot.style.opacity='1';});
+    hero.addEventListener('pointerleave',()=>{spot.style.opacity='0';});
+  }
+
+  // subtle 3D tilt on cards & steps (desktop)
+  if(!reduce&&window.matchMedia('(pointer:fine)').matches){
+    document.querySelectorAll('.card,.step').forEach(el=>{el.classList.add('tilt');
+      el.addEventListener('pointermove',(e)=>{const r=el.getBoundingClientRect();
+        const px=(e.clientX-r.left)/r.width-.5,py=(e.clientY-r.top)/r.height-.5;
+        el.style.setProperty('--ry',(px*7)+'deg');el.style.setProperty('--rx',(-py*7)+'deg');});
+      el.addEventListener('pointerleave',()=>{el.style.setProperty('--ry','0deg');el.style.setProperty('--rx','0deg');});});
+  }
 </script>
 </body>
 </html>
