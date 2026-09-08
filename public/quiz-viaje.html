@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¿Qué necesitas para tu próximo viaje? — AllGo Travel App</title>
+<style>
+  :root{--navy:#081326;--teal:#16C7B6;--teal2:#0c8f83;--purple:#7C5CFF;--orange:#FF6B35;--ink:#0E2236;--muted:#8fb0c2;}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:#fff;
+    background:radial-gradient(60% 45% at 20% 10%,rgba(124,92,255,.4),transparent 60%),radial-gradient(55% 45% at 85% 20%,rgba(22,199,182,.38),transparent 60%),linear-gradient(180deg,#0a1730,#081326 60%,#060f20);
+    min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.5}
+  .wrap{max-width:640px;margin:0 auto;padding:26px 20px 60px}
+  .top{display:flex;align-items:center;gap:10px;margin-bottom:26px}
+  .top .dot{width:34px;height:34px;border-radius:10px;background:#fff;overflow:hidden;display:flex;align-items:center;justify-content:center}
+  .top .dot img{width:100%;height:100%;object-fit:cover}
+  .top b{font-weight:800;font-size:14px}.top b span{color:#4EA8E0}.top b i{color:#F5A628;font-style:normal}
+  .prog{height:6px;border-radius:999px;background:rgba(255,255,255,.1);margin:0 0 26px;overflow:hidden}
+  .prog>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--purple));transition:width .4s}
+  .card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:22px;padding:28px 22px;backdrop-filter:blur(6px)}
+  .eyebrow{font-size:12px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:#7fe9dd;margin-bottom:10px}
+  h1{font-size:26px;font-weight:900;letter-spacing:-.5px;line-height:1.15;margin-bottom:10px}
+  h1 .g{background:linear-gradient(100deg,#16C7B6,#7C5CFF 60%,#FF6B35);-webkit-background-clip:text;background-clip:text;color:transparent}
+  p.sub{color:#c6d6e4;font-size:15.5px;margin-bottom:22px}
+  .q{font-size:20px;font-weight:800;margin-bottom:18px}
+  .opts{display:flex;flex-direction:column;gap:11px}
+  .opt{display:flex;align-items:center;gap:12px;padding:15px 16px;border-radius:15px;background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.14);font-weight:700;font-size:15px;cursor:pointer;transition:.18s;text-align:left}
+  .opt:hover{border-color:var(--teal);background:rgba(22,199,182,.12);transform:translateY(-2px)}
+  .opt .ic{font-size:22px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;font-weight:800;color:#fff;
+    background:linear-gradient(135deg,var(--orange),#ff8a5c);padding:16px;border-radius:999px;font-size:16px;border:none;cursor:pointer;
+    box-shadow:0 12px 30px rgba(255,107,53,.4);transition:.2s}
+  .btn:hover{transform:translateY(-2px)}
+  .btn:disabled{opacity:.6}
+  .res li{list-style:none;display:flex;gap:11px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:15px;color:#eaf2f8}
+  .res li:last-child{border-bottom:none}.res li b{color:var(--teal)}
+  .gate{margin-top:22px;background:rgba(22,199,182,.1);border:1px solid rgba(22,199,182,.3);border-radius:16px;padding:20px}
+  .gate h3{font-size:17px;margin-bottom:6px}.gate p{color:#c6d6e4;font-size:13.5px;margin-bottom:12px}
+  .gate input{width:100%;padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);
+    color:#fff;font-size:16px;margin-bottom:10px}
+  .gate input::placeholder{color:#8fb0c2}
+  .fine{font-size:11.5px;color:#8fb0c2;text-align:center;margin-top:9px}
+  .hide{display:none}
+  a.link{color:#fff;text-decoration:underline;font-weight:700}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><span class="dot"><img src="/logo-allgo-circle.png" alt="AllGo"></span><b><span>AllGo</span> <i>Travel</i> App</b></div>
+  <div class="prog"><i id="bar"></i></div>
+
+  <div class="card" id="card">
+    <!-- intro -->
+    <div id="intro">
+      <div class="eyebrow">Test de 60 segundos</div>
+      <h1>¿Qué necesitas para <span class="g">tu próximo viaje?</span></h1>
+      <p class="sub">Responde 3 preguntas y te doy un mini-plan personalizado al instante — con información verificada, sin adivinar nada. 🌍</p>
+      <button class="btn" onclick="start()">Empezar →</button>
+    </div>
+    <!-- questions injected here -->
+    <div id="quiz" class="hide"></div>
+    <!-- result -->
+    <div id="result" class="hide"></div>
+  </div>
+</div>
+
+<script>
+  var SUPA_URL='https://ywtkkxpuebwqvmylzwew.supabase.co';
+  var SUPA_ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl3dGtreHB1ZWJ3cXZteWx6d2V3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI0MjE0MjEsImV4cCI6MjA5Nzk5NzQyMX0.8xGdNeqpGygiA3w8QhCxk3rmKOfkJb4btbbOqCJfDxk';
+  var Q=[
+    {q:'¿Con qué necesidad viajas?',k:'necesidad',o:[
+      ['♿','Movilidad / silla de ruedas','movilidad'],['👁️','Baja visión o ceguera','vision'],
+      ['🦻','Sordera o hipoacusia','audicion'],['🧠','Autismo / neurodivergencia','autismo'],
+      ['🐕‍🦺','Viajo con perro de servicio','perro'],['🧓','Adulto mayor / otra','mayores']]},
+    {q:'¿A dónde vas?',k:'destino',o:[
+      ['🇺🇸','Estados Unidos','usa'],['🇪🇺','Europa','europa'],['🌎','Latinoamérica','latam'],
+      ['🚢','Un crucero','crucero'],['🤔','Aún no lo sé','indeciso']]},
+    {q:'¿Cómo viajas?',k:'compania',o:[
+      ['🧍','Sola/o','sola'],['👨‍👩‍👧','Con mi familia','familia'],['🫂','Cuidando a un ser querido','cuidando']]}
+  ];
+  var TIPS={
+    movilidad:['Pide <b>asistencia con silla de ruedas de punta a punta</b> en el aeropuerto y preembarque.','Si tu silla es eléctrica, etiquétala y lleva las instrucciones de la batería.','Conoce tus derechos si la silla llega dañada.'],
+    vision:['Pide el servicio <b>“meet and assist”</b>: te acompañan del check-in al asiento.','A bordo pide el briefing de seguridad individual.','El bastón blanco va en cabina; el perro guía tiene requisitos propios.'],
+    audicion:['<b>Autoidentifícate</b> con la aerolínea para recibir la información accesible (avisos y cambios).','Pide asiento cerca del frente y para tu intérprete o acompañante.','En seguridad no te quitan los audífonos; una app de voz-a-texto ayuda.'],
+    autismo:['Busca las <b>salas sensoriales</b> del aeropuerto y pide preembarque.','Usa el <b>cordón de girasol 🌻</b> para que el personal te dé más tiempo y paciencia.','Anticipa el viaje con fotos o historias sociales.'],
+    perro:['En vuelos de EE.UU., tu perro de servicio viaja en cabina; se pide el <b>formulario del DOT</b> con anticipación.','Revisa los requisitos del país de destino y, para volver a EE.UU., los del CDC.','Lleva vacunas y documentos al día.'],
+    mayores:['Pide <b>asistencia de punta a punta</b> y preembarque.','Lleva una identificación médica y organiza las medicinas por horario en el equipaje de mano.','El <b>cordón de girasol 🌻</b> ayuda a señalar la necesidad de paciencia.']
+  };
+  var ans={},i=0;
+  function bar(){document.getElementById('bar').style.width=((i)/(Q.length))*100+'%';}
+  function start(){document.getElementById('intro').classList.add('hide');document.getElementById('quiz').classList.remove('hide');render();}
+  function render(){
+    bar();
+    var s=Q[i];
+    var h='<div class="q">'+s.q+'</div><div class="opts">';
+    s.o.forEach(function(o){h+='<button class="opt" onclick="pick(\''+s.k+'\',\''+o[2]+'\')"><span class="ic">'+o[0]+'</span>'+o[1]+'</button>';});
+    h+='</div>';
+    document.getElementById('quiz').innerHTML=h;
+  }
+  function pick(k,v){ans[k]=v;i++;if(i<Q.length){render();}else{finish();}}
+  function finish(){
+    document.getElementById('bar').style.width='100%';
+    document.getElementById('quiz').classList.add('hide');
+    var t=TIPS[ans.necesidad]||TIPS.mayores;
+    var intl=(ans.destino==='europa'||ans.destino==='latam');
+    var extra=[];
+    if(ans.destino==='crucero')extra.push('Para cruceros, avisa a la naviera tus necesidades al reservar: cabinas accesibles, embarque prioritario y menús especiales.');
+    if(intl)extra.push('Viaje internacional: revisa pasaporte, requisitos del país y documentos con tiempo.');
+    if(ans.compania==='cuidando')extra.push('Como acompañante, lleva copia de documentos y medicamentos de tu ser querido, y confirma la asistencia para ambos.');
+    var all=t.concat(extra);
+    var lis=all.map(function(x){return '<li><b>✓</b> <span>'+x+'</span></li>';}).join('');
+    var h='<div class="eyebrow">Tu mini-plan</div><h1>Esto es lo que <span class="g">necesitas llevar</span></h1>'+
+      '<ul class="res">'+lis+'</ul>'+
+      '<div class="gate" id="gate"><h3>¿Quieres el plan COMPLETO para tu vuelo? ✨</h3>'+
+      '<p>Déjame tu correo y Alli, tu asistente con IA, te arma el detalle exacto para tu aerolínea y país — verificado, con su fuente.</p>'+
+      '<input id="email" type="email" placeholder="tu@correo.com" inputmode="email">'+
+      '<button class="btn" id="gbtn" onclick="save()">Enviarme mi plan →</button>'+
+      '<div class="fine">Sin spam. Solo tu guía y novedades de AllGo Travel App.</div></div>';
+    var r=document.getElementById('result');r.innerHTML=h;r.classList.remove('hide');
+  }
+  function save(){
+    var e=(document.getElementById('email').value||'').trim();
+    if(!e||e.indexOf('@')<0||e.indexOf('.')<0){document.getElementById('email').style.borderColor='#e11';return;}
+    var b=document.getElementById('gbtn');b.disabled=true;b.innerText='…';
+    if(window.fbq){fbq('track','Lead',{content_name:'Quiz Viaje',value:14.99,currency:'USD'});}
+    fetch(SUPA_URL+'/rest/v1/leads',{method:'POST',
+      headers:{'apikey':SUPA_ANON,'Authorization':'Bearer '+SUPA_ANON,'Content-Type':'application/json','Prefer':'return=minimal'},
+      body:JSON.stringify({email:e,source:'quiz-viaje',meta:ans})}).catch(function(){});
+    document.getElementById('gate').innerHTML='<h3>¡Listo! 🎉 Tu plan va en camino.</h3>'+
+      '<p>Mientras tanto, pregúntale a Alli, tu asistente con IA, lo que quieras sobre tu viaje — es gratis.</p>'+
+      '<a class="btn" style="text-decoration:none" href="/prueba-ali.html">Hablar con Alli gratis →</a>';
+  }
+</script>
+</body>
+</html>

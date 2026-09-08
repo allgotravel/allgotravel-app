@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tu checklist de viaje accesible — AllGo Travel App</title>
+<style>
+  :root{--navy:#081326;--teal:#16C7B6;--purple:#7C5CFF;--orange:#FF6B35;}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:#fff;
+    background:radial-gradient(60% 45% at 20% 10%,rgba(124,92,255,.4),transparent 60%),radial-gradient(55% 45% at 85% 20%,rgba(22,199,182,.38),transparent 60%),linear-gradient(180deg,#0a1730,#081326 60%,#060f20);
+    min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.5}
+  .wrap{max-width:640px;margin:0 auto;padding:26px 20px 60px}
+  .top{display:flex;align-items:center;gap:10px;margin-bottom:24px}
+  .top .dot{width:34px;height:34px;border-radius:10px;background:#fff;overflow:hidden;display:flex;align-items:center;justify-content:center}
+  .top .dot img{width:100%;height:100%;object-fit:cover}
+  .top b{font-weight:800;font-size:14px}.top b span{color:#4EA8E0}.top b i{color:#F5A628;font-style:normal}
+  .card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:22px;padding:28px 22px;backdrop-filter:blur(6px)}
+  .eyebrow{font-size:12px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:#7fe9dd;margin-bottom:10px}
+  h1{font-size:26px;font-weight:900;letter-spacing:-.5px;line-height:1.15;margin-bottom:10px}
+  h1 .g{background:linear-gradient(100deg,#16C7B6,#7C5CFF 60%,#FF6B35);-webkit-background-clip:text;background-clip:text;color:transparent}
+  p.sub{color:#c6d6e4;font-size:15.5px;margin-bottom:22px}
+  label{display:block;font-weight:700;font-size:14px;margin:16px 0 7px}
+  select{width:100%;padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;font-size:16px;appearance:none}
+  select option{color:#0E2236}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;font-weight:800;color:#fff;
+    background:linear-gradient(135deg,var(--orange),#ff8a5c);padding:16px;border-radius:999px;font-size:16px;border:none;cursor:pointer;
+    box-shadow:0 12px 30px rgba(255,107,53,.4);transition:.2s;margin-top:20px}
+  .btn:hover{transform:translateY(-2px)}
+  .chk{list-style:none;margin-top:6px}
+  .chk li{display:flex;gap:12px;align-items:flex-start;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:15px;color:#eaf2f8;cursor:pointer}
+  .chk li:last-child{border-bottom:none}
+  .chk .box{width:24px;height:24px;border-radius:7px;border:2px solid var(--teal);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:15px;transition:.15s}
+  .chk li.on .box{background:var(--teal)}
+  .chk li.on span{opacity:.55;text-decoration:line-through}
+  .gate{margin-top:22px;background:rgba(22,199,182,.1);border:1px solid rgba(22,199,182,.3);border-radius:16px;padding:20px}
+  .gate h3{font-size:17px;margin-bottom:6px}.gate p{color:#c6d6e4;font-size:13.5px;margin-bottom:12px}
+  .gate input{width:100%;padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;font-size:16px;margin-bottom:10px}
+  .gate input::placeholder{color:#8fb0c2}
+  .fine{font-size:11.5px;color:#8fb0c2;text-align:center;margin-top:9px}
+  .hide{display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><span class="dot"><img src="/logo-allgo-circle.png" alt="AllGo"></span><b><span>AllGo</span> <i>Travel</i> App</b></div>
+  <div class="card">
+    <div id="form">
+      <div class="eyebrow">Checklist personalizado ✅</div>
+      <h1>Tu checklist de <span class="g">viaje accesible</span></h1>
+      <p class="sub">Responde 3 cosas y te armo la lista exacta de lo que no puedes olvidar para tu viaje.</p>
+      <label>¿Con qué necesidad viajas?</label>
+      <select id="need">
+        <option value="">Elige una…</option>
+        <option value="movilidad">Movilidad / silla de ruedas</option>
+        <option value="vision">Baja visión o ceguera</option>
+        <option value="audicion">Sordera o hipoacusia</option>
+        <option value="autismo">Autismo / neurodivergencia</option>
+        <option value="mayores">Adulto mayor / condición de salud</option>
+        <option value="general">Otra / general</option>
+      </select>
+      <label>¿Viajas con perro de servicio?</label>
+      <select id="dog"><option value="">Elige…</option><option value="si">Sí</option><option value="no">No</option></select>
+      <label>¿Es un viaje internacional?</label>
+      <select id="intl"><option value="">Elige…</option><option value="si">Sí</option><option value="no">No, nacional</option></select>
+      <button class="btn" onclick="build()">Armar mi checklist →</button>
+    </div>
+    <div id="result" class="hide"></div>
+  </div>
+</div>
+
+<script>
+  var SUPA_URL='https://ywtkkxpuebwqvmylzwew.supabase.co';
+  var SUPA_ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl3dGtreHB1ZWJ3cXZteWx6d2V3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI0MjE0MjEsImV4cCI6MjA5Nzk5NzQyMX0.8xGdNeqpGygiA3w8QhCxk3rmKOfkJb4btbbOqCJfDxk';
+  var sel={};
+  var BASE={
+    movilidad:['Solicitar asistencia con silla de ruedas y preembarque','Etiqueta e instrucciones de la silla (si es eléctrica, datos de la batería)'],
+    vision:['Solicitar servicio “meet and assist” en el aeropuerto','Bastón blanco a mano; activar lector de pantalla del teléfono'],
+    audicion:['Autoidentificarte con la aerolínea para recibir avisos accesibles','App de voz-a-texto lista para seguridad'],
+    autismo:['Ubicar salas sensoriales del aeropuerto','Cordón de girasol 🌻 + audífonos/orejeras y objetos de confort','Historia social o fotos del proceso'],
+    mayores:['Solicitar asistencia de punta a punta y preembarque','Identificación médica con contacto de emergencia'],
+    general:['Solicitar asistencia especial al reservar']
+  };
+  function build(){
+    var n=document.getElementById('need').value,dog=document.getElementById('dog').value,intl=document.getElementById('intl').value;
+    if(!n||!dog||!intl){alert('Responde las 3 preguntas 🙂');return;}
+    sel={need:n,dog:dog,intl:intl};
+    var items=['Documento de identidad / pasaporte vigente','Medicamentos en el equipaje de mano, con receta o carta médica','Cordón de girasol para señalar tu necesidad sin explicar'];
+    (BASE[n]||[]).forEach(function(x){items.push(x);});
+    if(dog==='si'){items.push('Formulario del DOT (vuelos EE.UU.) enviado con anticipación');items.push('Certificado de vacunas del perro y sus documentos al día');}
+    if(intl==='si'){items.push('Requisitos del país de destino (microchip, vacunas, certificados)');items.push('Seguro de viaje que cubra tu necesidad');}
+    items.push('Confirmar la asistencia especial 48–72h antes del vuelo');
+    var lis=items.map(function(x){return '<li onclick="this.classList.toggle(\'on\')"><span class="box">✓</span><span>'+x+'</span></li>';}).join('');
+    var h='<div class="eyebrow">Tu checklist</div><h1><span class="g">'+items.length+' cosas</span> para tu viaje</h1>'+
+      '<ul class="chk">'+lis+'</ul>'+
+      '<div class="gate" id="gate"><h3>Guarda tu checklist y recíbelo por correo 📩</h3>'+
+      '<p>Te lo mando + Alli, tu asistente con IA, te ayuda a completar cada punto para tu aerolínea y país.</p>'+
+      '<input id="email" type="email" placeholder="tu@correo.com" inputmode="email">'+
+      '<button class="btn" id="gbtn" style="margin-top:0" onclick="save()">Enviarme mi checklist →</button>'+
+      '<div class="fine">Sin spam. Solo tu guía y novedades de AllGo Travel App.</div></div>';
+    document.getElementById('form').classList.add('hide');
+    var r=document.getElementById('result');r.innerHTML=h;r.classList.remove('hide');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  function save(){
+    var e=(document.getElementById('email').value||'').trim();
+    if(!e||e.indexOf('@')<0||e.indexOf('.')<0){document.getElementById('email').style.borderColor='#e11';return;}
+    var b=document.getElementById('gbtn');b.disabled=true;b.innerText='…';
+    if(window.fbq){fbq('track','Lead',{content_name:'Checklist Viaje',value:14.99,currency:'USD'});}
+    fetch(SUPA_URL+'/rest/v1/leads',{method:'POST',
+      headers:{'apikey':SUPA_ANON,'Authorization':'Bearer '+SUPA_ANON,'Content-Type':'application/json','Prefer':'return=minimal'},
+      body:JSON.stringify({email:e,source:'checklist-viaje',meta:sel})}).catch(function(){});
+    document.getElementById('gate').innerHTML='<h3>¡Listo! 🎉 Tu checklist va en camino.</h3>'+
+      '<p>Pregúntale a Alli, tu asistente con IA, para completar cada punto — gratis.</p>'+
+      '<a class="btn" style="margin-top:0;text-decoration:none" href="/prueba-ali.html">Hablar con Alli gratis →</a>';
+  }
+</script>
+</body>
+</html>

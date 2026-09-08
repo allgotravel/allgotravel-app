@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¿Puedes volar con tu perro de servicio? — AllGo Travel App</title>
+<style>
+  :root{--navy:#081326;--teal:#16C7B6;--purple:#7C5CFF;--orange:#FF6B35;}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:#fff;
+    background:radial-gradient(60% 45% at 20% 10%,rgba(124,92,255,.4),transparent 60%),radial-gradient(55% 45% at 85% 20%,rgba(22,199,182,.38),transparent 60%),linear-gradient(180deg,#0a1730,#081326 60%,#060f20);
+    min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.5}
+  .wrap{max-width:640px;margin:0 auto;padding:26px 20px 60px}
+  .top{display:flex;align-items:center;gap:10px;margin-bottom:24px}
+  .top .dot{width:34px;height:34px;border-radius:10px;background:#fff;overflow:hidden;display:flex;align-items:center;justify-content:center}
+  .top .dot img{width:100%;height:100%;object-fit:cover}
+  .top b{font-weight:800;font-size:14px}.top b span{color:#4EA8E0}.top b i{color:#F5A628;font-style:normal}
+  .card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:22px;padding:28px 22px;backdrop-filter:blur(6px)}
+  .eyebrow{font-size:12px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:#7fe9dd;margin-bottom:10px}
+  h1{font-size:26px;font-weight:900;letter-spacing:-.5px;line-height:1.15;margin-bottom:10px}
+  h1 .g{background:linear-gradient(100deg,#16C7B6,#7C5CFF 60%,#FF6B35);-webkit-background-clip:text;background-clip:text;color:transparent}
+  p.sub{color:#c6d6e4;font-size:15.5px;margin-bottom:22px}
+  label{display:block;font-weight:700;font-size:14px;margin:16px 0 7px}
+  select{width:100%;padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;font-size:16px;appearance:none}
+  select option{color:#0E2236}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;font-weight:800;color:#fff;
+    background:linear-gradient(135deg,var(--orange),#ff8a5c);padding:16px;border-radius:999px;font-size:16px;border:none;cursor:pointer;
+    box-shadow:0 12px 30px rgba(255,107,53,.4);transition:.2s;margin-top:20px}
+  .btn:hover{transform:translateY(-2px)}
+  .res li{list-style:none;display:flex;gap:11px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:15px;color:#eaf2f8}
+  .res li:last-child{border-bottom:none}.res li b{color:var(--teal)}
+  .note{font-size:12.5px;color:#8fb0c2;background:rgba(255,255,255,.05);border-left:3px solid var(--teal);padding:10px 12px;border-radius:8px;margin-top:14px}
+  .gate{margin-top:22px;background:rgba(255,107,53,.12);border:1px solid rgba(255,107,53,.3);border-radius:16px;padding:20px}
+  .gate h3{font-size:17px;margin-bottom:6px}.gate p{color:#c6d6e4;font-size:13.5px;margin-bottom:12px}
+  .gate input{width:100%;padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;font-size:16px;margin-bottom:10px}
+  .gate input::placeholder{color:#8fb0c2}
+  .fine{font-size:11.5px;color:#8fb0c2;text-align:center;margin-top:9px}
+  .hide{display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><span class="dot"><img src="/logo-allgo-circle.png" alt="AllGo"></span><b><span>AllGo</span> <i>Travel</i> App</b></div>
+  <div class="card">
+    <div id="form">
+      <div class="eyebrow">Verificador · 30 segundos 🐕‍🦺</div>
+      <h1>¿Puedes volar con tu <span class="g">perro de servicio?</span></h1>
+      <p class="sub">Dime tu aerolínea y a dónde vas, y te digo qué necesitas para volar sin que te rechacen en el aeropuerto.</p>
+      <label>Tu aerolínea</label>
+      <select id="airline">
+        <option value="">Elige una…</option>
+        <option>American Airlines</option><option>Delta</option><option>United</option><option>JetBlue</option>
+        <option>Southwest</option><option>Iberia</option><option>Avianca</option><option>LATAM</option>
+        <option>Copa</option><option>Otra / no está aquí</option>
+      </select>
+      <label>¿A dónde vuelas?</label>
+      <select id="dest">
+        <option value="">Elige una…</option>
+        <option value="usa">Dentro de Estados Unidos</option>
+        <option value="intl-out">Desde EE.UU. al extranjero</option>
+        <option value="intl-in">Regreso al extranjero → EE.UU.</option>
+        <option value="latam">Dentro de Latinoamérica</option>
+        <option value="europa">Dentro de Europa</option>
+      </select>
+      <button class="btn" onclick="check()">Verificar ahora →</button>
+    </div>
+    <div id="result" class="hide"></div>
+  </div>
+</div>
+
+<script>
+  var SUPA_URL='https://ywtkkxpuebwqvmylzwew.supabase.co';
+  var SUPA_ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl3dGtreHB1ZWJ3cXZteWx6d2V3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI0MjE0MjEsImV4cCI6MjA5Nzk5NzQyMX0.8xGdNeqpGygiA3w8QhCxk3rmKOfkJb4btbbOqCJfDxk';
+  var lastSel={};
+  function check(){
+    var a=document.getElementById('airline').value, d=document.getElementById('dest').value;
+    if(!a||!d){alert('Elige tu aerolínea y tu destino 🙂');return;}
+    lastSel={airline:a,dest:d};
+    var tips=[];
+    tips.push('Tu perro de servicio <b>NO paga pasaje</b> y viaja contigo en cabina, a tus pies — no como equipaje.');
+    if(d==='usa'||d==='intl-out'||d==='intl-in'){
+      tips.push('En aerolíneas de EE.UU., bajo el <b>Air Carrier Access Act</b> se pide el <b>formulario del DOT</b> (US DOT Service Animal Air Transportation Form) enviado con anticipación.');
+    }
+    if(d==='intl-in'){
+      tips.push('Para <b>volver a EE.UU. desde el extranjero</b>, el <b>CDC</b> exige requisitos de vacuna de la rabia y trámites — planifícalos con semanas de anticipación.');
+    }
+    if(d==='intl-out'||d==='europa'||d==='latam'){
+      tips.push('Cada <b>país de destino</b> tiene sus propias reglas de entrada de animales (microchip, vacunas, certificados). Revísalas con tiempo.');
+    }
+    tips.push('Avisa a la aerolínea con anticipación y lleva el certificado de vacunas y la documentación al día.');
+    var lis=tips.map(function(x){return '<li><b>✓</b> <span>'+x+'</span></li>';}).join('');
+    var h='<div class="eyebrow">Resultado para '+a+'</div><h1>Sí puedes viajar — <span class="g">esto es lo que necesitas</span></h1>'+
+      '<ul class="res">'+lis+'</ul>'+
+      '<div class="note">⚠️ Esto es lo general y verdadero. El <b>paso a paso exacto de '+a+'</b> y de tu país cambia por ruta y por fecha — por eso lo tenemos verificado, con su fuente, en la guía y en Alli.</div>'+
+      '<div class="gate" id="gate"><h3>Recibe el checklist exacto de tu aerolínea 🐕‍🦺</h3>'+
+      '<p>Déjame tu correo y te mando el detalle verificado + acceso a la guía «Viaja con tu Perro de Servicio».</p>'+
+      '<input id="email" type="email" placeholder="tu@correo.com" inputmode="email">'+
+      '<button class="btn" id="gbtn" style="margin-top:0" onclick="save()">Enviarme el checklist →</button>'+
+      '<div class="fine">Sin spam. Información verificada, nunca inventada.</div></div>';
+    document.getElementById('form').classList.add('hide');
+    var r=document.getElementById('result');r.innerHTML=h;r.classList.remove('hide');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  function save(){
+    var e=(document.getElementById('email').value||'').trim();
+    if(!e||e.indexOf('@')<0||e.indexOf('.')<0){document.getElementById('email').style.borderColor='#e11';return;}
+    var b=document.getElementById('gbtn');b.disabled=true;b.innerText='…';
+    if(window.fbq){fbq('track','Lead',{content_name:'Verificador Perro',value:37.00,currency:'USD'});}
+    fetch(SUPA_URL+'/rest/v1/leads',{method:'POST',
+      headers:{'apikey':SUPA_ANON,'Authorization':'Bearer '+SUPA_ANON,'Content-Type':'application/json','Prefer':'return=minimal'},
+      body:JSON.stringify({email:e,source:'verificador-perro',meta:lastSel})}).catch(function(){});
+    document.getElementById('gate').innerHTML='<h3>¡Listo! 🎉 Tu checklist va en camino.</h3>'+
+      '<p>Mira la guía completa «Viaja con tu Perro de Servicio» o pregúntale a Alli, tu asistente con IA, ahora mismo.</p>'+
+      '<a class="btn" style="margin-top:0;text-decoration:none" href="/perro.html">Ver la guía ($37) →</a>'+
+      '<a class="btn" style="background:rgba(255,255,255,.12);box-shadow:none;text-decoration:none" href="/prueba-ali.html">Preguntarle a Alli gratis →</a>';
+  }
+</script>
+</body>
+</html>
