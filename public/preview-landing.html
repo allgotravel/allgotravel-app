@@ -25,8 +25,9 @@
     padding:14px 24px;transition:background .3s,backdrop-filter .3s}
   nav.stuck{background:rgba(8,19,38,.72);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.06)}
   nav .brand{display:flex;align-items:center;gap:9px;color:#fff;font-weight:800;font-size:15px}
-  nav .brand .dot{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--teal),var(--purple));
+  nav .brand .dot{width:32px;height:32px;border-radius:9px;background:#fff;overflow:hidden;
     display:flex;align-items:center;justify-content:center;font-size:16px}
+  nav .brand .dot img{width:100%;height:100%;object-fit:cover}
   nav .nbtn{color:#fff;font-weight:700;font-size:13px;background:linear-gradient(135deg,var(--orange),#ff8a5c);
     padding:9px 16px;border-radius:999px;box-shadow:0 6px 18px rgba(255,107,53,.4)}
 
@@ -53,9 +54,10 @@
     color:#cfe9e4;padding:8px 16px;border-radius:999px;margin-bottom:26px;backdrop-filter:blur(6px)}
   .badge .pulse{width:8px;height:8px;border-radius:50%;background:var(--teal);animation:pulse 2s infinite}
   @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(22,199,182,.6)}70%{box-shadow:0 0 0 10px rgba(22,199,182,0)}100%{box-shadow:0 0 0 0 rgba(22,199,182,0)}}
-  .globe{width:92px;height:92px;border-radius:50%;margin:0 auto 22px;display:flex;align-items:center;justify-content:center;
-    font-size:44px;background:radial-gradient(circle at 35% 30%,#1c6f66,#0b3b37);
+  .globe{width:104px;height:104px;border-radius:50%;margin:0 auto 22px;display:flex;align-items:center;justify-content:center;
+    font-size:44px;background:#fff;overflow:hidden;
     box-shadow:0 0 0 6px rgba(22,199,182,.12),0 20px 60px rgba(22,199,182,.35);animation:float 6s ease-in-out infinite}
+  .globe img{width:100%;height:100%;object-fit:cover}
   @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
   .hero h1{font-size:clamp(38px,7vw,74px);line-height:1.04;font-weight:900;letter-spacing:-1.5px;margin-bottom:20px;max-width:14ch}
   .hero h1 .grad{background:linear-gradient(100deg,#16C7B6,#7C5CFF 55%,#FF6B35);-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -176,6 +178,35 @@
   .sticky.show{transform:none}
   .sticky a{width:100%;max-width:440px;justify-content:center;padding:15px 26px;font-size:16px}
 
+  .prods{display:grid;grid-template-columns:1fr;gap:16px;margin-top:36px;text-align:left}
+  @media(min-width:760px){.prods{grid-template-columns:repeat(3,1fr)}}
+  .prod{background:#fff;border:1px solid #efe6d9;border-radius:20px;padding:24px 20px;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}
+  .prod:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(14,37,54,.12)}
+  .prod .pic{font-size:34px;margin-bottom:12px}
+  .prod h3{font-size:18px;font-weight:800;margin-bottom:6px}
+  .prod p{color:var(--muted);font-size:14px;flex:1;margin-bottom:16px}
+  .prod .row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .prod .pr{font-weight:900;font-size:20px;color:var(--ink)}
+  .prod .go{font-weight:800;font-size:14px;color:#fff;white-space:nowrap;background:linear-gradient(135deg,var(--teal),var(--teal2));padding:10px 16px;border-radius:999px;transition:transform .2s}
+  .prod .go:hover{transform:translateY(-2px)}
+  .plans{display:grid;grid-template-columns:1fr;gap:16px;margin-top:38px;text-align:left}
+  @media(min-width:820px){.plans{grid-template-columns:repeat(3,1fr);align-items:stretch}}
+  .ptier{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:22px;padding:26px 22px;color:#fff;display:flex;flex-direction:column;position:relative}
+  .ptier.best{border-color:var(--teal);background:linear-gradient(160deg,rgba(22,199,182,.15),rgba(124,92,255,.10));box-shadow:0 22px 55px rgba(22,199,182,.2)}
+  .ptier .best-tag{position:absolute;top:-13px;left:50%;transform:translateX(-50%);white-space:nowrap;
+    background:linear-gradient(135deg,var(--teal),var(--purple));color:#fff;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;padding:6px 15px;border-radius:999px}
+  .ptier .pname{font-weight:800;font-size:17px;color:#cfe9e4}
+  .ptier .pprice{font-size:38px;font-weight:900;letter-spacing:-1px;margin:8px 0 2px}
+  .ptier .pprice small{font-size:15px;color:#9fb4c6;font-weight:600}
+  .ptier .pold{color:#7d94a8;text-decoration:line-through;font-size:17px;font-weight:700;margin-right:7px}
+  .ptier .pnote{font-size:12.5px;color:#8fb0c2;margin-bottom:14px;min-height:18px}
+  .ptier ul{list-style:none;margin:6px 0 18px;flex:1}
+  .ptier li{padding:8px 0;font-size:13.5px;display:flex;gap:8px;color:#dbe7ef;border-bottom:1px solid rgba(255,255,255,.06);line-height:1.4}
+  .ptier li:last-child{border-bottom:none}.ptier li b{color:var(--teal)}
+  .ptier .pbtn{display:block;text-align:center;font-weight:800;padding:13px;border-radius:999px;color:#fff;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);transition:transform .2s}
+  .ptier .pbtn:hover{transform:translateY(-2px)}
+  .ptier.best .pbtn{background:linear-gradient(135deg,var(--orange),#ff8a5c);border:none;box-shadow:0 10px 26px rgba(255,107,53,.4)}
+  .foundnote{margin-top:24px;font-size:13px;color:#8fb0c2}
   .progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:70;
     background:linear-gradient(90deg,var(--teal),var(--purple),var(--orange));box-shadow:0 0 10px rgba(22,199,182,.6)}
   .hero .spot{position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:0;transition:opacity .5s;
@@ -188,7 +219,7 @@
 <div class="progress" id="progress"></div>
 
 <nav id="nav">
-  <div class="brand"><span class="dot">🌍</span>AllGo Travel App</div>
+  <div class="brand"><span class="dot"><img src="/logo-allgo-circle.png" alt="AllGo"></span>AllGo Travel App</div>
   <a class="nbtn" href="https://allgotravel.app/prueba-ali.html">Prueba gratis</a>
 </nav>
 
@@ -196,7 +227,7 @@
   <div class="bg"></div><div class="aurora"></div><div class="spot" id="spot"></div><div class="stars" id="stars"></div>
   <span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span>
   <div class="badge rv"><span class="pulse"></span> Prueba gratis · sin tarjeta</div>
-  <div class="globe rv d1">🌍</div>
+  <div class="globe rv d1"><img src="/logo-allgo-circle.png" alt="AllGo Travel App"></div>
   <h1 class="rv d1">Viajar sin límites <span class="grad">es para todos</span></h1>
   <p class="sub rv d2">Planifica tu viaje accesible con <b>Alli</b>, tu asistente con IA. Te dice exactamente qué pedir, con el dato verificado, su fuente y su fecha.</p>
   <a class="cta rv d3" href="https://allgotravel.app/prueba-ali.html"><span class="sheen"></span>Prueba a Alli gratis →</a>
@@ -272,23 +303,78 @@
 </div></section>
 </div>
 
+<!-- RECURSOS / EBOOKS -->
+<div class="light">
+<section><div class="container center">
+  <div class="eyebrow rv">Recursos y guías</div>
+  <h2 class="rv d1">Guías verificadas para<br>viajar sin dudas.</h2>
+  <p class="lead rv d2" style="margin:0 auto">Recursos prácticos que puedes tener hoy mismo, con información verificada y su fuente.</p>
+  <div class="prods">
+    <div class="prod rv d1">
+      <div class="pic">🐕‍🦺</div>
+      <h3>Viaja con tu Perro de Servicio</h3>
+      <p>Qué exige cada aerolínea y cada país, los formularios y las áreas de alivio. En español e inglés.</p>
+      <div class="row"><span class="pr">$37</span><a class="go" href="https://allgotravel.app/perro.html">Ver guía →</a></div>
+    </div>
+    <div class="prod rv d2">
+      <div class="pic">🌍</div>
+      <h3>Turismo Sin Fronteras</h3>
+      <p>Guía de viaje accesible e inclusivo: aerolíneas, países, cruceros y destinos para todos.</p>
+      <div class="row"><span class="pr">$37</span><a class="go" href="https://allgotravel.app/turismo.html">Ver guía →</a></div>
+    </div>
+    <div class="prod rv d3">
+      <div class="pic">🧳</div>
+      <h3>Kit del Viajero</h3>
+      <p>Tu punto de partida: plantillas y checklists para organizar tu viaje accesible sin olvidar nada.</p>
+      <div class="row"><span class="pr">desde $9</span><a class="go" href="https://allgotravel.app/kit.html">Ver kit →</a></div>
+    </div>
+  </div>
+</div></section>
+</div>
+
 <!-- MEMBRESÍA -->
 <section class="stats" style="background:linear-gradient(160deg,#0a1f38,#081326)"><div class="container center">
-  <div class="eyebrow rv" style="color:#7fe9dd">AllGo Travel Club</div>
-  <h2 class="rv d1" style="color:#fff">Todo tu viaje, en un solo lugar.</h2>
-  <p class="lead rv d2" style="color:#9fb4c6;margin:0 auto">Una membresía pensada para acompañarte en cada viaje y en el día a día.</p>
-  <div class="plan rv d2">
-    <span class="tag">Membresía</span>
-    <div class="price">$14.99 <small>/mes</small></div>
-    <ul>
-      <li><b>✓</b> Alli sin límites, siempre contigo</li>
-      <li><b>✓</b> Guías verificadas por aerolínea, país y crucero</li>
-      <li><b>✓</b> Tarjeta médica y de comunicación con código QR</li>
-      <li><b>✓</b> Una comunidad para viajar acompañado</li>
-    </ul>
-    <a class="cta" href="https://allgotravel.app/club.html" style="width:100%;justify-content:center"><span class="sheen"></span>Únete al Club →</a>
-    <div class="fine">Cancela cuando quieras.</div>
+  <div class="eyebrow rv" style="color:#7fe9dd">Membresía AllGo Travel App</div>
+  <h2 class="rv d1" style="color:#fff">Viaja accesible sin miedo,<br>sin adivinar nada.</h2>
+  <p class="lead rv d2" style="color:#9fb4c6;margin:0 auto">Aerolíneas verificadas, cruceros y destinos accesibles, alertas y Alli sin límites — con su fuente oficial y su fecha.</p>
+  <div class="plans">
+    <div class="ptier rv d1">
+      <div class="pname">Fundador</div>
+      <div class="pprice"><span class="pold">$29</span>$14.99 <small>/mes</small></div>
+      <div class="pnote">50% OFF · precio congelado, por tiempo limitado</div>
+      <ul>
+        <li><b>✓</b> Acceso a todo el app mientras seas miembro</li>
+        <li><b>✓</b> Precio congelado de fundador/a</li>
+        <li><b>✓</b> Insignia de miembro fundador/a</li>
+      </ul>
+      <a class="pbtn" href="https://allgotravel.app/es/membresia">Unirme ahora →</a>
+    </div>
+    <div class="ptier rv d2">
+      <div class="pname">Mensual</div>
+      <div class="pprice">$29 <small>/mes</small></div>
+      <div class="pnote">Flexible, cancela cuando quieras</div>
+      <ul>
+        <li><b>✓</b> Acceso a todo el app mientras seas miembro</li>
+        <li><b>✓</b> Comunidad privada de miembros</li>
+        <li><b>✓</b> Sin permanencia, cancela cuando quieras</li>
+      </ul>
+      <a class="pbtn" href="https://allgotravel.app/es/membresia">Elegir mensual</a>
+    </div>
+    <div class="ptier best rv d3">
+      <div class="best-tag">Mejor valor</div>
+      <div class="pname">Anual</div>
+      <div class="pprice">$290 <small>/año</small></div>
+      <div class="pnote">Ahorra $58 = 2 meses gratis (~$24/mes)</div>
+      <ul>
+        <li><b>✓</b> Todo lo del plan mensual</li>
+        <li><b>✓</b> Guías descargables para conservar (ebook, silla y más)</li>
+        <li><b>✓</b> Comunidad privada de miembros</li>
+        <li><b>✓</b> 2 meses gratis</li>
+      </ul>
+      <a class="pbtn" href="https://allgotravel.app/es/membresia">Elegir anual →</a>
+    </div>
   </div>
+  <div class="foundnote rv">🔥 Cupos founding limitados · Pago seguro con Hotmart · Cancela cuando quieras</div>
 </div></section>
 
 <!-- COMUNIDAD -->
