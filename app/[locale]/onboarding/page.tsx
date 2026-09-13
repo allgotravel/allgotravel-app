@@ -2,9 +2,14 @@
 
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
+import { Poppins, Inter } from 'next/font/google'
 import { useRouter, usePathname } from '@/i18n/navigation'
 import { useLocale } from 'next-intl'
 import { createSupabaseBrowser } from '@/lib/supabase-browser'
+
+// ── Brand type system — mismo Poppins/Inter que el landing ───────────────
+const poppins = Poppins({ subsets: ['latin'], weight: ['600', '700', '800'], variable: '--font-poppins' })
+const inter = Inter({ subsets: ['latin'], weight: ['400', '500', '600', '700'], variable: '--font-inter' })
 
 // ── Deterministic pseudo-random – avoids SSR/client hydration mismatch ────
 function pr(seed: number): number {
@@ -86,7 +91,7 @@ function StepWelcome({ t, onNext }: { t: T; onNext: () => void }) {
           style={{ animation: 'pulseRing 2.2s ease-out infinite 0.5s' }}
         />
         <div
-          className="absolute -inset-10 rounded-full bg-teal-400/10"
+          className="absolute -inset-10 rounded-full bg-blue-300/15"
           style={{ animation: 'pulseRing 2.2s ease-out infinite 1s' }}
         />
         <div
@@ -184,7 +189,7 @@ function StepWelcome({ t, onNext }: { t: T; onNext: () => void }) {
 
       <button
         onClick={onNext}
-        className="bg-orange-500 hover:bg-orange-400 active:scale-95 text-white font-extrabold text-xl px-14 py-5 rounded-full shadow-2xl shadow-orange-500/40 transition-all duration-200"
+        className="bg-orange-500 hover:bg-orange-400 hover:-translate-y-0.5 active:scale-95 text-white font-extrabold text-xl px-14 py-5 rounded-full shadow-2xl shadow-orange-500/40 transition-all duration-200"
         style={{ animation: 'fadeInUp 0.5s ease-out 2.1s both' }}
       >
         {t('Comenzar', 'Get started')} ✨
@@ -252,7 +257,7 @@ function StepName({
       <button
         onClick={onNext}
         disabled={!firstName.trim() || saving}
-        className="bg-orange-500 hover:bg-orange-400 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold text-lg px-12 py-4 rounded-full shadow-xl shadow-orange-500/30 transition-all duration-200 min-w-[220px]"
+        className="bg-orange-500 hover:bg-orange-400 hover:-translate-y-0.5 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold text-lg px-12 py-4 rounded-full shadow-xl shadow-orange-500/30 transition-all duration-200 min-w-[220px]"
       >
         {saving ? '···' : t('Continuar', 'Continue')} →
       </button>
@@ -319,7 +324,7 @@ function StepAccessibility({
       <button
         onClick={onNext}
         disabled={saving}
-        className="bg-orange-500 hover:bg-orange-400 active:scale-95 disabled:opacity-40 text-white font-bold text-lg px-12 py-4 rounded-full shadow-xl shadow-orange-500/30 transition-all duration-200 min-w-[220px]"
+        className="bg-orange-500 hover:bg-orange-400 hover:-translate-y-0.5 active:scale-95 disabled:opacity-40 text-white font-bold text-lg px-12 py-4 rounded-full shadow-xl shadow-orange-500/30 transition-all duration-200 min-w-[220px]"
       >
         {saving ? '···' : t('Continuar', 'Continue')} →
       </button>
@@ -457,7 +462,7 @@ function StepGroup({
       <button
         onClick={onNext}
         disabled={saving || travelSolo === null}
-        className="bg-orange-500 hover:bg-orange-400 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold text-lg px-12 py-4 rounded-full shadow-xl shadow-orange-500/30 transition-all duration-200 min-w-[220px]"
+        className="bg-orange-500 hover:bg-orange-400 hover:-translate-y-0.5 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold text-lg px-12 py-4 rounded-full shadow-xl shadow-orange-500/30 transition-all duration-200 min-w-[220px]"
       >
         {saving ? '···' : t('Continuar', 'Continue')} →
       </button>
@@ -520,7 +525,7 @@ function StepReady({
 
         <button
           onClick={onNext}
-          className="bg-orange-500 hover:bg-orange-400 active:scale-95 text-white font-extrabold text-xl px-14 py-5 rounded-full shadow-2xl shadow-orange-500/40 transition-all duration-200"
+          className="bg-orange-500 hover:bg-orange-400 hover:-translate-y-0.5 active:scale-95 text-white font-extrabold text-xl px-14 py-5 rounded-full shadow-2xl shadow-orange-500/40 transition-all duration-200"
           style={{ animation: 'fadeInUp 0.5s ease-out 0.7s both' }}
         >
           {t('Ver mi preview personalizado', 'See my personalized preview')} →
@@ -600,7 +605,7 @@ function StepValuePreview({
       {/* Alli avatar */}
       <div className="relative mb-5">
         <div
-          className="w-24 h-24 rounded-full bg-gradient-to-br from-teal-400 to-blue-500 flex items-center justify-center shadow-2xl shadow-teal-500/40"
+          className="w-24 h-24 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center shadow-2xl shadow-blue-500/40"
           style={{ animation: 'floatY 3s ease-in-out infinite' }}
         >
           <span className="text-5xl">🌍</span>
@@ -645,7 +650,7 @@ function StepValuePreview({
 
       <button
         onClick={onNext}
-        className="bg-orange-500 hover:bg-orange-400 active:scale-95 text-white font-extrabold text-xl px-14 py-5 rounded-full shadow-2xl shadow-orange-500/40 transition-all duration-200"
+        className="bg-orange-500 hover:bg-orange-400 hover:-translate-y-0.5 active:scale-95 text-white font-extrabold text-xl px-14 py-5 rounded-full shadow-2xl shadow-orange-500/40 transition-all duration-200"
         style={{ animation: 'fadeInUp 0.5s ease-out 0.9s both' }}
       >
         {t('Ver mi plan completo', 'See my full plan')} →
@@ -795,7 +800,7 @@ function StepPricing({ t, uid }: { t: T; uid: string | null }) { // step 6
           <button
             onClick={() => finish('https://pay.hotmart.com/Q107023060D?off=osgbatei')}
             disabled={finishing}
-            className="w-full bg-orange-500 hover:bg-orange-400 active:scale-[0.98] disabled:opacity-60 text-white font-extrabold text-base py-4 rounded-xl shadow-lg shadow-orange-500/30 transition-all duration-200"
+            className="w-full bg-orange-500 hover:bg-orange-400 hover:-translate-y-0.5 active:scale-[0.98] disabled:opacity-60 text-white font-extrabold text-base py-4 rounded-xl shadow-lg shadow-orange-500/30 transition-all duration-200"
           >
             {finishing ? '···' : t('Unirme por $14.99/mes', 'Join for $14.99/mo')} →
           </button>
@@ -1052,18 +1057,20 @@ export default function OnboardingPage() {
         }
         .slide-right { animation: slideFromRight 0.38s cubic-bezier(0.22, 1, 0.36, 1) both; }
         .slide-left  { animation: slideFromLeft  0.38s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+        /* Tipografía de marca — Poppins para titulares, Inter para el resto (igual que el landing) */
+        .allgo-onboarding { font-family: var(--font-inter), Inter, sans-serif; }
+        .allgo-onboarding h1 { font-family: var(--font-poppins), Poppins, sans-serif; font-weight: 800; }
       `}</style>
 
-      <div className="relative min-h-screen overflow-x-hidden bg-gradient-to-br from-blue-950 via-blue-800 to-teal-700">
+      <div className={`${poppins.variable} ${inter.variable} allgo-onboarding relative min-h-screen overflow-x-hidden bg-gradient-to-br from-[#1E5BD6] via-[#1749B0] to-[#0F3A94]`}>
 
-        {/* Ambient blobs */}
-        <div className="fixed top-10 right-8 w-80 h-80 bg-orange-400/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="fixed bottom-8 left-6 w-96 h-96 bg-teal-400/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="fixed top-1/2 left-1/4 w-56 h-56 bg-blue-400/10 rounded-full blur-2xl pointer-events-none" />
-        <div className="fixed top-3/4 right-1/4 w-40 h-40 bg-orange-300/5 rounded-full blur-2xl pointer-events-none" />
+        {/* Halos ambientales — mismo tratamiento que el hero del landing (naranja + azul suave) */}
+        <div className="fixed -top-24 -right-24 w-[36rem] h-[36rem] bg-orange-400/20 rounded-full blur-3xl pointer-events-none" />
+        <div className="fixed -bottom-32 -left-32 w-[30rem] h-[30rem] bg-white/10 rounded-full blur-3xl pointer-events-none" />
 
         {/* Language switcher — always visible top-right */}
-        <div className="fixed top-4 right-4 z-[100] flex gap-1 bg-blue-950/80 backdrop-blur-sm border border-white/30 rounded-xl p-1.5 shadow-lg">
+        <div className="fixed top-4 right-4 z-[100] flex gap-1 bg-[#0B2A66]/80 backdrop-blur-sm border border-white/30 rounded-xl p-1.5 shadow-lg">
           <button
             onClick={() => switchLocale('es')}
             className={`px-3 py-1.5 rounded-lg text-sm font-bold transition-all duration-200 ${
