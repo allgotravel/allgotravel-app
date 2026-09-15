@@ -12,9 +12,24 @@ import '../globals.css'
 
 const geist = Geist({ subsets: ['latin'], variable: '--font-geist-sans' })
 
-export const metadata: Metadata = {
-  title: 'AllGo Travel App',
-  description: 'Membresías de turismo accesible / Accessible travel memberships',
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale } = await params
+  if (locale === 'en') {
+    return {
+      title: 'AllGo Travel App — Travel is for everyone',
+      description:
+        'Travel is for everyone. Verified info, your assistant Alli, guides and a community — so anyone can travel without fear.',
+    }
+  }
+  return {
+    title: 'AllGo Travel App — Viajar es para todos',
+    description:
+      'Viajar es para todos. Información verificada, tu asistente Alli, guías y comunidad — para que cualquier persona viaje sin miedo.',
+  }
 }
 
 export default async function LocaleLayout({

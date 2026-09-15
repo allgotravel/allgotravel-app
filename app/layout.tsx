@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'AllGo Travel App',
-  description: 'Membresías de turismo accesible / Accessible travel memberships',
+  title: 'AllGo Travel App — Viajar es para todos',
+  description: 'Viajar es para todos. Información verificada, tu asistente Alli, guías y comunidad — para que cualquier persona viaje sin miedo.',
   manifest: '/manifest.webmanifest',
   appleWebApp: {
     capable: true,
