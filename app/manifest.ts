@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: 'AllGo Travel App',
     short_name: 'AllGo',
     description: 'Membresías de turismo accesible / Accessible travel memberships',
-    start_url: '/es/dashboard',
+    start_url: '/es/login',
     display: 'standalone',
     background_color: '#ffffff',
     theme_color: '#0d9488',
