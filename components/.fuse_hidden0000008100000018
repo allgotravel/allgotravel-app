@@ -13,7 +13,7 @@ function StarRating({ rating }: { rating: number }) {
   return (
     <div className="flex gap-0.5" aria-label={locale === 'es' ? `Accesibilidad: ${rating} de 5` : `Accessibility: ${rating} of 5`}>
       {[1, 2, 3, 4, 5].map(n => (
-        <span key={n} className={n <= rating ? 'text-blue-500' : 'text-gray-200'}>♿</span>
+        <span key={n} className={n <= rating ? 'text-teal-500' : 'text-gray-200'}>♿</span>
       ))}
     </div>
   )
@@ -76,9 +76,9 @@ function DestinationModal({ destination, userId, onClose }: ModalProps) {
     return (
       <div className="space-y-1 text-sm">
         {text.split('\n').map((line, i) => {
-          if (line.startsWith('## ')) return <h3 key={i} className="font-bold text-blue-700 mt-3">{line.slice(3)}</h3>
-          if (line.startsWith('### ')) return <h4 key={i} className="font-semibold text-blue-600 mt-2">{line.slice(4)}</h4>
-          if (line.startsWith('- ') || line.startsWith('• ')) return <p key={i} className="pl-3 text-gray-700 before:content-['•'] before:mr-2 before:text-blue-400">{parseLine(line.slice(2))}</p>
+          if (line.startsWith('## ')) return <h3 key={i} className="font-bold text-teal-700 mt-3">{line.slice(3)}</h3>
+          if (line.startsWith('### ')) return <h4 key={i} className="font-semibold text-teal-600 mt-2">{line.slice(4)}</h4>
+          if (line.startsWith('- ') || line.startsWith('• ')) return <p key={i} className="pl-3 text-gray-700 before:content-['•'] before:mr-2 before:text-teal-400">{parseLine(line.slice(2))}</p>
           if (line.trim() === '') return <div key={i} className="h-1.5" />
           return <p key={i} className="text-gray-700">{parseLine(line)}</p>
         })}
@@ -140,7 +140,7 @@ function DestinationModal({ destination, userId, onClose }: ModalProps) {
                       <span className="text-lg">{attrLabel.icon}</span>
                       <div>
                         <p className="text-sm font-semibold text-gray-800">{name}</p>
-                        <p className="text-xs text-blue-600">{locale === 'es' ? attrLabel.es : attrLabel.en}</p>
+                        <p className="text-xs text-teal-600">{locale === 'es' ? attrLabel.es : attrLabel.en}</p>
                       </div>
                     </div>
                     <p className="text-xs text-gray-600 leading-relaxed">{desc}</p>
@@ -155,7 +155,7 @@ function DestinationModal({ destination, userId, onClose }: ModalProps) {
             <p className="text-xs font-semibold text-gray-500 uppercase mb-2">{t('coveredNeeds')}</p>
             <div className="flex flex-wrap gap-2">
               {destination.disabilityTypes.map(d => (
-                <span key={d} className="inline-flex items-center gap-1 text-xs bg-blue-50 text-blue-700 border border-blue-200 px-2.5 py-1 rounded-full">
+                <span key={d} className="inline-flex items-center gap-1 text-xs bg-teal-50 text-teal-700 border border-teal-200 px-2.5 py-1 rounded-full">
                   {DISABILITY_ICONS[d]} {tD(d)}
                 </span>
               ))}
@@ -168,7 +168,7 @@ function DestinationModal({ destination, userId, onClose }: ModalProps) {
             <ul className="space-y-1.5">
               {features.map((f, i) => (
                 <li key={i} className="flex items-start gap-2 text-sm text-gray-700">
-                  <span className="text-blue-500 mt-0.5 shrink-0">✓</span> {f}
+                  <span className="text-teal-500 mt-0.5 shrink-0">✓</span> {f}
                 </li>
               ))}
             </ul>
@@ -205,7 +205,7 @@ function DestinationModal({ destination, userId, onClose }: ModalProps) {
                 {[
                   { name: 'Google Flights', url: `https://www.google.com/travel/flights?q=${encodeURIComponent('flights to ' + destination.name)}`, color: 'bg-indigo-600' },
                   { name: 'Kayak', url: `https://www.kayak.com/flights/anywhere-${encodeURIComponent(destination.name)}`, color: 'bg-orange-500' },
-                  { name: 'Skyscanner', url: `https://www.skyscanner.com/flights-to/${encodeURIComponent(destination.name.toLowerCase())}`, color: 'bg-blue-600' },
+                  { name: 'Skyscanner', url: `https://www.skyscanner.com/flights-to/${encodeURIComponent(destination.name.toLowerCase())}`, color: 'bg-teal-600' },
                 ].map(p => (
                   <a key={p.name} href={p.url} target="_blank" rel="noopener noreferrer"
                     className={`${p.color} text-white text-xs font-semibold px-3 py-1.5 rounded-full hover:opacity-90 transition`}>
@@ -221,7 +221,7 @@ function DestinationModal({ destination, userId, onClose }: ModalProps) {
                 <p className="text-xs text-gray-400 font-medium mb-1.5">🎭 {locale === 'es' ? 'Actividades' : 'Activities'}</p>
                 <div className="flex flex-wrap gap-2">
                   {[
-                    { name: 'Viator', url: `https://www.viator.com/search/${encodeURIComponent(destination.name)}`, color: 'bg-blue-600' },
+                    { name: 'Viator', url: `https://www.viator.com/search/${encodeURIComponent(destination.name)}`, color: 'bg-emerald-600' },
                     { name: 'GetYourGuide', url: `https://www.getyourguide.com/s/?q=${encodeURIComponent(destination.name)}`, color: 'bg-purple-600' },
                   ].map(p => (
                     <a key={p.name} href={p.url} target="_blank" rel="noopener noreferrer"
@@ -249,7 +249,7 @@ function DestinationModal({ destination, userId, onClose }: ModalProps) {
             {!requested ? (
               <button
                 onClick={askAI}
-                className="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-xl transition"
+                className="w-full py-2.5 bg-teal-600 hover:bg-teal-700 text-white text-sm font-semibold rounded-xl transition"
               >
                 🤖 {t('askAI')}
               </button>
@@ -257,7 +257,7 @@ function DestinationModal({ destination, userId, onClose }: ModalProps) {
               <div>
                 <p className="text-xs font-semibold text-gray-500 uppercase mb-2">{t('aiTips')}</p>
                 {loading && !aiInfo && (
-                  <span className="inline-flex gap-1 text-blue-400">
+                  <span className="inline-flex gap-1 text-teal-400">
                     <span className="animate-bounce">·</span>
                     <span className="animate-bounce [animation-delay:100ms]">·</span>
                     <span className="animate-bounce [animation-delay:200ms]">·</span>
@@ -328,7 +328,7 @@ export default function DestinationGrid({ userId }: Props) {
           value={search}
           onChange={e => setSearch(e.target.value)}
           placeholder={t('searchPlaceholder')}
-          className="w-full border border-gray-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="w-full border border-gray-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400"
         />
 
         {/* Disability filter */}
@@ -341,8 +341,8 @@ export default function DestinationGrid({ userId }: Props) {
                 onClick={() => toggleDisability(type)}
                 className={`inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border-2 transition
                   ${activeDisability.includes(type)
-                    ? 'border-blue-500 bg-blue-50 text-blue-700 font-semibold'
-                    : 'border-gray-200 text-gray-600 hover:border-blue-300'}`}
+                    ? 'border-teal-500 bg-teal-50 text-teal-700 font-semibold'
+                    : 'border-gray-200 text-gray-600 hover:border-teal-300'}`}
               >
                 {DISABILITY_ICONS[type]} {tD(type)}
               </button>
@@ -431,11 +431,11 @@ export default function DestinationGrid({ userId }: Props) {
                 <ul className="space-y-1">
                   {features.slice(0, 2).map((f, i) => (
                     <li key={i} className="text-xs text-gray-600 flex items-start gap-1.5">
-                      <span className="text-blue-500 shrink-0">✓</span> {f}
+                      <span className="text-teal-500 shrink-0">✓</span> {f}
                     </li>
                   ))}
                 </ul>
-                <p className="text-xs text-blue-600 font-medium">{t('viewMore')} →</p>
+                <p className="text-xs text-teal-600 font-medium">{t('viewMore')} →</p>
               </div>
             </button>
           )

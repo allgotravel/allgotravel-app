@@ -610,7 +610,7 @@ function StepValuePreview({
         >
           <span className="text-5xl">🌍</span>
         </div>
-        <div className="absolute -bottom-1 -right-1 bg-blue-400 w-5 h-5 rounded-full border-2 border-blue-900 flex items-center justify-center">
+        <div className="absolute -bottom-1 -right-1 bg-green-400 w-5 h-5 rounded-full border-2 border-blue-900 flex items-center justify-center">
           <span className="text-white text-xs font-bold">✓</span>
         </div>
       </div>
@@ -792,7 +792,7 @@ function StepPricing({ t, uid }: { t: T; uid: string | null }) { // step 6
 
           {/* Price anchoring — per day & per month */}
           <div className="flex items-center gap-3 mb-4 mt-2">
-            <span className="bg-blue-500/20 border border-blue-400/40 rounded-lg px-3 py-1 text-xs text-blue-300 font-semibold">
+            <span className="bg-green-500/20 border border-green-400/40 rounded-lg px-3 py-1 text-xs text-green-300 font-semibold">
               {t('🔥 Cupos de fundador limitados', '🔥 Limited founding spots')}
             </span>
           </div>

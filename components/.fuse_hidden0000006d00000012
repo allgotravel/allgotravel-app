@@ -12,11 +12,11 @@ function renderMarkdown(text: string) {
     const line = lines[i]
 
     if (line.startsWith('### ')) {
-      elements.push(<p key={i} className="font-semibold text-blue-700 mt-2">{parseLine(line.slice(4))}</p>)
+      elements.push(<p key={i} className="font-semibold text-teal-700 mt-2">{parseLine(line.slice(4))}</p>)
     } else if (line.startsWith('## ')) {
-      elements.push(<p key={i} className="font-bold text-blue-800 mt-3">{parseLine(line.slice(3))}</p>)
+      elements.push(<p key={i} className="font-bold text-teal-800 mt-3">{parseLine(line.slice(3))}</p>)
     } else if (line.startsWith('- ') || line.startsWith('* ')) {
-      elements.push(<p key={i} className="pl-3 before:content-['•'] before:mr-2 before:text-blue-500">{parseLine(line.slice(2))}</p>)
+      elements.push(<p key={i} className="pl-3 before:content-['•'] before:mr-2 before:text-teal-500">{parseLine(line.slice(2))}</p>)
     } else if (line.trim() === '') {
       elements.push(<div key={i} className="h-1" />)
     } else {
@@ -263,7 +263,7 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
             <span className="relative text-xl allgo-float inline-block">🌍</span>
             <div className="relative">
               <p className="font-semibold leading-tight">{t('title')}</p>
-              <p className="text-xs text-blue-100">{t('subtitle')}</p>
+              <p className="text-xs text-teal-100">{t('subtitle')}</p>
             </div>
           </div>
 
@@ -281,7 +281,7 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
                   <div
                     className={`rounded-2xl px-4 py-2 text-sm leading-relaxed ${
                       msg.role === 'user'
-                        ? 'bg-blue-600 text-white rounded-br-sm'
+                        ? 'bg-teal-600 text-white rounded-br-sm'
                         : 'bg-white border border-gray-200 text-gray-800 rounded-bl-sm'
                     }`}
                   >
@@ -302,8 +302,8 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
                       title={speakingIndex === i ? (en ? 'Stop voice' : 'Detener voz') : (en ? 'Listen to response' : 'Escuchar respuesta')}
                       className={`flex items-center gap-1 text-xs px-2 py-0.5 rounded-full transition-all duration-200 ${
                         speakingIndex === i
-                          ? 'bg-blue-100 text-blue-700 border border-blue-300 animate-pulse'
-                          : 'text-gray-400 hover:text-blue-600 hover:bg-blue-50 border border-transparent'
+                          ? 'bg-teal-100 text-teal-700 border border-teal-300 animate-pulse'
+                          : 'text-gray-400 hover:text-teal-600 hover:bg-teal-50 border border-transparent'
                       }`}
                     >
                       {speakingIndex === i ? (en ? '🔊 Playing...' : '🔊 Reproduciendo...') : (en ? '🔈 Listen' : '🔈 Escuchar')}
@@ -332,7 +332,7 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
               placeholder={t('placeholder')}
               rows={1}
               disabled={loading}
-              className="flex-1 resize-none rounded-xl border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 max-h-28 overflow-y-auto"
+              className="flex-1 resize-none rounded-xl border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 disabled:opacity-50 max-h-28 overflow-y-auto"
               style={{ fieldSizing: 'content' } as React.CSSProperties}
             />
             <button
@@ -343,7 +343,7 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
               className={`shrink-0 w-10 h-10 rounded-xl text-white flex items-center justify-center disabled:opacity-40 transition ${
                 isListening
                   ? 'bg-red-500 hover:bg-red-600 animate-pulse'
-                  : 'bg-blue-500 hover:bg-blue-600'
+                  : 'bg-teal-500 hover:bg-teal-600'
               }`}
             >
               🎤
@@ -352,7 +352,7 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
               onClick={sendMessage}
               disabled={loading || !input.trim()}
               aria-label={t('send')}
-              className="shrink-0 w-10 h-10 rounded-xl bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center disabled:opacity-40 transition"
+              className="shrink-0 w-10 h-10 rounded-xl bg-teal-600 hover:bg-teal-700 text-white flex items-center justify-center disabled:opacity-40 transition"
             >
               ➤
             </button>

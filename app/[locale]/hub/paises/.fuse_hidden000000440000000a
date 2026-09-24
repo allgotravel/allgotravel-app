@@ -43,13 +43,13 @@ function getLegend(en: boolean): Legend[] {
   ]
 }
 
-const colorText: Record<string, string> = { green: 'text-blue-800', amber: 'text-amber-800', red: 'text-red-800' }
+const colorText: Record<string, string> = { green: 'text-green-800', amber: 'text-amber-800', red: 'text-red-800' }
 const colorBg: Record<string, string> = {
-  green: 'bg-blue-50 border-blue-200',
+  green: 'bg-green-50 border-green-200',
   amber: 'bg-amber-50 border-amber-200',
   red: 'bg-red-50 border-red-200',
 }
-const dot: Record<string, string> = { green: 'bg-blue-400', amber: 'bg-amber-400', red: 'bg-red-400' }
+const dot: Record<string, string> = { green: 'bg-green-400', amber: 'bg-amber-400', red: 'bg-red-400' }
 
 export default async function HubPaisesPage() {
   const locale = await getLocale()

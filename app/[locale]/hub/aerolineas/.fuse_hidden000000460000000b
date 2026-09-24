@@ -40,7 +40,7 @@ function yesNo(v: string | null): 'yes' | 'no' | 'limited' | 'unknown' {
 
 function Badge({ state, label }: { state: 'yes' | 'no' | 'limited' | 'unknown'; label: string }) {
   const styles: Record<string, string> = {
-    yes: 'bg-blue-100 text-blue-800',
+    yes: 'bg-green-100 text-green-800',
     no: 'bg-red-100 text-red-700',
     limited: 'bg-amber-100 text-amber-800',
     unknown: 'bg-gray-100 text-gray-500',

@@ -178,7 +178,7 @@ export default async function EmergencyCardPage({
                 <span className="bg-gray-100 rounded-lg px-3 py-1.5"><span className="font-semibold">🗣️ Idioma / Language:</span> {card.primary_language}</span>
               )}
               {card.organ_donor && (
-                <span className="bg-blue-50 text-blue-700 rounded-lg px-3 py-1.5 font-semibold">💚 Donante de órganos / Organ donor</span>
+                <span className="bg-emerald-50 text-emerald-700 rounded-lg px-3 py-1.5 font-semibold">💚 Donante de órganos / Organ donor</span>
               )}
             </div>
           )}
@@ -323,7 +323,7 @@ export default async function EmergencyCardPage({
                   <p><span className="font-semibold">🔎 Microchip:</span> {dog.microchip}</p>
                 )}
                 {dog.trained_dot && (
-                  <p className="text-blue-700 font-medium">
+                  <p className="text-emerald-700 font-medium">
                     ✓ Entrenado · formulario del DOT en regla / Trained · DOT form on file
                   </p>
                 )}
@@ -342,7 +342,7 @@ export default async function EmergencyCardPage({
                   </p>
                 )}
                 {dog.vaccines_current && (
-                  <p className="text-blue-700 font-medium">✓ Vacunas al día / Vaccines current</p>
+                  <p className="text-emerald-700 font-medium">✓ Vacunas al día / Vaccines current</p>
                 )}
                 {dog.rabies_date && (
                   <p><span className="font-semibold">💉 Antirrábica vence / Rabies expires:</span> {dog.rabies_date}</p>

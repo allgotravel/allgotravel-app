@@ -1,5 +1,5 @@
 /* Landing homepage styles — scoped under .lp */
-.lp{--navy:#0E2236; --teal:#1B6FB5; --tealb:#4EA8E0; --blue:#4EA8E0; --orange:#F5A628;
+.lp{--navy:#0E2236; --teal:#0C8F83; --tealb:#16C7B6; --blue:#4EA8E0; --orange:#F5A628;
  --ink:#0E2236; --muted:#5B7185; --line:#E6EDF1; --bg:#FFFFFF; --soft:#F4F9FA; --card:#FFFFFF;
  --radius:20px; --shadow:0 18px 48px rgba(14,34,54,.10); --shadow-sm:0 8px 24px rgba(14,34,54,.08);}
 .lp *{box-sizing:border-box}
@@ -13,7 +13,7 @@
 .lp h2{font-size:clamp(26px,3.6vw,42px);font-weight:800}
 .lp h3{font-size:clamp(19px,2vw,23px);font-weight:800}
 .lp p{margin:.6em 0}
-.lp .kicker{display:inline-block;font-size:12.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);background:#E9F2FB;padding:7px 13px;border-radius:999px}
+.lp .kicker{display:inline-block;font-size:12.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);background:#E8F7F4;padding:7px 13px;border-radius:999px}
 .lp .btn{display:inline-flex;align-items:center;gap:9px;font-weight:800;font-size:16px;padding:15px 26px;border-radius:999px;border:0;cursor:pointer;transition:transform .15s ease,box-shadow .15s ease}
 .lp .btn:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
 .lp .btn-primary{background:var(--orange);color:#3a2400;box-shadow:0 10px 26px rgba(245,166,40,.42)}
@@ -53,7 +53,7 @@ header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);bac
 .lp .heroimg{position:relative}
 .lp .heroimg img{width:100%;border-radius:26px;box-shadow:var(--shadow);object-fit:cover;aspect-ratio:5/6}
 .lp .badge-float{position:absolute;left:-14px;bottom:22px;background:#fff;border-radius:16px;box-shadow:var(--shadow-sm);padding:12px 16px;display:flex;align-items:center;gap:11px;font-weight:700;font-size:14px}
-.lp .badge-float .ic{width:34px;height:34px;border-radius:10px;background:#E9F2FB;color:var(--teal);display:grid;place-items:center;font-size:17px}
+.lp .badge-float .ic{width:34px;height:34px;border-radius:10px;background:#E8F7F4;color:var(--teal);display:grid;place-items:center;font-size:17px}
 @media(max-width:860px){
 .lp .hero .grid{grid-template-columns:1fr;padding:44px 0 56px}
 .lp .heroimg{order:-1}
@@ -78,7 +78,7 @@ header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);bac
 .lp .grid3, .lp .grid4{grid-template-columns:1fr}
 }
 .lp .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow-sm)}
-.lp .card .ic{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;font-size:24px;background:#E9F2FB;color:var(--teal);margin-bottom:14px}
+.lp .card .ic{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;font-size:24px;background:#E8F7F4;color:var(--teal);margin-bottom:14px}
 .lp .card h3{margin-bottom:6px}
 .lp .card p{color:var(--muted);font-size:15px;margin:0}
 .lp /* PROBLEM/SOLUTION */
@@ -88,7 +88,7 @@ header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);bac
 }
 .lp .checklist{list-style:none;padding:0;margin:18px 0 0}
 .lp .checklist li{display:flex;gap:12px;align-items:flex-start;margin:12px 0;font-size:16px}
-.lp .checklist .tk{flex:none;width:26px;height:26px;border-radius:50%;background:#E9F2FB;color:var(--teal);display:grid;place-items:center;font-weight:800;font-size:14px}
+.lp .checklist .tk{flex:none;width:26px;height:26px;border-radius:50%;background:#E8F7F4;color:var(--teal);display:grid;place-items:center;font-weight:800;font-size:14px}
 .lp /* APP SECTION */
 .app{background:linear-gradient(180deg,#0E2236,#12324a);color:#fff}
 .lp .app .split{align-items:center}

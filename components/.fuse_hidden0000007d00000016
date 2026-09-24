@@ -16,11 +16,11 @@ function renderMarkdown(text: string) {
     <div className="space-y-1">
       {lines.map((line, i) => {
         if (line.startsWith('## '))
-          return <h2 key={i} className="text-lg font-bold text-blue-700 mt-5 mb-1">{parseLine(line.slice(3))}</h2>
+          return <h2 key={i} className="text-lg font-bold text-teal-700 mt-5 mb-1">{parseLine(line.slice(3))}</h2>
         if (line.startsWith('### '))
-          return <h3 key={i} className="font-semibold text-blue-600 mt-3">{parseLine(line.slice(4))}</h3>
+          return <h3 key={i} className="font-semibold text-teal-600 mt-3">{parseLine(line.slice(4))}</h3>
         if (line.startsWith('- ') || line.startsWith('• '))
-          return <p key={i} className="pl-4 before:content-['•'] before:mr-2 before:text-blue-400 text-gray-700 text-sm">{parseLine(line.slice(2))}</p>
+          return <p key={i} className="pl-4 before:content-['•'] before:mr-2 before:text-teal-400 text-gray-700 text-sm">{parseLine(line.slice(2))}</p>
         if (line.trim() === '')
           return <div key={i} className="h-2" />
         return <p key={i} className="text-gray-700 text-sm">{parseLine(line)}</p>
@@ -101,12 +101,12 @@ export default function TripPlannerForm({ profile, userId }: Props) {
       {/* Group summary */}
       {isGroup && (
         <div className="bg-white rounded-2xl shadow p-5 space-y-3">
-          <h2 className="text-base font-semibold text-blue-700 flex items-center gap-2">
+          <h2 className="text-base font-semibold text-teal-700 flex items-center gap-2">
             👨‍👩‍👧 {t('groupSummary')}
           </h2>
           <div className="space-y-2">
             {/* Main traveler */}
-            <div className="flex items-center gap-3 p-3 bg-blue-50 rounded-xl">
+            <div className="flex items-center gap-3 p-3 bg-teal-50 rounded-xl">
               <span className="text-2xl">🧳</span>
               <div>
                 <p className="text-sm font-medium text-gray-800">{profile.full_name || t('mainTraveler')}</p>
@@ -138,7 +138,7 @@ export default function TripPlannerForm({ profile, userId }: Props) {
 
       {/* Plan form */}
       <form onSubmit={generatePlan} className="bg-white rounded-2xl shadow p-6 space-y-5">
-        <h2 className="text-base font-semibold text-blue-700">{t('planDetails')}</h2>
+        <h2 className="text-base font-semibold text-teal-700">{t('planDetails')}</h2>
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">{t('destination')}</label>
@@ -148,7 +148,7 @@ export default function TripPlannerForm({ profile, userId }: Props) {
             value={destination}
             onChange={e => setDestination(e.target.value)}
             placeholder={t('destinationPlaceholder')}
-            className="w-full border border-gray-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full border border-gray-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400"
           />
         </div>
 
@@ -160,7 +160,7 @@ export default function TripPlannerForm({ profile, userId }: Props) {
               required
               value={startDate}
               onChange={e => setStartDate(e.target.value)}
-              className="w-full border border-gray-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full border border-gray-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400"
             />
           </div>
           <div>
@@ -170,7 +170,7 @@ export default function TripPlannerForm({ profile, userId }: Props) {
               required
               value={endDate}
               onChange={e => setEndDate(e.target.value)}
-              className="w-full border border-gray-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full border border-gray-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400"
             />
           </div>
         </div>
@@ -185,8 +185,8 @@ export default function TripPlannerForm({ profile, userId }: Props) {
                 onClick={() => setTripType(key)}
                 className={`flex flex-col items-center gap-1 p-3 rounded-xl border-2 text-xs transition
                   ${tripType === key
-                    ? 'border-blue-500 bg-blue-50 text-blue-800 font-semibold'
-                    : 'border-gray-200 text-gray-600 hover:border-blue-300'}`}
+                    ? 'border-teal-500 bg-teal-50 text-teal-800 font-semibold'
+                    : 'border-gray-200 text-gray-600 hover:border-teal-300'}`}
               >
                 <span className="text-xl">{val.icon}</span>
                 <span>{locale === 'es' ? val.es : val.en}</span>
@@ -198,7 +198,7 @@ export default function TripPlannerForm({ profile, userId }: Props) {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-semibold py-3 rounded-xl transition text-sm"
+          className="w-full bg-teal-600 hover:bg-teal-700 disabled:opacity-50 text-white font-semibold py-3 rounded-xl transition text-sm"
         >
           {loading ? t('generating') : t('generate')}
         </button>
@@ -211,9 +211,9 @@ export default function TripPlannerForm({ profile, userId }: Props) {
         <div className="bg-white rounded-2xl shadow p-6">
           <div className="flex items-center gap-2 mb-4">
             <span className="text-2xl">✈️</span>
-            <h2 className="text-base font-semibold text-blue-700">{t('yourPlan')}</h2>
+            <h2 className="text-base font-semibold text-teal-700">{t('yourPlan')}</h2>
             {loading && (
-              <span className="ml-auto inline-flex gap-1 text-blue-400">
+              <span className="ml-auto inline-flex gap-1 text-teal-400">
                 <span className="animate-bounce">·</span>
                 <span className="animate-bounce [animation-delay:100ms]">·</span>
                 <span className="animate-bounce [animation-delay:200ms]">·</span>
@@ -227,7 +227,7 @@ export default function TripPlannerForm({ profile, userId }: Props) {
       {/* Booking platforms — shown once plan is ready */}
       {plan && !loading && (
         <div className="bg-white rounded-2xl shadow p-6 space-y-4">
-          <h2 className="text-base font-semibold text-blue-700 flex items-center gap-2">
+          <h2 className="text-base font-semibold text-teal-700 flex items-center gap-2">
             🔗 {locale === 'es' ? `Reservar en ${destination}` : `Book in ${destination}`}
           </h2>
 
@@ -257,7 +257,7 @@ export default function TripPlannerForm({ profile, userId }: Props) {
                 {[
                   { name: 'Google Flights', url: `https://www.google.com/travel/flights?q=${encodeURIComponent('flights to ' + destination)}`, color: 'bg-indigo-600' },
                   { name: 'Kayak', url: `https://www.kayak.com/flights/to-${encodeURIComponent(destination)}`, color: 'bg-orange-500' },
-                  { name: 'Skyscanner', url: `https://www.skyscanner.com/flights-to/${encodeURIComponent(destination.toLowerCase())}`, color: 'bg-blue-600' },
+                  { name: 'Skyscanner', url: `https://www.skyscanner.com/flights-to/${encodeURIComponent(destination.toLowerCase())}`, color: 'bg-teal-600' },
                 ].map(p => (
                   <a key={p.name} href={p.url} target="_blank" rel="noopener noreferrer"
                     className={`${p.color} text-white text-xs font-semibold px-3 py-1.5 rounded-full hover:opacity-90 transition`}>
@@ -273,7 +273,7 @@ export default function TripPlannerForm({ profile, userId }: Props) {
                 <p className="text-xs font-semibold text-gray-400 uppercase mb-2">🎭 {locale === 'es' ? 'Actividades' : 'Activities'}</p>
                 <div className="flex flex-wrap gap-2">
                   {[
-                    { name: 'Viator', url: `https://www.viator.com/search/${encodeURIComponent(destination)}`, color: 'bg-blue-600' },
+                    { name: 'Viator', url: `https://www.viator.com/search/${encodeURIComponent(destination)}`, color: 'bg-emerald-600' },
                     { name: 'GetYourGuide', url: `https://www.getyourguide.com/s/?q=${encodeURIComponent(destination)}`, color: 'bg-purple-600' },
                   ].map(p => (
                     <a key={p.name} href={p.url} target="_blank" rel="noopener noreferrer"

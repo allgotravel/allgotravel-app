@@ -16,7 +16,7 @@ export default function LanguageSwitcher() {
       <button
         onClick={() => switchLocale('es')}
         className={`px-3 py-1 rounded-md transition ${
-          locale === 'es' ? 'bg-blue-600 text-white' : 'text-gray-500 hover:text-blue-600'
+          locale === 'es' ? 'bg-teal-600 text-white' : 'text-gray-500 hover:text-teal-600'
         }`}
       >
         ES
@@ -24,7 +24,7 @@ export default function LanguageSwitcher() {
       <button
         onClick={() => switchLocale('en')}
         className={`px-3 py-1 rounded-md transition ${
-          locale === 'en' ? 'bg-blue-600 text-white' : 'text-gray-500 hover:text-blue-600'
+          locale === 'en' ? 'bg-teal-600 text-white' : 'text-gray-500 hover:text-teal-600'
         }`}
       >
         EN

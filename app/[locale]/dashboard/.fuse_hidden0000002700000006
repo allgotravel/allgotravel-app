@@ -170,7 +170,7 @@ function KitDeViajeCard({ profile }: { profile: Profile }) {
         </p>
       )}
       {score === 100 && (
-        <p className="text-xs text-blue-600 font-semibold mb-4">✅ {en ? 'Profile 100% complete — your kit is ready' : 'Perfil 100% completo — tu kit está listo'}</p>
+        <p className="text-xs text-teal-600 font-semibold mb-4">✅ {en ? 'Profile 100% complete — your kit is ready' : 'Perfil 100% completo — tu kit está listo'}</p>
       )}
 
       {/* Items */}
@@ -187,7 +187,7 @@ function KitDeViajeCard({ profile }: { profile: Profile }) {
                 {item.label}
               </p>
               {item.value ? (
-                <p className="text-xs text-blue-600 font-medium mt-0.5">✅ {item.value}</p>
+                <p className="text-xs text-teal-600 font-medium mt-0.5">✅ {item.value}</p>
               ) : (
                 <p className="text-xs text-orange-400 font-medium mt-0.5">⚠️ {en ? 'Pending — complete' : 'Pendiente — completar'}</p>
               )}
@@ -251,7 +251,7 @@ function QuickAccessCards({ member }: { member: boolean }) {
       icon: '📁',
       title: en ? 'Travel Vault' : 'Bóveda de Viaje',
       desc: en ? 'Documents + expiry reminders' : 'Documentos + avisos de vencimiento',
-      bg: 'bg-blue-600',
+      bg: 'bg-emerald-600',
       premium: false,
     },
     {
@@ -329,7 +329,7 @@ function NextTripCard() {
   const locale = useLocale()
   const en = locale === 'en'
   return (
-    <div className="bg-gradient-to-br from-[#1B6FB5] to-blue-600 rounded-2xl shadow p-6 text-white">
+    <div className="bg-gradient-to-br from-[#1B6FB5] to-teal-600 rounded-2xl shadow p-6 text-white">
       <div className="flex items-center gap-2 mb-3">
         <span className="text-2xl">✈️</span>
         <h2 className="font-extrabold text-lg leading-tight">{en ? 'Where to next?' : '¿A dónde vas después?'}</h2>
@@ -466,7 +466,7 @@ export default async function DashboardPage({
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 py-10 px-4">
+    <main className="min-h-screen bg-gradient-to-br from-teal-50 to-blue-100 py-10 px-4">
       <div className="max-w-3xl mx-auto space-y-8">
 
         {/* Language switcher */}

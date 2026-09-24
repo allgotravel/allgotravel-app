@@ -118,7 +118,7 @@ export default function DocumentsVault({ initialDocs, userId, en = false }: Prop
                 <button
                   type="button"
                   onClick={() => openFile(doc.file_path as string)}
-                  className="mt-3 inline-flex items-center gap-2 bg-white border-2 border-gray-300 rounded-xl px-4 py-2 text-sm font-semibold text-gray-700 hover:border-blue-400"
+                  className="mt-3 inline-flex items-center gap-2 bg-white border-2 border-gray-300 rounded-xl px-4 py-2 text-sm font-semibold text-gray-700 hover:border-teal-400"
                 >
                   📎 {en ? 'View document' : 'Ver documento'}
                 </button>
@@ -151,7 +151,7 @@ export default function DocumentsVault({ initialDocs, userId, en = false }: Prop
         <button
           type="button"
           onClick={() => setAdding(true)}
-          className="w-full min-h-[60px] rounded-2xl bg-blue-600 text-white text-lg font-bold shadow hover:bg-blue-700"
+          className="w-full min-h-[60px] rounded-2xl bg-teal-600 text-white text-lg font-bold shadow hover:bg-teal-700"
         >
           ＋ {en ? 'Add document' : 'Agregar documento'}
         </button>
@@ -159,7 +159,7 @@ export default function DocumentsVault({ initialDocs, userId, en = false }: Prop
 
       {/* Formulario agregar */}
       {adding && (
-        <div className="border-2 border-blue-200 rounded-2xl p-4 space-y-4 bg-white">
+        <div className="border-2 border-teal-200 rounded-2xl p-4 space-y-4 bg-white">
           {/* ¿De quién? */}
           <div>
             <label className="block text-base font-semibold text-gray-700 mb-2">
@@ -174,7 +174,7 @@ export default function DocumentsVault({ initialDocs, userId, en = false }: Prop
                   onClick={() => { setOwner(o); setDocType('') }}
                   className={
                     'flex-1 min-h-[56px] rounded-xl border-2 text-lg font-bold ' +
-                    (owner === o ? 'bg-blue-600 border-blue-600 text-white' : 'bg-white border-gray-300 text-gray-800')
+                    (owner === o ? 'bg-teal-600 border-teal-600 text-white' : 'bg-white border-gray-300 text-gray-800')
                   }
                 >
                   {o === 'person' ? (en ? '🧍 Me' : '🧍 Mía') : (en ? '🐕‍🦺 My dog' : '🐕‍🦺 Mi perro')}
@@ -197,7 +197,7 @@ export default function DocumentsVault({ initialDocs, userId, en = false }: Prop
                   onClick={() => setDocType(d.value)}
                   className={
                     'min-h-[56px] rounded-xl border-2 text-base font-semibold px-2 flex items-center gap-2 justify-center text-center ' +
-                    (docType === d.value ? 'bg-blue-600 border-blue-600 text-white' : 'bg-white border-gray-300 text-gray-800')
+                    (docType === d.value ? 'bg-teal-600 border-teal-600 text-white' : 'bg-white border-gray-300 text-gray-800')
                   }
                 >
                   <span className="text-xl">{d.icon}</span> {en ? d.en : d.es}
@@ -215,7 +215,7 @@ export default function DocumentsVault({ initialDocs, userId, en = false }: Prop
               type="date"
               value={expiry}
               onChange={e => setExpiry(e.target.value)}
-              className="w-full border-2 border-gray-300 rounded-xl px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full border-2 border-gray-300 rounded-xl px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-teal-400"
             />
           </div>
 
@@ -228,7 +228,7 @@ export default function DocumentsVault({ initialDocs, userId, en = false }: Prop
               type="text"
               value={label}
               onChange={e => setLabel(e.target.value)}
-              className="w-full border-2 border-gray-300 rounded-xl px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full border-2 border-gray-300 rounded-xl px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-teal-400"
               placeholder={en ? 'E.g.: number, country…' : 'Ej: número, país…'}
             />
           </div>
@@ -242,7 +242,7 @@ export default function DocumentsVault({ initialDocs, userId, en = false }: Prop
               type="file"
               accept="image/*,application/pdf"
               onChange={e => setFile(e.target.files?.[0] ?? null)}
-              className="w-full text-base file:mr-3 file:py-3 file:px-4 file:rounded-xl file:border-0 file:bg-blue-600 file:text-white file:font-semibold"
+              className="w-full text-base file:mr-3 file:py-3 file:px-4 file:rounded-xl file:border-0 file:bg-teal-600 file:text-white file:font-semibold"
             />
             {file && <p className="text-sm text-gray-500 mt-1">✓ {file.name}</p>}
           </div>
@@ -259,7 +259,7 @@ export default function DocumentsVault({ initialDocs, userId, en = false }: Prop
               type="button"
               onClick={addDoc}
               disabled={!docType || saving}
-              className="flex-1 min-h-[56px] rounded-xl bg-blue-600 text-white text-lg font-bold disabled:opacity-50"
+              className="flex-1 min-h-[56px] rounded-xl bg-teal-600 text-white text-lg font-bold disabled:opacity-50"
             >
               {saving ? (en ? 'Saving…' : 'Guardando…') : (en ? 'Save' : 'Guardar')}
             </button>
