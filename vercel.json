@@ -14,12 +14,105 @@
       "source": "/kit-perro-gratis.pdf",
       "destination": "/perro.html",
       "permanent": false
+    },
+    {
+      "source": "/gratis.html",
+      "destination": "/perro.html",
+      "permanent": false
+    },
+    {
+      "source": "/gratis",
+      "destination": "/perro.html",
+      "permanent": false
+    },
+    {
+      "source": "/checklist-perro.pdf",
+      "destination": "/perro.html",
+      "permanent": false
+    },
+    {
+      "source": "/verificador-perro.html",
+      "destination": "/perro.html",
+      "permanent": false
+    },
+    {
+      "source": "/verificador-perro",
+      "destination": "/perro.html",
+      "permanent": false
+    },
+    {
+      "source": "/checklist-viaje.html",
+      "destination": "/turismo.html",
+      "permanent": false
+    },
+    {
+      "source": "/checklist-viaje",
+      "destination": "/turismo.html",
+      "permanent": false
+    },
+    {
+      "source": "/kit-turismo-gratis.html",
+      "destination": "/turismo.html",
+      "permanent": false
+    },
+    {
+      "source": "/kit-turismo-gratis",
+      "destination": "/turismo.html",
+      "permanent": false
+    },
+    {
+      "source": "/kit-turismo-gratis.pdf",
+      "destination": "/turismo.html",
+      "permanent": false
+    },
+    {
+      "source": "/quiz-viaje.html",
+      "destination": "/turismo.html",
+      "permanent": false
+    },
+    {
+      "source": "/quiz-viaje",
+      "destination": "/turismo.html",
+      "permanent": false
+    },
+    {
+      "source": "/prueba-ali.html",
+      "destination": "/club.html",
+      "permanent": false
+    },
+    {
+      "source": "/prueba-ali",
+      "destination": "/club.html",
+      "permanent": false
+    },
+    {
+      "source": "/checklist-vuelo-perro.pdf",
+      "destination": "/club.html",
+      "permanent": false
+    },
+    {
+      "source": "/kit-plantillas-es.pdf",
+      "destination": "/club.html",
+      "permanent": false
+    },
+    {
+      "source": "/kit-plantillas-en.pdf",
+      "destination": "/club.html",
+      "permanent": false
     }
   ],
   "rewrites": [
     {
-      "source": "/bono-antes-de-volar-7c3e9a41d2b8.pdf",
-      "destination": "/kit-perro-gratis.pdf"
+      "source": "/club-plantillas-es-4b7b9fc20aa7.pdf",
+      "destination": "/kit-plantillas-es.pdf"
+    },
+    {
+      "source": "/club-plantillas-en-dd4dd63429ff.pdf",
+      "destination": "/kit-plantillas-en.pdf"
+    },
+    {
+      "source": "/club-checklist-vuelo-6032f5d75d00.pdf",
+      "destination": "/checklist-vuelo-perro.pdf"
     }
   ]
 }
