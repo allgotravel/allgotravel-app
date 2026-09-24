@@ -1,1 +1,25 @@
-{}
+{
+  "redirects": [
+    {
+      "source": "/kit-perro-gratis.html",
+      "destination": "/perro.html",
+      "permanent": false
+    },
+    {
+      "source": "/kit-perro-gratis",
+      "destination": "/perro.html",
+      "permanent": false
+    },
+    {
+      "source": "/kit-perro-gratis.pdf",
+      "destination": "/perro.html",
+      "permanent": false
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/bono-antes-de-volar-7c3e9a41d2b8.pdf",
+      "destination": "/kit-perro-gratis.pdf"
+    }
+  ]
+}
