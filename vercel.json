@@ -2,17 +2,17 @@
   "redirects": [
     {
       "source": "/kit-perro-gratis.html",
-      "destination": "/perro.html",
+      "destination": "/adelanto-perro.html",
       "permanent": false
     },
     {
       "source": "/kit-perro-gratis",
-      "destination": "/perro.html",
+      "destination": "/adelanto-perro.html",
       "permanent": false
     },
     {
       "source": "/kit-perro-gratis.pdf",
-      "destination": "/perro.html",
+      "destination": "/adelanto-perro.html",
       "permanent": false
     },
     {
