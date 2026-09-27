@@ -96,6 +96,18 @@ document.addEventListener('DOMContentLoaded', function(){
   });
 });
 </script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelectorAll('a[href*="pay.hotmart.com/A107786229V"]').forEach(function(a){
+    a.addEventListener('click', function(){
+      if (typeof window.fbq === 'function') {
+        window.fbq('track', 'InitiateCheckout', {content_name: 'Pack Viajero Completo', content_category: 'ebook', value: 59.00, currency: 'USD'});
+        window.fbq('trackCustom', 'ClickToCheckout', {content_name: 'Pack Viajero Completo', value: 59.00, currency: 'USD'});
+      }
+    });
+  });
+});
+</script>
 <!-- End Meta Pixel Code -->
 </head>
 <body>
@@ -119,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function(){
           <span class="es">Movilidad reducida, baja visión, sordera, neurodivergencia… El mundo es más accesible de lo que crees — si sabes a dónde ir, qué pedir y cómo prepararte. Esta guía te lo explica paso a paso.</span>
           <span class="en">Reduced mobility, low vision, deafness, neurodivergence… The world is more accessible than you think — if you know where to go, what to ask for, and how to prepare. This guide walks you through all of it, step by step.</span>
         </p>
-        <a class="btn" href="https://pay.hotmart.com/O106521584H" target="_blank" rel="noopener"><span class="es">Consíguela por $37 →</span><span class="en">Get it for $37 →</span></a>
+        <a class="btn" href="https://pay.hotmart.com/O106521584H" target="_blank" rel="noopener"><span class="es">Consíguela por $37 →</span><span class="en">Get it for $37 →</span></a><p class="pack-line" style="margin-top:10px;font-size:.95rem"><a href="#pack" style="color:inherit;font-weight:700;text-decoration:underline"><span class="es">¿Quieres las dos guías? Pack Viajero Completo por $59 →</span><span class="en">Want both guides? Complete Traveler Pack for $59 →</span></a></p>
       </div>
       <div>
         <img src="turismo-portada.png" alt="Turismo Sin Fronteras — Guía de Viaje Accesible e Inclusivo (Español / English)">
@@ -169,7 +181,7 @@ document.addEventListener('DOMContentLoaded', function(){
         <div><span>🎁</span><span class="es">4 bonos incluidos</span><span class="en">4 bonuses included</span></div>
         <div><span>🎁</span> <span class="es"><b>Incluido al comprar: "Pídelo así"</b>: 4 correos listos para copiar y enviar (a la aerolínea, al hotel, al traslado y para reclamar si algo sale mal), en español e inglés, más de 35 frases bilingües para el aeropuerto, el avión, el hotel y el transporte. Te llega después de tu compra.</span><span class="en"><b>Included with purchase: "Ask for it like this"</b>: 4 ready-to-send emails (airline, hotel, transfer and complaint) in English and Spanish, plus 35+ bilingual phrases for every step of your trip. Delivered after purchase.</span></div>
       </div>
-      <a class="btn teal" href="https://pay.hotmart.com/O106521584H" target="_blank" rel="noopener"><span class="es">Quiero mi guía por $37 →</span><span class="en">I want my guide for $37 →</span></a>
+      <a class="btn teal" href="https://pay.hotmart.com/O106521584H" target="_blank" rel="noopener"><span class="es">Quiero mi guía por $37 →</span><span class="en">I want my guide for $37 →</span></a><p class="pack-line" style="margin-top:10px;font-size:.95rem"><a href="#pack" style="color:inherit;font-weight:700;text-decoration:underline"><span class="es">¿Quieres las dos guías? Pack Viajero Completo por $59 →</span><span class="en">Want both guides? Complete Traveler Pack for $59 →</span></a></p>
       <div style="margin-top:16px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:.94rem;color:#173F3A;font-weight:600;">
        <span style="font-size:1.15rem;">🛡️</span>
        <span class="es">Garantía de 7 días. Si no es para ti, te devolvemos tu dinero.</span><span class="en">7-day guarantee. If it's not for you, we'll refund your money.</span>
@@ -248,8 +260,29 @@ document.addEventListener('DOMContentLoaded', function(){
       <span class="es">Descarga la guía hoy y prepara tu próximo viaje con confianza.</span>
       <span class="en">Get the guide today and plan your next trip with confidence.</span>
     </p>
-    <a class="btn" href="https://pay.hotmart.com/O106521584H" target="_blank" rel="noopener"><span class="es">Consíguela por $37 →</span><span class="en">Get it for $37 →</span></a>
+    <a class="btn" href="https://pay.hotmart.com/O106521584H" target="_blank" rel="noopener"><span class="es">Consíguela por $37 →</span><span class="en">Get it for $37 →</span></a><p class="pack-line" style="margin-top:10px;font-size:.95rem"><a href="#pack" style="color:inherit;font-weight:700;text-decoration:underline"><span class="es">¿Quieres las dos guías? Pack Viajero Completo por $59 →</span><span class="en">Want both guides? Complete Traveler Pack for $59 →</span></a></p>
   </div>
+</section>
+
+
+<!-- PACK VIAJERO COMPLETO (combo $59) -->
+<section id="pack" style="background:#0b3a5c;color:#fff;padding:54px 20px;text-align:center">
+ <div style="max-width:640px;margin:0 auto">
+  <div style="display:inline-block;background:#F97316;color:#fff;font-weight:800;font-size:.85rem;letter-spacing:.06em;padding:6px 14px;border-radius:20px;margin-bottom:14px"><span class="es">PACK VIAJERO COMPLETO</span><span class="en">COMPLETE TRAVELER PACK</span></div>
+  <h2 style="font-size:1.8rem;line-height:1.25;margin:0 0 12px;font-weight:800"><span class="es">¿Quieres las dos? Pack Viajero Completo $59</span><span class="en">Want both? Complete Traveler Pack $59</span></h2>
+  <p style="font-size:1.05rem;line-height:1.55;color:#DCF0F1;margin:0 0 22px"><span class="es">¿Viajas con alguien con movilidad reducida y también con tu perro de servicio? Llévate las dos guías de AllGo Travel App con todos sus bonos en un solo pago.</span><span class="en">Do you travel with someone with reduced mobility and also with your service dog? Get both AllGo Travel App guides with all their bonuses in one payment.</span></p>
+  <div style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);border-radius:16px;padding:22px 20px;text-align:left;font-size:1rem;line-height:1.6">
+   <div>🐾 <span class="es"><b>Viaja con tu Perro de Servicio — Guía 2026</b> (español + inglés)</span><span class="en"><b>Travel With Your Service Dog — 2026 Guide</b> (Spanish + English)</span></div>
+   <div style="margin:4px 0 10px 26px;color:#CDEBEE"><span class="es">+ Cheat-sheet DOT, Aerolíneas por Región, Requisitos por País, Modo Mostrador, Kit Antes de Volar, Tu Carpeta de Viaje y Kit del Viajero con Perro de Servicio</span><span class="en">+ DOT Cheat-sheet, Airlines by Region, Requirements by Country, Counter Mode, Before You Fly Kit, Your Travel Folder and the Service Dog Traveler Kit</span></div>
+   <div>♿ <span class="es"><b>Turismo Sin Fronteras — Guía de Viaje Accesible e Inclusivo</b></span><span class="en"><b>Turismo Sin Fronteras — Accessible &amp; Inclusive Travel Guide</b></span></div>
+   <div style="margin:4px 0 10px 26px;color:#CDEBEE"><span class="es">+ sus 4 bonos: Checklist de Viaje Accesible, Tarjetas de Viaje Accesible, Guía Rápida de 30 Destinos Accesibles y "Pídelo así" (correos y frases ES/EN)</span><span class="en">+ its 4 bonuses: Accessible Travel Checklist, Accessible Travel Cards, Quick Guide to 30 Accessible Destinations and "Ask for it like this" (emails and phrases EN/ES)</span></div>
+   <div>🛡️ <span class="es">Garantía de 7 días en el pack</span><span class="en">7-day guarantee on the pack</span></div>
+  </div>
+  <p style="margin:22px 0 6px;font-size:1.05rem;color:#DCF0F1"><span class="es">Por separado: $37 + $37 = $74 · En pack: <b style="color:#fff;font-size:1.3rem">$59</b></span><span class="en">Separately: $37 + $37 = $74 · As a pack: <b style="color:#fff;font-size:1.3rem">$59</b></span></p>
+  <p style="margin:0 0 20px;font-size:.92rem;color:#A9D3D8"><span class="es">$59 es el precio fijo del pack, no una oferta temporal.</span><span class="en">$59 is the pack's regular price, not a limited-time offer.</span></p>
+  <a class="btn" href="https://pay.hotmart.com/A107786229V" target="_blank" rel="noopener"><span class="es">Quiero el Pack Viajero Completo por $59 →</span><span class="en">I want the Complete Traveler Pack for $59 →</span></a>
+  <p style="margin-top:12px;font-size:.9rem;color:#A9D3D8"><span class="es">🔒 Pago seguro por Hotmart · Acceso inmediato · AllGo Travel App</span><span class="en">🔒 Secure payment via Hotmart · Instant access · AllGo Travel App</span></p>
+ </div>
 </section>
 
 <footer>
