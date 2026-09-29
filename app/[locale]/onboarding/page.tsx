@@ -58,24 +58,35 @@ type FamilyMember = { name: string; disability: string }
 function AnimatedWord({ text, color, baseDelay = 0 }: { text: string; color: string; baseDelay?: number }) {
   return (
     <span>
-      {text.split('').map((char, i) => (
-        <span
-          key={i}
-          className="inline-block"
-          style={{
-            animation: `letterPop 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) ${(baseDelay + i * 0.06).toFixed(2)}s both`,
-            color: char === ' ' ? 'transparent' : color,
-          }}
-        >
-          {char === ' ' ? ' ' : char}
-        </span>
-      ))}
+      {text.split(' ').map((word, w, words) => {
+        // Keep each word together so the title only wraps between words
+        const offset = words.slice(0, w).join(' ').length + (w > 0 ? 1 : 0)
+        return (
+          <span key={w}>
+            {w > 0 && ' '}
+            <span className="inline-block whitespace-nowrap">
+              {word.split('').map((char, i) => (
+                <span
+                  key={i}
+                  className="inline-block"
+                  style={{
+                    animation: `letterPop 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) ${(baseDelay + (offset + i) * 0.06).toFixed(2)}s both`,
+                    color,
+                  }}
+                >
+                  {char}
+                </span>
+              ))}
+            </span>
+          </span>
+        )
+      })}
     </span>
   )
 }
 
 function StepWelcome({ t, onNext }: { t: T; onNext: () => void }) {
-  const brandName = 'AllGo Travel'
+  const brandName = 'AllGo Travel App'
   const greeting = t('Bienvenido a', 'Welcome to')
 
   return (
@@ -146,8 +157,8 @@ function StepWelcome({ t, onNext }: { t: T; onNext: () => void }) {
             style={{ animation: 'fadeInUp 0.5s ease-out 1.8s both' }}
           >
             {t(
-              'El 87% de las personas con movilidad reducida dicen que viajar es complicado.',
-              '87% of people with disabilities say travel is complicated.'
+              'El 87% de quienes viajan con movilidad reducida dicen que viajar es complicado.',
+              '87% of people with reduced mobility say travel is complicated.'
             )}
           </p>
 
@@ -181,7 +192,7 @@ function StepWelcome({ t, onNext }: { t: T; onNext: () => void }) {
                 animation: 'splashText 0.7s cubic-bezier(0.36, 0.07, 0.19, 0.97) 2.1s both, splashGlow 2s ease-in-out 2.8s infinite',
               }}
             >
-              {t('AllGo Travel lo hace posible.', 'AllGo Travel makes it possible.')}
+              {t('AllGo Travel App lo hace posible.', 'AllGo Travel App makes it possible.')}
             </p>
           </div>
         </div>
