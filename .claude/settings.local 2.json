@@ -17,9 +17,7 @@
       "Bash(git stash *)",
       "Bash(cp .env.local /tmp/env.local.bak)",
       "Bash(sed -i '' 's/^NEXT_PUBLIC_META_PIXEL_ID=$/NEXT_PUBLIC_META_PIXEL_ID=1234567890123456/' .env.local)",
-      "Bash(npx eslint *)",
-      "Bash(git commit -q -m 'Onboarding: marca AllGo Travel App y copy de movilidad reducida en bienvenida *)",
-      "Bash(gh auth *)"
+      "Bash(npx eslint *)"
     ]
   }
 }
