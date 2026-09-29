@@ -47,3 +47,6 @@ alli_prompt.txt
 
 # temp de verificación (Claude)
 tsconfig.check.json
+
+# Claude Code local settings
+.claude/settings.local*.json
