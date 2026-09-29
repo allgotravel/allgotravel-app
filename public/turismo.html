@@ -97,6 +97,22 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 </script>
 <!-- End Meta Pixel Code -->
+<script>
+/* Rastreo de origen de ventas: ?src=xxx -> Hotmart sck=xxx (si no viene: sck=web). Solo añade el parámetro; no cambia precio ni checkout. */
+(function(){
+  var DEF='web', src=null;
+  try{ src=new URLSearchParams(location.search).get('src'); }catch(e){}
+  if(src){ src=String(src).toLowerCase().replace(/[^a-z0-9_-]/g,'').slice(0,40); }
+  try{ if(src){ sessionStorage.setItem('allgo_src',src); } else { src=sessionStorage.getItem('allgo_src'); } }catch(e){}
+  window.ALLGO_SCK = src || DEF;
+  function tag(){
+    document.querySelectorAll('a[href*="pay.hotmart.com"]').forEach(function(a){
+      try{ var u=new URL(a.href); u.searchParams.set('sck', window.ALLGO_SCK); a.href=u.toString(); }catch(e){}
+    });
+  }
+  if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', tag); } else { tag(); }
+})();
+</script>
 </head>
 <body>
 

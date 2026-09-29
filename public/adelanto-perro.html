@@ -79,6 +79,22 @@ fbq('init','1402403141746407');fbq('track','PageView');
   .guar{margin:16px auto 22px;max-width:460px;font-size:14px;opacity:.9}
   footer{padding:26px 0 40px;text-align:center;font-size:12px;color:var(--muted)}
 </style>
+<script>
+/* Rastreo de origen de ventas: ?src=xxx -> Hotmart sck=xxx (si no viene: sck=adelanto-perro). Solo añade el parámetro; no cambia precio ni checkout. */
+(function(){
+  var DEF='adelanto-perro', src=null;
+  try{ src=new URLSearchParams(location.search).get('src'); }catch(e){}
+  if(src){ src=String(src).toLowerCase().replace(/[^a-z0-9_-]/g,'').slice(0,40); }
+  try{ if(src){ sessionStorage.setItem('allgo_src',src); } else { src=sessionStorage.getItem('allgo_src'); } }catch(e){}
+  window.ALLGO_SCK = src || DEF;
+  function tag(){
+    document.querySelectorAll('a[href*="pay.hotmart.com"]').forEach(function(a){
+      try{ var u=new URL(a.href); u.searchParams.set('sck', window.ALLGO_SCK); a.href=u.toString(); }catch(e){}
+    });
+  }
+  if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', tag); } else { tag(); }
+})();
+</script>
 </head>
 <body>
 
@@ -211,7 +227,7 @@ fbq('init','1402403141746407');fbq('track','PageView');
 const SUPABASE_URL  = 'https://ywtkkxpuebwqvmylzwew.supabase.co';
 const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl3dGtreHB1ZWJ3cXZteWx6d2V3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI0MjE0MjEsImV4cCI6MjA5Nzk5NzQyMX0.8xGdNeqpGygiA3w8QhCxk3rmKOfkJb4btbbOqCJfDxk'; // clave pública (anon), la misma que usa perro.html
 const SOURCE        = 'adelanto-perro';
-const CHECKOUT      = 'https://pay.hotmart.com/Q106793737G?sck=adelanto-perro'; // sck = origen de la venta en Hotmart (sin datos personales en la URL)
+const CHECKOUT      = 'https://pay.hotmart.com/Q106793737G?sck=' + encodeURIComponent(window.ALLGO_SCK || 'adelanto-perro'); // sck = origen de la venta en Hotmart: ?src=xxx de la URL, o 'adelanto-perro' si no viene (sin datos personales en la URL)
 
 const form = document.getElementById('optin');
 const input = document.getElementById('email');
