@@ -211,70 +211,6 @@ document.addEventListener('DOMContentLoaded', function(){
 </section>
 
 <style>
- .allgo-faq{background:#fff;padding:60px 20px;color:#173F3A}
- .allgo-faq .allgo-faq-inner{max-width:780px;margin:0 auto}
- .allgo-faq .allgo-kicker{display:inline-block;border:1px solid #C9A24B;color:#9A7A2E;background:#fff;font-size:12px;letter-spacing:2px;text-transform:uppercase;padding:6px 14px;border-radius:999px;margin-bottom:18px}
- .allgo-faq h2{font-family:Georgia,'Times New Roman',serif;font-size:2rem;line-height:1.15;margin:0 0 28px;color:#173F3A}
- .faq-item{border:1px solid #D5E4DF;border-radius:14px;margin-bottom:12px;background:#F6FAF8;overflow:hidden}
- .faq-item summary{list-style:none;cursor:pointer;padding:18px 22px;font-weight:700;font-size:1.02rem;color:#173F3A;display:flex;justify-content:space-between;align-items:center;gap:14px}
- .faq-item summary::-webkit-details-marker{display:none}
- .faq-item summary::after{content:"+";color:#C9A24B;font-size:1.5rem;line-height:1;flex:0 0 auto}
- .faq-item[open] summary::after{content:"–"}
- .faq-item .faq-a{padding:0 22px 20px;color:#41564F;line-height:1.6;font-size:.98rem}
-</style>
-<section class="allgo-faq">
- <div class="allgo-faq-inner">
-  <span class="allgo-kicker"><span class="es">Preguntas frecuentes</span><span class="en">FAQ</span></span>
-  <h2><span class="es">Lo que más nos preguntan 🐾</span><span class="en">What people ask us most 🐾</span></h2>
-
-  <details class="faq-item">
-   <summary><span class="es">¿Necesito un carnet, un registro o un entrenador certificado?</span><span class="en">Do I need an ID card, a registry, or a certified trainer?</span></summary>
-   <div class="faq-a"><span class="es">No. En EE.UU. no existe un registro oficial obligatorio de perros de servicio, y nadie puede exigirte un carnet, un certificado ni un entrenador certificado para volar. Tu perro puede estar entrenado por ti. Lo único válido es el formulario del DOT (gratuito). Si una página te vende un "registro oficial" como requisito, es una estafa.</span><span class="en">No. In the U.S. there is no mandatory official service dog registry, and no one can require an ID card, a certificate, or a certified trainer to fly. Your dog can be owner-trained. The only valid document is the DOT form (which is free). If a website sells you an "official registry" as a requirement, it's a scam.</span></div>
-  </details>
-
-  <details class="faq-item">
-   <summary><span class="es">¿Qué es el formulario del DOT?</span><span class="en">What is the DOT form?</span></summary>
-   <div class="faq-a"><span class="es">Es el formulario federal del Departamento de Transporte que la aerolínea puede pedirte para volar con tu perro de servicio en cabina, sin cargo. Va lleno antes del vuelo, no en el mostrador. En la guía te enseñamos a llenarlo paso a paso.</span><span class="en">It's the federal Department of Transportation form the airline may request to fly with your service dog in the cabin, at no charge. You fill it out before your flight, not at the counter. In the guide we show you how to complete it step by step.</span></div>
-  </details>
-
-  <details class="faq-item">
-   <summary><span class="es">¿Cuál es la diferencia entre apoyo emocional y perro de servicio?</span><span class="en">What's the difference between an emotional support and a service dog?</span></summary>
-   <div class="faq-a"><span class="es">Desde 2021, el perro de apoyo emocional vuela como mascota (con tarifa, transportadora y límites de tamaño). El perro de servicio psiquiátrico vuela en cabina, sin cargo — la diferencia está en la documentación.</span><span class="en">Since 2021, emotional support dogs fly as pets (with a fee, carrier and size limits). A psychiatric service dog flies in the cabin, at no charge — the difference is in the documentation.</span></div>
-  </details>
-
-  <details class="faq-item">
-   <summary><span class="es">Voy a viajar fuera de EE.UU., ¿qué necesito?</span><span class="en">I'm traveling outside the U.S. — what do I need?</span></summary>
-   <div class="faq-a"><span class="es">Los requisitos internacionales varían por país y suelen incluir microchip, vacuna de la rabia con ciertos tiempos y, en algunos casos, un certificado de salud. La guía trae un checklist de requisitos por país para que no te falte nada. Verifica siempre con tu aerolínea y el país de destino.</span><span class="en">International requirements vary by country and often include a microchip, a rabies vaccine with specific timing, and in some cases a health certificate. The guide includes a country-by-country checklist so nothing is missing. Always verify with your airline and destination country.</span></div>
-  </details>
-
-  <details class="faq-item">
-   <summary><span class="es">¿Y si en el mostrador me dicen que no?</span><span class="en">What if they tell me "no" at the counter?</span></summary>
-   <div class="faq-a"><span class="es">Por ley, solo te pueden hacer 2 preguntas sobre tu perro de servicio. La guía incluye la tarjeta "Modo Mostrador" para que respondas con calma y seguridad.</span><span class="en">By law, they can only ask you 2 questions about your service dog. The guide includes the "Counter Mode" card so you can respond calmly and confidently.</span></div>
-  </details>
-
-  <details class="faq-item">
-   <summary><span class="es">¿En qué idioma está y cómo lo recibo?</span><span class="en">What language is it in and how do I get it?</span></summary>
-   <div class="faq-a"><span class="es">En español e inglés, con acceso inmediato después de la compra.</span><span class="en">In Spanish and English, with instant access after purchase.</span></div>
-  </details>
-
-  <details class="faq-item">
-   <summary><span class="es">Escuché que SÍ hace falta el carné o el registro… ¿es verdad?</span><span class="en">I heard you DO need an ID card or registry… is that true?</span></summary>
-   <div class="faq-a"><span class="es">No. Según la ADA (ley de EE.UU.), nadie puede exigir carné, registro ni certificación para un perro de servicio, y los "registros oficiales" en línea no son obligatorios. Para volar, lo único que una aerolínea puede pedirte es el formulario del DOT, que es gratuito y no es un carné. Puedes verificarlo tú misma en ada.gov y transportation.gov.</span><span class="en">No. Under the ADA (U.S. law), no one can require an ID card, registry, or certification for a service dog, and online "official registries" are not required. To fly, the only thing an airline can ask for is the DOT form, which is free and is not an ID card. You can verify this yourself at ada.gov and transportation.gov.</span></div>
-  </details>
-
-  <details class="faq-item">
-   <summary><span class="es">¿Cómo sé qué hoteles aceptan mi perro de servicio?</span><span class="en">How do I know which hotels accept my service dog?</span></summary>
-   <div class="faq-a"><span class="es">En EE.UU., por la ADA, los hoteles deben admitir a tu perro de servicio aunque tengan política de "no mascotas", y no pueden cobrarte una tarifa de mascota. No necesitas buscar hoteles "pet-friendly" — tu perro de servicio entra por ley. Es buena idea avisar al reservar. En viajes internacionales, verifica las reglas del país.</span><span class="en">In the U.S., under the ADA, hotels must allow your service dog even if they have a "no pets" policy, and they cannot charge you a pet fee. You don't need to look for "pet-friendly" hotels — your service dog is allowed by law. It's a good idea to let them know when booking. For international travel, check the destination country's rules.</span></div>
-  </details>
-
-  <details class="faq-item">
-   <summary><span class="es">Voy a viajar desde otro país a EE.UU. (por ejemplo Venezuela), ¿qué necesito?</span><span class="en">I'm traveling to the U.S. from another country (e.g. Venezuela) — what do I need?</span></summary>
-   <div class="faq-a"><span class="es">Los requisitos para entrar a EE.UU. dependen del país de origen. Los países que la CDC clasifica como de alto riesgo de rabia (como Venezuela) tienen reglas más estrictas: microchip (puesto antes de la vacuna), vacuna de la rabia, por lo general una prueba de titulación de anticuerpos, y el formulario de importación de la CDC. Se prepara con varios meses de anticipación. Verifica siempre los pasos actuales directamente en la CDC oficial (cdc.gov/importation/dogs) y con tu aerolínea.</span><span class="en">Requirements to enter the U.S. depend on the country of origin. Countries the CDC classifies as high-risk for dog rabies (like Venezuela) have stricter rules: microchip (implanted before the vaccine), rabies vaccine, usually a rabies antibody titer test, and the CDC dog import form. It should be prepared several months in advance. Always verify the current steps directly with the official CDC (cdc.gov/importation/dogs) and your airline.</span></div>
-  </details>
- </div>
-</section>
-
-<style>
  .allgo-social{background:#E9F2EF;padding:60px 20px;color:#173F3A}
  .allgo-inner{max-width:1000px;margin:0 auto}
  .allgo-kicker{display:inline-block;border:1px solid #C9A24B;color:#9A7A2E;background:#fff;font-size:12px;letter-spacing:2px;text-transform:uppercase;padding:6px 14px;border-radius:999px;margin-bottom:18px}
@@ -323,6 +259,87 @@ document.addEventListener('DOMContentLoaded', function(){
    <span><span class="es">🔒 Pago seguro</span><span class="en">🔒 Secure payment</span></span>
    <span><span class="es">⚡ Acceso inmediato</span><span class="en">⚡ Instant access</span></span>
    <span>🇪🇸🇺🇸 Español / English</span>
+  </div>
+ </div>
+</section>
+
+<style>
+ .allgo-faq{background:#fff;padding:60px 20px;color:#173F3A}
+ .allgo-faq .allgo-faq-inner{max-width:780px;margin:0 auto}
+ .allgo-faq .allgo-kicker{display:inline-block;border:1px solid #C9A24B;color:#9A7A2E;background:#fff;font-size:12px;letter-spacing:2px;text-transform:uppercase;padding:6px 14px;border-radius:999px;margin-bottom:18px}
+ .allgo-faq h2{font-family:Georgia,'Times New Roman',serif;font-size:2rem;line-height:1.15;margin:0 0 28px;color:#173F3A}
+ .faq-item{border:1px solid #D5E4DF;border-radius:14px;margin-bottom:12px;background:#F6FAF8;overflow:hidden}
+ .faq-item summary{list-style:none;cursor:pointer;padding:18px 22px;font-weight:700;font-size:1.02rem;color:#173F3A;display:flex;justify-content:space-between;align-items:center;gap:14px}
+ .faq-item summary::-webkit-details-marker{display:none}
+ .faq-item summary::after{content:"+";color:#C9A24B;font-size:1.5rem;line-height:1;flex:0 0 auto}
+ .faq-item[open] summary::after{content:"–"}
+ .faq-item .faq-a{padding:0 22px 20px;color:#41564F;line-height:1.6;font-size:.98rem}
+ .allgo-faq .faq-cta{text-align:center;margin-top:30px}
+ .allgo-faq .faq-cta p{margin-top:12px;color:#5B726B;font-size:.94rem}
+</style>
+<section class="allgo-faq" id="preguntas">
+ <div class="allgo-faq-inner">
+  <span class="allgo-kicker"><span class="es">Preguntas frecuentes</span><span class="en">FAQ</span></span>
+  <h2><span class="es">Lo que más nos preguntan 🐾</span><span class="en">What people ask us most 🐾</span></h2>
+
+  <details class="faq-item">
+   <summary><span class="es">¿Mi perro de servicio puede viajar en cabina?</span><span class="en">Can my service dog fly in the cabin?</span></summary>
+   <div class="faq-a"><span class="es">Sí. En EE. UU., las aerolíneas aceptan en cabina, sin cargo, a los perros de servicio entrenados. Pueden pedirte el formulario del DOT (Departamento de Transporte), que va lleno antes del vuelo, no en el mostrador. La guía te explica cómo llenarlo y cuándo presentarlo.</span><span class="en">Yes. In the U.S., airlines accept trained service dogs in the cabin at no charge. They may ask for the DOT (Department of Transportation) form, which you fill out before your flight, not at the counter. The guide explains how to complete it and when to submit it.</span></div>
+  </details>
+
+  <details class="faq-item">
+   <summary><span class="es">¿Y si mi perro es de apoyo emocional?</span><span class="en">What if my dog is an emotional support animal?</span></summary>
+   <div class="faq-a"><span class="es">Desde 2021, en EE. UU. el perro de apoyo emocional ya no vuela como perro de servicio: vuela como mascota (con tarifa, transportadora y límites de tamaño). Algunos perros pueden calificar como perro de servicio psiquiátrico, que sí vuela en cabina sin cargo; la diferencia está en el entrenamiento y la documentación. La guía te explica las diferencias y tus opciones.</span><span class="en">Since 2021, in the U.S. emotional support dogs no longer fly as service dogs: they fly as pets (with a fee, carrier and size limits). Some dogs may qualify as psychiatric service dogs, which do fly in the cabin at no charge; the difference is in the training and the documentation. The guide explains the differences and your options.</span></div>
+  </details>
+
+  <details class="faq-item">
+   <summary><span class="es">¿Sirve un certificado o registro comprado por internet?</span><span class="en">Does a certificate or registration bought online count?</span></summary>
+   <div class="faq-a"><span class="es">No. En EE. UU. no existe un registro oficial de perros de servicio, y según la ADA nadie puede exigirte carné, registro, certificado ni entrenador certificado: tu perro puede estar entrenado por ti. Si una página te vende un "registro oficial" como requisito, es una estafa. La guía te explica qué sí te pueden pedir. Puedes verificarlo en ada.gov y transportation.gov.</span><span class="en">No. In the U.S. there is no official service dog registry, and under the ADA no one can require an ID card, registration, certificate, or certified trainer: your dog can be owner-trained. If a website sells you an "official registry" as a requirement, it's a scam. The guide explains what they actually can ask for. You can verify this at ada.gov and transportation.gov.</span></div>
+  </details>
+
+  <details class="faq-item">
+   <summary><span class="es">Voy a Europa o Latinoamérica, ¿me sirve?</span><span class="en">I'm going to Europe or Latin America — will it help me?</span></summary>
+   <div class="faq-a"><span class="es">Sí. La guía incluye los requisitos de la Unión Europea y de 10 países de Latinoamérica, actualizados en 2026, y fichas de aerolíneas. Suelen pedir microchip, vacuna de la rabia con ciertos tiempos y, en algunos casos, un certificado de salud. Verifica siempre con tu aerolínea y el país de destino.</span><span class="en">Yes. The guide includes the requirements for the European Union and 10 Latin American countries, updated for 2026, plus airline fact sheets. They usually require a microchip, a rabies vaccine with specific timing and, in some cases, a health certificate. Always verify with your airline and destination country.</span></div>
+  </details>
+
+  <details class="faq-item">
+   <summary><span class="es">¿Y si mi perro pesa más de 8 kilos?</span><span class="en">What if my dog weighs more than 8 kg (about 17 lb)?</span></summary>
+   <div class="faq-a"><span class="es">Depende de cómo viaje. Como mascota, muchas aerolíneas solo aceptan en cabina perros pequeños dentro de su transportadora (a menudo hasta unos 8 kg en total), y el límite cambia según la aerolínea. Como perro de servicio, las reglas son otras. La guía lo explica aerolínea por aerolínea.</span><span class="en">It depends on how they travel. As a pet, many airlines only accept small dogs in the cabin inside their carrier (often up to about 8 kg in total), and the limit varies by airline. As a service dog, the rules are different. The guide explains it airline by airline.</span></div>
+  </details>
+
+  <details class="faq-item">
+   <summary><span class="es">¿Cuánto tiempo antes debo prepararme?</span><span class="en">How far ahead should I start preparing?</span></summary>
+   <div class="faq-a"><span class="es">Depende del destino. Algunos trámites llevan semanas o meses, sobre todo para Europa: por ejemplo, la Unión Europea pide esperar al menos 21 días después de la vacuna de la rabia. Lo ideal es tener todo en orden antes de comprar el vuelo. La guía trae un calendario para que sepas qué hacer y cuándo.</span><span class="en">It depends on your destination. Some steps take weeks or months, especially for Europe: for example, the European Union requires waiting at least 21 days after the rabies vaccine. Ideally, have everything in order before buying your flight. The guide includes a timeline so you know what to do and when.</span></div>
+  </details>
+
+  <details class="faq-item">
+   <summary><span class="es">¿En qué idioma está?</span><span class="en">What language is it in?</span></summary>
+   <div class="faq-a"><span class="es">En español e inglés: recibes la guía completa en los dos idiomas.</span><span class="en">In Spanish and English: you get the complete guide in both languages.</span></div>
+  </details>
+
+  <details class="faq-item">
+   <summary><span class="es">¿Cómo la recibo?</span><span class="en">How do I get it?</span></summary>
+   <div class="faq-a"><span class="es">Tienes acceso inmediato en Hotmart apenas se confirma tu pago, con el bono Kit "Antes de Volar" incluido. Y cuentas con garantía de 7 días.</span><span class="en">You get instant access on Hotmart as soon as your payment is confirmed, with the "Before You Fly" Kit bonus included. And you have a 7-day guarantee.</span></div>
+  </details>
+
+  <details class="faq-item">
+   <summary><span class="es">¿Y si en el mostrador me dicen que no?</span><span class="en">What if they tell me "no" at the counter?</span></summary>
+   <div class="faq-a"><span class="es">Por ley, solo te pueden hacer 2 preguntas sobre tu perro de servicio. La guía incluye la tarjeta "Modo Mostrador" para que respondas con calma y seguridad.</span><span class="en">By law, they can only ask you 2 questions about your service dog. The guide includes the "Counter Mode" card so you can respond calmly and confidently.</span></div>
+  </details>
+
+  <details class="faq-item">
+   <summary><span class="es">¿Cómo sé qué hoteles aceptan mi perro de servicio?</span><span class="en">How do I know which hotels accept my service dog?</span></summary>
+   <div class="faq-a"><span class="es">En EE.UU., por la ADA, los hoteles deben admitir a tu perro de servicio aunque tengan política de "no mascotas", y no pueden cobrarte una tarifa de mascota. No necesitas buscar hoteles "pet-friendly" — tu perro de servicio entra por ley. Es buena idea avisar al reservar. En viajes internacionales, verifica las reglas del país.</span><span class="en">In the U.S., under the ADA, hotels must allow your service dog even if they have a "no pets" policy, and they cannot charge you a pet fee. You don't need to look for "pet-friendly" hotels — your service dog is allowed by law. It's a good idea to let them know when booking. For international travel, check the destination country's rules.</span></div>
+  </details>
+
+  <details class="faq-item">
+   <summary><span class="es">Voy a viajar desde otro país a EE.UU. (por ejemplo Venezuela), ¿qué necesito?</span><span class="en">I'm traveling to the U.S. from another country (e.g. Venezuela) — what do I need?</span></summary>
+   <div class="faq-a"><span class="es">Los requisitos para entrar a EE.UU. dependen del país de origen. Los países que la CDC clasifica como de alto riesgo de rabia (como Venezuela) tienen reglas más estrictas: microchip (puesto antes de la vacuna), vacuna de la rabia, por lo general una prueba de titulación de anticuerpos, y el formulario de importación de la CDC. Se prepara con varios meses de anticipación. Verifica siempre los pasos actuales directamente en la CDC oficial (cdc.gov/importation/dogs) y con tu aerolínea.</span><span class="en">Requirements to enter the U.S. depend on the country of origin. Countries the CDC classifies as high-risk for dog rabies (like Venezuela) have stricter rules: microchip (implanted before the vaccine), rabies vaccine, usually a rabies antibody titer test, and the CDC dog import form. It should be prepared several months in advance. Always verify the current steps directly with the official CDC (cdc.gov/importation/dogs) and your airline.</span></div>
+  </details>
+
+  <div class="faq-cta">
+   <a class="btn teal" href="https://pay.hotmart.com/Q106793737G" target="_blank" rel="noopener"><span class="es">Quiero mi guía por $37 →</span><span class="en">I want my guide for $37 →</span></a>
+   <p><span class="es">🛡️ Garantía de 7 días · ⚡ Acceso inmediato</span><span class="en">🛡️ 7-day guarantee · ⚡ Instant access</span></p>
   </div>
  </div>
 </section>
