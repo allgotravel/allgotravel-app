@@ -49,7 +49,13 @@ export default function HomePage() {
     )
     document.querySelectorAll('.reveal').forEach(el => io.observe(el))
 
-    return () => { anchors.forEach(a => a.removeEventListener('click', handler)); io.disconnect() }
+    // Keep the chat bubble from covering the hero text on mobile
+    const root = document.documentElement
+    const hero = document.querySelector('.lp .hero')
+    const heroIo = new IntersectionObserver(([en]) => root.classList.toggle('lp-hero-visible', en.isIntersecting), { rootMargin: '-80px 0px 0px 0px' })
+    if (hero) heroIo.observe(hero)
+
+    return () => { anchors.forEach(a => a.removeEventListener('click', handler)); io.disconnect(); heroIo.disconnect(); root.classList.remove('lp-hero-visible') }
   }, [])
 
   return (
@@ -58,7 +64,7 @@ export default function HomePage() {
       {/* ── NAV ── */}
       <header className="nav">
         <div className="wrap row">
-          <a className="brand" href="#top"><img className="brandlogo" src="/landing/img1.png" alt="AllGo Travel App" /> AllGo Travel App</a>
+          <a className="brand" href="#top" aria-label="AllGo Travel App"><img className="brandlogo" src="/landing/img1.png" alt="AllGo Travel App" /> <span className="brandtxt">AllGo Travel App</span></a>
           <div className="menuwrap">
             <nav className="navlinks">
               <a href="#app">{t('navApp')}</a>
@@ -90,9 +96,23 @@ export default function HomePage() {
             <div className="rating"><span className="stars">★★★★★</span> <span>{t('heroRating')}</span></div>
           </div>
           <div className="heroimg">
-            <img src="/landing/img2.jpg" alt={t('heroImgAlt')} />
+            <img src="/img/home-hero.webp" width={800} height={999} alt={t('heroImgAlt')} />
             <div className="badge-float"><span className="ic">🌻</span> {t('heroBadge')}</div>
           </div>
+        </div>
+      </section>
+
+      {/* ── GUIDES STRIP ── */}
+      <section className="guidestrip">
+        <div className="wrap gs">
+          <a className="gscard" href={URL.turismo}>
+            <img src="/img/turismo-portada-es.webp" width={700} height={700} alt={t('prodTurImgAlt')} />
+            <div className="gsbd"><h3>Turismo Sin Fronteras</h3><span className="gslang">{t('stripTurLang')}</span><div className="gsprice">$37</div><span className="btn btn-primary">{t('stripCta')}</span></div>
+          </a>
+          <a className="gscard" href={URL.perro}>
+            <img src="/img/home-perro.webp" width={700} height={700} alt="Viaja con tu Perro de Servicio — ES / EN" />
+            <div className="gsbd"><h3>Viaja con tu Perro de Servicio</h3><span className="gslang">{t('stripDogLang')}</span><div className="gsprice">$37</div><span className="btn btn-primary">{t('stripCta')}</span></div>
+          </a>
         </div>
       </section>
 
@@ -155,7 +175,7 @@ export default function HomePage() {
               <span className="chip">{t('chip1')}</span><span className="chip">{t('chip2')}</span><span className="chip">{t('chip3')}</span><span className="chip">{t('chip4')}</span><span className="chip">{t('chip5')}</span>
             </div>
           </div>
-          <div><img className="phone" src="/landing/img3.jpg" alt={t('appImgAlt')} /></div>
+          <div><img className="phone" src="/img/home-app.webp" width={620} height={1346} loading="lazy" alt={t('appImgAlt')} /></div>
         </div>
       </section>
 
@@ -183,19 +203,19 @@ export default function HomePage() {
         </div>
         <div className="wrap prod reveal">
           <div className="prodcard">
-            <div className="ph"><img src="/landing/img4.jpg" alt="Turismo Sin Fronteras — ES / EN" /></div>
+            <div className="ph"><img src="/img/turismo-portada-es.webp" width={700} height={700} loading="lazy" alt={t('prodTurImgAlt')} /></div>
             <div className="bd"><span className="tag">{t('prodTurTag')}</span><h3>Turismo Sin Fronteras</h3><p>{t('prodTurDesc')}</p><div className="price">$37</div><a className="btn btn-primary" style={{ marginTop: 12, justifyContent: 'center' }} href={URL.turismo} target="_blank" rel="noopener">{t('prodCtaGet')}</a></div>
           </div>
           <div className="prodcard">
-            <div className="ph"><img src="/landing/img5.jpg" alt="Viaja con tu Perro de Servicio — ES / EN" /></div>
+            <div className="ph"><img src="/img/home-perro.webp" width={700} height={700} loading="lazy" alt="Viaja con tu Perro de Servicio — ES / EN" /></div>
             <div className="bd"><span className="tag">{t('prodDogTag')}</span><h3>Viaja con tu Perro de Servicio</h3><p>{t('prodDogDesc')}</p><div className="price">$37</div><a className="btn btn-primary" style={{ marginTop: 12, justifyContent: 'center' }} href={URL.perro} target="_blank" rel="noopener">{t('prodCtaGet')}</a></div>
           </div>
           <div className="prodcard">
-            <div className="ph"><img src="/landing/img6.jpg" alt="Kit del Viajero" /></div>
+            <div className="ph"><img src="/landing/img6.jpg" loading="lazy" alt="Kit del Viajero" /></div>
             <div className="bd"><span className="tag">{t('prodKitTag')}</span><h3>Kit del Viajero</h3><p>{t('prodKitDesc')}</p><div className="price">$9</div><a className="btn btn-ghost" style={{ marginTop: 12, justifyContent: 'center' }} href={URL.kit} target="_blank" rel="noopener">{t('prodCtaSee')}</a></div>
           </div>
           <div className="prodcard">
-            <div className="ph"><img src="/landing/img7.jpg" alt="Vuela con tu Silla Eléctrica" /></div>
+            <div className="ph"><img src="/landing/img7.jpg" loading="lazy" alt="Vuela con tu Silla Eléctrica" /></div>
             <div className="bd"><span className="tag">{t('prodChairTag')}</span><h3>Vuela con tu Silla Eléctrica</h3><p>{t('prodChairDesc')}</p><div className="price">$17</div><a className="btn btn-ghost" style={{ marginTop: 12, justifyContent: 'center' }} href={URL.silla} target="_blank" rel="noopener">{t('prodCtaGet')}</a></div>
           </div>
         </div>
@@ -275,7 +295,7 @@ export default function HomePage() {
               <p style={{ color: '#33475b', fontSize: 16.5 }}>{t('storyP2')}</p>
               <div className="sig">{t('storySig')}</div>
             </div>
-            <img src="/landing/img8.jpg" alt={t('storyImgAlt')} />
+            <img src="/img/home-historia.webp" width={700} height={874} loading="lazy" alt={t('storyImgAlt')} />
           </div></div>
         </div>
       </section>
@@ -341,8 +361,8 @@ export default function HomePage() {
               <p style={{ maxWidth: 280 }}>{t('footTagline')}</p>
             </div>
             <div><h4>{t('footExplore')}</h4><a href="#app">{t('footLinkApp')}</a><a href="#guias">{t('footLinkGuides')}</a><a href="#club">{t('footLinkClub')}</a><a href="#historia">{t('footLinkStory')}</a></div>
-            <div><h4>{t('footResources')}</h4><a href="#faq">{t('footLinkFaq')}</a><a href="#gratis">{t('footLinkKit')}</a><a href="#">{t('footLinkBlog')}</a><a href="#">{t('footLinkContact')}</a></div>
-            <div><h4>{t('footCommunity')}</h4><a href="https://instagram.com/allgotravelapp" target="_blank" rel="noopener">Instagram @allgotravelapp</a><a href="#">Facebook</a><a href="#">YouTube</a></div>
+            <div><h4>{t('footResources')}</h4><a href="#faq">{t('footLinkFaq')}</a><a href="#gratis">{t('footLinkKit')}</a><a href="https://ig.me/m/allgotravelapp" target="_blank" rel="noopener">{t('footLinkContact')}</a></div>
+            <div><h4>{t('footCommunity')}</h4><a href="https://instagram.com/allgotravelapp" target="_blank" rel="noopener">Instagram @allgotravelapp</a></div>
           </div>
           <div className="legal">{t('footLegal')}</div>
         </div>

@@ -182,3 +182,26 @@ footer{background:#0a1a2a;color:#aebfce;padding:56px 0 30px;font-size:14px}
 @media(prefers-reduced-motion:reduce){
 .lp .reveal{opacity:1;transform:none;transition:none}
 }
+/* GUIDES STRIP (right below the hero) */
+.lp .guidestrip{padding:6px 0 40px}
+.lp .gs{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.lp .gscard{display:flex;align-items:center;gap:16px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:14px}
+.lp .gscard img{width:120px;height:120px;border-radius:14px;object-fit:cover;flex:none}
+.lp .gsbd{display:flex;flex-direction:column;align-items:flex-start;gap:4px;min-width:0}
+.lp .gsbd h3{font-size:18px}
+.lp .gslang{font-size:12.5px;font-weight:700;color:var(--muted)}
+.lp .gsprice{font-size:22px;font-weight:800;color:var(--navy)}
+.lp .gsbd .btn{padding:10px 18px;font-size:15px;margin-top:4px}
+@media(max-width:760px){
+.lp .gs{grid-template-columns:1fr;gap:12px}
+.lp .gscard img{width:96px;height:96px}
+}
+/* Mobile menu: logo only */
+@media(max-width:860px){
+.lp .brandtxt{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+}
+@media(max-width:860px){
+.lp .nav .cta{white-space:nowrap;padding:10px 14px;font-size:13.5px}
+html.lp-hero-visible .allgo-float{opacity:0;pointer-events:none}
+}
+.allgo-float{transition:opacity .25s}
