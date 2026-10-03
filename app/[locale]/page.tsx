@@ -23,7 +23,6 @@ export default function HomePage() {
   const t = useTranslations('landing')
   const locale = useLocale()
   const other = locale === 'en' ? 'es' : 'en'
-  const bold = { b: (chunks: React.ReactNode) => <b>{chunks}</b> }
 
   // Same sales-origin tracking as the landings: ?src=xxx -> Hotmart sck=xxx (default: web)
   const packClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -86,31 +85,29 @@ export default function HomePage() {
             <nav className="navlinks">
               <a href="#app">{t('navApp')}</a>
               <a href="#guias">{t('navGuides')}</a>
-              <a href="#club">{t('navClub')}</a>
               <a href="#historia">{t('navAbout')}</a>
               <a href="#faq">{t('navFaq')}</a>
             </nav>
             <a href={`/${other}`} className="pill" style={{ cursor: 'pointer', background: '#fff', border: '1.5px solid var(--tealb)', color: 'var(--teal)', fontWeight: 800 }}>{t('toggleLabel')}</a>
             <Link href="/login" className="pill" style={{ fontWeight: 700 }}>{t('navLogin')}</Link>
-            <a className="cta" href="#gratis">{t('navStartFree')}</a>
+            <a className="cta" href="#viaje">{t('navPrepare')}</a>
           </div>
         </div>
       </header>
 
       <a id="top" />
 
-      {/* ── HERO ── */}
+      {/* ── HERO: why AllGo Travel App ── */}
       <section className="hero">
         <div className="wrap grid">
           <div>
-            <span className="kicker">{t('heroKicker')}</span>
-            <h1>{t('heroTitleA')} <span className="hl">{t('heroTitleHl')}</span></h1>
-            <p className="sub">{t('heroSub')}</p>
+            <span className="kicker">AllGo Travel App</span>
+            <h1 className="h1long">{t('v2H1')}</h1>
+            <p className="sub">{t('v2Sub')}</p>
             <div className="actions">
-              <a className="btn btn-primary" href="#gratis">{t('heroCtaPrimary')}</a>
-              <a className="btn btn-ghost" href="#app">{t('heroCtaGhost')}</a>
+              <a className="btn btn-primary" href="#viaje">{t('v2Cta')}</a>
             </div>
-            <div className="rating"><span className="stars">★★★★★</span> <span>{t('heroRating')}</span></div>
+            <p className="v2line">{t('v2Line')}</p>
           </div>
           <div className="heroimg">
             <img src="/img/home-hero.webp" width={800} height={999} alt={t('heroImgAlt')} />
@@ -119,21 +116,21 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── GUIDES STRIP ── */}
-      <section className="guidestrip">
-        <div className="wrap gs">
-          <a className="gscard" href={URL.turismo}>
-            <img src="/img/turismo-portada-es.webp" width={700} height={700} alt={t('prodTurImgAlt')} />
-            <div className="gsbd"><h3>Turismo Sin Fronteras</h3><span className="gslang">{t('stripTurLang')}</span><div className="gsprice">$37</div><span className="btn btn-primary">{t('stripCta')}</span></div>
-          </a>
-          <a className="gscard" href={URL.perro}>
-            <img src="/img/home-perro.webp" width={700} height={700} alt={t('dogCoverAlt')} />
-            <div className="gsbd"><h3>{t('dogGuideName')}</h3><span className="gslang">{t('stripDogLang')}</span><div className="gsprice">$37</div><span className="btn btn-primary">{t('stripCta')}</span></div>
-          </a>
+      {/* ── SELECTOR: send each person to their solution ── */}
+      <section className="section selector" id="viaje">
+        <div className="wrap center">
+          <h2 style={{ margin: '0 0 22px' }}>{t('selTitle')}</h2>
+          <div className="selgrid">
+            <a className="selcard" href="/perro.html?src=home"><span className="e">🦮</span><span className="tx">{t('sel1')}</span><span className="go">→</span></a>
+            <a className="selcard" href="/turismo.html?src=home"><span className="e">♿</span><span className="tx">{t('sel2')}{locale === 'en' && <small>{t('selEsOnly')}</small>}</span><span className="go">→</span></a>
+            <a className="selcard" href="/turismo.html?src=home-sensorial"><span className="e">🌻</span><span className="tx">{t('sel3')}{locale === 'en' && <small>{t('selEsOnly')}</small>}</span><span className="go">→</span></a>
+            <a className="selcard" href="/turismo.html?src=home-mayor"><span className="e">👵</span><span className="tx">{t('sel4')}{locale === 'en' && <small>{t('selEsOnly')}</small>}</span><span className="go">→</span></a>
+          </div>
+          <p className="seltag">{t('selTag')}</p>
         </div>
       </section>
 
-      {/* ── TRUST ── */}
+      {/* ── TRUST NUMBERS ── */}
       <section className="trust">
         <div className="wrap row">
           <div><div className="n">{t('trust1n')}</div><div className="l">{t('trust1l')}</div></div>
@@ -143,97 +140,42 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── FREE KITS ── */}
-      <section className="section" id="gratis">
-        <div className="wrap center reveal">
-          <span className="kicker">{t('gratisKicker')}</span>
-          <h2 style={{ margin: '14px 0 8px' }}>{t('gratisTitle')}</h2>
-          <p className="lead" style={{ margin: '0 auto 40px' }}>{t('gratisLead')}</p>
-        </div>
-        <div className="wrap grid2 reveal">
-          <div className="card"><div className="ic">🦮</div><h3>{t('kitDogTitle')}</h3><p>{t('kitDogDesc')}</p><a className="btn btn-primary" style={{ marginTop: 14, justifyContent: 'center' }} href={URL.kitDog} target="_blank" rel="noopener">{t('kitCta')}</a></div>
-          <div className="card"><div className="ic">🌍</div><h3>{t('kitAllTitle')}</h3><p>{t('kitAllDesc')}</p><a className="btn btn-primary" style={{ marginTop: 14, justifyContent: 'center' }} href={URL.kitAll} target="_blank" rel="noopener">{t('kitCta')}</a></div>
-        </div>
-      </section>
-
-      {/* ── PROBLEM / SOLUTION ── */}
-      <section className="section">
-        <div className="wrap split reveal">
-          <div>
-            <span className="kicker">{t('probKicker')}</span>
-            <h2 style={{ marginTop: 14 }}>{t('probTitle')}</h2>
-            <p className="lead">{t('probLead')}</p>
-          </div>
-          <div>
-            <ul className="checklist">
-              <li><span className="tk">✓</span> <span>{t.rich('probLi1', bold)}</span></li>
-              <li><span className="tk">✓</span> <span>{t.rich('probLi2', bold)}</span></li>
-              <li><span className="tk">✓</span> <span>{t.rich('probLi3', bold)}</span></li>
-              <li><span className="tk">✓</span> <span>{t.rich('probLi4', bold)}</span></li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* ── APP + ALLI ── */}
+      {/* ── ALLI EN ACCIÓN ── */}
       <section className="section app" id="app">
         <div className="wrap split reveal">
           <div>
-            <span className="kicker" style={{ background: 'rgba(22,199,182,.15)', color: 'var(--tealb)' }}>{t('appKicker')}</span>
-            <h2 style={{ margin: '14px 0 6px' }}>{t('appTitle')}</h2>
-            <p className="lead">{t('appLead')}</p>
-            <ul className="feat">
-              <li><span className="tk">✓</span> <span>{t('appFeat1')}</span></li>
-              <li><span className="tk">✓</span> <span>{t('appFeat2')}</span></li>
-              <li><span className="tk">✓</span> <span>{t('appFeat3')}</span></li>
-              <li><span className="tk">✓</span> <span>{t('appFeat4')}</span></li>
-            </ul>
-            <div className="pillrow">
-              <span className="chip">{t('chip1')}</span><span className="chip">{t('chip2')}</span><span className="chip">{t('chip3')}</span><span className="chip">{t('chip4')}</span><span className="chip">{t('chip5')}</span>
+            <span className="kicker" style={{ background: 'rgba(22,199,182,.15)', color: 'var(--tealb)' }}>{t('alliKicker')}</span>
+            <h2 style={{ margin: '14px 0 6px' }}>{t('alliTitle')}</h2>
+            <p className="lead">{t('alliLead')}</p>
+            <div className="qa-list">
+              {[1, 2, 3].map(n => (
+                <div className="qa-card" key={n}>
+                  <p className="q">{t(`alliQ${n}`)}</p>
+                  <p className="a">{t(`alliA${n}`)}</p>
+                  <p className="s">{t('alliSrc')}: {['TSA Cares · tsa.gov', '14 CFR 382.103 · ecfr.gov', 'Reglamento (CE) 1107/2006, art. 7 · eur-lex.europa.eu'][n - 1]} · {t('alliRev')}</p>
+                </div>
+              ))}
             </div>
           </div>
           <div><img className="phone" src="/img/home-app.webp" width={620} height={1346} loading="lazy" alt={t('appImgAlt')} /></div>
         </div>
       </section>
 
-      {/* ── ECOSYSTEM ── */}
-      <section className="section">
-        <div className="wrap center reveal">
-          <span className="kicker">{t('ecoKicker')}</span>
-          <h2 style={{ margin: '14px 0 8px' }}>{t('ecoTitle')}</h2>
-          <p className="lead" style={{ margin: '0 auto 40px' }}>{t('ecoLead')}</p>
-        </div>
-        <div className="wrap grid4 reveal">
-          <div className="card"><div className="ic">📱</div><h3>{t('eco1t')}</h3><p>{t('eco1d')}</p></div>
-          <div className="card"><div className="ic">📘</div><h3>{t('eco2t')}</h3><p>{t('eco2d')}</p></div>
-          <div className="card"><div className="ic">🎁</div><h3>{t('eco3t')}</h3><p>{t('eco3d')}</p></div>
-          <div className="card"><div className="ic">💛</div><h3>{t('eco4t')}</h3><p>{t('eco4d')}</p></div>
-        </div>
-      </section>
-
-      {/* ── PRODUCTS / GUÍAS ── */}
+      {/* ── GUIDES ── */}
       <section className="section needs" id="guias">
         <div className="wrap center reveal">
           <span className="kicker">{t('prodKicker')}</span>
           <h2 style={{ margin: '14px 0 8px' }}>{t('prodTitle')}</h2>
           <p className="lead" style={{ margin: '0 auto 40px' }}>{t('prodLead')}</p>
         </div>
-        <div className="wrap prod reveal">
-          <div className="prodcard">
-            <div className="ph"><img src="/img/turismo-portada-es.webp" width={700} height={700} loading="lazy" alt={t('prodTurImgAlt')} /></div>
-            <div className="bd"><span className="tag">{t('prodTurTag')}</span><h3>Turismo Sin Fronteras</h3>{locale === 'en' && <span className="prodsub">{t('stripTurLang')}</span>}<p>{t('prodTurDesc')}</p><div className="price">$37</div><a className="btn btn-primary" style={{ marginTop: 12, justifyContent: 'center' }} href={URL.turismo} target="_blank" rel="noopener">{t('prodCtaGet')}</a></div>
-          </div>
+        <div className="wrap prod prod2 reveal">
           <div className="prodcard">
             <div className="ph duo"><img className="photo" src="/img/yadira-luna-aeropuerto.webp" width={1000} height={1299} loading="lazy" alt={t('dogPhotoAlt')} /><img className="cover" src="/img/home-perro.webp" width={700} height={700} loading="lazy" alt={t('dogCoverAlt')} /></div>
             <div className="bd"><span className="tag">{t('prodDogTag')}</span><h3>{t('dogGuideName')}</h3>{locale === 'en' && <span className="prodsub">{t('stripDogLang')}</span>}<p>{t('prodDogDesc')}</p><div className="price">$37</div><a className="btn btn-primary" style={{ marginTop: 12, justifyContent: 'center' }} href={URL.perro} target="_blank" rel="noopener">{t('prodCtaGet')}</a></div>
           </div>
           <div className="prodcard">
-            <div className="ph"><img src="/landing/img6.jpg" loading="lazy" alt="Kit del Viajero" /></div>
-            <div className="bd"><span className="tag">{t('prodKitTag')}</span><h3>Kit del Viajero</h3><p>{t('prodKitDesc')}</p><div className="price">$9</div><a className="btn btn-ghost" style={{ marginTop: 12, justifyContent: 'center' }} href={URL.kit} target="_blank" rel="noopener">{t('prodCtaSee')}</a></div>
-          </div>
-          <div className="prodcard">
-            <div className="ph"><img src="/landing/img7.jpg" loading="lazy" alt="Vuela con tu Silla Eléctrica" /></div>
-            <div className="bd"><span className="tag">{t('prodChairTag')}</span><h3>Vuela con tu Silla Eléctrica</h3><p>{t('prodChairDesc')}</p><div className="price">$17</div><a className="btn btn-ghost" style={{ marginTop: 12, justifyContent: 'center' }} href={URL.silla} target="_blank" rel="noopener">{t('prodCtaGet')}</a></div>
+            <div className="ph"><img src="/img/turismo-portada-es.webp" width={700} height={700} loading="lazy" alt={t('prodTurImgAlt')} /></div>
+            <div className="bd"><span className="tag">{t('prodTurTag')}</span><h3>Turismo Sin Fronteras</h3>{locale === 'en' && <span className="prodsub">{t('stripTurLang')}</span>}<p>{t('prodTurDesc')}</p><div className="price">$37</div><a className="btn btn-primary" style={{ marginTop: 12, justifyContent: 'center' }} href={URL.turismo} target="_blank" rel="noopener">{t('prodCtaGet')}</a></div>
           </div>
         </div>
         <div className="wrap reveal" id="pack">
@@ -261,69 +203,6 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-      </section>
-
-      {/* ── NEEDS ── */}
-      <section className="section">
-        <div className="wrap center reveal">
-          <span className="kicker">{t('needsKicker')}</span>
-          <h2 style={{ margin: '14px 0 8px' }}>{t('needsTitle')}</h2>
-          <p className="lead" style={{ margin: '0 auto 40px' }}>{t('needsLead')}</p>
-        </div>
-        <div className="wrap grid3 reveal">
-          <div className="need"><div className="e">♿</div><h3>{t('need1t')}</h3><p>{t('need1d')}</p></div>
-          <div className="need"><div className="e">🌻</div><h3>{t('need2t')}</h3><p>{t('need2d')}</p></div>
-          <div className="need"><div className="e">👁️</div><h3>{t('need3t')}</h3><p>{t('need3d')}</p></div>
-          <div className="need"><div className="e">👵</div><h3>{t('need4t')}</h3><p>{t('need4d')}</p></div>
-          <div className="need"><div className="e">🩺</div><h3>{t('need5t')}</h3><p>{t('need5d')}</p></div>
-          <div className="need"><div className="e">🦮</div><h3>{t('need6t')}</h3><p>{t('need6d')}</p></div>
-        </div>
-      </section>
-
-      {/* ── CLUB / PRICING ── */}
-      <section className="section needs" id="club">
-        <div className="wrap center reveal">
-          <span className="kicker">{t('clubKicker')}</span>
-          <h2 style={{ margin: '14px 0 8px' }}>{t('clubTitle')}</h2>
-          <p className="lead" style={{ margin: '0 auto 40px' }}>{t('clubLead')}</p>
-        </div>
-        <div className="wrap plans reveal">
-          <div className="plan featured">
-            <span className="ptag">{t('planFoundTag')}</span>
-            <h3>{t('planFoundName')}</h3>
-            <div className="pr"><span className="was">$29</span>$14.99<small>{t('perMonth')}</small></div>
-            <p className="muted" style={{ margin: '2px 0 0', fontSize: 13 }}>{t('planFoundMuted')}</p>
-            <ul>
-              <li><span className="tk">✓</span> <span>{t('planFoundLi1')}</span></li>
-              <li><span className="tk">✓</span> <span>{t('planFoundLi2')}</span></li>
-              <li><span className="tk">✓</span> <span>{t('planFoundLi3')}</span></li>
-            </ul>
-            <a className="btn btn-primary" style={{ justifyContent: 'center' }} href={URL.clubFounder} target="_blank" rel="noopener">{t('planFoundCta')}</a>
-          </div>
-          <div className="plan">
-            <h3>{t('planMonthName')}</h3>
-            <div className="pr">$29<small>{t('perMonth')}</small></div>
-            <p className="muted" style={{ margin: '2px 0 0', fontSize: 13 }}>{t('planMonthMuted')}</p>
-            <ul>
-              <li><span className="tk">✓</span> <span>{t('planMonthLi1')}</span></li>
-              <li><span className="tk">✓</span> <span>{t('planMonthLi2')}</span></li>
-              <li><span className="tk">✓</span> <span>{t('planMonthLi3')}</span></li>
-            </ul>
-            <a className="btn btn-ghost" style={{ justifyContent: 'center' }} href={URL.clubMonthly} target="_blank" rel="noopener">{t('planMonthCta')}</a>
-          </div>
-          <div className="plan">
-            <h3>{t('planYearName')}</h3>
-            <div className="pr">$290<small>{t('perYear')}</small></div>
-            <p style={{ margin: '2px 0 0', fontSize: 13, color: 'var(--orange)', fontWeight: 700 }}>{t('planYearSave')}</p>
-            <ul>
-              <li><span className="tk">✓</span> <span>{t('planYearLi1')}</span></li>
-              <li><span className="tk">✓</span> <span>{t('planYearLi2')}</span></li>
-              <li><span className="tk">✓</span> <span>{t('planYearLi3')}</span></li>
-            </ul>
-            <a className="btn btn-ghost" style={{ justifyContent: 'center' }} href={URL.clubAnnual} target="_blank" rel="noopener">{t('planYearCta')}</a>
-          </div>
-        </div>
-        <p className="center muted" style={{ marginTop: 22, fontSize: 13.5 }}>{t('clubSecure')}</p>
       </section>
 
       {/* ── STORY ── */}
@@ -356,20 +235,16 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── DIFF ── */}
-      <section className="section diff">
+      {/* ── TRUST (official sources) ── */}
+      <section className="section trustv2">
         <div className="wrap center reveal">
-          <span className="kicker" style={{ background: 'rgba(22,199,182,.15)', color: 'var(--tealb)' }}>{t('diffKicker')}</span>
-          <h2 style={{ margin: '14px 0 8px' }}>{t('diffTitle')}</h2>
-          <p className="lead" style={{ margin: '0 auto 40px' }}>{t('diffLead')}</p>
+          <h2 style={{ margin: '0 0 8px' }}>{t('trustV2Title')}</h2>
+          <p className="lead" style={{ margin: '0 auto 22px' }}>{t('trustV2Sub')}</p>
+          <ul className="tchecks">
+            <li>{t('trustV2c1')}</li><li>{t('trustV2c2')}</li><li>{t('trustV2c3')}</li><li>{t('trustV2c4')}</li>
+          </ul>
+          <p className="tsrc">{t('trustV2Src')}</p>
         </div>
-        <div className="wrap grid4 reveal">
-          <div className="card"><div className="ic">✅</div><h3>{t('diff1t')}</h3><p>{t('diff1d')}</p></div>
-          <div className="card"><div className="ic">💬</div><h3>{t('diff2t')}</h3><p>{t('diff2d')}</p></div>
-          <div className="card"><div className="ic">🧰</div><h3>{t('diff3t')}</h3><p>{t('diff3d')}</p></div>
-          <div className="card"><div className="ic">💛</div><h3>{t('diff4t')}</h3><p>{t('diff4d')}</p></div>
-        </div>
-        <div className="wrap"><div className="note center">{t('diffNote')}</div></div>
       </section>
 
       {/* ── FAQ ── */}
@@ -379,7 +254,6 @@ export default function HomePage() {
           <div className="faq reveal">
             <details open><summary>{t('faqQ1')}</summary><p>{t('faqA1')}</p></details>
             <details><summary>{t('faqQ2')}</summary><p>{t('faqA2')}</p></details>
-            <details><summary>{t('faqQ3')}</summary><p>{t('faqA3')}</p></details>
             <details><summary>{t('faqQ4')}</summary><p>{t('faqA4')}</p></details>
             <details><summary>{t('faqQ5')}</summary><p>{t('faqA5')}</p></details>
           </div>
@@ -391,7 +265,7 @@ export default function HomePage() {
         <div className="wrap reveal">
           <h2>{t('finalTitle')}</h2>
           <p>{t('finalP')}</p>
-          <a className="btn btn-white" href="#gratis">{t('finalCta')}</a>
+          <a className="btn btn-white" href="#viaje">{t('finalCtaV2')}</a>
         </div>
       </section>
 
@@ -403,8 +277,8 @@ export default function HomePage() {
               <div className="brand" style={{ fontWeight: 800, fontSize: 18, marginBottom: 8, display: 'flex', alignItems: 'center', gap: 8 }}><img src="/landing/img9.png" alt="" style={{ width: 30, height: 30, objectFit: 'contain' }} /> AllGo Travel App</div>
               <p style={{ maxWidth: 280 }}>{t('footTagline')}</p>
             </div>
-            <div><h4>{t('footExplore')}</h4><a href="#app">{t('footLinkApp')}</a><a href="#guias">{t('footLinkGuides')}</a><a href="#club">{t('footLinkClub')}</a><a href="#historia">{t('footLinkStory')}</a></div>
-            <div><h4>{t('footResources')}</h4><a href="#faq">{t('footLinkFaq')}</a><a href="#gratis">{t('footLinkKit')}</a><a href="https://ig.me/m/allgotravelapp" target="_blank" rel="noopener">{t('footLinkContact')}</a></div>
+            <div><h4>{t('footExplore')}</h4><a href="#app">{t('footLinkApp')}</a><a href="#guias">{t('footLinkGuides')}</a><a href="#historia">{t('footLinkStory')}</a></div>
+            <div><h4>{t('footResources')}</h4><a href="#faq">{t('footLinkFaq')}</a><a href="https://ig.me/m/allgotravelapp" target="_blank" rel="noopener">{t('footLinkContact')}</a></div>
             <div><h4>{t('footCommunity')}</h4><a href="https://instagram.com/allgotravelapp" target="_blank" rel="noopener">Instagram @allgotravelapp</a></div>
           </div>
           <div className="legal">{t('footLegal')}</div>
