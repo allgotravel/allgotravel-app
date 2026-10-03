@@ -107,14 +107,24 @@
  .cual .c .note{font-size:.82rem;color:var(--grey);text-align:center;margin-top:8px}
  @media(max-width:800px){ .cual .cards{grid-template-columns:1fr} }
  /* Puente al checkout */
- .bridge{max-width:520px;margin:6px auto 22px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.22);border-radius:18px;padding:22px 22px 18px;text-align:left}
- .bridge .bt{font-size:1.2rem;font-weight:800;color:#fff;margin:0 0 6px}
- .bridge .bs{font-size:.98rem;color:#CDEBEE;margin:0 0 12px}
- .bridge ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
- .bridge li{position:relative;padding-left:26px;color:#fff;font-size:.98rem;line-height:1.45}
- .bridge li:before{content:"✓";position:absolute;left:0;top:0;color:var(--buy);font-weight:800}
- .card .files .grp{background:none;padding:12px 0 0;font-weight:800;color:var(--teald);font-size:.92rem;letter-spacing:.4px;text-transform:uppercase}
- .card .files .grp small{display:block;text-transform:none;letter-spacing:0;font-weight:600;color:var(--grey);font-size:.88rem}
+ .bridge{max-width:540px;margin:8px auto 24px;background:#fff;border:3px solid var(--buy);border-radius:20px;padding:24px 22px 20px;text-align:left;box-shadow:0 14px 40px rgba(0,0,0,.25)}
+ .final .bridge .bt{font-size:1.25rem;font-weight:800;color:var(--teald);margin:0 0 6px;line-height:1.3}
+ .final .bridge .bs{font-size:1rem;color:var(--grey);margin:0 0 14px}
+ .bridge ul{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+ .bridge li{position:relative;padding-left:28px;color:var(--ink);font-size:1rem;line-height:1.45}
+ .bridge li:before{content:"✓";position:absolute;left:0;top:0;color:#C77F00;font-weight:800}
+ .stages{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:1000px;margin:26px auto 22px;text-align:left}
+ .stage{background:#fff;border:2px solid var(--tealL);border-radius:18px;padding:24px 22px;box-shadow:0 8px 26px rgba(14,124,134,.08);display:flex;flex-direction:column;gap:10px}
+ .stage .n{display:inline-grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--teal);color:#fff;font-weight:800}
+ .stage h3{color:var(--teald);font-size:1.1rem;letter-spacing:.5px}
+ .stage p{font-size:1rem}
+ .stage .inc{border-top:1px solid var(--tealL);padding-top:10px;font-size:.92rem}
+ .stage .inc b{display:block;color:var(--teal);font-size:.8rem;letter-spacing:.6px;text-transform:uppercase;margin-bottom:4px}
+ .stage .inc ul{list-style:none;display:grid;gap:4px}
+ .stage .inc li{position:relative;padding-left:18px}
+ .stage .inc li:before{content:"•";position:absolute;left:4px;color:var(--teal)}
+ .price .key{max-width:720px;margin:0 auto 26px;font-size:1.15rem;font-weight:800;color:#C77F00}
+ @media(max-width:800px){ .stages{grid-template-columns:1fr} }
 </style>
 <!-- Meta Pixel Code (AllGo Travel App) -->
 <script>
@@ -242,22 +252,44 @@ document.addEventListener('DOMContentLoaded', function(){
 
 <section class="price">
  <div class="wrap">
-  <h2><span class="es">Todo lo que incluye el Sistema Vuelo Seguro</span><span class="en">Everything included in the Safe Flight System</span></h2>
-  <p class="lead" style="margin:6px auto 26px"><span class="es">Acceso inmediato · Español / English 🇪🇸🇺🇸</span><span class="en">Instant access · Español / English 🇪🇸🇺🇸</span></p>
+  <h2><span class="es">Todo lo que necesitas para preparar tu viaje, organizado en 3 etapas</span><span class="en">Everything you need to prepare your trip, organized in 3 stages</span></h2>
+  <p class="lead" style="margin:6px auto 0"><span class="es">No tienes que averiguar por tu cuenta qué regla aplica, qué formulario buscar o qué revisar primero.</span><span class="en">You don't have to figure out on your own which rule applies, which form to look for or what to check first.</span></p>
+  <div class="stages">
+   <div class="stage"><span class="n">1</span>
+    <h3><span class="es">IDENTIFICA</span><span class="en">IDENTIFY</span></h3>
+    <p><span class="es">Entiende cómo aplica tu situación y qué requisitos corresponden a tu perro y tu viaje.</span><span class="en">Understand how your situation applies and which requirements fit your dog and your trip.</span></p>
+    <div class="inc"><b><span class="es">Incluye</span><span class="en">Includes</span></b>
+     <ul>
+      <li><span class="es">La guía en español</span><span class="en">The guide in Spanish</span></li>
+      <li><span class="es">Travel With Your Service Dog (inglés)</span><span class="en">Travel With Your Service Dog (English)</span></li>
+      <li><span class="es">Aerolíneas por Región 2026</span><span class="en">Airlines by Region 2026</span></li>
+     </ul>
+    </div>
+   </div>
+   <div class="stage"><span class="n">2</span>
+    <h3><span class="es">PREPARA</span><span class="en">PREPARE</span></h3>
+    <p><span class="es">Completa el formulario del DOT, revisa tu aerolínea y confirma los requisitos de entrada de tu destino antes de volar.</span><span class="en">Complete the DOT form, check your airline and confirm your destination's entry requirements before you fly.</span></p>
+    <div class="inc"><b><span class="es">Incluye</span><span class="en">Includes</span></b>
+     <ul>
+      <li><span class="es">Cheat-sheet DOT</span><span class="en">DOT Cheat-sheet</span></li>
+      <li><span class="es">Requisitos por País</span><span class="en">Requirements by Country</span></li>
+      <li><span class="es">Kit "Antes de Volar" (bono)</span><span class="en">"Before You Fly" Kit (bonus)</span></li>
+     </ul>
+    </div>
+   </div>
+   <div class="stage"><span class="n">3</span>
+    <h3><span class="es">VIAJA CON TODO LISTO</span><span class="en">TRAVEL WITH EVERYTHING READY</span></h3>
+    <p><span class="es">Lleva tu checklist listo y usa tu tarjeta Modo Mostrador si aparece una duda o inconveniente en el aeropuerto.</span><span class="en">Bring your checklist ready and use your Counter Mode card if a question or issue comes up at the airport.</span></p>
+    <div class="inc"><b><span class="es">Incluye</span><span class="en">Includes</span></b>
+     <ul>
+      <li><span class="es">Modo Mostrador</span><span class="en">Counter Mode</span></li>
+     </ul>
+    </div>
+   </div>
+  </div>
+  <p class="key"><span class="es">No son 6 archivos para leer. Es un proceso para llegar con todo listo al día de tu vuelo.</span><span class="en">It's not 6 files to read. It's a process to arrive with everything ready on the day of your flight.</span></p>
   <div class="card">
    <div class="big">$37</div>
-   <div class="files">
-    <div class="grp"><span class="es">Etapa 1 · Identifica<small>Entiende tu situación</small></span><span class="en">Stage 1 · Identify<small>Understand your situation</small></span></div>
-    <div><span>📘</span> <span class="es">Viaja con tu Perro de Servicio — la guía (español)</span><span class="en">Viaja con tu Perro de Servicio — the guide (Spanish)</span></div>
-    <div><span>📘</span> <span class="es">Travel With Your Service Dog — la guía (inglés)</span><span class="en">Travel With Your Service Dog — the guide (English)</span></div>
-    <div><span>✈️</span> <span class="es">Aerolíneas por Región — tabla comparativa 2026</span><span class="en">Airlines by Region — 2026 comparison table</span></div>
-    <div class="grp"><span class="es">Etapa 2 · Prepara tu viaje</span><span class="en">Stage 2 · Prepare your trip</span></div>
-    <div><span>📝</span> <span class="es">Cheat-sheet DOT — el formulario, explicado</span><span class="en">DOT Cheat-sheet — the form, explained</span></div>
-    <div><span>🌎</span> <span class="es">Requisitos por País — checklist de viaje</span><span class="en">Requirements by Country — travel checklist</span></div>
-    <div><span>🎁</span> <span class="es"><b>Bono incluido:</b> Kit "Antes de Volar" (te llega después de tu compra, junto con la guía)</span><span class="en"><b>Included bonus:</b> "Before You Fly" Kit (delivered after your purchase, with the guide)</span></div>
-    <div class="grp"><span class="es">Etapa 3 · Viaja con todo listo</span><span class="en">Stage 3 · Travel with everything ready</span></div>
-    <div><span>🪪</span> <span class="es">Modo Mostrador — tu tarjeta para cuando te dicen que no</span><span class="en">Counter Mode — your card for when they tell you no</span></div>
-   </div>
    <a class="btn" href="https://pay.hotmart.com/Q106793737G" target="_blank" rel="noopener"><span class="es">QUIERO PREPARAR MI VIAJE — $37</span><span class="en">GET MY TRIP READY — $37</span></a>
    <p class="pay-note"><span class="es">🔒 Pago único en Hotmart · Tarjeta, PayPal o Venmo · o paga en 30 días con Klarna (según tu país) · Garantía de 7 días · Acceso inmediato</span><span class="en">🔒 One-time payment on Hotmart · Card, PayPal or Venmo · or pay in 30 days with Klarna (depending on your country) · 7-day guarantee · Instant access</span></p>
    <div style="margin-top:16px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:.94rem;color:#173F3A;font-weight:600;">
