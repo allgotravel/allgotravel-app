@@ -14,15 +14,32 @@
   .btn{display:inline-block;background:var(--buy);color:#3a2400;font-weight:800;font-size:1.15rem;padding:16px 34px;border-radius:40px;text-decoration:none;box-shadow:0 6px 20px rgba(245,166,40,.4);transition:transform .15s}
  .btn:hover{transform:translateY(-2px)}
   .pay-note{font-size:.84rem;line-height:1.45;margin:10px auto 0;max-width:430px;opacity:.85}
-  .esa .box{background:var(--tealL);border-left:4px solid var(--teal);border-radius:14px;padding:24px 26px;max-width:820px;font-size:1.06rem}
+  .hero .line{color:#fff;font-size:1.02rem;margin-bottom:16px}
+ .hero .checks{list-style:none;margin:0 0 26px;display:grid;gap:10px}
+ .hero .checks li{position:relative;padding-left:30px;color:#DCF0F1;font-size:1.02rem}
+ .hero .checks li:before{content:"✓";position:absolute;left:0;top:0;color:var(--buy);font-weight:800}
+ .steps{text-align:center}
+ .steps .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:30px 0 26px;text-align:left}
+ .step{background:#fff;border:2px solid var(--tealL);border-radius:18px;padding:26px 24px;box-shadow:0 8px 26px rgba(14,124,134,.08)}
+ .step .n{display:inline-grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--teal);color:#fff;font-weight:800;margin-bottom:12px}
+ .step h3{color:var(--teald);font-size:1.1rem;letter-spacing:.5px;margin-bottom:8px}
+ .step p{color:var(--ink);font-size:1rem;margin-bottom:12px}
+ .step .tools{font-size:.9rem;color:var(--teal);font-weight:700;border-top:1px solid var(--tealL);padding-top:10px}
+ .steps .close{max-width:720px;margin:0 auto;color:var(--grey);font-size:1.08rem}
+ .final .product{font-weight:800;color:#fff;font-size:1.1rem;margin:0 0 24px}
   .buybar{display:none}
   @media(max-width:800px){
     .buybar{display:flex;align-items:center;justify-content:space-between;gap:12px;position:fixed;left:0;right:0;bottom:0;z-index:998;background:#fff;border-top:1px solid #d5e4df;box-shadow:0 -6px 20px rgba(0,0,0,.12);padding:10px 14px calc(10px + env(safe-area-inset-bottom));transform:translateY(110%);transition:transform .25s}
     .buybar.show{transform:none}
     .buybar b{font-size:.92rem;color:var(--teald);line-height:1.3}
-    .buybar .btn{font-size:.95rem;padding:11px 18px;white-space:nowrap;box-shadow:none}
+    .buybar .btn{font-size:.9rem;padding:11px 16px;white-space:nowrap;box-shadow:none}
+    .steps .grid3{grid-template-columns:1fr}
+    .btn{font-size:1rem;padding:16px 22px;letter-spacing:.2px}
+    .price .card{padding:26px 16px}
+    .price .card .btn{display:block;padding:16px 12px;font-size:.95rem}
     body{padding-bottom:72px}
   }
+  @media(max-width:520px){ .buybar b{display:none} .buybar .btn{flex:1;text-align:center} }
  /* HERO */
  .hero{background:linear-gradient(160deg,var(--teald),var(--teal));color:#fff;padding:56px 0 0}
  .hero .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center}
@@ -130,10 +147,16 @@ document.addEventListener('DOMContentLoaded', function(){
  <div class="wrap">
   <div class="grid">
    <div>
-    <span class="tag"><span class="es">ALLGO TRAVEL APP · GUÍA 2026</span><span class="en">ALLGO TRAVEL APP · 2026 GUIDE</span></span>
-    <h1><span class="es">Llega al mostrador con todo en regla y vuela tranquila con tu perro de servicio.</span><span class="en">Get to the counter with everything in order and fly calmly with your service dog.</span></h1>
-    <p class="sub"><span class="es">El formulario del DOT paso a paso, aerolíneas por región y la tarjeta Modo Mostrador. En español e inglés · Acceso inmediato.</span><span class="en">The DOT form step by step, airlines by region and the Counter Mode card. In Spanish and English · Instant access.</span></p>
-    <a class="btn" href="https://pay.hotmart.com/Q106793737G" target="_blank" rel="noopener"><span class="es">Quiero mi guía — $37 →</span><span class="en">I want my guide — $37 →</span></a><p class="pay-note"><span class="es">🔒 Pago seguro en Hotmart · Tarjeta, PayPal o Venmo · o paga en 30 días con Klarna (según tu país) · Te pedirá correo, nombre y dirección (formulario estándar) · La guía te llega al correo al instante.</span><span class="en">🔒 Secure payment on Hotmart · Card, PayPal or Venmo · or pay in 30 days with Klarna (depending on your country) · It will ask for your email, name and address (standard form) · The guide arrives in your email instantly.</span></p><p style="margin-top:12px;font-size:.98rem;color:#DCF0F1;font-weight:600"><span class="es">🎁 Incluye bono: Kit Antes de Volar</span><span class="en">🎁 Includes bonus: Before You Fly Kit</span></p>
+    <span class="tag">AllGo Travel App · 2026</span>
+    <h1><span class="es">¿Vuelas pronto con tu perro de servicio?</span><span class="en">Flying soon with your service dog?</span></h1>
+    <p class="sub"><span class="es">Llega al aeropuerto sabiendo qué documentos preparar, qué puede pedirte tu aerolínea y qué hacer si surge un problema en el mostrador.</span><span class="en">Get to the airport knowing which documents to prepare, what your airline may ask you for and what to do if a problem comes up at the counter.</span></p>
+    <p class="line"><span class="es">El Sistema Vuelo Seguro organiza en un solo lugar los pasos, formularios y requisitos que necesitas revisar antes de viajar — en español e inglés.</span><span class="en">The Safe Flight System puts the steps, forms and requirements you need to review before traveling in one place — in Spanish and English.</span></p>
+    <ul class="checks">
+     <li><span class="es">Completa el formulario del DOT sin adivinar qué poner</span><span class="en">Fill out the DOT form without guessing what to write</span></li>
+     <li><span class="es">Revisa los requisitos de tu aerolínea y destino antes del vuelo</span><span class="en">Check your airline and destination requirements before the flight</span></li>
+     <li><span class="es">Llega al mostrador sabiendo qué presentar y cómo responder</span><span class="en">Get to the counter knowing what to present and how to respond</span></li>
+    </ul>
+    <a class="btn" href="https://pay.hotmart.com/Q106793737G" target="_blank" rel="noopener"><span class="es">QUIERO PREPARAR MI VIAJE — $37</span><span class="en">GET MY TRIP READY — $37</span></a><p class="pay-note"><span class="es">🔒 Pago único en Hotmart · Tarjeta, PayPal o Venmo · o paga en 30 días con Klarna (según tu país) · Garantía de 7 días · Acceso inmediato</span><span class="en">🔒 One-time payment on Hotmart · Card, PayPal or Venmo · or pay in 30 days with Klarna (depending on your country) · 7-day guarantee · Instant access</span></p>
    </div>
    <div><img src="img/perro-hero.webp" width="700" height="1244" alt="Perro de servicio con mochila AllGo Travel en la sala de embarque"></div>
   </div>
@@ -146,23 +169,40 @@ document.addEventListener('DOMContentLoaded', function(){
  <div class="wrap">
   <h2><span class="es">Esta guía es para ti si…</span><span class="en">This guide is for you if…</span></h2>
   <ul>
-   <li><span class="es">Viajas (o quieres viajar) con tu perro y no sabes bajo qué categoría calificas.</span><span class="en">You travel (or want to travel) with your dog and don't know which category you qualify under.</span></li>
-   <li><span class="es">Te da miedo llegar al aeropuerto y que te digan que no.</span><span class="en">You're afraid of getting to the airport and being told no.</span></li>
-   <li><span class="es">Te confunde la diferencia entre apoyo emocional, perro de servicio y mascota.</span><span class="en">The difference between emotional support, service dog and pet confuses you.</span></li>
-   <li><span class="es">Quieres tener TODO en orden antes de comprar el vuelo, no después.</span><span class="en">You want EVERYTHING in order before buying the flight, not after.</span></li>
+   <li><span class="es">Tienes un vuelo próximo con tu perro de servicio y quieres llegar con todo en regla.</span><span class="en">You have an upcoming flight with your service dog and want to arrive with everything in order.</span></li>
+   <li><span class="es">No sabes qué documentos o formularios te va a pedir tu aerolínea.</span><span class="en">You don't know which documents or forms your airline will ask for.</span></li>
+   <li><span class="es">Te preocupa llegar al mostrador y que surja un problema.</span><span class="en">You worry about getting to the counter and running into a problem.</span></li>
   </ul>
  </div>
 </section>
 
-<section class="esa">
+<section class="steps">
  <div class="wrap">
-  <div class="box"><span class="es">¿Tu perro es de apoyo emocional? Puede calificar como <strong>Perro de Servicio Psiquiátrico</strong> si está entrenado para hacer una tarea relacionada con tu condición — y eso sí lo cambia todo. Desde 2021, las aerolíneas de EE.UU. tratan al apoyo emocional como mascota: tarifa, transportadora y límites de tamaño. Los perros de servicio psiquiátrico vuelan sin sorpresas. La diferencia está en la documentación — y aquí te la explicamos paso a paso.</span><span class="en">Is your dog an emotional support animal? It may qualify as a <strong>Psychiatric Service Dog</strong> if it's trained to perform a task related to your condition — and that changes everything. Since 2021, U.S. airlines treat emotional support animals as pets: fare, carrier and size limits. Psychiatric service dogs fly without surprises. The difference is in the documentation — and here we explain it step by step.</span></div>
+  <h2><span class="es">De la duda a llegar con todo listo en 3 pasos</span><span class="en">From doubt to arriving with everything ready in 3 steps</span></h2>
+  <div class="grid3">
+   <div class="step"><span class="n">1</span>
+    <h3><span class="es">IDENTIFICA</span><span class="en">IDENTIFY</span></h3>
+    <p><span class="es">Confirma cómo aplica tu situación y qué requisitos corresponden a tu perro, origen y destino.</span><span class="en">Confirm how your situation applies and which requirements fit your dog, origin and destination.</span></p>
+    <div class="tools"><span class="es">Herramientas: la guía + Aerolíneas por Región 2026</span><span class="en">Tools: the guide + Airlines by Region 2026</span></div>
+   </div>
+   <div class="step"><span class="n">2</span>
+    <h3><span class="es">PREPARA</span><span class="en">PREPARE</span></h3>
+    <p><span class="es">Organiza formularios, documentos, requisitos de la aerolínea y fechas importantes antes de llegar al aeropuerto.</span><span class="en">Organize forms, documents, airline requirements and key dates before you get to the airport.</span></p>
+    <div class="tools"><span class="es">Herramientas: Cheat-sheet DOT + Requisitos por País + Kit Antes de Volar</span><span class="en">Tools: DOT Cheat-sheet + Requirements by Country + Before You Fly Kit</span></div>
+   </div>
+   <div class="step"><span class="n">3</span>
+    <h3><span class="es">VIAJA CON TODO LISTO</span><span class="en">TRAVEL WITH EVERYTHING READY</span></h3>
+    <p><span class="es">Usa tu checklist y tu tarjeta Modo Mostrador para saber qué presentar y cómo actuar si aparece una duda o inconveniente.</span><span class="en">Use your checklist and your Counter Mode card to know what to present and how to act if a question or issue comes up.</span></p>
+    <div class="tools"><span class="es">Herramienta: Modo Mostrador</span><span class="en">Tool: Counter Mode</span></div>
+   </div>
+  </div>
+  <p class="close"><span class="es">No necesitas pasar días saltando entre páginas, formularios y reglas dispersas. El sistema organiza lo importante para que sepas qué revisar, qué preparar y cuándo hacerlo.</span><span class="en">You don't need to spend days jumping between websites, forms and scattered rules. The system organizes what matters so you know what to review, what to prepare and when to do it.</span></p>
  </div>
 </section>
 
 <section class="price">
  <div class="wrap">
-  <h2><span class="es">Paquete completo — 6 archivos</span><span class="en">Complete package — 6 files</span></h2>
+  <h2><span class="es">Todo lo que incluye el Sistema Vuelo Seguro</span><span class="en">Everything included in the Safe Flight System</span></h2>
   <p class="lead" style="margin:6px auto 26px"><span class="es">Acceso inmediato · Español / English 🇪🇸🇺🇸</span><span class="en">Instant access · Español / English 🇪🇸🇺🇸</span></p>
   <div class="card">
    <div class="big">$37</div>
@@ -173,9 +213,9 @@ document.addEventListener('DOMContentLoaded', function(){
     <div><span>4.</span> <span class="es">Aerolíneas por Región — tabla comparativa 2026</span><span class="en">Airlines by Region — 2026 comparison table</span></div>
     <div><span>5.</span> <span class="es">Requisitos por País — checklist de viaje</span><span class="en">Requirements by Country — travel checklist</span></div>
     <div><span>6.</span> <span class="es">Modo Mostrador — tu tarjeta para cuando te dicen que no</span><span class="en">Counter Mode — your card for when they tell you no</span></div>
-    <div><span>🎁</span> <span class="es"><b>Bono incluido al comprar:</b> Kit "Antes de Volar" en PDF (te llega después de tu compra, junto con la guía)</span><span class="en"><b>Bonus included with purchase:</b> "Before You Fly" Kit PDF (delivered after your purchase, with the guide)</span></div>
+    <div><span>🎁</span> <span class="es"><b>Bono incluido al comprar:</b> Kit "Antes de Volar" (te llega después de tu compra, junto con la guía)</span><span class="en"><b>Bonus included with purchase:</b> "Before You Fly" Kit (delivered after your purchase, with the guide)</span></div>
    </div>
-   <a class="btn" href="https://pay.hotmart.com/Q106793737G" target="_blank" rel="noopener"><span class="es">Quiero mi guía — $37 →</span><span class="en">I want my guide — $37 →</span></a>
+   <a class="btn" href="https://pay.hotmart.com/Q106793737G" target="_blank" rel="noopener"><span class="es">QUIERO PREPARAR MI VIAJE — $37</span><span class="en">GET MY TRIP READY — $37</span></a>
    <p class="pay-note"><span class="es">🔒 Pago seguro en Hotmart · Tarjeta, PayPal o Venmo · o paga en 30 días con Klarna (según tu país) · Te pedirá correo, nombre y dirección (formulario estándar) · La guía te llega al correo al instante.</span><span class="en">🔒 Secure payment on Hotmart · Card, PayPal or Venmo · or pay in 30 days with Klarna (depending on your country) · It will ask for your email, name and address (standard form) · The guide arrives in your email instantly.</span></p>
    <div style="margin-top:16px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:.94rem;color:#173F3A;font-weight:600;">
     <span style="font-size:1.15rem;">🛡️</span>
@@ -294,12 +334,12 @@ document.addEventListener('DOMContentLoaded', function(){
 
   <details class="faq-item">
    <summary><span class="es">Voy a Europa o Latinoamérica, ¿me sirve?</span><span class="en">I'm going to Europe or Latin America — will it help me?</span></summary>
-   <div class="faq-a"><span class="es">Sí. La guía incluye los requisitos de la Unión Europea y de 10 países de Latinoamérica, actualizados en 2026, y fichas de aerolíneas. Suelen pedir microchip, vacuna de la rabia con ciertos tiempos y, en algunos casos, un certificado de salud. Verifica siempre con tu aerolínea y el país de destino.</span><span class="en">Yes. The guide includes the requirements for the European Union and 10 Latin American countries, updated for 2026, plus airline fact sheets. They usually require a microchip, a rabies vaccine with specific timing and, in some cases, a health certificate. Always verify with your airline and destination country.</span></div>
+   <div class="faq-a"><span class="es">Sí. Incluye los requisitos de la Unión Europea y de 10 países de Latinoamérica, actualizados en 2026, y fichas de aerolíneas. Verifica siempre con tu aerolínea y el país de destino. La guía te lo explica paso a paso.</span><span class="en">Yes. It includes the requirements for the European Union and 10 Latin American countries, updated for 2026, plus airline fact sheets. Always verify with your airline and destination country. The guide walks you through it step by step.</span></div>
   </details>
 
   <details class="faq-item">
    <summary><span class="es">¿Y si mi perro pesa más de 8 kilos?</span><span class="en">What if my dog weighs more than 8 kg (about 17 lb)?</span></summary>
-   <div class="faq-a"><span class="es">Depende de cómo viaje. Como mascota, muchas aerolíneas solo aceptan en cabina perros pequeños dentro de su transportadora (a menudo hasta unos 8 kg en total), y el límite cambia según la aerolínea. Como perro de servicio, las reglas son otras. La guía lo explica aerolínea por aerolínea.</span><span class="en">It depends on how they travel. As a pet, many airlines only accept small dogs in the cabin inside their carrier (often up to about 8 kg in total), and the limit varies by airline. As a service dog, the rules are different. The guide explains it airline by airline.</span></div>
+   <div class="faq-a"><span class="es">Depende de si viaja como perro de servicio o como mascota, y de la aerolínea: como mascota, muchas solo aceptan en cabina perros pequeños dentro de su transportadora. La guía te lo explica paso a paso.</span><span class="en">It depends on whether they fly as a service dog or as a pet, and on the airline: as a pet, many only accept small dogs in the cabin inside their carrier. The guide walks you through it step by step.</span></div>
   </details>
 
   <details class="faq-item">
@@ -319,21 +359,21 @@ document.addEventListener('DOMContentLoaded', function(){
 
   <details class="faq-item">
    <summary><span class="es">¿Y si en el mostrador me dicen que no?</span><span class="en">What if they tell me "no" at the counter?</span></summary>
-   <div class="faq-a"><span class="es">Por ley, solo te pueden hacer 2 preguntas sobre tu perro de servicio. La guía incluye la tarjeta "Modo Mostrador" para que respondas con calma y seguridad.</span><span class="en">By law, they can only ask you 2 questions about your service dog. The guide includes the "Counter Mode" card so you can respond calmly and confidently.</span></div>
+   <div class="faq-a"><span class="es">En el aeropuerto, la aerolínea puede hacerte preguntas sobre tu perro y pedirte el formulario del DOT. (La regla de "solo 2 preguntas" es de la ADA y aplica en hoteles, restaurantes y tiendas, no en el avión.) Por eso la guía incluye la tarjeta Modo Mostrador: para que respondas con calma y presentes lo correcto.</span><span class="en">At the airport, the airline may ask you questions about your dog and request the DOT form. (The "only 2 questions" rule comes from the ADA and applies in hotels, restaurants and stores, not on the plane.) That's why the guide includes the Counter Mode card: so you can respond calmly and present the right documents.</span></div>
   </details>
 
   <details class="faq-item">
    <summary><span class="es">¿Cómo sé qué hoteles aceptan mi perro de servicio?</span><span class="en">How do I know which hotels accept my service dog?</span></summary>
-   <div class="faq-a"><span class="es">En EE.UU., por la ADA, los hoteles deben admitir a tu perro de servicio aunque tengan política de "no mascotas", y no pueden cobrarte una tarifa de mascota. No necesitas buscar hoteles "pet-friendly" — tu perro de servicio entra por ley. Es buena idea avisar al reservar. En viajes internacionales, verifica las reglas del país.</span><span class="en">In the U.S., under the ADA, hotels must allow your service dog even if they have a "no pets" policy, and they cannot charge you a pet fee. You don't need to look for "pet-friendly" hotels — your service dog is allowed by law. It's a good idea to let them know when booking. For international travel, check the destination country's rules.</span></div>
+   <div class="faq-a"><span class="es">En EE. UU., por la ADA, los hoteles deben admitir a tu perro de servicio aunque tengan política de "no mascotas", y no pueden cobrarte tarifa de mascota. Fuera de EE. UU., las reglas cambian según el país. La guía te lo explica paso a paso.</span><span class="en">In the U.S., under the ADA, hotels must allow your service dog even with a "no pets" policy, and they cannot charge you a pet fee. Outside the U.S., the rules vary by country. The guide walks you through it step by step.</span></div>
   </details>
 
   <details class="faq-item">
    <summary><span class="es">Voy a viajar desde otro país a EE.UU. (por ejemplo Venezuela), ¿qué necesito?</span><span class="en">I'm traveling to the U.S. from another country (e.g. Venezuela) — what do I need?</span></summary>
-   <div class="faq-a"><span class="es">Los requisitos para entrar a EE.UU. dependen del país de origen. Los países que la CDC clasifica como de alto riesgo de rabia (como Venezuela) tienen reglas más estrictas: microchip (puesto antes de la vacuna), vacuna de la rabia, por lo general una prueba de titulación de anticuerpos, y el formulario de importación de la CDC. Se prepara con varios meses de anticipación. Verifica siempre los pasos actuales directamente en la CDC oficial (cdc.gov/importation/dogs) y con tu aerolínea.</span><span class="en">Requirements to enter the U.S. depend on the country of origin. Countries the CDC classifies as high-risk for dog rabies (like Venezuela) have stricter rules: microchip (implanted before the vaccine), rabies vaccine, usually a rabies antibody titer test, and the CDC dog import form. It should be prepared several months in advance. Always verify the current steps directly with the official CDC (cdc.gov/importation/dogs) and your airline.</span></div>
+   <div class="faq-a"><span class="es">Depende del país de origen. Desde países que la CDC considera de alto riesgo de rabia (como Venezuela) las reglas son más estrictas y conviene empezar con varios meses de anticipación; verifica siempre en cdc.gov/importation/dogs. La guía te lo explica paso a paso.</span><span class="en">It depends on the country of origin. From countries the CDC considers high-risk for dog rabies (like Venezuela) the rules are stricter and it's best to start several months ahead; always verify at cdc.gov/importation/dogs. The guide walks you through it step by step.</span></div>
   </details>
 
   <div class="faq-cta">
-   <a class="btn" href="https://pay.hotmart.com/Q106793737G" target="_blank" rel="noopener"><span class="es">Quiero mi guía — $37 →</span><span class="en">I want my guide — $37 →</span></a>
+   <a class="btn" href="https://pay.hotmart.com/Q106793737G" target="_blank" rel="noopener"><span class="es">QUIERO PREPARAR MI VIAJE — $37</span><span class="en">GET MY TRIP READY — $37</span></a>
    <p class="pay-note"><span class="es">🔒 Pago seguro en Hotmart · Tarjeta, PayPal o Venmo · o paga en 30 días con Klarna (según tu país) · Te pedirá correo, nombre y dirección (formulario estándar) · La guía te llega al correo al instante.</span><span class="en">🔒 Secure payment on Hotmart · Card, PayPal or Venmo · or pay in 30 days with Klarna (depending on your country) · It will ask for your email, name and address (standard form) · The guide arrives in your email instantly.</span></p>
    <p><span class="es">🛡️ Garantía de 7 días · ⚡ Acceso inmediato</span><span class="en">🛡️ 7-day guarantee · ⚡ Instant access</span></p>
   </div>
@@ -342,9 +382,11 @@ document.addEventListener('DOMContentLoaded', function(){
 
 <section class="final">
  <div class="wrap">
-  <h2><span class="es">No lo dejes para el mostrador.</span><span class="en">Don't leave it for the counter.</span></h2>
-  <p><span class="es">Prepara tu documentación antes de comprar el vuelo y viaja con calma, no con miedo.</span><span class="en">Prepare your documents before buying the flight and travel with calm, not fear.</span></p>
-  <a class="btn" href="https://pay.hotmart.com/Q106793737G" target="_blank" rel="noopener"><span class="es">Quiero mi guía — $37 →</span><span class="en">I want my guide — $37 →</span></a><p class="pay-note"><span class="es">🔒 Pago seguro en Hotmart · Tarjeta, PayPal o Venmo · o paga en 30 días con Klarna (según tu país) · Te pedirá correo, nombre y dirección (formulario estándar) · La guía te llega al correo al instante.</span><span class="en">🔒 Secure payment on Hotmart · Card, PayPal or Venmo · or pay in 30 days with Klarna (depending on your country) · It will ask for your email, name and address (standard form) · The guide arrives in your email instantly.</span></p>
+  <h2><span class="es">No descubras lo que te faltaba cuando ya estás en el aeropuerto.</span><span class="en">Don't find out what you were missing once you're already at the airport.</span></h2>
+  <p><span class="es">Tu vuelo ya tiene fecha, y suficiente estrés.</span><span class="en">Your flight already has a date, and enough stress.</span></p>
+  <p><span class="es">Prepara con anticipación los documentos, requisitos y pasos de tu viaje, y llega al mostrador sabiendo qué presentar y cómo responder.</span><span class="en">Prepare your trip's documents, requirements and steps ahead of time, and get to the counter knowing what to present and how to respond.</span></p>
+  <p class="product"><span class="es">Sistema Vuelo Seguro para viajar con tu perro de servicio</span><span class="en">Safe Flight System for traveling with your service dog</span></p>
+  <a class="btn" href="https://pay.hotmart.com/Q106793737G" target="_blank" rel="noopener"><span class="es">QUIERO PREPARAR MI VIAJE — $37</span><span class="en">GET MY TRIP READY — $37</span></a><p class="pay-note"><span class="es">🔒 Pago único en Hotmart · Tarjeta, PayPal o Venmo · o paga en 30 días con Klarna (según tu país) · Garantía de 7 días · Acceso inmediato</span><span class="en">🔒 One-time payment on Hotmart · Card, PayPal or Venmo · or pay in 30 days with Klarna (depending on your country) · 7-day guarantee · Instant access</span></p>
  </div>
 </section>
 
@@ -370,8 +412,8 @@ function sendOptin(ev){ev.preventDefault();
 </script>
 
 <div class="buybar" id="buybar">
- <b><span class="es">Guía Perro de Servicio · $37</span><span class="en">Service Dog Guide · $37</span></b>
- <a class="btn" href="https://pay.hotmart.com/Q106793737G" target="_blank" rel="noopener"><span class="es">Quiero mi guía →</span><span class="en">I want my guide →</span></a>
+ <b><span class="es">Sistema Vuelo Seguro · Perro de servicio</span><span class="en">Safe Flight System · Service dog</span></b>
+ <a class="btn" href="https://pay.hotmart.com/Q106793737G" target="_blank" rel="noopener"><span class="es">QUIERO PREPARAR MI VIAJE — $37</span><span class="en">GET MY TRIP READY — $37</span></a>
 </div>
 <script>
 (function(){
