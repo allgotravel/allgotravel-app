@@ -139,6 +139,13 @@
  .cual .c.pack .btn{margin-top:auto;display:block;text-align:center;font-size:1rem;padding:15px 14px}
  .cual .c .note{font-size:.82rem;color:var(--grey);text-align:center;margin-top:8px}
  @media(max-width:800px){ .cual .cards{grid-template-columns:1fr} }
+ /* Puente al checkout */
+ .bridge{max-width:520px;margin:6px auto 22px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.22);border-radius:18px;padding:22px 22px 18px;text-align:left}
+ .bridge .bt{font-size:1.2rem;font-weight:800;color:#fff;margin:0 0 6px}
+ .bridge .bs{font-size:.98rem;color:#CDEBEE;margin:0 0 12px}
+ .bridge ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+ .bridge li{position:relative;padding-left:26px;color:#fff;font-size:.98rem;line-height:1.45}
+ .bridge li:before{content:"✓";position:absolute;left:0;top:0;color:var(--buy);font-weight:800}
 </style>
 <!-- Meta Pixel Code (AllGo Travel App) -->
 <script>
@@ -445,8 +452,20 @@ document.addEventListener('DOMContentLoaded', function(){
       <p class="strong">Prepara la asistencia. Confirma la accesibilidad. Lleva tus pedidos por escrito. Y sabe qué hacer si algo no sale como esperabas.</p>
       <p>Porque no se trata solamente de llegar al destino. Se trata de poder decir: “Hice todo lo necesario para que podamos viajar tranquilos.”</p>
     </div>
+    <div class="bridge">
+      <p class="bt">Estás a un paso de preparar su viaje 💛</p>
+      <p class="bs">Al tocar el botón irás al checkout seguro de Hotmart.</p>
+      <ul>
+        <li>Pago único de $37</li>
+        <li>Tarjeta, PayPal, Venmo o Klarna según disponibilidad</li>
+        <li>Hotmart te pedirá nombre, correo y dirección para procesar la compra</li>
+        <li>Recibes acceso inmediatamente después de confirmar el pago</li>
+        <li>Tienes 7 días de garantía</li>
+        <li>Guía en español</li>
+      </ul>
+    </div>
     <a class="btn" href="https://pay.hotmart.com/O106521584H" target="_blank" rel="noopener">QUIERO PREPARAR SU VIAJE — $37</a>
-    <p class="pay-note">Recibe acceso inmediato al sistema Turismo Sin Fronteras por $37 · Pago único en Hotmart · Tarjeta, PayPal o Venmo · o paga en 30 días con Klarna (según tu país) · Garantía de 7 días · En español</p><p class="pay-note en">This guide is available in Spanish only.</p>
+    <p class="pay-note en">This guide is available in Spanish only.</p>
   </div>
 </section>
 

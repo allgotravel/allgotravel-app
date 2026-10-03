@@ -106,6 +106,15 @@
  .cual .c.pack .btn{margin-top:auto;display:block;text-align:center;font-size:1rem;padding:15px 14px}
  .cual .c .note{font-size:.82rem;color:var(--grey);text-align:center;margin-top:8px}
  @media(max-width:800px){ .cual .cards{grid-template-columns:1fr} }
+ /* Puente al checkout */
+ .bridge{max-width:520px;margin:6px auto 22px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.22);border-radius:18px;padding:22px 22px 18px;text-align:left}
+ .bridge .bt{font-size:1.2rem;font-weight:800;color:#fff;margin:0 0 6px}
+ .bridge .bs{font-size:.98rem;color:#CDEBEE;margin:0 0 12px}
+ .bridge ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+ .bridge li{position:relative;padding-left:26px;color:#fff;font-size:.98rem;line-height:1.45}
+ .bridge li:before{content:"✓";position:absolute;left:0;top:0;color:var(--buy);font-weight:800}
+ .card .files .grp{background:none;padding:12px 0 0;font-weight:800;color:var(--teald);font-size:.92rem;letter-spacing:.4px;text-transform:uppercase}
+ .card .files .grp small{display:block;text-transform:none;letter-spacing:0;font-weight:600;color:var(--grey);font-size:.88rem}
 </style>
 <!-- Meta Pixel Code (AllGo Travel App) -->
 <script>
@@ -238,13 +247,16 @@ document.addEventListener('DOMContentLoaded', function(){
   <div class="card">
    <div class="big">$37</div>
    <div class="files">
-    <div><span>1.</span> <span class="es">Viaja con tu Perro de Servicio — la guía (español)</span><span class="en">Viaja con tu Perro de Servicio — the guide (Spanish)</span></div>
-    <div><span>2.</span> <span class="es">Travel With Your Service Dog — the guide (inglés)</span><span class="en">Travel With Your Service Dog — the guide (English)</span></div>
-    <div><span>3.</span> <span class="es">Cheat-sheet DOT — el formulario, explicado</span><span class="en">DOT Cheat-sheet — the form, explained</span></div>
-    <div><span>4.</span> <span class="es">Aerolíneas por Región — tabla comparativa 2026</span><span class="en">Airlines by Region — 2026 comparison table</span></div>
-    <div><span>5.</span> <span class="es">Requisitos por País — checklist de viaje</span><span class="en">Requirements by Country — travel checklist</span></div>
-    <div><span>6.</span> <span class="es">Modo Mostrador — tu tarjeta para cuando te dicen que no</span><span class="en">Counter Mode — your card for when they tell you no</span></div>
-    <div><span>🎁</span> <span class="es"><b>Bono incluido al comprar:</b> Kit "Antes de Volar" (te llega después de tu compra, junto con la guía)</span><span class="en"><b>Bonus included with purchase:</b> "Before You Fly" Kit (delivered after your purchase, with the guide)</span></div>
+    <div class="grp"><span class="es">Etapa 1 · Identifica<small>Entiende tu situación</small></span><span class="en">Stage 1 · Identify<small>Understand your situation</small></span></div>
+    <div><span>📘</span> <span class="es">Viaja con tu Perro de Servicio — la guía (español)</span><span class="en">Viaja con tu Perro de Servicio — the guide (Spanish)</span></div>
+    <div><span>📘</span> <span class="es">Travel With Your Service Dog — la guía (inglés)</span><span class="en">Travel With Your Service Dog — the guide (English)</span></div>
+    <div><span>✈️</span> <span class="es">Aerolíneas por Región — tabla comparativa 2026</span><span class="en">Airlines by Region — 2026 comparison table</span></div>
+    <div class="grp"><span class="es">Etapa 2 · Prepara tu viaje</span><span class="en">Stage 2 · Prepare your trip</span></div>
+    <div><span>📝</span> <span class="es">Cheat-sheet DOT — el formulario, explicado</span><span class="en">DOT Cheat-sheet — the form, explained</span></div>
+    <div><span>🌎</span> <span class="es">Requisitos por País — checklist de viaje</span><span class="en">Requirements by Country — travel checklist</span></div>
+    <div><span>🎁</span> <span class="es"><b>Bono incluido:</b> Kit "Antes de Volar" (te llega después de tu compra, junto con la guía)</span><span class="en"><b>Included bonus:</b> "Before You Fly" Kit (delivered after your purchase, with the guide)</span></div>
+    <div class="grp"><span class="es">Etapa 3 · Viaja con todo listo</span><span class="en">Stage 3 · Travel with everything ready</span></div>
+    <div><span>🪪</span> <span class="es">Modo Mostrador — tu tarjeta para cuando te dicen que no</span><span class="en">Counter Mode — your card for when they tell you no</span></div>
    </div>
    <a class="btn" href="https://pay.hotmart.com/Q106793737G" target="_blank" rel="noopener"><span class="es">QUIERO PREPARAR MI VIAJE — $37</span><span class="en">GET MY TRIP READY — $37</span></a>
    <p class="pay-note"><span class="es">🔒 Pago único en Hotmart · Tarjeta, PayPal o Venmo · o paga en 30 días con Klarna (según tu país) · Garantía de 7 días · Acceso inmediato</span><span class="en">🔒 One-time payment on Hotmart · Card, PayPal or Venmo · or pay in 30 days with Klarna (depending on your country) · 7-day guarantee · Instant access</span></p>
@@ -449,7 +461,18 @@ document.addEventListener('DOMContentLoaded', function(){
   <p><span class="es">Tu vuelo ya tiene fecha, y suficiente estrés.</span><span class="en">Your flight already has a date, and enough stress.</span></p>
   <p><span class="es">Prepara con anticipación los documentos, requisitos y pasos de tu viaje, y llega al mostrador sabiendo qué presentar y cómo responder.</span><span class="en">Prepare your trip's documents, requirements and steps ahead of time, and get to the counter knowing what to present and how to respond.</span></p>
   <p class="product"><span class="es">Sistema Vuelo Seguro para viajar con tu perro de servicio</span><span class="en">Safe Flight System for traveling with your service dog</span></p>
-  <a class="btn" href="https://pay.hotmart.com/Q106793737G" target="_blank" rel="noopener"><span class="es">QUIERO PREPARAR MI VIAJE — $37</span><span class="en">GET MY TRIP READY — $37</span></a><p class="pay-note"><span class="es">🔒 Pago único en Hotmart · Tarjeta, PayPal o Venmo · o paga en 30 días con Klarna (según tu país) · Garantía de 7 días · Acceso inmediato</span><span class="en">🔒 One-time payment on Hotmart · Card, PayPal or Venmo · or pay in 30 days with Klarna (depending on your country) · 7-day guarantee · Instant access</span></p>
+  <div class="bridge">
+   <p class="bt"><span class="es">Estás a un paso de preparar tu viaje 🐾</span><span class="en">You're one step away from preparing your trip 🐾</span></p>
+   <p class="bs"><span class="es">Al tocar el botón irás al checkout seguro de Hotmart.</span><span class="en">When you tap the button, you'll go to Hotmart's secure checkout.</span></p>
+   <ul>
+    <li><span class="es">Pago único de $37</span><span class="en">One-time payment of $37</span></li>
+    <li><span class="es">Tarjeta, PayPal, Venmo o Klarna según disponibilidad</span><span class="en">Card, PayPal, Venmo or Klarna, depending on availability</span></li>
+    <li><span class="es">Hotmart te pedirá nombre, correo y dirección para procesar la compra</span><span class="en">Hotmart will ask for your name, email and address to process the purchase</span></li>
+    <li><span class="es">Recibes acceso inmediatamente después de confirmar el pago</span><span class="en">You get access right after your payment is confirmed</span></li>
+    <li><span class="es">Tienes 7 días de garantía</span><span class="en">You have a 7-day guarantee</span></li>
+   </ul>
+  </div>
+  <a class="btn" href="https://pay.hotmart.com/Q106793737G" target="_blank" rel="noopener"><span class="es">QUIERO PREPARAR MI VIAJE — $37</span><span class="en">GET MY TRIP READY — $37</span></a>
  </div>
 </section>
 
@@ -487,7 +510,7 @@ function sendOptin(ev){ev.preventDefault();
 </script>
 
 <footer>
- <p><strong>AllGo Travel App</strong> · <span class="es">Viaja con tu Perro de Servicio — Guía 2026</span><span class="en">Travel With Your Service Dog — 2026 Guide</span></p>
+ <p><strong>AllGo Travel App</strong> · <span class="es">Sistema Vuelo Seguro · Viaja con tu Perro de Servicio</span><span class="en">Safe Flight System · Travel With Your Service Dog</span></p>
  <p style="margin-top:8px"><span class="es">Verifica siempre los requisitos con tu aerolínea. Esta guía es orientación informativa, no asesoría legal.</span><span class="en">Always verify requirements with your airline. This guide is informational guidance, not legal advice.</span></p>
  <p style="margin-top:8px">© 2026 AllGo Travel App</p>
 </footer>
