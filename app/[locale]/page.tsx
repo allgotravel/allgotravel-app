@@ -110,8 +110,8 @@ export default function HomePage() {
             <div className="gsbd"><h3>Turismo Sin Fronteras</h3><span className="gslang">{t('stripTurLang')}</span><div className="gsprice">$37</div><span className="btn btn-primary">{t('stripCta')}</span></div>
           </a>
           <a className="gscard" href={URL.perro}>
-            <img src="/img/home-perro.webp" width={700} height={700} alt="Viaja con tu Perro de Servicio — ES / EN" />
-            <div className="gsbd"><h3>Viaja con tu Perro de Servicio</h3><span className="gslang">{t('stripDogLang')}</span><div className="gsprice">$37</div><span className="btn btn-primary">{t('stripCta')}</span></div>
+            <img src="/img/home-perro.webp" width={700} height={700} alt={t('dogCoverAlt')} />
+            <div className="gsbd"><h3>{t('dogGuideName')}</h3><span className="gslang">{t('stripDogLang')}</span><div className="gsprice">$37</div><span className="btn btn-primary">{t('stripCta')}</span></div>
           </a>
         </div>
       </section>
@@ -204,11 +204,11 @@ export default function HomePage() {
         <div className="wrap prod reveal">
           <div className="prodcard">
             <div className="ph"><img src="/img/turismo-portada-es.webp" width={700} height={700} loading="lazy" alt={t('prodTurImgAlt')} /></div>
-            <div className="bd"><span className="tag">{t('prodTurTag')}</span><h3>Turismo Sin Fronteras</h3><p>{t('prodTurDesc')}</p><div className="price">$37</div><a className="btn btn-primary" style={{ marginTop: 12, justifyContent: 'center' }} href={URL.turismo} target="_blank" rel="noopener">{t('prodCtaGet')}</a></div>
+            <div className="bd"><span className="tag">{t('prodTurTag')}</span><h3>Turismo Sin Fronteras</h3>{locale === 'en' && <span className="prodsub">{t('stripTurLang')}</span>}<p>{t('prodTurDesc')}</p><div className="price">$37</div><a className="btn btn-primary" style={{ marginTop: 12, justifyContent: 'center' }} href={URL.turismo} target="_blank" rel="noopener">{t('prodCtaGet')}</a></div>
           </div>
           <div className="prodcard">
-            <div className="ph duo"><img className="photo" src="/img/yadira-luna-aeropuerto.webp" width={1000} height={1299} loading="lazy" alt={t('dogPhotoAlt')} /><img className="cover" src="/img/home-perro.webp" width={700} height={700} loading="lazy" alt="Viaja con tu Perro de Servicio — ES / EN" /></div>
-            <div className="bd"><span className="tag">{t('prodDogTag')}</span><h3>Viaja con tu Perro de Servicio</h3><p>{t('prodDogDesc')}</p><div className="price">$37</div><a className="btn btn-primary" style={{ marginTop: 12, justifyContent: 'center' }} href={URL.perro} target="_blank" rel="noopener">{t('prodCtaGet')}</a></div>
+            <div className="ph duo"><img className="photo" src="/img/yadira-luna-aeropuerto.webp" width={1000} height={1299} loading="lazy" alt={t('dogPhotoAlt')} /><img className="cover" src="/img/home-perro.webp" width={700} height={700} loading="lazy" alt={t('dogCoverAlt')} /></div>
+            <div className="bd"><span className="tag">{t('prodDogTag')}</span><h3>{t('dogGuideName')}</h3>{locale === 'en' && <span className="prodsub">{t('stripDogLang')}</span>}<p>{t('prodDogDesc')}</p><div className="price">$37</div><a className="btn btn-primary" style={{ marginTop: 12, justifyContent: 'center' }} href={URL.perro} target="_blank" rel="noopener">{t('prodCtaGet')}</a></div>
           </div>
           <div className="prodcard">
             <div className="ph"><img src="/landing/img6.jpg" loading="lazy" alt="Kit del Viajero" /></div>

@@ -213,3 +213,4 @@ html.lp-hero-visible .allgo-float{opacity:0;pointer-events:none}
 .lp .storycard .luna{margin:22px 0 0;max-width:360px}
 .lp .storycard .luna img{width:100%;height:auto;min-height:0;object-fit:initial;border-radius:18px;box-shadow:var(--shadow-sm)}
 .lp .storycard .luna figcaption{font-size:13.5px;color:var(--muted);margin-top:8px}
+.lp .prodcard .prodsub{font-size:12.5px;font-weight:700;color:var(--muted);margin:4px 0 0}

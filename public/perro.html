@@ -428,7 +428,7 @@ function sendOptin(ev){ev.preventDefault();
 </script>
 
 <footer>
- <p><strong>AllGo Travel App</strong> · Viaja con tu Perro de Servicio — Guía 2026</p>
+ <p><strong>AllGo Travel App</strong> · <span class="es">Viaja con tu Perro de Servicio — Guía 2026</span><span class="en">Travel With Your Service Dog — 2026 Guide</span></p>
  <p style="margin-top:8px"><span class="es">Verifica siempre los requisitos con tu aerolínea. Esta guía es orientación informativa, no asesoría legal.</span><span class="en">Always verify requirements with your airline. This guide is informational guidance, not legal advice.</span></p>
  <p style="margin-top:8px">© 2026 AllGo Travel App</p>
 </footer>
@@ -440,6 +440,7 @@ function setLang(l){
   document.getElementById('btn-es').classList.toggle('active', !en);
   document.getElementById('btn-en').classList.toggle('active', en);
   document.documentElement.lang = l;
+  document.title = en ? 'Travel With Your Service Dog — 2026 Guide | AllGo Travel App' : 'Viaja con tu Perro de Servicio — Guía 2026 | AllGo Travel App';
 }
 </script>
 </body>
