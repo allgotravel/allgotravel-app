@@ -255,7 +255,6 @@ export default function HomePage() {
             <details open><summary>{t('faqQ1')}</summary><p>{t('faqA1')}</p></details>
             <details><summary>{t('faqQ2')}</summary><p>{t('faqA2')}</p></details>
             <details><summary>{t('faqQ4')}</summary><p>{t('faqA4')}</p></details>
-            <details><summary>{t('faqQ5')}</summary><p>{t('faqA5')}</p></details>
           </div>
         </div>
       </section>
@@ -264,8 +263,8 @@ export default function HomePage() {
       <section className="section finalcta">
         <div className="wrap reveal">
           <h2>{t('finalTitle')}</h2>
-          <p>{t('finalP')}</p>
-          <a className="btn btn-white" href="#viaje">{t('finalCtaV2')}</a>
+          <a className="btn btn-white" href="#viaje" style={{ marginTop: 22 }}>{t('finalCtaV2')}</a>
+          <p style={{ fontSize: 15, marginTop: 18, opacity: 0.85 }}>{t('finalP')}</p>
         </div>
       </section>
 
