@@ -111,6 +111,12 @@
  .final .closing p{margin:0 0 14px}
  .final .closing .strong{color:#fff;font-weight:700}
  body.lang-en p.en{display:block}
+ .needs{background:var(--tealL);text-align:center}
+ .needs .lead{margin:0 auto 24px}
+ .chips{list-style:none;display:grid;grid-template-columns:repeat(2,1fr);gap:12px;max-width:900px;margin:0 auto;text-align:left}
+ .chips li{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #cfe4e5;border-radius:999px;padding:10px 18px 10px 10px;font-weight:600;font-size:.98rem;line-height:1.3;color:var(--teald)}
+ .chips .ic{flex:none;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--tealL);font-size:1.25rem}
+ @media(max-width:700px){ .chips{grid-template-columns:1fr} .chips li{border-radius:16px} }
  @media(max-width:800px){
    .steps .grid3,.peek .shots{grid-template-columns:1fr}
    .btn{font-size:1rem;padding:16px 22px;letter-spacing:.2px}
@@ -179,7 +185,7 @@ document.addEventListener('DOMContentLoaded', function(){
       <div>
         <span class="tag">AllGo Travel App · 2026</span>
         <h1>Organiza el viaje de tu mamá o tu papá sin llegar al aeropuerto preguntándote si olvidaste algo importante.</h1>
-        <p class="sub">Turismo Sin Fronteras es un sistema práctico para preparar un viaje con silla de ruedas, movilidad reducida u otra necesidad especial (como autismo, baja visión o pérdida auditiva): qué pedir, cuándo pedirlo, qué confirmar y qué hacer si algo sale mal.</p>
+        <p class="sub">Turismo Sin Fronteras es un sistema práctico para preparar un viaje con silla de ruedas, movilidad reducida u otra necesidad especial (como autismo, baja visión, pérdida auditiva u oxígeno y equipo médico, y más): qué pedir, cuándo pedirlo, qué confirmar y qué hacer si algo sale mal.</p>
         <ul class="checks">
           <li>Pide correctamente la asistencia del aeropuerto y la aerolínea</li>
           <li>Confirma la accesibilidad del hotel antes de llegar</li>
@@ -253,6 +259,26 @@ document.addEventListener('DOMContentLoaded', function(){
   </div>
 </section>
 
+<!-- 10 NECESIDADES -->
+<section class="needs">
+  <div class="wrap">
+    <h2>Las 10 necesidades que cubre el sistema</h2>
+    <p class="lead">Pensado para quien organiza el viaje de su mamá o su papá. También te sirve si eres tú quien viaja, o si viajas con alguien con cualquiera de estas necesidades.</p>
+    <ul class="chips">
+      <li><span class="ic" aria-hidden="true">♿</span>Movilidad reducida y silla de ruedas</li>
+      <li><span class="ic" aria-hidden="true">🦯</span>Ceguera y baja visión</li>
+      <li><span class="ic" aria-hidden="true">🦻</span>Sordera, pérdida auditiva y sordoceguera</li>
+      <li><span class="ic" aria-hidden="true">🧩</span>Autismo y neurodivergencia (TEA, TDAH)</li>
+      <li><span class="ic" aria-hidden="true">🤝</span>Síndrome de Down y necesidades de comprensión</li>
+      <li><span class="ic" aria-hidden="true">🩺</span>Enfermedades crónicas (diabetes, diálisis, esclerosis múltiple)</li>
+      <li><span class="ic" aria-hidden="true">🫁</span>Oxígeno y equipo médico (concentrador, CPAP)</li>
+      <li><span class="ic" aria-hidden="true">🍽️</span>Alergias alimentarias, celiaquía y dietas especiales</li>
+      <li><span class="ic" aria-hidden="true">🧓</span>Adultos mayores</li>
+      <li><span class="ic" aria-hidden="true">🌻</span>Necesidades no visibles (ansiedad, Alzheimer leve)</li>
+    </ul>
+  </div>
+</section>
+
 <!-- TODO LO QUE INCLUYE -->
 <section class="price">
   <div class="wrap">
@@ -297,22 +323,6 @@ document.addEventListener('DOMContentLoaded', function(){
   </div>
 </section>
 
-<!-- PARA QUIÉN MÁS -->
-<section class="forwho">
-  <div class="wrap">
-    <h2>Para quién más</h2>
-    <p class="lead">También te sirve si eres tú quien viaja con silla de ruedas o movilidad reducida, o si viajas con alguien con autismo, baja visión o pérdida auditiva.</p>
-    <ul>
-      <li>Viajeros con movilidad reducida o silla de ruedas</li>
-      <li>Personas con baja visión o pérdida auditiva</li>
-      <li>Viajeros con autismo o neurodivergentes</li>
-      <li>Adultos mayores que quieren seguir viajando</li>
-      <li>Cuidadores y familias que viajan juntos</li>
-      <li>Cualquiera cansado de improvisar y llevarse sustos</li>
-    </ul>
-  </div>
-</section>
-
 <!-- COMUNIDAD + GARANTÍA -->
 <section class="testi">
   <div class="wrap">
@@ -341,7 +351,7 @@ document.addEventListener('DOMContentLoaded', function(){
       </details>
       <details>
         <summary>¿Me sirve si viajo con movilidad reducida, silla de ruedas o necesidades especiales?</summary>
-        <div class="ans">Sí. La guía cubre todo el espectro del viaje accesible: movilidad reducida, baja visión, pérdida auditiva, autismo y neurodivergencia, adultos mayores, y las familias y cuidadores que viajan con ellos.</div>
+        <div class="ans">Sí. El sistema cubre 10 necesidades: desde movilidad reducida y silla de ruedas hasta autismo, baja visión, pérdida auditiva, enfermedades crónicas, oxígeno y equipo médico, dietas especiales y necesidades no visibles, y también a las familias y cuidadores que viajan con ellos.</div>
       </details>
       <details>
         <summary>¿En qué formato la recibo?</summary>
