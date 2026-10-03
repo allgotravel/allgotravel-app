@@ -9,7 +9,7 @@
  :root{--buy:#F5A628;--teal:#0E7C86;--teald:#0A4F57;--tealL:#E3F1F2;--gold:#E0A100;--ink:#1F2A2E;--grey:#5B686D;}
  *{box-sizing:border-box;margin:0;padding:0}
  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:var(--ink);line-height:1.6;background:#fff}
- img{max-width:100%;display:block}
+ img{max-width:100%;height:auto;display:block}
  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
   .btn{display:inline-block;background:var(--buy);color:#3a2400;font-weight:800;font-size:1.15rem;padding:16px 34px;border-radius:40px;text-decoration:none;box-shadow:0 6px 20px rgba(245,166,40,.4);transition:transform .15s}
  .btn:hover{transform:translateY(-2px)}
@@ -81,6 +81,50 @@
  .en{display:none}
  body.lang-en .es{display:none}
  body.lang-en .en{display:inline}
+  /* v3 */
+ .hero .checks{list-style:none;margin:0 0 24px;display:grid;gap:10px}
+ .hero .checks li{position:relative;padding-left:30px;color:#fff;font-size:1.02rem}
+ .hero .checks li:before{content:"✓";position:absolute;left:0;top:0;color:var(--buy);font-weight:800}
+ .scenes{background:var(--tealL)}
+ .scenes ul{list-style:none;display:grid;gap:12px;max-width:760px;margin:6px 0 22px}
+ .scenes li{background:#fff;border-radius:12px;padding:14px 18px 14px 46px;position:relative;font-size:1.04rem;box-shadow:0 2px 10px rgba(14,124,134,.06)}
+ .scenes li:before{content:"•";position:absolute;left:20px;top:10px;color:var(--teal);font-size:1.5rem;line-height:1}
+ .scenes .close{font-size:1.15rem;font-weight:700;color:var(--teald);max-width:760px}
+ .steps{text-align:center}
+ .steps .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:30px 0 0;text-align:left}
+ .step{background:#fff;border:2px solid var(--tealL);border-radius:18px;padding:26px 24px;box-shadow:0 8px 26px rgba(14,124,134,.08)}
+ .step .n{display:inline-grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--teal);color:#fff;font-weight:800;margin-bottom:12px}
+ .step h3{color:var(--teald);font-size:1.1rem;letter-spacing:.5px;margin-bottom:8px}
+ .step p{font-size:1rem;margin-bottom:12px}
+ .step .tools{font-size:.9rem;color:var(--teal);font-weight:700;border-top:1px solid var(--tealL);padding-top:10px}
+ .price .card{max-width:640px}
+ .card .files div{font-weight:500}
+ .card .files .grp{background:none;padding:10px 0 0;font-weight:800;color:var(--teald);font-size:.95rem;letter-spacing:.5px;text-transform:uppercase}
+ .card .files .inc{display:inline-block;margin-left:6px;font-size:.78rem;font-weight:700;color:var(--teal);background:#fff;border:1px solid var(--teal);border-radius:10px;padding:0 7px;vertical-align:middle}
+ .peek{background:#F1F6F5}
+ .peek .shots{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:22px;align-items:start}
+ .peek .col{display:grid;gap:18px}
+ .peek figure{background:#fff;border-radius:14px;padding:10px;box-shadow:0 6px 22px rgba(0,0,0,.08)}
+ .peek img{border-radius:8px;width:100%;height:auto}
+ .peek figcaption{font-size:.9rem;color:var(--grey);padding:8px 4px 2px;text-align:center}
+ .final .closing{max-width:720px;margin:0 auto}
+ .final .closing p{margin:0 0 14px}
+ .final .closing .strong{color:#fff;font-weight:700}
+ body.lang-en p.en{display:block}
+ .needs{background:var(--tealL);text-align:center}
+ .needs .lead{margin:0 auto 24px}
+ .chips{list-style:none;display:grid;grid-template-columns:repeat(2,1fr);gap:12px;max-width:900px;margin:0 auto;text-align:left}
+ .chips li{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #cfe4e5;border-radius:999px;padding:10px 18px 10px 10px;font-weight:600;font-size:.98rem;line-height:1.3;color:var(--teald)}
+ .chips .ic{flex:none;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--tealL);font-size:1.25rem}
+ @media(max-width:700px){ .chips{grid-template-columns:1fr} .chips li{border-radius:16px} }
+ @media(max-width:800px){
+   .steps .grid3,.peek .shots{grid-template-columns:1fr}
+   .btn{font-size:1rem;padding:16px 22px;letter-spacing:.2px}
+   .price .card{padding:26px 16px}
+   .price .card .btn{display:block;padding:16px 12px;font-size:.95rem}
+   .buybar .btn{font-size:.9rem;padding:11px 16px}
+ }
+ @media(max-width:520px){ .buybar b{display:none} .buybar .btn{flex:1;text-align:center} }
 </style>
 <!-- Meta Pixel Code (AllGo Travel App) -->
 <script>
@@ -139,20 +183,19 @@ document.addEventListener('DOMContentLoaded', function(){
   <div class="wrap">
     <div class="grid">
       <div>
-        <span class="tag">ALLGO TRAVEL APP · GUÍA 2026</span>
-        <h1>
-          <span class="es">¿Tu mamá o tu papá viaja con movilidad reducida? Llega al aeropuerto sabiendo qué pedir, cuándo y a quién.</span>
-          <span class="en">Is your mom or dad traveling with reduced mobility? Get to the airport knowing what to ask for, when and who to ask.</span>
-        </h1>
-        <p class="sub">
-          <span class="es">Para la hija o el hijo que organiza el viaje: aeropuerto, avión, hotel y crucero, paso a paso y con fuentes oficiales. Silla de ruedas, bastón, oxígeno o necesidades especiales — con los correos ya escritos para pedirlo.</span>
-          <span class="en">For the daughter or son planning the trip: airport, flight, hotel and cruise, step by step and based on official sources. Wheelchair, cane, oxygen or special needs — with the emails already written for you.</span>
-        </p>
-        <a class="btn" href="https://pay.hotmart.com/O106521584H" target="_blank" rel="noopener"><span class="es">Quiero mi guía — $37 →</span><span class="en">I want my guide — $37 →</span></a>
-        <p class="pay-note"><span class="es">📘 Guía en español</span><span class="en">This guide is available in Spanish only.</span></p><p class="pay-note"><span class="es">🔒 Pago seguro en Hotmart · Tarjeta, PayPal o Venmo · o paga en 30 días con Klarna (según tu país) · Te pedirá correo, nombre y dirección (formulario estándar) · La guía te llega al correo al instante.</span><span class="en">🔒 Secure payment on Hotmart · Card, PayPal or Venmo · or pay in 30 days with Klarna (depending on your country) · It will ask for your email, name and address (standard form) · The guide arrives in your email instantly.</span></p>
+        <span class="tag">AllGo Travel App · 2026</span>
+        <h1>Organiza el viaje de tu mamá o tu papá sin llegar al aeropuerto preguntándote si olvidaste algo importante.</h1>
+        <p class="sub">Turismo Sin Fronteras es un sistema práctico para preparar un viaje con silla de ruedas, movilidad reducida u otra necesidad especial (como autismo, baja visión, pérdida auditiva u oxígeno y equipo médico, y más): qué pedir, cuándo pedirlo, qué confirmar y qué hacer si algo sale mal.</p>
+        <ul class="checks">
+          <li>Pide correctamente la asistencia del aeropuerto y la aerolínea</li>
+          <li>Confirma la accesibilidad del hotel antes de llegar</li>
+          <li>Ten listo qué hacer si la asistencia falla o algo no sale como esperabas (incluso si dañan la silla)</li>
+        </ul>
+        <a class="btn" href="https://pay.hotmart.com/O106521584H" target="_blank" rel="noopener">QUIERO PREPARAR SU VIAJE — $37</a>
+        <p class="pay-note">Recibe acceso inmediato al sistema Turismo Sin Fronteras por $37 · Pago único en Hotmart · Tarjeta, PayPal o Venmo · o paga en 30 días con Klarna (según tu país) · Garantía de 7 días · En español</p><p class="pay-note en">This guide is available in Spanish only.</p>
       </div>
       <div>
-        <img src="img/turismo-portada-es.webp" width="700" height="700" alt="Turismo Sin Fronteras — Guía de Viaje Accesible e Inclusivo (en español)">
+        <img src="/img/turismo-portada-es.webp" width="700" height="700" alt="Turismo Sin Fronteras — Guía de Viaje Accesible e Inclusivo (en español)">
       </div>
     </div>
     <div style="height:40px"></div>
@@ -160,55 +203,19 @@ document.addEventListener('DOMContentLoaded', function(){
 </div>
 <div class="brandbar"></div>
 
-<!-- PARA QUIÉN -->
-<section class="forwho">
+<!-- SI ERES TÚ QUIEN ORGANIZA -->
+<section class="scenes">
   <div class="wrap">
-    <h2><span class="es">¿Para quién es esta guía?</span><span class="en">Who is this guide for?</span></h2>
-    <p class="lead">
-      <span class="es">Sobre todo, para la hija o el hijo que organiza el viaje de mamá o papá. También para:</span>
-      <span class="en">Above all, for the daughter or son planning mom's or dad's trip. Also for:</span>
-    </p>
+    <h2>Si eres tú quien organiza el viaje…</h2>
     <ul>
-      <li><span class="es">Viajeros con movilidad reducida o silla de ruedas</span><span class="en">Travelers with reduced mobility or wheelchairs</span></li>
-      <li><span class="es">Personas con baja visión o sordera</span><span class="en">People with low vision or deafness</span></li>
-      <li><span class="es">Viajeros neurodivergentes</span><span class="en">Neurodivergent travelers</span></li>
-      <li><span class="es">Adultos mayores que quieren seguir viajando</span><span class="en">Older adults who want to keep traveling</span></li>
-      <li><span class="es">Cuidadores y familias que viajan juntos</span><span class="en">Caregivers and families traveling together</span></li>
-      <li><span class="es">Cualquiera cansado de improvisar y llevarse sustos</span><span class="en">Anyone tired of improvising and getting bad surprises</span></li>
+      <li>Llamas a la aerolínea y no sabes exactamente qué pedir ni cómo decirlo.</li>
+      <li>Te preguntas si van a manejar bien su silla de ruedas o su equipo.</li>
+      <li>Revisas un hotel que dice "accesible" y no sabes si de verdad lo es.</li>
+      <li>Piensas en el ruido, las filas y las luces del aeropuerto, y no sabes cómo explicar en el mostrador lo que tu mamá o tu papá necesita si se abruma.</li>
+      <li>Te da miedo olvidarte de pedir algo importante.</li>
+      <li>No sabes a quién reclamar si algo falla.</li>
     </ul>
-  </div>
-</section>
-
-<!-- QUÉ INCLUYE / PRECIO -->
-<section class="price">
-  <div class="wrap">
-    <h2><span class="es">Qué incluye</span><span class="en">What's inside</span></h2>
-    <p class="lead" style="margin-left:auto;margin-right:auto">
-      <span class="es">Contenido práctico en español, listo para usar en tu próximo viaje.</span>
-      <span class="en">Practical content in Spanish, ready to use on your next trip.</span>
-    </p>
-    <div class="card">
-      <div class="big">$37</div>
-      <div class="lang-tag">📘 <span class="es">Guía en español</span><span class="en">Guide in Spanish</span></div>
-      <div class="files">
-        <div><span>📘</span><span class="es">Guía en español</span><span class="en">Guide in Spanish</span></div>
-        <div><span>✅</span><span class="es">Checklists de viaje listos para usar</span><span class="en">Ready-to-use travel checklists</span></div>
-        <div><span>🌍</span><span class="es">Destinos accesibles verificados</span><span class="en">Verified accessible destinations</span></div>
-        <div><span>🛫</span><span class="es">Cómo pedir asistencia en el aeropuerto</span><span class="en">How to request assistance at the airport</span></div>
-        <div><span>🗣️</span><span class="es">Tarjeta de comunicación para barreras de idioma</span><span class="en">Communication card for language barriers</span></div>
-        <div><span>🚢</span><span class="es">Capítulo de cruceros accesibles</span><span class="en">Accessible cruises chapter</span></div>
-        <div><span>🎁</span><span class="es"><b>Bono 1 · Checklist Maestro del Viajero Accesible</b>: qué hacer 6 semanas antes, en el aeropuerto, durante el viaje y al regresar.</span><span class="en"><b>Bonus 1 · Accessible Traveler Master Checklist</b>: what to do 6 weeks before, at the airport, during the trip and on your return.</span></div>
-        <div><span>🎁</span><span class="es"><b>Bono 2 · Tarjetas de Viaje Accesible</b>: tarjeta médica y tarjeta de comunicación para imprimir y llevar contigo.</span><span class="en"><b>Bonus 2 · Accessible Travel Cards</b>: printable medical card and communication card to carry with you.</span></div>
-        <div><span>🎁</span><span class="es"><b>Bono 3 · Guía Rápida de 44 destinos accesibles</b>: qué hace especial a cada uno y el consejo clave para planearlo.</span><span class="en"><b>Bonus 3 · Quick Guide to 44 accessible destinations</b>: what makes each one special and the key planning tip.</span></div>
-        <div><span>🎁</span> <span class="es"><b>Bono 4 · "Pídelo así"</b>: 4 correos listos para copiar y enviar (a la aerolínea, al hotel, al traslado y para reclamar si algo sale mal), y más de 35 frases listas para el aeropuerto, el avión, el hotel y el transporte. Los 4 bonos te llegan después de tu compra.</span><span class="en"><b>Bonus 4 · "Ask for it like this"</b>: 4 ready-to-send emails (airline, hotel, transfer and complaint), plus 35+ ready-to-use phrases for every step of your trip. All 4 bonuses are delivered after purchase.</span></div>
-      </div>
-      <a class="btn" href="https://pay.hotmart.com/O106521584H" target="_blank" rel="noopener"><span class="es">Quiero mi guía — $37 →</span><span class="en">I want my guide — $37 →</span></a>
-      <p class="pay-note"><span class="es">📘 Guía en español</span><span class="en">This guide is available in Spanish only.</span></p><p class="pay-note"><span class="es">🔒 Pago seguro en Hotmart · Tarjeta, PayPal o Venmo · o paga en 30 días con Klarna (según tu país) · Te pedirá correo, nombre y dirección (formulario estándar) · La guía te llega al correo al instante.</span><span class="en">🔒 Secure payment on Hotmart · Card, PayPal or Venmo · or pay in 30 days with Klarna (depending on your country) · It will ask for your email, name and address (standard form) · The guide arrives in your email instantly.</span></p>
-      <div style="margin-top:16px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:.94rem;color:#173F3A;font-weight:600;">
-       <span style="font-size:1.15rem;">🛡️</span>
-       <span class="es">Garantía de 7 días. Si no es para ti, te devolvemos tu dinero.</span><span class="en">7-day guarantee. If it's not for you, we'll refund your money.</span>
-      </div>
-    </div>
+    <p class="close">No quieres descubrir en el aeropuerto lo que tenías que haber preparado semanas antes.</p>
   </div>
 </section>
 
@@ -217,38 +224,120 @@ document.addEventListener('DOMContentLoaded', function(){
   <div class="wrap">
     <div class="grid">
       <div>
-        <img src="img/yadira-familia.webp" width="600" height="749" loading="lazy" decoding="async" alt="Yadira Suárez, fundadora de AllGo Travel App, con su familia y su papá en silla de ruedas">
+        <img src="/img/yadira-familia.webp" width="600" height="749" loading="lazy" decoding="async" alt="Yadira Suárez, fundadora de AllGo Travel App, con su familia y su papá en silla de ruedas">
       </div>
       <div>
-        <h2><span class="es">Por qué existe AllGo</span><span class="en">Why AllGo exists</span></h2>
-        <blockquote>
-          <span class="es">"AllGo nació porque mi papá dejó de viajar al no encontrar un mundo adaptado a él. Esta guía es la que a mi familia le habría encantado tener: para que viajar vuelva a ser con libertad, seguridad y dignidad — para todos."</span>
-          <span class="en">"AllGo was born because my dad stopped traveling when he couldn't find a world adapted to him. This guide is the one my family would have loved to have: so travel can once again mean freedom, safety and dignity — for everyone."</span>
-        </blockquote>
-        <p class="sig"><span class="es">— Yadira Suárez, fundadora de AllGo Travel App</span><span class="en">— Yadira Suárez, founder of AllGo Travel App</span></p>
+        <h2>Por qué existe AllGo Travel App</h2>
+        <blockquote>"AllGo Travel App nació porque mi papá dejó de viajar al no encontrar un mundo adaptado a él. Esta guía es la que a mi familia le habría encantado tener: para que viajar vuelva a ser con libertad, seguridad y dignidad — para todos."</blockquote>
+        <p class="sig">— Yadira Suárez, fundadora de AllGo Travel App</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- COMUNIDAD -->
-<section class="testi">
+<!-- MÉTODO -->
+<section class="steps" style="background:#F7FBFB">
   <div class="wrap">
-    <h2 style="text-align:center"><span class="es">Lo que nos dice la comunidad</span><span class="en">What our community tells us</span></h2>
-    <div class="q">
-      <div style="color:#E8720C;letter-spacing:2px;margin-bottom:8px">★★★★★</div>
-      <p><span class="es">"Es espectacular, muy práctico y excelente ayuda. En ocasiones uno siente miedo al viajar, y cada información hace más fácil cada trámite."</span><span class="en">"It's spectacular, very practical and excellent help. Sometimes you feel afraid to travel, and every piece of information makes each step easier."</span></p>
-      <div style="font-weight:700;color:var(--teald)">@miamiglamcreations <span style="font-weight:400;color:var(--grey);font-size:.9rem">· <span class="es">Comunidad de AllGo Travel App · Instagram</span><span class="en">AllGo Travel App community · Instagram</span></span></div>
+    <h2>Método Viaje Sin Sorpresas: 3 pasos</h2>
+    <div class="grid3">
+      <div class="step"><span class="n">1</span>
+        <h3>PREPARA</h3>
+        <p>Detecta antes de reservar qué necesita tu mamá o tu papá y qué confirmar con aerolínea, aeropuerto, hotel, traslado o crucero.</p>
+        <div class="tools">Herramienta: Checklist Maestro del Viajero Accesible</div>
+      </div>
+      <div class="step"><span class="n">2</span>
+        <h3>PIDE Y CONFIRMA</h3>
+        <p>Usa los checklists, preguntas y mensajes ya escritos para pedir la asistencia y dejarla documentada antes de salir.</p>
+        <div class="tools">Herramienta: "Pídelo así" — correos listos para la aerolínea, el hotel y el traslado</div>
+      </div>
+      <div class="step"><span class="n">3</span>
+        <h3>VIAJA CON PLAN B</h3>
+        <p>Llega sabiendo qué hacer y a quién acudir si la asistencia falla, el hotel no cumple o le pasa algo a la silla.</p>
+        <div class="tools">Herramientas: Tarjetas de Viaje Accesible + el correo para reclamar si algo sale mal</div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- DEMANDA REAL -->
-<section style="background:#fff;padding:10px 20px 0">
-  <div style="max-width:1000px;margin:0 auto">
-    <div style="background:var(--teald);border-radius:16px;padding:26px 24px;text-align:center;color:#fff">
-      <div style="font-size:1.55rem;font-weight:800;line-height:1.3">✈️ <span class="es">Viajar sin barreras es para todas las familias</span><span class="en">Traveling without barriers is for every family</span></div>
-      <p style="margin:10px 0 0;color:#CDEBEE;font-size:1rem"><span class="es">Hecha para quien organiza el viaje de su mamá o su papá, y para quien viaja con movilidad reducida o necesidades especiales.</span><span class="en">Made for anyone planning a trip for their mom or dad, and for anyone traveling with reduced mobility or special needs.</span></p>
+<!-- 10 NECESIDADES -->
+<section class="needs">
+  <div class="wrap">
+    <h2>Las 10 necesidades que cubre el sistema</h2>
+    <p class="lead">Pensado para quien organiza el viaje de su mamá o su papá. También te sirve si eres tú quien viaja, o si viajas con alguien con cualquiera de estas necesidades.</p>
+    <ul class="chips">
+      <li><span class="ic" aria-hidden="true">♿</span>Movilidad reducida y silla de ruedas</li>
+      <li><span class="ic" aria-hidden="true">🦯</span>Ceguera y baja visión</li>
+      <li><span class="ic" aria-hidden="true">🦻</span>Sordera, pérdida auditiva y sordoceguera</li>
+      <li><span class="ic" aria-hidden="true">🧩</span>Autismo y neurodivergencia (TEA, TDAH)</li>
+      <li><span class="ic" aria-hidden="true">🤝</span>Síndrome de Down y necesidades de comprensión</li>
+      <li><span class="ic" aria-hidden="true">🩺</span>Enfermedades crónicas (diabetes, diálisis, esclerosis múltiple)</li>
+      <li><span class="ic" aria-hidden="true">🫁</span>Oxígeno y equipo médico (concentrador, CPAP)</li>
+      <li><span class="ic" aria-hidden="true">🍽️</span>Alergias alimentarias, celiaquía y dietas especiales</li>
+      <li><span class="ic" aria-hidden="true">🧓</span>Adultos mayores</li>
+      <li><span class="ic" aria-hidden="true">🌻</span>Necesidades no visibles (ansiedad, Alzheimer leve)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- TODO LO QUE INCLUYE -->
+<section class="price">
+  <div class="wrap">
+    <h2>Todo lo que incluye el sistema</h2>
+    <p class="lead" style="margin-left:auto;margin-right:auto">Cada herramienta tiene su lugar en uno de los 3 pasos. Todo en español, listo para usar.</p>
+    <div class="card">
+      <div class="big">$37</div>
+      <div class="lang-tag">📘 Guía en español</div>
+      <div class="files">
+        <div><span>📘</span><b>La guía Turismo Sin Fronteras</b>: 17 capítulos (planificación, documentación, transporte, alojamiento, aeropuerto, vuelo, comunicación y más), el capítulo especial de cruceros y destinos accesibles por perfil de viajero.</div>
+        <div class="grp">Paso 1 · Prepara</div>
+        <div><span>✅</span><b>Checklist Maestro del Viajero Accesible</b> <span class="inc">incluido</span><br>Qué hacer 6 semanas antes, en el aeropuerto, durante el viaje y al regresar.</div>
+        <div><span>🌍</span><b>Guía Rápida de 44 destinos accesibles</b> <span class="inc">incluida</span><br>Qué hace especial a cada uno y el consejo clave para planearlo.</div>
+        <div class="grp">Paso 2 · Pide y confirma</div>
+        <div><span>✉️</span><b>"Pídelo así"</b> <span class="inc">incluido</span><br>4 correos listos para copiar y enviar (a la aerolínea, al hotel, al traslado y para reclamar si algo sale mal) y más de 35 frases para el aeropuerto, el avión, el hotel y el transporte.</div>
+        <div class="grp">Paso 3 · Viaja con plan B</div>
+        <div><span>🪪</span><b>Tarjetas de Viaje Accesible</b> <span class="inc">incluidas</span><br>Tarjeta médica y tarjeta de comunicación para imprimir y llevar contigo.</div>
+        <div><span>📨</span><b>El correo para reclamar</b> (parte de "Pídelo así"), por si algo no sale como esperabas.</div>
+      </div>
+      <p style="font-size:.9rem;color:var(--grey);margin:-6px 0 18px">Las herramientas incluidas te llegan después de tu compra, junto con la guía.</p>
+      <a class="btn" href="https://pay.hotmart.com/O106521584H" target="_blank" rel="noopener">QUIERO PREPARAR SU VIAJE — $37</a>
+      <p class="pay-note">Recibe acceso inmediato al sistema Turismo Sin Fronteras por $37 · Pago único en Hotmart · Tarjeta, PayPal o Venmo · o paga en 30 días con Klarna (según tu país) · Garantía de 7 días · En español</p><p class="pay-note en">This guide is available in Spanish only.</p>
+      <div style="margin-top:16px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:.94rem;color:#173F3A;font-weight:600;">
+       <span style="font-size:1.15rem;">🛡️</span>
+       <span>Garantía de 7 días. Si no es para ti, te devolvemos tu dinero.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- UN VISTAZO POR DENTRO -->
+<section class="peek">
+  <div class="wrap">
+    <h2 style="text-align:center">Un vistazo por dentro</h2>
+    <p class="lead" style="margin:0 auto;text-align:center">Páginas reales de la guía. Toca una imagen para verla en grande.</p>
+    <div class="shots">
+      <figure><a href="/img/turismo-guiones.webp" target="_blank" rel="noopener"><img src="/img/turismo-guiones.webp" width="700" height="656" loading="lazy" decoding="async" alt="Página Guiones listos para pedir de la guía, con mensajes para reservar, pedir la cabina y una necesidad sensorial"></a><figcaption>Guiones listos para pedir (capítulo de cruceros)</figcaption></figure>
+      <figure><a href="/img/turismo-tarjetas.webp" target="_blank" rel="noopener"><img src="/img/turismo-tarjetas.webp" width="700" height="1624" loading="lazy" decoding="async" alt="Tarjeta de comunicación accesible y tarjeta médica de viaje de la guía, en blanco para completar"></a><figcaption>Anexo 2 · Tarjeta de comunicación y tarjeta médica</figcaption></figure>
+      <figure><a href="/img/turismo-cap-aeropuerto.webp" target="_blank" rel="noopener"><img src="/img/turismo-cap-aeropuerto.webp" width="700" height="1048" loading="lazy" decoding="async" alt="Página del capítulo 5, En el aeropuerto, de la guía Turismo Sin Fronteras"></a><figcaption>Capítulo 5 · En el aeropuerto</figcaption></figure>
+      <div class="col">
+        <figure><a href="/img/turismo-checklists.webp" target="_blank" rel="noopener"><img src="/img/turismo-checklists.webp" width="900" height="605" loading="lazy" decoding="async" alt="Vistazo difuminado de la infografía Checklists visuales de la guía"></a><figcaption>Checklists visuales (vistazo)</figcaption></figure>
+        <figure><a href="/img/turismo-info-clara.webp" target="_blank" rel="noopener"><img src="/img/turismo-info-clara.webp" width="900" height="607" loading="lazy" decoding="async" alt="Vistazo difuminado de la infografía Información clara de la guía"></a><figcaption>Información clara: documentación, aeropuerto, vuelo y emergencias (vistazo)</figcaption></figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMUNIDAD + GARANTÍA -->
+<section class="testi">
+  <div class="wrap">
+    <h2 style="text-align:center">Lo que nos dice la comunidad</h2>
+    <div class="q">
+      <div style="color:#E8720C;letter-spacing:2px;margin-bottom:8px">★★★★★</div>
+      <p>"Es espectacular, muy práctico y excelente ayuda. En ocasiones uno siente miedo al viajar, y cada información hace más fácil cada trámite."</p>
+      <div style="font-weight:700;color:var(--teald)">@miamiglamcreations <span style="font-weight:400;color:var(--grey);font-size:.9rem">· Comunidad de AllGo Travel App · Instagram</span></div>
+    </div>
+    <div class="q" style="margin-top:18px;display:flex;gap:14px;align-items:center;border-left-color:var(--buy);font-style:normal">
+      <span style="font-size:2rem;line-height:1">🛡️</span>
+      <div><b style="color:var(--teald)">Garantía de 7 días</b><br><span style="color:var(--grey)">Si no es lo que esperabas, te devolvemos tu dinero, sin complicaciones.</span></div>
     </div>
   </div>
 </section>
@@ -256,32 +345,32 @@ document.addEventListener('DOMContentLoaded', function(){
 <!-- FAQ -->
 <section class="faq">
   <div class="wrap">
-    <h2 style="text-align:center"><span class="es">Preguntas frecuentes</span><span class="en">Frequently asked questions</span></h2>
-    <p class="lead" style="margin:0 auto 26px;text-align:center"><span class="es">Lo que más nos preguntan antes de comprar.</span><span class="en">What people ask us most before buying.</span></p>
+    <h2 style="text-align:center">Preguntas frecuentes</h2>
+    <p class="lead" style="margin:0 auto 26px;text-align:center">Lo que más nos preguntan antes de comprar.</p>
     <div class="qa">
       <details>
-        <summary><span class="es">¿La información está verificada y actualizada?</span><span class="en">Is the information verified and up to date?</span></summary>
-        <div class="ans"><span class="es">Sí. Reunimos y verificamos los datos con fuentes oficiales y los mantenemos al día para 2026. Nada de datos inventados ni copiados sin revisar.</span><span class="en">Yes. We gather and verify the data from official sources and keep it current for 2026. No invented or unchecked information.</span></div>
+        <summary>¿La información está verificada y actualizada?</summary>
+        <div class="ans">Sí. Reunimos y verificamos los datos con fuentes oficiales y los mantenemos al día para 2026. Nada de datos inventados ni copiados sin revisar.</div>
       </details>
       <details>
-        <summary><span class="es">¿Me sirve si viajo con movilidad reducida, silla de ruedas o necesidades especiales?</span><span class="en">Is it useful if I travel with reduced mobility, a wheelchair or special needs?</span></summary>
-        <div class="ans"><span class="es">Sí. La guía cubre todo el espectro del viaje accesible: movilidad reducida, baja visión, sordera, neurodivergencia, adultos mayores, y las familias y cuidadores que viajan con ellos.</span><span class="en">Yes. The guide covers the full spectrum of accessible travel: reduced mobility, low vision, deafness, neurodivergence, older adults, and the families and caregivers who travel with them.</span></div>
+        <summary>¿Me sirve si viajo con movilidad reducida, silla de ruedas o necesidades especiales?</summary>
+        <div class="ans">Sí. El sistema cubre 10 necesidades: desde movilidad reducida y silla de ruedas hasta autismo, baja visión, pérdida auditiva, enfermedades crónicas, oxígeno y equipo médico, dietas especiales y necesidades no visibles, y también a las familias y cuidadores que viajan con ellos.</div>
       </details>
       <details>
-        <summary><span class="es">¿En qué formato la recibo?</span><span class="en">What format is it in?</span></summary>
-        <div class="ans"><span class="es">Es una guía digital descargable, en español. La abres en el celular, la tablet o la computadora, y la puedes usar sin internet mientras viajas.</span><span class="en">It's a downloadable digital guide, in Spanish. Open it on your phone, tablet or computer, and use it offline while you travel.</span></div>
+        <summary>¿En qué formato la recibo?</summary>
+        <div class="ans">Es una guía digital descargable, en español. La abres en el celular, la tablet o la computadora, y la puedes usar sin internet mientras viajas.</div>
       </details>
       <details>
-        <summary><span class="es">¿Qué incluye además de los destinos?</span><span class="en">What's included besides the destinations?</span></summary>
-        <div class="ans"><span class="es">Checklists de viaje listos para usar, cómo pedir asistencia en el aeropuerto, una tarjeta de comunicación para barreras de idioma, el capítulo de cruceros accesibles y 4 bonos.</span><span class="en">Ready-to-use travel checklists, how to request assistance at the airport, a communication card for language barriers, the accessible cruises chapter and 4 bonuses.</span></div>
+        <summary>¿Qué incluye además de la guía?</summary>
+        <div class="ans">El Checklist Maestro del Viajero Accesible, la Guía Rápida de 44 destinos accesibles, "Pídelo así" (4 correos y más de 35 frases) y las Tarjetas de Viaje Accesible.</div>
       </details>
       <details>
-        <summary><span class="es">¿Cómo la recibo después de pagar?</span><span class="en">How do I receive it after paying?</span></summary>
-        <div class="ans"><span class="es">El pago es seguro por Hotmart. Apenas confirmas, recibes el acceso en tu correo para descargarla al instante.</span><span class="en">Payment is secure through Hotmart. As soon as you confirm, you get access in your email to download it instantly.</span></div>
+        <summary>¿Cómo la recibo después de pagar?</summary>
+        <div class="ans">El pago es seguro por Hotmart. Apenas confirmas, recibes el acceso en tu correo para descargarla al instante.</div>
       </details>
       <details>
-        <summary><span class="es">¿Y si no es para mí?</span><span class="en">And if it's not for me?</span></summary>
-        <div class="ans"><span class="es">Tienes garantía de 7 días. Si no es lo que esperabas, te devolvemos tu dinero, sin complicaciones.</span><span class="en">You have a 7-day guarantee. If it's not what you expected, we refund your money, no hassle.</span></div>
+        <summary>¿Y si no es para mí?</summary>
+        <div class="ans">Tienes garantía de 7 días. Si no es lo que esperabas, te devolvemos tu dinero, sin complicaciones.</div>
       </details>
     </div>
   </div>
@@ -290,19 +379,21 @@ document.addEventListener('DOMContentLoaded', function(){
 <!-- FINAL -->
 <section class="final">
   <div class="wrap">
-    <h2><span class="es">Que la accesibilidad nunca te detenga.</span><span class="en">Never let accessibility stop you.</span></h2>
-    <p>
-      <span class="es">Descarga la guía hoy y prepara tu próximo viaje con confianza.</span>
-      <span class="en">Get the guide today and plan your next trip with confidence.</span>
-    </p>
-    <a class="btn" href="https://pay.hotmart.com/O106521584H" target="_blank" rel="noopener"><span class="es">Quiero mi guía — $37 →</span><span class="en">I want my guide — $37 →</span></a>
-    <p class="pay-note"><span class="es">📘 Guía en español</span><span class="en">This guide is available in Spanish only.</span></p><p class="pay-note"><span class="es">🔒 Pago seguro en Hotmart · Tarjeta, PayPal o Venmo · o paga en 30 días con Klarna (según tu país) · Te pedirá correo, nombre y dirección (formulario estándar) · La guía te llega al correo al instante.</span><span class="en">🔒 Secure payment on Hotmart · Card, PayPal or Venmo · or pay in 30 days with Klarna (depending on your country) · It will ask for your email, name and address (standard form) · The guide arrives in your email instantly.</span></p>
+    <h2>El viaje empieza mucho antes de llegar al aeropuerto.</h2>
+    <div class="closing">
+      <p>Cuando organizas el viaje de tu mamá o tu papá, no quieres descubrir demasiado tarde que había una asistencia que pedir, una condición que confirmar o un reclamo que preparar.</p>
+      <p>Turismo Sin Fronteras reúne en un solo sistema lo que necesitas revisar antes, durante y después del viaje, para que no tengas que organizarlo improvisando entre decenas de búsquedas.</p>
+      <p class="strong">Prepara la asistencia. Confirma la accesibilidad. Lleva tus pedidos por escrito. Y sabe qué hacer si algo no sale como esperabas.</p>
+      <p>Porque no se trata solamente de llegar al destino. Se trata de poder decir: “Hice todo lo necesario para que podamos viajar tranquilos.”</p>
+    </div>
+    <a class="btn" href="https://pay.hotmart.com/O106521584H" target="_blank" rel="noopener">QUIERO PREPARAR SU VIAJE — $37</a>
+    <p class="pay-note">Recibe acceso inmediato al sistema Turismo Sin Fronteras por $37 · Pago único en Hotmart · Tarjeta, PayPal o Venmo · o paga en 30 días con Klarna (según tu país) · Garantía de 7 días · En español</p><p class="pay-note en">This guide is available in Spanish only.</p>
   </div>
 </section>
 
 <div class="buybar" id="buybar">
-  <b><span class="es">Turismo Sin Fronteras · $37 · En español</span><span class="en">Turismo Sin Fronteras · $37 · Spanish only</span></b>
-  <a class="btn" href="https://pay.hotmart.com/O106521584H" target="_blank" rel="noopener"><span class="es">Quiero mi guía →</span><span class="en">I want my guide →</span></a>
+  <b>Turismo Sin Fronteras · $37 · En español</b>
+  <a class="btn" href="https://pay.hotmart.com/O106521584H" target="_blank" rel="noopener">QUIERO PREPARAR SU VIAJE — $37</a>
 </div>
 <script>
 (function(){
@@ -313,7 +404,7 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 
 <footer>
-  <strong>AllGo Travel App</strong> · <span class="es">Turismo accesible con información verificada · Todos merecen descubrir el mundo.</span><span class="en">Accessible travel with verified information · Everyone deserves to discover the world.</span>
+  <strong>AllGo Travel App</strong> · Turismo accesible con información verificada · Todos merecen descubrir el mundo.
 </footer>
 
 <script>
