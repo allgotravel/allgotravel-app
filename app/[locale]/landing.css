@@ -214,3 +214,17 @@ html.lp-hero-visible .allgo-float{opacity:0;pointer-events:none}
 .lp .storycard .luna img{width:100%;height:auto;min-height:0;object-fit:initial;border-radius:18px;box-shadow:var(--shadow-sm)}
 .lp .storycard .luna figcaption{font-size:13.5px;color:var(--muted);margin-top:8px}
 .lp .prodcard .prodsub{font-size:12.5px;font-weight:700;color:var(--muted);margin:4px 0 0}
+/* ¿Cuál es para ti? (Pack) */
+.lp .cual-title{text-align:center;font-size:clamp(22px,2.6vw,30px);margin:56px 0 22px}
+.lp .cual{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:980px;margin:0 auto;align-items:stretch}
+.lp .cual .c{position:relative;background:#fff;border:2px solid var(--line);border-radius:var(--radius);padding:24px 20px;display:flex;flex-direction:column;gap:6px;box-shadow:var(--shadow-sm)}
+.lp .cual h4{margin:0;font-size:18px;font-weight:800;color:var(--navy);line-height:1.25}
+.lp .cual .lng{font-size:13.5px;font-weight:700;color:var(--muted)}
+.lp .cual .pr{font-size:30px;font-weight:800;color:var(--navy);margin:6px 0 4px}
+.lp .cual .pr s{font-size:16px;color:#9fb2c0;font-weight:600;margin-left:6px}
+.lp .cual .lnk{margin-top:auto;display:block;text-align:center;border:1.5px solid var(--tealb);color:var(--teal);font-weight:800;border-radius:999px;padding:12px 14px}
+.lp .cual .c.pack{border-color:var(--orange);box-shadow:0 18px 40px rgba(245,166,40,.25)}
+.lp .cual .badge{position:absolute;top:-13px;left:20px;background:var(--orange);color:#3a2400;font-weight:800;font-size:12px;letter-spacing:.04em;padding:5px 12px;border-radius:999px}
+.lp .cual .c.pack .btn{margin-top:auto;justify-content:center}
+.lp .cual .pnote{font-size:12.5px;color:var(--muted);text-align:center;margin-top:6px}
+@media(max-width:860px){.lp .cual{grid-template-columns:1fr}}

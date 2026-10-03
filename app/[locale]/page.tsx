@@ -11,6 +11,7 @@ const URL = {
   kitAll: 'https://allgotravel.app/kit-turismo-gratis.html',
   turismo: 'https://allgotravel.app/turismo.html',
   perro: 'https://allgotravel.app/perro.html',
+  pack: 'https://pay.hotmart.com/A107786229V',
   kit: 'https://go.hotmart.com/L107208384X',
   silla: 'https://go.hotmart.com/Q107291577I',
   clubFounder: 'https://pay.hotmart.com/Q107023060D?off=osgbatei',
@@ -23,6 +24,22 @@ export default function HomePage() {
   const locale = useLocale()
   const other = locale === 'en' ? 'es' : 'en'
   const bold = { b: (chunks: React.ReactNode) => <b>{chunks}</b> }
+
+  // Same sales-origin tracking as the landings: ?src=xxx -> Hotmart sck=xxx (default: web)
+  const packClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    let src: string | null = null
+    try { src = new URLSearchParams(window.location.search).get('src') } catch {}
+    if (src) src = src.toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 40)
+    try { if (src) sessionStorage.setItem('allgo_src', src); else src = sessionStorage.getItem('allgo_src') } catch {}
+    const u = new globalThis.URL(e.currentTarget.href)
+    u.searchParams.set('sck', src || 'web')
+    e.currentTarget.href = u.toString()
+    const w = window as unknown as { fbq?: (...args: unknown[]) => void }
+    if (typeof w.fbq === 'function') {
+      w.fbq('track', 'InitiateCheckout', { content_name: 'Pack Viajero Completo', content_category: 'ebook', value: 59.0, currency: 'USD' })
+      w.fbq('trackCustom', 'ClickToCheckout', { content_name: 'Pack Viajero Completo', value: 59.0, currency: 'USD' })
+    }
+  }
 
   useEffect(() => {
     // Smooth-scroll for in-page anchors
@@ -217,6 +234,31 @@ export default function HomePage() {
           <div className="prodcard">
             <div className="ph"><img src="/landing/img7.jpg" loading="lazy" alt="Vuela con tu Silla Eléctrica" /></div>
             <div className="bd"><span className="tag">{t('prodChairTag')}</span><h3>Vuela con tu Silla Eléctrica</h3><p>{t('prodChairDesc')}</p><div className="price">$17</div><a className="btn btn-ghost" style={{ marginTop: 12, justifyContent: 'center' }} href={URL.silla} target="_blank" rel="noopener">{t('prodCtaGet')}</a></div>
+          </div>
+        </div>
+        <div className="wrap reveal" id="pack">
+          <h3 className="cual-title">{t('cualTitle')}</h3>
+          <div className="cual">
+            <div className="c">
+              <h4>{t('dogGuideName')}</h4>
+              <div className="lng">{t('cualDogLang')}</div>
+              <div className="pr">$37</div>
+              <a className="lnk" href={URL.perro}>{t('stripCta')}</a>
+            </div>
+            <div className="c">
+              <h4>Turismo Sin Fronteras</h4>
+              <div className="lng">{t('cualTurLang')}</div>
+              <div className="pr">$37</div>
+              <a className="lnk" href={URL.turismo}>{t('stripCta')}</a>
+            </div>
+            <div className="c pack">
+              <span className="badge">{t('cualBadge')}</span>
+              <h4>⭐ {t('cualPackName')}</h4>
+              <div className="lng">{t('cualPackSub')}</div>
+              <div className="pr">$59<s>$74</s></div>
+              <a className="btn btn-primary" href={`${URL.pack}?src=pack-home&sck=web`} target="_blank" rel="noopener" onClick={packClick}>{t('cualPackCta')}</a>
+              <div className="pnote">{t('cualPackNote')}</div>
+            </div>
           </div>
         </div>
       </section>

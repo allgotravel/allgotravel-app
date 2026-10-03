@@ -125,6 +125,20 @@
    .buybar .btn{font-size:.9rem;padding:11px 16px}
  }
  @media(max-width:520px){ .buybar b{display:none} .buybar .btn{flex:1;text-align:center} }
+ /* ¿Cuál es para ti? (Pack) */
+ .cual{background:#F7FBFB;text-align:center}
+ .cual .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:980px;margin:26px auto 0;text-align:left;align-items:stretch}
+ .cual .c{position:relative;background:#fff;border:2px solid var(--tealL);border-radius:18px;padding:24px 20px;display:flex;flex-direction:column;gap:6px;box-shadow:0 8px 24px rgba(14,124,134,.07)}
+ .cual .c h3{color:var(--teald);font-size:1.12rem;line-height:1.25}
+ .cual .c .lng{font-size:.88rem;color:var(--grey);font-weight:600}
+ .cual .c .pr{font-size:2rem;font-weight:800;color:var(--teald);margin:6px 0 2px}
+ .cual .c .pr s{font-size:1rem;color:#9fb2b5;font-weight:600;margin-left:6px}
+ .cual .c .lnk{margin-top:auto;display:block;text-align:center;border:2px solid var(--teal);color:var(--teal);font-weight:800;border-radius:40px;padding:12px 14px;text-decoration:none}
+ .cual .c.pack{border-color:var(--buy);box-shadow:0 12px 34px rgba(245,166,40,.28)}
+ .cual .c.pack .badge{position:absolute;top:-13px;left:20px;background:var(--buy);color:#3a2400;font-weight:800;font-size:.78rem;letter-spacing:.04em;padding:5px 12px;border-radius:20px}
+ .cual .c.pack .btn{margin-top:auto;display:block;text-align:center;font-size:1rem;padding:15px 14px}
+ .cual .c .note{font-size:.82rem;color:var(--grey);text-align:center;margin-top:8px}
+ @media(max-width:800px){ .cual .cards{grid-template-columns:1fr} }
 </style>
 <!-- Meta Pixel Code (AllGo Travel App) -->
 <script>
@@ -148,6 +162,18 @@ document.addEventListener('DOMContentLoaded', function(){
       if (typeof window.fbq === 'function') {
         window.fbq('track', 'InitiateCheckout', {content_name: 'Guia Turismo Sin Fronteras', content_category: 'ebook', value: 37.00, currency: 'USD'});
         window.fbq('trackCustom', 'ClickToCheckout', {content_name: 'Guia Turismo Sin Fronteras', value: 37.00, currency: 'USD'});
+      }
+    });
+  });
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelectorAll('a[href*="pay.hotmart.com/A107786229V"]').forEach(function(a){
+    a.addEventListener('click', function(){
+      if (typeof window.fbq === 'function') {
+        window.fbq('track', 'InitiateCheckout', {content_name: 'Pack Viajero Completo', content_category: 'ebook', value: 59.00, currency: 'USD'});
+        window.fbq('trackCustom', 'ClickToCheckout', {content_name: 'Pack Viajero Completo', value: 59.00, currency: 'USD'});
       }
     });
   });
@@ -179,6 +205,7 @@ document.addEventListener('DOMContentLoaded', function(){
 </div>
 
 <!-- HERO -->
+<a id="top"></a>
 <div class="hero">
   <div class="wrap">
     <div class="grid">
@@ -309,6 +336,34 @@ document.addEventListener('DOMContentLoaded', function(){
   </div>
 </section>
 
+<!-- ¿CUÁL ES PARA TI? (PACK) -->
+<section class="cual" id="pack">
+  <div class="wrap">
+    <h2>¿Cuál es para ti?</h2>
+  <div class="cards">
+   <div class="c">
+    <h3>Viaja con tu Perro de Servicio</h3>
+    <div class="lng">Español e inglés</div>
+    <div class="pr">$37</div>
+    <a class="lnk" href="/perro.html">Ver la guía →</a>
+   </div>
+   <div class="c">
+    <h3>Turismo Sin Fronteras</h3>
+    <div class="lng">Solo en español · Estás viendo esta guía</div>
+    <div class="pr">$37</div>
+    <a class="lnk" href="#top">Ver esta guía ↑</a>
+   </div>
+   <div class="c pack"><span class="badge">Más completo</span>
+    <h3>⭐ Pack Viajero Completo</h3>
+    <div class="lng">Las 2 guías juntas · Ahorras $15</div>
+    <div class="pr">$59<s>$74</s></div>
+    <a class="btn" href="https://pay.hotmart.com/A107786229V?src=pack-turismo" target="_blank" rel="noopener">Quiero el Pack — $59 →</a>
+    <div class="note">🔒 Pago único en Hotmart · Garantía de 7 días</div>
+   </div>
+  </div>
+  </div>
+</section>
+
 <!-- UN VISTAZO POR DENTRO -->
 <section class="peek">
   <div class="wrap">
@@ -371,6 +426,10 @@ document.addEventListener('DOMContentLoaded', function(){
       <details>
         <summary>¿Y si no es para mí?</summary>
         <div class="ans">Tienes garantía de 7 días. Si no es lo que esperabas, te devolvemos tu dinero, sin complicaciones.</div>
+      </details>
+      <details>
+        <summary>¿Qué es el Pack Viajero Completo?</summary>
+        <div class="ans">Son las 2 guías juntas en un solo pago de $59: Turismo Sin Fronteras (solo en español) y Viaja con tu Perro de Servicio (español e inglés). Por separado costarían $74, así que ahorras $15. También tiene garantía de 7 días.</div>
       </details>
     </div>
   </div>
