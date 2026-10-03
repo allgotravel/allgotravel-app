@@ -164,6 +164,17 @@
  .trust .row:last-child{border-bottom:0}
  .trust .k{font-weight:800;color:var(--teal);font-size:.8rem;text-transform:uppercase;letter-spacing:.4px;padding-top:2px}
  .trust .tnote{color:var(--grey);font-size:.95rem;margin-top:16px}
+ .trust .tchecks{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 18px;max-width:640px;margin:18px auto 0;text-align:left}
+ .trust .tchecks li{position:relative;padding-left:28px;font-weight:600;color:var(--teald)}
+ .trust .tchecks li:before{content:"✓";position:absolute;left:0;color:var(--teal);font-weight:800}
+ .trust .tcat{color:var(--grey);font-size:.9rem;margin:22px auto 0;max-width:640px}
+ .needs .chips.main{grid-template-columns:1fr;max-width:440px;margin-bottom:6px}
+ .needs .chips.main li{border:2px solid var(--teal);font-size:1.05rem}
+ .needs .lead.also{margin:22px auto 16px;font-weight:600;color:var(--teald)}
+ .stack-title{font-size:1.2rem;font-weight:800;color:var(--teald);text-align:left;margin-top:4px}
+ .card .files .why{font-weight:600;color:var(--teal)}
+ .card .files .det{font-weight:500;font-size:.92rem;color:var(--grey)}
+ @media(max-width:800px){ .trust .tchecks{grid-template-columns:1fr} }
  @media(max-width:800px){ .trust .srcs{grid-template-columns:1fr} }
 </style>
 <!-- Meta Pixel Code (AllGo Travel App) -->
@@ -316,9 +327,12 @@ document.addEventListener('DOMContentLoaded', function(){
 <section class="needs">
   <div class="wrap">
     <h2>Preparado para distintas necesidades de viaje</h2>
-    <p class="lead">Pensado para quien organiza el viaje de su mamá o su papá. También te sirve si eres tú quien viaja, o si viajas con alguien con cualquiera de estas necesidades.</p>
-    <ul class="chips">
+    <p class="lead">Pensado primero para quien organiza el viaje de su mamá o su papá con movilidad reducida o silla de ruedas.</p>
+    <ul class="chips main">
       <li><span class="ic" aria-hidden="true">♿</span>Movilidad reducida y silla de ruedas</li>
+    </ul>
+    <p class="lead also">¿Su necesidad es otra? El sistema también contempla situaciones frecuentes relacionadas con:</p>
+    <ul class="chips">
       <li><span class="ic" aria-hidden="true">🦯</span>Ceguera y baja visión</li>
       <li><span class="ic" aria-hidden="true">🦻</span>Sordera, pérdida auditiva y sordoceguera</li>
       <li><span class="ic" aria-hidden="true">🧩</span>Autismo y neurodivergencia (TEA, TDAH)</li>
@@ -338,21 +352,21 @@ document.addEventListener('DOMContentLoaded', function(){
     <h2>Todo lo que incluye el sistema</h2>
     <p class="lead" style="margin-left:auto;margin-right:auto">Cada herramienta tiene su lugar en uno de los 3 pasos. Todo en español, listo para usar.</p>
     <div class="card">
-      <div class="big">$37</div>
-      <div class="offer-head"><b>Sistema Turismo Sin Fronteras</b><span>Guía central + 4 herramientas de implementación</span></div>
-      <div class="lang-tag">📘 Guía en español</div>
+      <div class="stack-title">Tu Sistema Turismo Sin Fronteras incluye:</div>
       <div class="files">
-        <div class="detail"><span>📘</span><b>Guía central</b>: 17 capítulos (planificación, documentación, transporte, alojamiento, aeropuerto, vuelo, comunicación y más), el capítulo especial de cruceros y destinos accesibles por perfil de viajero.</div>
+        <div><span>📘</span><b>Guía central de preparación</b><br><span class="why">Para saber qué revisar y cuándo.</span><br><span class="det">17 capítulos (planificación, documentación, transporte, alojamiento, aeropuerto, vuelo, comunicación y más), el capítulo especial de cruceros, destinos accesibles por perfil de viajero y la Guía Rápida de 44 destinos accesibles.</span></div>
         <div class="grp">Paso 1 · Prepara</div>
-        <div><span>✅</span><b>Checklist Maestro del Viajero Accesible</b> <span class="inc">incluido</span><br>Qué hacer 6 semanas antes, en el aeropuerto, durante el viaje y al regresar.</div>
-        <div><span>🌍</span><b>Guía Rápida de 44 destinos accesibles</b> <span class="inc">incluida</span><br>Qué hace especial a cada uno y el consejo clave para planearlo.</div>
+        <div><span>✅</span><b>Checklist Maestro del Viajero Accesible</b> <span class="inc">incluido</span><br><span class="why">Para no depender de la memoria.</span></div>
         <div class="grp">Paso 2 · Pide y confirma</div>
-        <div><span>✉️</span><b>"Pídelo así"</b> <span class="inc">incluido</span><br>4 correos listos para copiar y enviar (a la aerolínea, al hotel, al traslado y para reclamar si algo sale mal) y más de 35 frases para el aeropuerto, el avión, el hotel y el transporte.</div>
+        <div><span>✉️</span><b>"Pídelo así"</b> <span class="inc">incluido</span><br><span class="why">Para no tener que inventar qué decir.</span><br><span class="det">4 correos listos para copiar y enviar y más de 35 frases para el aeropuerto, el avión, el hotel y el transporte.</span></div>
         <div class="grp">Paso 3 · Viaja con plan B</div>
-        <div><span>🪪</span><b>Tarjetas de Viaje Accesible</b> <span class="inc">incluidas</span><br>Tarjeta médica y tarjeta de comunicación para imprimir y llevar contigo.</div>
-        <div><span>📨</span><b>El correo para reclamar</b> (parte de "Pídelo así"), por si algo no sale como esperabas.</div>
+        <div><span>🪪</span><b>Tarjetas de Viaje Accesible</b> <span class="inc">incluidas</span><br><span class="why">Para comunicar necesidades durante el viaje.</span><br><span class="det">Tarjeta médica y tarjeta de comunicación para imprimir y llevar contigo.</span></div>
+        <div><span>📨</span><b>Plan B y el correo para reclamar</b><br><span class="why">Para saber qué hacer cuando algo falla.</span></div>
       </div>
       <p style="font-size:.9rem;color:var(--grey);margin:-6px 0 18px">Las herramientas incluidas te llegan después de tu compra, junto con la guía.</p>
+      <div class="big">$37</div>
+      <div class="lang-tag">📘 Guía en español</div>
+      <div style="height:14px"></div>
       <a class="btn" href="https://pay.hotmart.com/O106521584H" target="_blank" rel="noopener">QUIERO PREPARAR SU VIAJE — $37</a>
       <p class="pay-note">Recibe acceso inmediato al sistema Turismo Sin Fronteras por $37 · Pago único en Hotmart · Tarjeta, PayPal o Venmo · o paga en 30 días con Klarna (según tu país) · Garantía de 7 días · En español</p><p class="pay-note en">This guide is available in Spanish only.</p>
       <div style="margin-top:16px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:.94rem;color:#173F3A;font-weight:600;">
@@ -383,8 +397,15 @@ document.addEventListener('DOMContentLoaded', function(){
 <!-- FUENTES OFICIALES -->
 <section class="trust">
   <div class="wrap">
-    <h2>Información revisada con fuentes oficiales</h2>
-    <p class="lead">Aerolíneas · organismos de transporte · aeropuertos · cruceros · normativa aplicable</p>
+    <h2>Información en la que puedes confiar</h2>
+    <p class="lead">No dependas de blogs desactualizados.</p>
+    <ul class="tchecks">
+      <li>Información contrastada con fuentes oficiales</li>
+      <li>Revisión y actualización 2026</li>
+      <li>Indicaciones concretas para actuar</li>
+      <li>Fuentes identificables</li>
+    </ul>
+    <p class="tcat">Algunos ejemplos de lo que cita la guía · aerolíneas · organismos de transporte · aeropuertos · cruceros · normativa aplicable</p>
     <div class="srcs">
       <div class="src">
         <div class="row"><span class="k">Fuente</span><span class="v"><b>TSA Cares</b> · tsa.gov</span></div>
