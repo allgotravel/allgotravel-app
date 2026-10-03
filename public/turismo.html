@@ -146,6 +146,25 @@
  .bridge ul{list-style:none;margin:0;padding:0;display:grid;gap:9px}
  .bridge li{position:relative;padding-left:28px;color:var(--ink);font-size:1rem;line-height:1.45}
  .bridge li:before{content:"✓";position:absolute;left:0;top:0;color:#C77F00;font-weight:800}
+ /* Pack como mejora al final (id=pack) */
+ .upsell{background:#FFF7EA;text-align:center;padding:44px 0}
+ .upsell .box{max-width:640px;margin:0 auto;background:#fff;border:2px solid var(--buy);border-radius:18px;padding:24px 22px;box-shadow:0 10px 28px rgba(199,127,0,.12)}
+ .upsell p{font-size:1.08rem;color:var(--ink);margin:0 0 16px;line-height:1.5}
+ .upsell p b{color:var(--teald)}
+ .upsell .btn{font-size:1rem;padding:14px 26px}
+ .offer-head{margin:14px 0 4px}
+ .offer-head b{display:block;font-size:1.25rem;color:var(--teald)}
+ .offer-head span{display:block;font-weight:700;color:var(--teal);font-size:1rem}
+ .card .files .detail{font-weight:500;font-size:.94rem;color:var(--grey)}
+ .trust{background:#fff;text-align:center}
+ .trust .lead{margin:6px auto 0;font-weight:600}
+ .trust .srcs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1000px;margin:24px auto 0;text-align:left}
+ .trust .src{background:#F7FBFB;border:1px solid #cfe4e5;border-radius:14px;padding:18px}
+ .trust .row{display:grid;grid-template-columns:78px 1fr;gap:8px;padding:6px 0;border-bottom:1px dashed #d5e4df;font-size:.95rem}
+ .trust .row:last-child{border-bottom:0}
+ .trust .k{font-weight:800;color:var(--teal);font-size:.8rem;text-transform:uppercase;letter-spacing:.4px;padding-top:2px}
+ .trust .tnote{color:var(--grey);font-size:.95rem;margin-top:16px}
+ @media(max-width:800px){ .trust .srcs{grid-template-columns:1fr} }
 </style>
 <!-- Meta Pixel Code (AllGo Travel App) -->
 <script>
@@ -293,10 +312,10 @@ document.addEventListener('DOMContentLoaded', function(){
   </div>
 </section>
 
-<!-- 10 NECESIDADES -->
+<!-- NECESIDADES DE VIAJE -->
 <section class="needs">
   <div class="wrap">
-    <h2>Las 10 necesidades que cubre el sistema</h2>
+    <h2>Preparado para distintas necesidades de viaje</h2>
     <p class="lead">Pensado para quien organiza el viaje de su mamá o su papá. También te sirve si eres tú quien viaja, o si viajas con alguien con cualquiera de estas necesidades.</p>
     <ul class="chips">
       <li><span class="ic" aria-hidden="true">♿</span>Movilidad reducida y silla de ruedas</li>
@@ -320,9 +339,10 @@ document.addEventListener('DOMContentLoaded', function(){
     <p class="lead" style="margin-left:auto;margin-right:auto">Cada herramienta tiene su lugar en uno de los 3 pasos. Todo en español, listo para usar.</p>
     <div class="card">
       <div class="big">$37</div>
+      <div class="offer-head"><b>Sistema Turismo Sin Fronteras</b><span>Guía central + 4 herramientas de implementación</span></div>
       <div class="lang-tag">📘 Guía en español</div>
       <div class="files">
-        <div><span>📘</span><b>La guía Turismo Sin Fronteras</b>: 17 capítulos (planificación, documentación, transporte, alojamiento, aeropuerto, vuelo, comunicación y más), el capítulo especial de cruceros y destinos accesibles por perfil de viajero.</div>
+        <div class="detail"><span>📘</span><b>Guía central</b>: 17 capítulos (planificación, documentación, transporte, alojamiento, aeropuerto, vuelo, comunicación y más), el capítulo especial de cruceros y destinos accesibles por perfil de viajero.</div>
         <div class="grp">Paso 1 · Prepara</div>
         <div><span>✅</span><b>Checklist Maestro del Viajero Accesible</b> <span class="inc">incluido</span><br>Qué hacer 6 semanas antes, en el aeropuerto, durante el viaje y al regresar.</div>
         <div><span>🌍</span><b>Guía Rápida de 44 destinos accesibles</b> <span class="inc">incluida</span><br>Qué hace especial a cada uno y el consejo clave para planearlo.</div>
@@ -343,34 +363,6 @@ document.addEventListener('DOMContentLoaded', function(){
   </div>
 </section>
 
-<!-- ¿CUÁL ES PARA TI? (PACK) -->
-<section class="cual" id="pack">
-  <div class="wrap">
-    <h2>¿Cuál es para ti?</h2>
-  <div class="cards">
-   <div class="c">
-    <h3>Viaja con tu Perro de Servicio</h3>
-    <div class="lng">Español e inglés</div>
-    <div class="pr">$37</div>
-    <a class="lnk" href="/perro.html">Ver la guía →</a>
-   </div>
-   <div class="c">
-    <h3>Turismo Sin Fronteras</h3>
-    <div class="lng">Solo en español · Estás viendo esta guía</div>
-    <div class="pr">$37</div>
-    <a class="lnk" href="#top">Ver esta guía ↑</a>
-   </div>
-   <div class="c pack"><span class="badge">Más completo</span>
-    <h3>⭐ Pack Viajero Completo</h3>
-    <div class="lng">Las 2 guías juntas · Ahorras $15</div>
-    <div class="pr">$59<s>$74</s></div>
-    <a class="btn" href="https://pay.hotmart.com/A107786229V?src=pack-turismo" target="_blank" rel="noopener">Quiero el Pack — $59 →</a>
-    <div class="note">🔒 Pago único en Hotmart · Garantía de 7 días</div>
-   </div>
-  </div>
-  </div>
-</section>
-
 <!-- UN VISTAZO POR DENTRO -->
 <section class="peek">
   <div class="wrap">
@@ -385,6 +377,32 @@ document.addEventListener('DOMContentLoaded', function(){
         <figure><a href="/img/turismo-info-clara.webp" target="_blank" rel="noopener"><img src="/img/turismo-info-clara.webp" width="900" height="607" loading="lazy" decoding="async" alt="Vistazo difuminado de la infografía Información clara de la guía"></a><figcaption>Información clara: documentación, aeropuerto, vuelo y emergencias (vistazo)</figcaption></figure>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- FUENTES OFICIALES -->
+<section class="trust">
+  <div class="wrap">
+    <h2>Información revisada con fuentes oficiales</h2>
+    <p class="lead">Aerolíneas · organismos de transporte · aeropuertos · cruceros · normativa aplicable</p>
+    <div class="srcs">
+      <div class="src">
+        <div class="row"><span class="k">Fuente</span><span class="v"><b>TSA Cares</b> · tsa.gov</span></div>
+        <div class="row"><span class="k">Fecha</span><span class="v">Revisado el 29 de septiembre de 2026</span></div>
+        <div class="row"><span class="k">Qué dice</span><span class="v">Para pedir apoyo en el control de seguridad en EE. UU., llama a TSA Cares al menos 72 horas antes. Es una recomendación de TSA, no una ley.</span></div>
+      </div>
+      <div class="src">
+        <div class="row"><span class="k">Fuente</span><span class="v"><b>14 CFR 382.103</b> · ecfr.gov</span></div>
+        <div class="row"><span class="k">Fecha</span><span class="v">Revisado el 29 de septiembre de 2026</span></div>
+        <div class="row"><span class="k">Qué dice</span><span class="v">Si pediste asistencia, la aerolínea no puede dejarte más de 30 minutos sin atención en una silla u otro equipo en el que no puedes moverte solo.</span></div>
+      </div>
+      <div class="src">
+        <div class="row"><span class="k">Fuente</span><span class="v"><b>Reglamento (CE) 1107/2006, art. 7</b> · eur-lex.europa.eu</span></div>
+        <div class="row"><span class="k">Fecha</span><span class="v">Revisado el 29 de septiembre de 2026</span></div>
+        <div class="row"><span class="k">Qué dice</span><span class="v">En Europa, avisa de la asistencia al menos 48 horas antes. Si avisas más tarde, deben hacer lo razonablemente posible, pero ya no está garantizada.</span></div>
+      </div>
+    </div>
+    <p class="tnote">Las políticas cambian: el sistema te indica qué confirmar por escrito antes de viajar.</p>
   </div>
 </section>
 
@@ -416,11 +434,11 @@ document.addEventListener('DOMContentLoaded', function(){
       </details>
       <details>
         <summary>¿Me sirve si viajo con movilidad reducida, silla de ruedas o necesidades especiales?</summary>
-        <div class="ans">Sí. El sistema cubre 10 necesidades: desde movilidad reducida y silla de ruedas hasta autismo, baja visión, pérdida auditiva, enfermedades crónicas, oxígeno y equipo médico, dietas especiales y necesidades no visibles, y también a las familias y cuidadores que viajan con ellos.</div>
+        <div class="ans">Sí. Está preparado para distintas necesidades de viaje: movilidad reducida y silla de ruedas, autismo, baja visión, pérdida auditiva, enfermedades crónicas, oxígeno y equipo médico, dietas especiales y necesidades no visibles, y también para las familias y cuidadores que viajan con ellos.</div>
       </details>
       <details>
         <summary>¿En qué formato la recibo?</summary>
-        <div class="ans">Es una guía digital descargable, en español. La abres en el celular, la tablet o la computadora, y la puedes usar sin internet mientras viajas.</div>
+        <div class="ans">Es un sistema digital: la guía central y 4 herramientas listas para usar, en español. Lo abres en el celular, la tablet o la computadora, y lo puedes usar sin internet mientras viajas.</div>
       </details>
       <details>
         <summary>¿Qué incluye además de la guía?</summary>
@@ -466,6 +484,16 @@ document.addEventListener('DOMContentLoaded', function(){
     </div>
     <a class="btn" href="https://pay.hotmart.com/O106521584H" target="_blank" rel="noopener">QUIERO PREPARAR SU VIAJE — $37</a>
     <p class="pay-note en">This guide is available in Spanish only.</p>
+  </div>
+</section>
+
+<!-- PACK (mejora) -->
+<section class="upsell" id="pack">
+  <div class="wrap">
+    <div class="box">
+      <p><b>¿También viajas con tu perro de servicio?</b> Llévate las 2 guías juntas en el Pack Viajero Completo por $59 (ahorras $15).</p>
+      <a class="btn" href="https://pay.hotmart.com/A107786229V?src=pack-turismo" target="_blank" rel="noopener">Ver el Pack — $59</a>
+    </div>
   </div>
 </section>
 
