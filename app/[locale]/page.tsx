@@ -207,7 +207,7 @@ export default function HomePage() {
             <div className="bd"><span className="tag">{t('prodTurTag')}</span><h3>Turismo Sin Fronteras</h3><p>{t('prodTurDesc')}</p><div className="price">$37</div><a className="btn btn-primary" style={{ marginTop: 12, justifyContent: 'center' }} href={URL.turismo} target="_blank" rel="noopener">{t('prodCtaGet')}</a></div>
           </div>
           <div className="prodcard">
-            <div className="ph"><img src="/img/home-perro.webp" width={700} height={700} loading="lazy" alt="Viaja con tu Perro de Servicio — ES / EN" /></div>
+            <div className="ph duo"><img className="photo" src="/img/yadira-luna-aeropuerto.webp" width={1000} height={1299} loading="lazy" alt={t('dogPhotoAlt')} /><img className="cover" src="/img/home-perro.webp" width={700} height={700} loading="lazy" alt="Viaja con tu Perro de Servicio — ES / EN" /></div>
             <div className="bd"><span className="tag">{t('prodDogTag')}</span><h3>Viaja con tu Perro de Servicio</h3><p>{t('prodDogDesc')}</p><div className="price">$37</div><a className="btn btn-primary" style={{ marginTop: 12, justifyContent: 'center' }} href={URL.perro} target="_blank" rel="noopener">{t('prodCtaGet')}</a></div>
           </div>
           <div className="prodcard">
@@ -294,6 +294,7 @@ export default function HomePage() {
               <p style={{ color: '#33475b', fontSize: 16.5 }}>{t('storyP1')}</p>
               <p style={{ color: '#33475b', fontSize: 16.5 }}>{t('storyP2')}</p>
               <div className="sig">{t('storySig')}</div>
+              <figure className="luna"><img src="/img/yadira-luna-mostrador.webp" width={1000} height={1300} loading="lazy" alt={t('storyLunaAlt')} /><figcaption>{t('storyLunaCap')}</figcaption></figure>
             </div>
             <img src="/img/home-historia.webp" width={700} height={874} loading="lazy" alt={t('storyImgAlt')} />
           </div></div>

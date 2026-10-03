@@ -5,7 +5,7 @@
 .lp *{box-sizing:border-box}
 .lp{scroll-behavior:smooth}
 .lp{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55;-webkit-font-smoothing:antialiased}
-.lp img{max-width:100%;display:block}
+.lp img{max-width:100%;height:auto;display:block}
 .lp a{color:inherit;text-decoration:none}
 .lp .wrap{max-width:1140px;margin:0 auto;padding:0 22px}
 .lp h1, .lp h2, .lp h3{line-height:1.12;letter-spacing:-.02em;margin:0}
@@ -94,7 +94,7 @@ header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);bac
 .lp .app .split{align-items:center}
 .lp .app h2{color:#fff}
 .lp .app .lead{color:#c7d6e2}
-.lp .app .phone{max-width:320px;margin:0 auto;border-radius:30px;box-shadow:0 30px 70px rgba(0,0,0,.4);border:6px solid #0a1a2a}
+.lp .app .phone{max-width:320px;width:100%;height:auto;margin:0 auto;border-radius:30px;box-shadow:0 30px 70px rgba(0,0,0,.4);border:6px solid #0a1a2a}
 .lp .app .feat{list-style:none;padding:0;margin:18px 0 0}
 .lp .app .feat li{display:flex;gap:12px;margin:12px 0;color:#dfeaf2;font-size:16px}
 .lp .app .feat .tk{flex:none;width:26px;height:26px;border-radius:50%;background:rgba(22,199,182,.18);color:var(--tealb);display:grid;place-items:center;font-weight:800}
@@ -205,3 +205,11 @@ footer{background:#0a1a2a;color:#aebfce;padding:56px 0 30px;font-size:14px}
 html.lp-hero-visible .allgo-float{opacity:0;pointer-events:none}
 }
 .allgo-float{transition:opacity .25s}
+/* Perro guide card: photo + cover */
+.lp .prodcard .ph.duo{padding:0;position:relative;display:block;background:var(--soft)}
+.lp .prodcard .ph.duo .photo{width:100%;height:330px;max-height:none;object-fit:cover;object-position:50% 0%;border-radius:0;box-shadow:none}
+.lp .prodcard .ph.duo .cover{position:absolute;right:14px;bottom:14px;width:96px;height:96px;max-height:none;border-radius:10px;border:3px solid #fff;box-shadow:var(--shadow-sm);object-fit:cover}
+/* Founder photo with Luna */
+.lp .storycard .luna{margin:22px 0 0;max-width:360px}
+.lp .storycard .luna img{width:100%;height:auto;min-height:0;object-fit:initial;border-radius:18px;box-shadow:var(--shadow-sm)}
+.lp .storycard .luna figcaption{font-size:13.5px;color:var(--muted);margin-top:8px}
