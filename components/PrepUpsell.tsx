@@ -34,7 +34,7 @@ export default function PrepUpsell({ en, tema = 'perro', className = '' }: { en:
         {guides}
         <a href={LINKS.pack} className="flex items-center justify-between gap-3 rounded-xl border-2 border-orange-400 bg-white px-4 py-3 hover:bg-orange-100/40">
           <span className="min-w-0 text-sm font-bold text-gray-900">⭐ {en ? 'Complete Traveler Pack' : 'Pack Viajero Completo'}</span>
-          <span className="shrink-0 text-right text-sm font-bold text-orange-600">$59<span className="block text-[11px] font-semibold text-orange-500">{en ? 'save $15' : 'ahorras $15'}</span></span>
+          <span className="shrink-0 text-right text-sm font-bold text-orange-600">$59<span className="block text-[11px] font-semibold text-orange-500">{en ? 'Save 20%' : '20% de ahorro'}</span></span>
         </a>
       </div>
     </div>
