@@ -238,13 +238,21 @@ export default function DocumentsVault({ initialDocs, userId, en = false }: Prop
             <label className="block text-base font-semibold text-gray-700 mb-1">
               📎 {en ? 'Photo or scan (optional)' : 'Foto o escaneo (opcional)'}
             </label>
-            <input
-              type="file"
-              accept="image/*,application/pdf"
-              onChange={e => setFile(e.target.files?.[0] ?? null)}
-              className="w-full text-base file:mr-3 file:py-3 file:px-4 file:rounded-xl file:border-0 file:bg-blue-600 file:text-white file:font-semibold"
-            />
-            {file && <p className="text-sm text-gray-500 mt-1">✓ {file.name}</p>}
+            {/* Botón propio: el texto nativo ("Choose File") depende del navegador y sale en inglés */}
+            <label className="flex flex-wrap items-center gap-3 cursor-pointer">
+              <input
+                type="file"
+                accept="image/*,application/pdf"
+                onChange={e => setFile(e.target.files?.[0] ?? null)}
+                className="sr-only"
+              />
+              <span className="inline-block py-3 px-4 rounded-xl bg-blue-600 text-white text-base font-semibold">
+                {en ? 'Choose file' : 'Elegir archivo'}
+              </span>
+              <span className="text-sm text-gray-500 min-w-0 break-all">
+                {file ? `✓ ${file.name}` : (en ? 'No file selected' : 'Ningún archivo seleccionado')}
+              </span>
+            </label>
           </div>
 
           <div className="flex gap-3">

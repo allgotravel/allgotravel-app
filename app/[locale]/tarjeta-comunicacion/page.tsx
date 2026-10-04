@@ -112,7 +112,7 @@ export default async function TarjetaComunicacionPage() {
             </span>
           </p>
         </div>
-        <PrintButton label={en ? 'Print / Save as PDF' : 'Imprimir / Save as PDF'} />
+        <PrintButton label={en ? 'Print / Save as PDF' : 'Imprimir / Guardar PDF'} />
       </div>
 
       {/* Cards grid */}

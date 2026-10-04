@@ -57,7 +57,7 @@ export default async function TarjetaMedicaPage() {
         <Link href="/dashboard" className="text-[#1B6FB5] hover:underline text-sm font-medium">
           ← Dashboard
         </Link>
-        <PrintButton label={en ? 'Print / Save as PDF' : 'Imprimir / Save as PDF'} />
+        <PrintButton label={en ? 'Print / Save as PDF' : 'Imprimir / Guardar PDF'} />
       </div>
 
       {/* Medical card */}

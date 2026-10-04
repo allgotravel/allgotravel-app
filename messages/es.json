@@ -152,8 +152,8 @@
     "mixta": "Mixta (grupo familiar)"
   },
   "dashboard": {
-    "title": "Dashboard",
-    "link": "Dashboard",
+    "title": "Panel",
+    "link": "Panel",
     "greeting": "¡Hola, {name}! 👋",
     "greetingFallback": "¡Hola! 👋",
     "profileSummary": "Tu perfil de accesibilidad",
@@ -238,7 +238,7 @@
     "colNotes": "Notas clave",
     "countryTitle": "Regulaciones por País",
     "countrySubtitle": "Marco legal para animales de servicio en destinos populares",
-    "printLabel": "Imprimir / Save as PDF"
+    "printLabel": "Imprimir / Guardar PDF"
   },
   "landing": {
     "navApp": "El app",

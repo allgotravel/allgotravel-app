@@ -7,7 +7,6 @@ import { TravelDocument, expiryStatus, docTypeDef } from '@/lib/expiry'
 import A11yToggle from '@/components/A11yToggle'
 import SosButton from '@/components/SosButton'
 import MedCheckIn from '@/components/MedCheckIn'
-import Image from 'next/image'
 
 export const dynamic = 'force-dynamic'
 
@@ -65,20 +64,6 @@ const DISABILITY_ICONS: Record<string, string> = {
   mixta: '👨‍👩‍👧',
 }
 
-// ── Retention: profile completion score ──────────────────────────────────────
-function computeCompletion(profile: Profile, en: boolean): { score: number; missing: string[] } {
-  const checks = [
-    { done: !!profile.full_name,                  label: en ? 'Name' : 'Nombre' },
-    { done: profile.disability_types.length > 0,  label: en ? 'Accessibility needs' : 'Necesidades de accesibilidad' },
-    { done: !!profile.chronic_conditions,         label: en ? 'Chronic conditions' : 'Condiciones crónicas' },
-    { done: profile.medications.length > 0,       label: en ? 'Medications' : 'Medicamentos' },
-    { done: !!profile.invisible_needs,            label: en ? 'Invisible needs' : 'Necesidades invisibles' },
-  ]
-  const done = checks.filter(c => c.done).length
-  const missing = checks.filter(c => !c.done).map(c => c.label)
-  return { score: Math.round((done / checks.length) * 100), missing }
-}
-
 // ── Greeting ─────────────────────────────────────────────────────────────────
 function GreetingSection({ name }: { name: string }) {
   const t = useTranslations('dashboard')
@@ -95,110 +80,6 @@ function GreetingSection({ name }: { name: string }) {
   )
 }
 
-// ── Retention: Kit de Viaje + completion meter ────────────────────────────────
-function KitDeViajeCard({ profile }: { profile: Profile }) {
-  const locale = useLocale()
-  const en = locale === 'en'
-  const { score, missing } = computeCompletion(profile, en)
-
-  const items = [
-    {
-      icon: '♿',
-      label: en ? 'Accessibility profile' : 'Perfil de accesibilidad',
-      value: profile.disability_types.length > 0
-        ? (en
-            ? `${profile.disability_types.length} type${profile.disability_types.length > 1 ? 's' : ''} saved`
-            : `${profile.disability_types.length} tipo${profile.disability_types.length > 1 ? 's' : ''} registrado${profile.disability_types.length > 1 ? 's' : ''}`)
-        : null,
-      href: '/perfil',
-    },
-    {
-      icon: '🏥',
-      label: en ? 'Medical Card' : 'Tarjeta Médica',
-      value: profile.medications.length > 0
-        ? (en
-            ? `${profile.medications.length} medication${profile.medications.length > 1 ? 's' : ''} saved`
-            : `${profile.medications.length} medicamento${profile.medications.length > 1 ? 's' : ''} guardado${profile.medications.length > 1 ? 's' : ''}`)
-        : profile.chronic_conditions ? (en ? 'Conditions saved' : 'Condiciones guardadas') : null,
-      href: '/tarjeta-medica',
-    },
-    {
-      icon: '💬',
-      label: en ? 'Communication Card' : 'Tarjeta de Comunicación',
-      value: profile.full_name ? (en ? 'Ready to use' : 'Lista para usar') : null,
-      href: '/tarjeta-comunicacion',
-    },
-    {
-      icon: '📄',
-      label: en ? 'Travel Documents' : 'Documentos de viaje',
-      value: en ? 'Regulations for 22 countries' : 'Regulaciones de 22 países',
-      href: '/documentos-viaje',
-    },
-  ]
-
-  return (
-    <div className="bg-white rounded-2xl shadow p-6">
-      {/* Header */}
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-base font-bold text-gray-800">🧳 {en ? 'Your AllGo travel kit' : 'Tu kit de viaje AllGo'}</h2>
-        <span className="text-xs font-bold text-[#1B6FB5] bg-blue-50 px-2.5 py-1 rounded-full">
-          {score}% {en ? 'complete' : 'completo'}
-        </span>
-      </div>
-
-      {/* Completion bar */}
-      <div className="w-full bg-gray-100 rounded-full h-2.5 mb-1">
-        <div
-          className="h-2.5 rounded-full transition-all duration-700"
-          style={{
-            width: `${score}%`,
-            background: score === 100
-              ? '#0D9488'
-              : score >= 60
-              ? '#1B6FB5'
-              : '#F97316',
-          }}
-        />
-      </div>
-      {score < 100 && missing.length > 0 && (
-        <p className="text-xs text-gray-400 mb-4">
-          {en ? 'Missing' : 'Falta'}: {missing.slice(0, 2).join(', ')}{missing.length > 2 ? (en ? ` and ${missing.length - 2} more` : ` y ${missing.length - 2} más`) : ''}
-          {' · '}
-          <Link href="/perfil" className="text-[#1B6FB5] font-semibold hover:underline">
-            {en ? 'Complete →' : 'Completar →'}
-          </Link>
-        </p>
-      )}
-      {score === 100 && (
-        <p className="text-xs text-blue-600 font-semibold mb-4">✅ {en ? 'Profile 100% complete — your kit is ready' : 'Perfil 100% completo — tu kit está listo'}</p>
-      )}
-
-      {/* Items */}
-      <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-        {items.map(item => (
-          <Link
-            key={item.href}
-            href={item.href as '/perfil'}
-            className="allgo-tap flex items-center gap-3 p-3 rounded-xl border border-gray-100 hover:border-[#1B6FB5]/30 hover:bg-blue-50/50 group"
-          >
-            <span className="text-xl shrink-0">{item.icon}</span>
-            <div className="min-w-0">
-              <p className="text-sm font-semibold text-gray-700 group-hover:text-[#1B6FB5] transition leading-tight">
-                {item.label}
-              </p>
-              {item.value ? (
-                <p className="text-xs text-blue-600 font-medium mt-0.5">✅ {item.value}</p>
-              ) : (
-                <p className="text-xs text-orange-400 font-medium mt-0.5">⚠️ {en ? 'Pending — complete' : 'Pendiente — completar'}</p>
-              )}
-            </div>
-          </Link>
-        ))}
-      </div>
-    </div>
-  )
-}
-
 // ── Quick Access Cards ────────────────────────────────────────────────────────
 function QuickAccessCards({ member }: { member: boolean }) {
   const t = useTranslations('dashboard')
@@ -209,7 +90,7 @@ function QuickAccessCards({ member }: { member: boolean }) {
     {
       href: '/hub',
       icon: '🐕‍🦺',
-      title: 'Service Dog Travel Hub',
+      title: en ? 'Service Dog Travel Hub' : 'Centro de viaje con perro de servicio',
       desc: en ? 'Requirements, forms, checklist and alerts' : 'Requisitos, formularios, checklist y alertas',
       bg: 'bg-[#0E4E85]',
       premium: true,
@@ -480,9 +361,6 @@ export default async function DashboardPage({
         {/* 1. Greeting */}
         <GreetingSection name={safeProfile.full_name ?? ''} />
 
-        {/* 2. Kit de viaje — completion + investment hook */}
-        <KitDeViajeCard profile={safeProfile} />
-
         {/* 2b. Próximos vencimientos — Bóveda de Viaje */}
         <UpcomingDocsCard docs={docs} en={en} />
 
@@ -501,43 +379,19 @@ export default async function DashboardPage({
         {/* 6. Value reminder — "no pierdas esto" retention hook */}
         <ValueReminderCard profile={safeProfile} />
 
-        {/* 7. Nuestra Historia */}
-        <div className="bg-white rounded-2xl shadow p-6">
-          <div className="flex items-center gap-2 mb-4">
-            <span className="inline-block bg-orange-100 text-orange-600 text-xs font-bold px-3 py-1 rounded-full">💛 {en ? 'Our Story' : 'Nuestra Historia'}</span>
-          </div>
-          <div className="flex flex-col gap-4 items-center">
-            {/* Óvalo grande — misma proporción que la imagen, se ve completa */}
-            <div className="w-64 h-80 rounded-full overflow-hidden shadow-xl ring-4 ring-orange-100">
-              <Image src="/yadira-familia.jpg" alt={en ? 'Yadira, her family and her dog' : 'Yadira, su familia y su perrita'} width={720} height={899} className="object-cover w-full h-full" />
-            </div>
-            <div className="text-center">
-              <p className="font-bold text-blue-700 text-sm">{en ? 'Yadira and family' : 'Yadira y familia'}</p>
-              <p className="text-gray-400 text-xs">{en ? 'Founder · AllGo Travel App' : 'Fundadora · AllGo Travel App'}</p>
-            </div>
-            <div className="space-y-3 text-gray-600 text-sm leading-relaxed">
-              {en ? (
-                <>
-                  <p><strong className="text-gray-900">AllGo Travel App was born from a personal story.</strong></p>
-                  <p>Yadira, a Cuban-American healthcare professional, has spent years traveling alongside her father, who has a disability. That experience gave rise to AllGo Travel App — a space where travel is designed around inclusion, so people with disabilities and their families can explore the world with freedom and dignity.</p>
-                  <p className="text-blue-700 font-semibold">Because everyone deserves to discover the world. 🌍</p>
-                  <Link href="/nosotros" className="inline-block mt-1 text-orange-500 hover:text-orange-600 font-semibold text-xs underline">
-                    Read the full story →
-                  </Link>
-                </>
-              ) : (
-                <>
-                  <p><strong className="text-gray-900">AllGo Travel App nació de una historia personal.</strong></p>
-                  <p>Yadira, cubano-americana y profesional del área de salud, lleva años viajando junto a su padre con movilidad reducida. De esa experiencia nació AllGo Travel App — un espacio donde los viajes se diseñan desde la inclusión, para que personas con movilidad reducida y sus familias puedan explorar el mundo con libertad y dignidad.</p>
-                  <p className="text-blue-700 font-semibold">Porque todos merecen descubrir el mundo. 🌍</p>
-                  <Link href="/nosotros" className="inline-block mt-1 text-orange-500 hover:text-orange-600 font-semibold text-xs underline">
-                    Leer historia completa →
-                  </Link>
-                </>
-              )}
-            </div>
-          </div>
-        </div>
+        {/* 7. Nuestra Historia — tarjeta corta, la historia completa vive en /nosotros */}
+        <Link
+          href="/nosotros"
+          className="allgo-tap block bg-white rounded-2xl shadow p-5 border-l-4 border-orange-400 hover:bg-orange-50/40"
+        >
+          <p className="font-bold text-gray-800">💛 {en ? 'Why we created AllGo Travel App' : 'Por qué creamos AllGo Travel App'}</p>
+          <p className="text-sm text-gray-600 mt-1 leading-relaxed">
+            {en
+              ? 'This app was born traveling with a family member with reduced mobility.'
+              : 'Esta app nació viajando con un familiar con movilidad reducida.'}{' '}
+            <span className="text-orange-500 font-semibold">{en ? 'Read our story →' : 'Conoce nuestra historia →'}</span>
+          </p>
+        </Link>
 
         {/* Accesibilidad */}
         <A11yToggle en={en} />

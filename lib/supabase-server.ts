@@ -10,9 +10,15 @@ export async function createSupabaseServer() {
       cookies: {
         getAll: () => cookieStore.getAll(),
         setAll: (cookiesToSet) => {
-          cookiesToSet.forEach(({ name, value, options }) =>
-            cookieStore.set(name, value, options)
-          )
+          // En componentes de servidor no se pueden escribir cookies ("Cookies can only be
+          // modified in a Server Action or Route Handler"). El middleware renueva la sesión.
+          try {
+            cookiesToSet.forEach(({ name, value, options }) =>
+              cookieStore.set(name, value, options)
+            )
+          } catch {
+            // ignorar
+          }
         },
       },
     }
