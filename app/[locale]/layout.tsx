@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { Geist } from 'next/font/google'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
 import { notFound } from 'next/navigation'
@@ -10,25 +9,25 @@ import OfflineBanner from '@/components/OfflineBanner'
 import ServiceWorkerRegister from '@/components/ServiceWorkerRegister'
 import '../globals.css'
 
-const geist = Geist({ subsets: ['latin'], variable: '--font-geist-sans' })
-
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ locale: string }>
 }): Promise<Metadata> {
   const { locale } = await params
-  if (locale === 'en') {
-    return {
-      title: 'AllGo Travel App — Travel is for everyone',
-      description:
-        'Travel is for everyone. Verified info, your assistant Alli, guides and a community — so anyone can travel without fear.',
-    }
-  }
+  const en = locale === 'en'
   return {
-    title: 'AllGo Travel App — Viajar es para todos',
-    description:
-      'Viajar es para todos. Información verificada, tu asistente Alli, guías y comunidad — para que cualquier persona viaje sin miedo.',
+    title: en ? 'AllGo Travel App — Travel is for everyone' : 'AllGo Travel App — Viajar es para todos',
+    description: en
+      ? 'Travel is for everyone. Verified info, Alli your AI assistant, guides and a community — so anyone can travel without fear.'
+      : 'Viajar es para todos. Información verificada, Alli tu asistente con IA, guías y comunidad — para que cualquier persona viaje sin miedo.',
+    openGraph: {
+      siteName: 'AllGo Travel App',
+      locale: en ? 'en_US' : 'es_ES',
+      type: 'website',
+      images: [{ url: '/og/og-home.jpg', width: 1200, height: 630, alt: 'AllGo Travel App' }],
+    },
+    twitter: { card: 'summary_large_image', images: ['/og/og-home.jpg'] },
   }
 }
 
@@ -56,16 +55,13 @@ export default async function LocaleLayout({
     // If Supabase fails, continue without user (ChatWidget won't have userId)
   }
 
+  // <html>/<body> come from the root layout (app/layout.tsx), so there is only one <html lang>
   return (
-    <html lang={locale} className={`${geist.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col">
-        <NextIntlClientProvider messages={messages}>
-          <ServiceWorkerRegister />
-          <OfflineBanner />
-          {children}
-          <ChatWidget userId={user?.id} />
-        </NextIntlClientProvider>
-      </body>
-    </html>
+    <NextIntlClientProvider messages={messages}>
+      <ServiceWorkerRegister />
+      <OfflineBanner />
+      {children}
+      <ChatWidget userId={user?.id} />
+    </NextIntlClientProvider>
   )
 }

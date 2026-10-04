@@ -1,6 +1,15 @@
 import Image from 'next/image'
+import { localizedMetadata } from '@/lib/seo'
 import { Link } from '@/i18n/navigation'
 import { getLocale } from 'next-intl/server'
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
+  return localizedMetadata(locale, '/nosotros',
+    { es: "Quiénes somos: la historia de Yadira Suárez y AllGo Travel App", en: "About us: Yadira Suárez and the story of AllGo Travel App" },
+    { es: "AllGo Travel App nació de los viajes de Yadira Suárez con su papá, que tiene movilidad reducida. Conoce por qué creamos guías e información verificada para viajar sin miedo.", en: "AllGo Travel App was born from Yadira Suárez's trips with her dad, who has reduced mobility. Learn why we create guides and verified information so anyone can travel without fear." },
+  )
+}
 
 export default async function NosotrosPage() {
   const locale = await getLocale()

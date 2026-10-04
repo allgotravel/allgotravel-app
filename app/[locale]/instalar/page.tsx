@@ -1,7 +1,16 @@
 import { useTranslations } from 'next-intl'
+import { localizedMetadata } from '@/lib/seo'
 import { Link } from '@/i18n/navigation'
 import QRCodeDisplay from '@/components/QRCodeDisplay'
 import InstallTabs from '@/components/InstallTabs'
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
+  return localizedMetadata(locale, '/instalar',
+    { es: "Cómo instalar AllGo Travel App en tu celular (iPhone y Android)", en: "How to install AllGo Travel App on your phone (iPhone and Android)" },
+    { es: "Instala AllGo Travel App en tu iPhone o Android en segundos y ten tu tarjeta médica, tu tarjeta de comunicación y a Alli siempre contigo.", en: "Install AllGo Travel App on your iPhone or Android in seconds and keep your medical card, communication card and Alli always with you." },
+  )
+}
 
 export default function InstalarPage() {
   const t = useTranslations('instalar')

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { getLocale } from "next-intl/server";
 import MetaPixel from "@/components/MetaPixel";
 import "./globals.css";
 
@@ -14,6 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.allgotravel.app'),
   title: 'AllGo Travel App — Viajar es para todos',
   description: 'Viajar es para todos. Información verificada, tu asistente Alli, guías y comunidad — para que cualquier persona viaje sin miedo.',
   manifest: '/manifest.webmanifest',
@@ -36,14 +38,16 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Single <html> for the whole app: lang follows the request locale (es by default)
+  const locale = await getLocale();
   return (
     <html
-      lang="en"
+      lang={locale}
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">

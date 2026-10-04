@@ -1,7 +1,16 @@
 import Image from 'next/image'
+import { localizedMetadata } from '@/lib/seo'
 import { createClient } from '@supabase/supabase-js'
 import { getLocale } from 'next-intl/server'
 import PlanButton from './PlanButton'
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
+  return localizedMetadata(locale, '/membresia',
+    { es: "AllGo Travel Club: membresía para viajar accesible | AllGo Travel App", en: "AllGo Travel Club: membership for accessible travel | AllGo Travel App" },
+    { es: "Únete al AllGo Travel Club: acceso a toda la app con Alli, tu asistente con IA, comunidad privada y guías descargables para viajar accesible todo el año.", en: "Join the AllGo Travel Club: full app access with Alli, your AI assistant, a private community and downloadable guides to travel accessibly all year." },
+  )
+}
 
 export const dynamic = 'force-dynamic'
 
