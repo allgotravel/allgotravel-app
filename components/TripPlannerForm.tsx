@@ -7,36 +7,10 @@ import { DISABILITY_ICONS } from '@/types/profile'
 
 interface Props {
   profile: Profile
-  userId: string
 }
 
-function renderMarkdown(text: string) {
-  const lines = text.split('\n')
-  return (
-    <div className="space-y-1">
-      {lines.map((line, i) => {
-        if (line.startsWith('## '))
-          return <h2 key={i} className="text-lg font-bold text-blue-700 mt-5 mb-1">{parseLine(line.slice(3))}</h2>
-        if (line.startsWith('### '))
-          return <h3 key={i} className="font-semibold text-blue-600 mt-3">{parseLine(line.slice(4))}</h3>
-        if (line.startsWith('- ') || line.startsWith('• '))
-          return <p key={i} className="pl-4 before:content-['•'] before:mr-2 before:text-blue-400 text-gray-700 text-sm">{parseLine(line.slice(2))}</p>
-        if (line.trim() === '')
-          return <div key={i} className="h-2" />
-        return <p key={i} className="text-gray-700 text-sm">{parseLine(line)}</p>
-      })}
-    </div>
-  )
-}
-
-function parseLine(text: string): React.ReactNode {
-  const parts = text.split(/(\*\*[^*]+\*\*)/g)
-  return parts.map((part, i) =>
-    part.startsWith('**') && part.endsWith('**')
-      ? <strong key={i} className="font-semibold text-gray-900">{part.slice(2, -2)}</strong>
-      : part
-  )
-}
+interface DiagnosisItem { area: string; status: 'ok' | 'warn'; note: string }
+interface Diagnosis { title: string; items: DiagnosisItem[]; tema: 'perro' | 'movilidad' }
 
 const TRIP_TYPES = {
   relax: { es: 'Descanso y relax', en: 'Rest & relaxation', icon: '🌴' },
@@ -47,7 +21,7 @@ const TRIP_TYPES = {
   ciudad: { es: 'Turismo urbano', en: 'City break', icon: '🏙️' },
 }
 
-export default function TripPlannerForm({ profile, userId }: Props) {
+export default function TripPlannerForm({ profile }: Props) {
   const t = useTranslations('planner')
   const tD = useTranslations('disabilities')
   const locale = useLocale()
@@ -56,7 +30,7 @@ export default function TripPlannerForm({ profile, userId }: Props) {
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
   const [tripType, setTripType] = useState('relax')
-  const [plan, setPlan] = useState('')
+  const [plan, setPlan] = useState<Diagnosis | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
@@ -65,29 +39,30 @@ export default function TripPlannerForm({ profile, userId }: Props) {
   async function generatePlan(e: React.FormEvent) {
     e.preventDefault()
     setLoading(true)
-    setPlan('')
+    setPlan(null)
     setError('')
 
     try {
       const res = await fetch('/api/planificador', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId, destination, startDate, endDate, tripType, locale }),
+        body: JSON.stringify({ destination, startDate, endDate, tripType, locale }),
       })
 
-      if (!res.ok) throw new Error('Error generating plan')
-
-      const reader = res.body?.getReader()
-      const decoder = new TextDecoder()
-      if (!reader) throw new Error('No stream')
-
-      let accumulated = ''
-      while (true) {
-        const { done, value } = await reader.read()
-        if (done) break
-        accumulated += decoder.decode(value, { stream: true })
-        setPlan(accumulated)
+      if (res.status === 401) {
+        setError(locale === 'es' ? 'Inicia sesión para usar el planificador.' : 'Please log in to use the planner.')
+        return
       }
+      if (res.status === 403) {
+        window.location.href = `/${locale}/paywall?tema=movilidad`
+        return
+      }
+      if (res.status === 429) {
+        setError(locale === 'es' ? 'Llegaste al límite de diagnósticos de hoy. Intenta de nuevo mañana.' : "You've reached today's limit. Please try again tomorrow.")
+        return
+      }
+      if (!res.ok) throw new Error('Error generating plan')
+      setPlan((await res.json()) as Diagnosis)
     } catch {
       setError(locale === 'es' ? 'Ocurrió un error. Por favor intenta de nuevo.' : 'Something went wrong. Please try again.')
     } finally {
@@ -152,7 +127,7 @@ export default function TripPlannerForm({ profile, userId }: Props) {
           />
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">{t('startDate')}</label>
             <input
@@ -160,7 +135,7 @@ export default function TripPlannerForm({ profile, userId }: Props) {
               required
               value={startDate}
               onChange={e => setStartDate(e.target.value)}
-              className="w-full border border-gray-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full min-w-0 max-w-full appearance-none bg-white border border-gray-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
           </div>
           <div>
@@ -170,14 +145,14 @@ export default function TripPlannerForm({ profile, userId }: Props) {
               required
               value={endDate}
               onChange={e => setEndDate(e.target.value)}
-              className="w-full border border-gray-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full min-w-0 max-w-full appearance-none bg-white border border-gray-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
           </div>
         </div>
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">{t('tripType')}</label>
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
             {Object.entries(TRIP_TYPES).map(([key, val]) => (
               <button
                 key={key}
@@ -206,21 +181,32 @@ export default function TripPlannerForm({ profile, userId }: Props) {
         {error && <p className="text-red-500 text-sm text-center">{error}</p>}
       </form>
 
-      {/* Plan output */}
-      {(plan || loading) && (
+      {/* Diagnóstico corto */}
+      {loading && (
+        <div className="bg-white rounded-2xl shadow p-6 text-sm text-blue-500">
+          {locale === 'es' ? 'Analizando tu viaje…' : 'Analyzing your trip…'}
+        </div>
+      )}
+      {plan && !loading && (
         <div className="bg-white rounded-2xl shadow p-6">
-          <div className="flex items-center gap-2 mb-4">
-            <span className="text-2xl">✈️</span>
-            <h2 className="text-base font-semibold text-blue-700">{t('yourPlan')}</h2>
-            {loading && (
-              <span className="ml-auto inline-flex gap-1 text-blue-400">
-                <span className="animate-bounce">·</span>
-                <span className="animate-bounce [animation-delay:100ms]">·</span>
-                <span className="animate-bounce [animation-delay:200ms]">·</span>
-              </span>
-            )}
-          </div>
-          {plan ? renderMarkdown(plan) : null}
+          <h2 className="text-base font-bold text-blue-700 mb-4 break-words">✈️ {plan.title}</h2>
+          <ul className="space-y-3">
+            {plan.items.map(item => (
+              <li key={item.area} className="flex gap-3 min-w-0">
+                <span className="shrink-0 text-lg leading-6">{item.status === 'ok' ? '✓' : '⚠️'}</span>
+                <span className="min-w-0">
+                  <span className="block text-sm font-semibold text-gray-800 break-words">{item.area}</span>
+                  <span className="block text-xs text-gray-500 break-words">{item.note}</span>
+                </span>
+              </li>
+            ))}
+          </ul>
+          <a
+            href={`/${locale}/paywall?tema=${plan.tema}`}
+            className="mt-5 block w-full text-center bg-orange-500 hover:bg-orange-600 text-white font-bold text-sm py-3 rounded-xl"
+          >
+            {locale === 'es' ? 'Desbloquear mi preparación completa →' : 'Unlock my complete preparation →'}
+          </a>
         </div>
       )}
 

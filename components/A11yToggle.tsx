@@ -12,6 +12,7 @@ export default function A11yToggle({ en = false }: { en?: boolean }) {
     try {
       const s = (localStorage.getItem('a11y-size') as TextSize) || 'normal'
       const c = localStorage.getItem('a11y-contrast') === '1'
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- se lee del navegador después de montar, para no romper la hidratación
       setSize(s); setContrast(c)
       applySize(s); applyContrast(c)
     } catch { /* noop */ }

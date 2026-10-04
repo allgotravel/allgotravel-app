@@ -128,6 +128,7 @@ export default function HubChecklist({ storageKey = 'allgo-hub-checklist' }: { s
   useEffect(() => {
     try {
       const raw = localStorage.getItem(storageKey)
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- se lee del navegador después de montar, para no romper la hidratación
       if (raw) setChecked(JSON.parse(raw))
     } catch {}
     setLoaded(true)

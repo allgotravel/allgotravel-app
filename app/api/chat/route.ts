@@ -1,16 +1,22 @@
 import Anthropic from '@anthropic-ai/sdk'
 import { NextRequest, NextResponse } from 'next/server'
-import { createClient } from '@supabase/supabase-js'
+import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 import type { Profile } from '@/types/profile'
 import { expiryStatus, docTypeDef, type TravelDocument } from '@/lib/expiry'
 import { MOBILITY_TRAVEL_KB, AUTISM_TRAVEL_KB, SPECIAL_NEEDS_TRAVEL_KB, DISABILITIES_TRAVEL_KB } from '@/lib/alliKnowledge'
+import { getSessionUser, checkRateLimit } from '@/lib/apiGuard'
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
-const supabaseAdmin = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-)
+// Cliente con la clave de servicio, creado solo al usarse (no al cargar el módulo),
+// para que la revisión de sesión/token ocurra antes y el build no dependa de la clave.
+let _supabaseAdmin: SupabaseClient | null = null
+function getAdmin() {
+  if (!_supabaseAdmin) {
+    _supabaseAdmin = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!)
+  }
+  return _supabaseAdmin
+}
 
 const MODEL = 'claude-sonnet-4-6'
 
@@ -67,7 +73,7 @@ async function resolverAerolinea(consulta: string) {
   if (!term) return null
 
   // 1) Código IATA exacto (case-insensitive)
-  const { data: byIata } = await supabaseAdmin
+  const { data: byIata } = await getAdmin()
     .from('airlines')
     .select('*')
     .ilike('iata_code', term)
@@ -75,7 +81,7 @@ async function resolverAerolinea(consulta: string) {
   if (byIata && byIata.length) return byIata[0]
 
   // 2) Nombre (coincidencia parcial)
-  const { data: byName } = await supabaseAdmin
+  const { data: byName } = await getAdmin()
     .from('airlines')
     .select('*')
     .ilike('name', `%${term}%`)
@@ -89,7 +95,7 @@ async function lookupAirlinePolicy(input: { iata_code?: string; policy_type?: st
   const airline = await resolverAerolinea(input.iata_code || '')
 
   if (!airline) {
-    const { data: todas } = await supabaseAdmin
+    const { data: todas } = await getAdmin()
       .from('airlines')
       .select('name, iata_code, status')
       .order('priority')
@@ -122,14 +128,14 @@ async function lookupAirlinePolicy(input: { iata_code?: string; policy_type?: st
 
   const tipo = input.policy_type
   if (tipo === 'service_animal') {
-    const { data } = await supabaseAdmin
+    const { data } = await getAdmin()
       .from('service_animal_policies')
       .select('*')
       .eq('airline_iata', airline.iata_code)
       .limit(1)
     base.politica_perro_servicio = data?.[0] ?? null
   } else if (tipo === 'wheelchair') {
-    const { data } = await supabaseAdmin
+    const { data } = await getAdmin()
       .from('wheelchair_policies')
       .select('*')
       .eq('airline_iata', airline.iata_code)
@@ -138,8 +144,8 @@ async function lookupAirlinePolicy(input: { iata_code?: string; policy_type?: st
   } else {
     // Sin tipo válido: devolver ambas para que el modelo elija.
     const [{ data: sa }, { data: wc }] = await Promise.all([
-      supabaseAdmin.from('service_animal_policies').select('*').eq('airline_iata', airline.iata_code).limit(1),
-      supabaseAdmin.from('wheelchair_policies').select('*').eq('airline_iata', airline.iata_code).limit(1),
+      getAdmin().from('service_animal_policies').select('*').eq('airline_iata', airline.iata_code).limit(1),
+      getAdmin().from('wheelchair_policies').select('*').eq('airline_iata', airline.iata_code).limit(1),
     ])
     base.politica_perro_servicio = sa?.[0] ?? null
     base.politica_silla_ruedas = wc?.[0] ?? null
@@ -158,7 +164,7 @@ async function resolverCrucero(consulta: string) {
   if (!term) return null
 
   // 1) slug exacto (case-insensitive)
-  const { data: bySlug } = await supabaseAdmin
+  const { data: bySlug } = await getAdmin()
     .from('cruise_lines')
     .select('*')
     .ilike('slug', term)
@@ -166,7 +172,7 @@ async function resolverCrucero(consulta: string) {
   if (bySlug && bySlug.length) return bySlug[0]
 
   // 2) nombre (coincidencia parcial)
-  const { data: byName } = await supabaseAdmin
+  const { data: byName } = await getAdmin()
     .from('cruise_lines')
     .select('*')
     .ilike('name', `%${term}%`)
@@ -180,7 +186,7 @@ async function lookupCruisePolicy(input: { cruise_line?: string }) {
   const linea = await resolverCrucero(input.cruise_line || '')
 
   if (!linea) {
-    const { data: todas } = await supabaseAdmin
+    const { data: todas } = await getAdmin()
       .from('cruise_lines')
       .select('name, slug, status')
       .order('priority')
@@ -193,7 +199,7 @@ async function lookupCruisePolicy(input: { cruise_line?: string }) {
     }
   }
 
-  const { data } = await supabaseAdmin
+  const { data } = await getAdmin()
     .from('cruise_accessibility_policies')
     .select('*')
     .eq('cruise_slug', linea.slug)
@@ -364,34 +370,43 @@ function buildSystemPrompt(profile: Profile | null, locale: string, hoy: string,
 
 export async function POST(req: NextRequest) {
   try {
-    const { messages, conversationId, userId, locale = 'es' } = await req.json()
+    // Solo con sesión. El usuario sale SIEMPRE de la sesión del servidor, nunca del body.
+    const user = await getSessionUser()
+    if (!user) {
+      return NextResponse.json({ error: 'auth_required' }, { status: 401 })
+    }
+    const userId = user.id
+
+    const { messages, conversationId, locale = 'es' } = await req.json()
 
     if (!messages || !Array.isArray(messages)) {
       return NextResponse.json({ error: 'messages required' }, { status: 400 })
     }
 
-    // Perfil del usuario para contexto (opcional).
-    let profile: Profile | null = null
-    if (userId) {
-      const { data } = await supabaseAdmin
-        .from('profiles')
-        .select('*')
-        .eq('id', userId)
-        .single()
-      profile = data
-    }
+    // Perfil del usuario de la sesión, para contexto.
+    const { data: profileData } = await getAdmin()
+      .from('profiles')
+      .select('*')
+      .eq('id', userId)
+      .maybeSingle()
+    const profile: Profile | null = profileData
 
-    // Alli es una función de miembros. Defensa en el servidor (la UI ya está protegida).
+    // Alli es una función de miembros. Sin perfil o sin suscripción activa = no miembro.
     const isDev = process.env.NODE_ENV === 'development'
     const subStatus = (profile as { subscription_status?: string } | null)?.subscription_status
-    if (!isDev && subStatus && subStatus !== 'active') {
+    if (!isDev && subStatus !== 'active') {
       return NextResponse.json({ error: 'membership_required' }, { status: 403 })
+    }
+
+    // Límite por persona: 30 preguntas por hora.
+    if (!(await checkRateLimit(userId, 'chat', 30, 60 * 60 * 1000))) {
+      return NextResponse.json({ error: 'rate_limited' }, { status: 429 })
     }
 
     // Vencimientos próximos para que Alli avise proactivamente.
     let docsSummary = ''
-    if (userId) {
-      const { data: docsData } = await supabaseAdmin
+    {
+      const { data: docsData } = await getAdmin()
         .from('documents')
         .select('*')
         .eq('user_id', userId)
@@ -500,9 +515,9 @@ export async function POST(req: NextRequest) {
         }
 
         // Persistencia best-effort (no debe romper la respuesta).
-        if (userId && assistantText) {
+        if (assistantText) {
           try {
-            await supabaseAdmin.from('conversations').insert([
+            await getAdmin().from('conversations').insert([
               { user_id: userId, role: 'user', content: messages[messages.length - 1]?.content ?? '' },
               { user_id: userId, role: 'assistant', content: assistantText },
             ])

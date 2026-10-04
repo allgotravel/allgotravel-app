@@ -25,7 +25,7 @@ export default async function PlanificadorPage() {
   if (!user) redirect(`/${locale}/login`)
 
   // Función premium — solo miembros
-  await requireMember(locale)
+  await requireMember(locale, 'movilidad')
 
   const supabase = await createSupabaseServer()
   const { data: profile } = await supabase
@@ -53,15 +53,15 @@ export default async function PlanificadorPage() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 py-10 px-4">
-      <div className="max-w-2xl mx-auto mb-8 flex items-start justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-blue-700">{t('title')}</h1>
+    <main className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 py-10 px-4 overflow-x-hidden">
+      <div className="max-w-2xl mx-auto mb-8 flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <h1 className="text-2xl sm:text-3xl font-bold text-blue-700 break-words">{t('title')}</h1>
           <p className="text-gray-500 mt-1">{t('subtitle')}</p>
         </div>
         <LanguageSwitcher />
       </div>
-      <TripPlannerForm profile={safeProfile} userId={user.id} />
+      <TripPlannerForm profile={safeProfile} />
     </main>
   )
 }

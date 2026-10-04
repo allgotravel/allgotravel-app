@@ -35,7 +35,7 @@ export default async function NosotrosPage() {
             </div>
             <blockquote className="bg-orange-50 border-l-4 border-orange-400 rounded-r-xl px-4 py-4 w-full">
               <p className="text-orange-700 font-semibold italic text-sm leading-relaxed text-center">
-                {en ? <>"Travel is for everyone.<br />We create paths that are possible."</> : <>"Viajar es para todos.<br />Creamos caminos posibles."</>}
+                {en ? <>&quot;Travel is for everyone.<br />We create paths that are possible.&quot;</> : <>&quot;Viajar es para todos.<br />Creamos caminos posibles.&quot;</>}
               </p>
             </blockquote>
           </div>

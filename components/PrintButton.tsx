@@ -4,7 +4,7 @@ interface PrintButtonProps {
   label?: string
 }
 
-export default function PrintButton({ label = 'Imprimir / Save as PDF' }: PrintButtonProps) {
+export default function PrintButton({ label = 'Imprimir / Guardar PDF' }: PrintButtonProps) {
   return (
     <button
       onClick={() => window.print()}

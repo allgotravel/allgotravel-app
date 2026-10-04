@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Prototipo suelto (no lo importa la app)
+    "verificador-psd.jsx",
   ]),
 ]);
 

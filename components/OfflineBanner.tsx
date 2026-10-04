@@ -11,6 +11,7 @@ export default function OfflineBanner() {
     const onOffline = () => setOffline(true)
     const onOnline = () => setOffline(false)
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- se lee del navegador después de montar, para no romper la hidratación
     setOffline(!navigator.onLine)
     window.addEventListener('offline', onOffline)
     window.addEventListener('online', onOnline)
