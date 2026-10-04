@@ -1,12 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createClient } from '@supabase/supabase-js'
+import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 import type { Profile } from '@/types/profile'
 import { getSessionUser, checkRateLimit } from '@/lib/apiGuard'
 
-const supabaseAdmin = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-)
+// Cliente con la clave de servicio, creado solo al usarse (no al cargar el módulo),
+// para que la revisión de sesión/token ocurra antes y el build no dependa de la clave.
+let _supabaseAdmin: SupabaseClient | null = null
+function getAdmin() {
+  if (!_supabaseAdmin) {
+    _supabaseAdmin = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!)
+  }
+  return _supabaseAdmin
+}
 
 // Diagnóstico de viaje corto y sin afirmaciones no verificadas (sin hoteles, sin plazos concretos).
 // Se arma con reglas a partir del perfil; no usa IA ni gasta saldo de Anthropic.
@@ -82,7 +87,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'destination, startDate and endDate required' }, { status: 400 })
     }
 
-    const { data: profileData } = await supabaseAdmin
+    const { data: profileData } = await getAdmin()
       .from('profiles')
       .select('*')
       .eq('id', user.id)

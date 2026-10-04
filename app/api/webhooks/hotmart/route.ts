@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createClient } from '@supabase/supabase-js'
+import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 
 const HOTMART_HOTTOK = process.env.HOTMART_HOTTOK
 
@@ -8,10 +8,15 @@ if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
   console.warn('[hotmart] SUPABASE_SERVICE_ROLE_KEY not set — subscription updates will fail')
 }
 
-const supabaseAdmin = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-)
+// Cliente con la clave de servicio, creado solo al usarse (no al cargar el módulo),
+// para que la revisión de sesión/token ocurra antes y el build no dependa de la clave.
+let _supabaseAdmin: SupabaseClient | null = null
+function getAdmin() {
+  if (!_supabaseAdmin) {
+    _supabaseAdmin = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!)
+  }
+  return _supabaseAdmin
+}
 
 // Offer codes from the Hotmart product (Q107023060D)
 const OFFER_PLAN: Record<string, PlanType> = {
@@ -108,7 +113,7 @@ async function handlePurchase(data: HotmartData, status: SubscriptionStatus) {
   if (!userId) {
     // Buyer paid before creating an app account. Store the entitlement so it is
     // granted automatically the moment they sign up with this email.
-    await supabaseAdmin
+    await getAdmin()
       .from('pending_entitlements')
       .upsert(
         {
@@ -126,7 +131,7 @@ async function handlePurchase(data: HotmartData, status: SubscriptionStatus) {
     return
   }
 
-  await supabaseAdmin
+  await getAdmin()
     .from('profiles')
     .update({
       subscription_status: status,
@@ -149,7 +154,7 @@ async function handleStatusChange(email: string | undefined, status: Subscriptio
   if (!userId) {
     // Not signed up yet — reflect the change on the pending entitlement so a
     // refunded/cancelled buyer never gets access on later signup.
-    await supabaseAdmin
+    await getAdmin()
       .from('pending_entitlements')
       .update({ subscription_status: status })
       .eq('email', email)
@@ -157,12 +162,12 @@ async function handleStatusChange(email: string | undefined, status: Subscriptio
     return
   }
 
-  await supabaseAdmin
+  await getAdmin()
     .from('profiles')
     .update({ subscription_status: status, updated_at: new Date().toISOString() })
     .eq('id', userId)
 
-  await supabaseAdmin
+  await getAdmin()
     .from('memberships')
     .update({ status: status, updated_at: new Date().toISOString() })
     .eq('user_id', userId)
@@ -191,7 +196,7 @@ function detectPlan(data: HotmartData): PlanType {
 // Look up the user by email via the profiles table (email is stored there on
 // signup). More reliable than paginating auth.admin.listUsers().
 async function getUserIdByEmail(email: string): Promise<string | null> {
-  const { data } = await supabaseAdmin
+  const { data } = await getAdmin()
     .from('profiles')
     .select('id')
     .eq('email', email)
@@ -205,14 +210,14 @@ async function upsertMembership(
   status: string,
   purchaseId: string | null
 ) {
-  const { data: existing } = await supabaseAdmin
+  const { data: existing } = await getAdmin()
     .from('memberships')
     .select('id')
     .eq('user_id', userId)
     .maybeSingle()
 
   if (existing) {
-    await supabaseAdmin
+    await getAdmin()
       .from('memberships')
       .update({
         plan_type: plan,
@@ -222,7 +227,7 @@ async function upsertMembership(
       })
       .eq('id', existing.id)
   } else {
-    await supabaseAdmin.from('memberships').insert({
+    await getAdmin().from('memberships').insert({
       user_id: userId,
       plan_type: plan,
       status,
