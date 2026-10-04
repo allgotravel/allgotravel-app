@@ -37,12 +37,10 @@ export async function checkSubscription() {
     .from('profiles')
     .select('subscription_status')
     .eq('id', user.id)
-    .single()
+    .maybeSingle()
 
-  // If column doesn't exist yet, allow access
-  const isSubscribed = !profile || profile.subscription_status === undefined
-    ? true
-    : profile.subscription_status === 'active'
+  // Sin perfil (o sin estado) NO es miembro: solo cuenta una suscripción activa.
+  const isSubscribed = profile?.subscription_status === 'active'
 
   return { user, isSubscribed }
 }

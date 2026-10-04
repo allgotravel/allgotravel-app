@@ -2,6 +2,7 @@ import Anthropic from '@anthropic-ai/sdk'
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import type { Profile } from '@/types/profile'
+import { getSessionUser, checkRateLimit } from '@/lib/apiGuard'
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
@@ -95,20 +96,34 @@ Format: use clear headings (##), dash lists, and **bold** critical accessibility
 
 export async function POST(req: NextRequest) {
   try {
-    const { userId, destination, startDate, endDate, tripType, locale = 'es' } = await req.json()
+    // Solo con sesión. El usuario sale SIEMPRE de la sesión del servidor, nunca del body.
+    const user = await getSessionUser()
+    if (!user) {
+      return NextResponse.json({ error: 'auth_required' }, { status: 401 })
+    }
+
+    const { destination, startDate, endDate, tripType, locale = 'es' } = await req.json()
 
     if (!destination || !startDate || !endDate) {
       return NextResponse.json({ error: 'destination, startDate and endDate required' }, { status: 400 })
     }
 
-    let profile: Profile | null = null
-    if (userId) {
-      const { data } = await supabaseAdmin
-        .from('profiles')
-        .select('*')
-        .eq('id', userId)
-        .single()
-      profile = data
+    const { data: profileData } = await supabaseAdmin
+      .from('profiles')
+      .select('*')
+      .eq('id', user.id)
+      .maybeSingle()
+    const profile: Profile | null = profileData
+
+    // Función de miembros (igual que la página). Sin perfil o sin suscripción activa = no miembro.
+    const isDev = process.env.NODE_ENV === 'development'
+    if (!isDev && (profile as { subscription_status?: string } | null)?.subscription_status !== 'active') {
+      return NextResponse.json({ error: 'membership_required' }, { status: 403 })
+    }
+
+    // Límite por persona: 5 al día.
+    if (!(await checkRateLimit(user.id, 'planificador', 5, 24 * 60 * 60 * 1000))) {
+      return NextResponse.json({ error: 'rate_limited' }, { status: 429 })
     }
 
     const prompt = buildPlanPrompt(profile, destination, startDate, endDate, tripType, locale)

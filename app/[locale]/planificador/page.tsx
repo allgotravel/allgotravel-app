@@ -61,7 +61,7 @@ export default async function PlanificadorPage() {
         </div>
         <LanguageSwitcher />
       </div>
-      <TripPlannerForm profile={safeProfile} userId={user.id} />
+      <TripPlannerForm profile={safeProfile} />
     </main>
   )
 }

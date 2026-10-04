@@ -21,6 +21,25 @@ const OFFER_PLAN: Record<string, PlanType> = {
   '2nx7unav': 'annual', // Anual $290/yr
 }
 
+// Optional: numeric Hotmart product IDs of the membership product, comma-separated
+// (Vercel env HOTMART_MEMBERSHIP_PRODUCT_IDS). Guides (Perro, Turismo, Pack) must never
+// grant or remove membership, so anything that is not the membership is ignored.
+const MEMBERSHIP_PRODUCT_IDS = (process.env.HOTMART_MEMBERSHIP_PRODUCT_IDS ?? '')
+  .split(',')
+  .map(x => x.trim())
+  .filter(Boolean)
+
+function offerCode(data: HotmartData): string | undefined {
+  return data.purchase?.offer?.code ?? data.subscription?.plan?.offer?.code
+}
+
+function isMembershipPurchase(data: HotmartData): boolean {
+  const code = offerCode(data)
+  if (code && OFFER_PLAN[code]) return true
+  const pid = data.product?.id
+  return pid !== undefined && MEMBERSHIP_PRODUCT_IDS.includes(String(pid))
+}
+
 export async function POST(req: NextRequest) {
   // Hotmart sends the token either as a header or in the body ("hottok")
   const headerTok = req.headers.get('x-hotmart-hottok')
@@ -32,12 +51,19 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
   }
 
+  // Sin HOTMART_HOTTOK configurado no se acepta nada; con él, el token debe coincidir.
   const tok = headerTok ?? body.hottok
-  if (HOTMART_HOTTOK && tok !== HOTMART_HOTTOK) {
+  if (!HOTMART_HOTTOK || !tok || tok !== HOTMART_HOTTOK) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
   const { event, data } = body
+
+  // Solo el producto de membresía toca el acceso. Compras de guías se registran y se ignoran.
+  if (!data || !isMembershipPurchase(data)) {
+    console.log(`[hotmart] Ignored ${event}: not the membership product (offer=${data ? offerCode(data) ?? '-' : '-'}, product=${data?.product?.id ?? '-'})`)
+    return NextResponse.json({ received: true, ignored: true })
+  }
 
   switch (event) {
     case 'PURCHASE_APPROVED':
@@ -153,8 +179,8 @@ function buyerEmail(data: HotmartData): string | undefined {
 }
 
 function detectPlan(data: HotmartData): PlanType {
-  const offerCode = data.purchase?.offer?.code ?? data.subscription?.plan?.offer?.code
-  if (offerCode && OFFER_PLAN[offerCode]) return OFFER_PLAN[offerCode]
+  const code = offerCode(data)
+  if (code && OFFER_PLAN[code]) return OFFER_PLAN[code]
 
   const name = `${data.subscription?.plan?.name ?? ''} ${data.product?.name ?? ''}`
   if (/found/i.test(name)) return 'founding'

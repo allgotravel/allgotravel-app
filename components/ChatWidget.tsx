@@ -192,7 +192,6 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
         body: JSON.stringify({
           messages: nextMessages.map(({ role, content }) => ({ role, content })),
           conversationId,
-          userId,
           locale,
         }),
       })

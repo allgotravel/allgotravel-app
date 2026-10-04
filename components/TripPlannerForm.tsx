@@ -7,7 +7,6 @@ import { DISABILITY_ICONS } from '@/types/profile'
 
 interface Props {
   profile: Profile
-  userId: string
 }
 
 function renderMarkdown(text: string) {
@@ -47,7 +46,7 @@ const TRIP_TYPES = {
   ciudad: { es: 'Turismo urbano', en: 'City break', icon: '🏙️' },
 }
 
-export default function TripPlannerForm({ profile, userId }: Props) {
+export default function TripPlannerForm({ profile }: Props) {
   const t = useTranslations('planner')
   const tD = useTranslations('disabilities')
   const locale = useLocale()
@@ -72,7 +71,7 @@ export default function TripPlannerForm({ profile, userId }: Props) {
       const res = await fetch('/api/planificador', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId, destination, startDate, endDate, tripType, locale }),
+        body: JSON.stringify({ destination, startDate, endDate, tripType, locale }),
       })
 
       if (!res.ok) throw new Error('Error generating plan')
