@@ -25,7 +25,7 @@ export default async function PlanificadorPage() {
   if (!user) redirect(`/${locale}/login`)
 
   // Función premium — solo miembros
-  await requireMember(locale)
+  await requireMember(locale, 'movilidad')
 
   const supabase = await createSupabaseServer()
   const { data: profile } = await supabase

@@ -24,7 +24,7 @@ export default async function DestinosPage() {
   if (!user) redirect(`/${locale}/login`)
 
   // Función premium — solo miembros
-  await requireMember(locale)
+  await requireMember(locale, 'movilidad')
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 py-10 px-4">

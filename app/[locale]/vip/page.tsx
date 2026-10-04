@@ -68,9 +68,9 @@ const CSS = `
 
 export default async function VipPage() {
   const locale = await getLocale()
-  // VIP aparcado (1-sep-2026): servicio done-for-you no ofrecido por ahora. Redirige al Club.
-  redirect(`/${locale}/membresia`)
-  await requireMember(locale)
+  // VIP aparcado (1-sep-2026): servicio done-for-you no ofrecido por ahora. Lleva a las guías.
+  redirect(`/${locale}/paywall?tema=movilidad`)
+  await requireMember(locale, 'movilidad')
   const en = locale === 'en'
   const INCLUDED = getIncluded(en)
 

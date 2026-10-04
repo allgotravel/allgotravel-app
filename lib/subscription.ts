@@ -14,12 +14,13 @@ export async function isMember(): Promise<boolean> {
   return isSubscribed
 }
 
-// Guard para páginas premium: si no hay sesión → login; si no es miembro → página de membresía.
-export async function requireMember(locale: string) {
+// Guard para páginas premium: si no hay sesión → login; si no es miembro → panel con las guías
+// y el Pack (no el Club). `tema` decide qué guía se muestra primero.
+export async function requireMember(locale: string, tema: 'perro' | 'movilidad' = 'perro') {
   if (isDevBypass()) return
   const { user, isSubscribed } = await checkSubscription()
   if (!user) redirect(`/${locale}/login`)
-  if (!isSubscribed) redirect(`/${locale}/membresia`)
+  if (!isSubscribed) redirect(`/${locale}/paywall?tema=${tema}`)
 }
 
 export async function checkSubscription() {

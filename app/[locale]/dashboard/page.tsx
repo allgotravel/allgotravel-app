@@ -94,6 +94,7 @@ function QuickAccessCards({ member }: { member: boolean }) {
       desc: en ? 'Requirements, forms, checklist and alerts' : 'Requisitos, formularios, checklist y alertas',
       bg: 'bg-[#0E4E85]',
       premium: true,
+      tema: 'perro',
     },
     {
       href: '/planificador',
@@ -102,6 +103,7 @@ function QuickAccessCards({ member }: { member: boolean }) {
       desc: t('cardPlannerDesc'),
       bg: 'bg-[#1B6FB5]',
       premium: true,
+      tema: 'movilidad',
     },
     {
       href: '/destinos',
@@ -110,6 +112,7 @@ function QuickAccessCards({ member }: { member: boolean }) {
       desc: t('cardDestinationsDesc'),
       bg: 'bg-[#0D9488]',
       premium: true,
+      tema: 'movilidad',
     },
     {
       href: '/tarjeta-medica',
@@ -142,6 +145,7 @@ function QuickAccessCards({ member }: { member: boolean }) {
       desc: t('cardDocumentsDesc'),
       bg: 'bg-indigo-600',
       premium: true,
+      tema: 'perro',
     },
   ]
 
@@ -154,19 +158,19 @@ function QuickAccessCards({ member }: { member: boolean }) {
           return (
             <Link
               key={card.href}
-              href={(locked ? '/membresia' : card.href) as '/planificador'}
+              href={(locked ? `/paywall?tema=${card.tema ?? 'perro'}` : card.href) as '/planificador'}
               style={{ animationDelay: `${i * 90}ms` }}
               className={`allgo-pop allgo-tap group relative ${card.bg} text-white rounded-2xl p-5 flex flex-col gap-2 shadow ${locked ? 'opacity-90' : ''}`}
             >
               {locked && (
                 <span className="absolute top-2 right-2 text-[10px] font-bold bg-white/95 text-gray-800 rounded-full px-2 py-0.5 flex items-center gap-1">
-                  🔒 {en ? 'Members' : 'Miembros'}
+                  🔒 {en ? 'Full prep' : 'Completo'}
                 </span>
               )}
               <span className="text-3xl allgo-float inline-block group-hover:scale-110 transition-transform duration-200" style={{ animationDelay: `${i * 250}ms` }}>{card.icon}</span>
               <span className="font-semibold text-sm leading-tight">{card.title}</span>
               <span className="text-xs opacity-80 leading-tight">
-                {locked ? (en ? 'Become a member to unlock →' : 'Hazte miembro para desbloquear →') : card.desc}
+                {locked ? (en ? 'Part of your complete preparation →' : 'Parte de tu preparación completa →') : card.desc}
               </span>
             </Link>
           )

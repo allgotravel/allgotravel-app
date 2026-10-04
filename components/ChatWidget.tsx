@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
+import PrepUpsell from '@/components/PrepUpsell'
 
 function renderMarkdown(text: string) {
   const lines = text.split('\n')
@@ -72,19 +73,20 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
   const [conversationId, setConversationId] = useState<string | undefined>()
   const [isListening, setIsListening] = useState(false)
   const [micHint, setMicHint] = useState(false)
-  const [ttsSupported, setTtsSupported] = useState(false)
+  const [ttsSupported] = useState(() => typeof window !== 'undefined' && 'speechSynthesis' in window)
   const [speakingIndex, setSpeakingIndex] = useState<number | null>(null)
+  // Bloqueo: sin membresía se muestra el panel con las guías y el Pack (no el Club).
+  const [gate, setGate] = useState(false)
   const bottomRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLTextAreaElement>(null)
   const recognitionRef = useRef<SpeechRecognitionInstance | null>(null)
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-      setTtsSupported(true)
+    if (ttsSupported) {
       // Precargar las voces (iOS/Chrome las cargan async)
       window.speechSynthesis.getVoices()
     }
-  }, [])
+  }, [ttsSupported])
 
   function pickBestVoice(lang: string): SpeechSynthesisVoice | null {
     const voices = window.speechSynthesis.getVoices()
@@ -123,7 +125,7 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
     if (window.speechSynthesis.getVoices().length > 0) {
       assignVoice()
     } else {
-      window.speechSynthesis.onvoiceschanged = assignVoice
+      window.speechSynthesis.addEventListener('voiceschanged', assignVoice, { once: true })
     }
     utterance.onstart = () => setSpeakingIndex(index)
     utterance.onend = () => setSpeakingIndex(null)
@@ -175,6 +177,17 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
     const text = input.trim()
     if (!text || loading) return
 
+    // Sin sesión no se llama a la API: Alli solo responde a cuentas con sesión.
+    if (!userId) {
+      setMessages(prev => [
+        ...prev,
+        { role: 'user', content: text, ts: new Date().toISOString() },
+        { role: 'assistant', content: en ? 'Log in to talk to Alli, your AI assistant.' : 'Inicia sesión para hablar con Alli, tu asistente con IA.', ts: new Date().toISOString() },
+      ])
+      setInput('')
+      return
+    }
+
     const userMsg: Message = { role: 'user', content: text, ts: new Date().toISOString() }
     const nextMessages = [...messages, userMsg]
     setMessages(nextMessages)
@@ -196,6 +209,21 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
         }),
       })
 
+      if (res.status === 401 || res.status === 403 || res.status === 429) {
+        const note =
+          res.status === 401
+            ? (en ? 'Log in to talk to Alli, your AI assistant.' : 'Inicia sesión para hablar con Alli, tu asistente con IA.')
+            : res.status === 429
+              ? (en ? "You've reached the question limit for now. Please try again in a while." : 'Llegaste al límite de preguntas por ahora. Intenta de nuevo en un rato.')
+              : (en ? 'Detailed answers are part of your complete preparation:' : 'Las respuestas detalladas son parte de tu preparación completa:')
+        if (res.status === 403) setGate(true)
+        setMessages(prev => {
+          const updated = [...prev]
+          updated[updated.length - 1] = { role: 'assistant', content: note, ts: placeholder.ts }
+          return updated
+        })
+        return
+      }
       if (!res.ok || !res.body) throw new Error('Request failed')
 
       const newConvId = res.headers.get('X-Conversation-Id')
@@ -311,6 +339,7 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
                 </div>
               </div>
             ))}
+            {gate && <PrepUpsell en={en} tema="perro" />}
             <div ref={bottomRef} />
           </div>
 
