@@ -4,6 +4,7 @@ import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 import { MODEL, STATIC_SYSTEM, buildUserContext, runAlli, type AlliUsage, type ContextDoc, type ContextProfile } from '@/lib/alli'
 import { getSessionUser, checkRateLimitWithId, recordUsageDetails } from '@/lib/apiGuard'
 import { createSupabaseServer } from '@/lib/supabase-server'
+import { ALLI_FREE_ACCESS, ALLI_MONTHLY_CAP_USD, monthWindow, monthlySpendUSD, type SpendTier } from '@/lib/alliSpend'
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
@@ -46,10 +47,20 @@ export async function POST(req: NextRequest) {
       .maybeSingle()
     const profile = profileData as (ContextProfile & { subscription_status?: string }) | null
 
-    // Alli es una función de miembros. Sin perfil o sin suscripción activa = no miembro.
+    // Acceso de pago: hoy solo se reconoce por subscription_status = 'active'.
     const isDev = process.env.NODE_ENV === 'development'
-    if (!isDev && profile?.subscription_status !== 'active') {
+    const tier: SpendTier = profile?.subscription_status === 'active' ? 'paid' : 'free'
+    if (!ALLI_FREE_ACCESS && !isDev && tier === 'free') {
       return NextResponse.json({ error: 'membership_required' }, { status: 403 })
+    }
+
+    // Tope de gasto de IA del mes (estimado con los tokens registrados en api_usage).
+    const spent = await monthlySpendUSD(userId, 'chat')
+    if (spent !== null && spent >= ALLI_MONTHLY_CAP_USD[tier]) {
+      return NextResponse.json(
+        { error: 'monthly_cap', tier, resets_at: monthWindow().next.toISOString() },
+        { status: 429 },
+      )
     }
 
     // Límite por persona: 30 preguntas por hora. Cada pregunta queda registrada en api_usage.

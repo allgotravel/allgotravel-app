@@ -248,13 +248,26 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
       })
 
       if (res.status === 401 || res.status === 403 || res.status === 429) {
-        const note =
-          res.status === 401
-            ? (en ? 'Log in to talk to Alli, your AI assistant.' : 'Inicia sesión para hablar con Alli, tu asistente con IA.')
-            : res.status === 429
-              ? (en ? "You've reached the question limit for now. Please try again in a while." : 'Llegaste al límite de preguntas por ahora. Intenta de nuevo en un rato.')
-              : (en ? 'Detailed answers are part of your complete preparation:' : 'Las respuestas detalladas son parte de tu preparación completa:')
-        if (res.status === 403) setGate(true)
+        const body = (await res.json().catch(() => ({}))) as { error?: string; tier?: string; resets_at?: string }
+        let note: string
+        if (res.status === 401) {
+          note = en ? 'Log in to talk to Alli, your AI assistant.' : 'Inicia sesión para hablar con Alli, tu asistente con IA.'
+        } else if (body.error === 'monthly_cap') {
+          // Tope de gasto del mes: se renueva el día 1. Sin acceso de pago, se muestran las guías y el Pack.
+          const resets = body.resets_at
+            ? new Date(body.resets_at).toLocaleDateString(en ? 'en-US' : 'es', { day: 'numeric', month: 'long', timeZone: 'UTC' })
+            : ''
+          const free = body.tier !== 'paid'
+          note = en
+            ? `You've reached Alli's limit for this month.${resets ? ` It renews on ${resets}.` : ''}${free ? ' In the meantime, everything you need for your trip is in the guides:' : ''}`
+            : `Llegaste al límite de Alli de este mes.${resets ? ` Se renueva el ${resets}.` : ''}${free ? ' Mientras tanto, todo lo que necesitas para tu viaje está en las guías:' : ''}`
+          if (free) setGate(true)
+        } else if (res.status === 429) {
+          note = en ? "You've reached the question limit for now. Please try again in a while." : 'Llegaste al límite de preguntas por ahora. Intenta de nuevo en un rato.'
+        } else {
+          note = en ? 'Detailed answers are part of your complete preparation:' : 'Las respuestas detalladas son parte de tu preparación completa:'
+          setGate(true)
+        }
         setMessages(prev => {
           const updated = [...prev]
           updated[updated.length - 1] = { role: 'assistant', content: note, ts: placeholder.ts }
