@@ -99,13 +99,14 @@
   },
   "chat": {
     "title": "Alli 🌍",
-    "subtitle": "Your accessible travel assistant",
+    "subtitle": "Your AI assistant",
     "open": "Open chat",
     "close": "Close chat",
     "placeholder": "How can I help you?",
     "send": "Send",
-    "empty": "Hi there! I'm Alli, your accessible travel assistant 🌍 How can I help you today?",
-    "error": "Something went wrong. Please try again."
+    "empty": "Hi! I'm Alli, your AI assistant from AllGo Travel App 🌍 How can I help you prepare your trip?",
+    "error": "Something went wrong. Please try again.",
+    "disclaimer": "I’m an AI. Always verify with your airline or an official source."
   },
   "destinations": {
     "title": "Accessible destinations",

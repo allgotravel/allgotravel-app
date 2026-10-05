@@ -40,6 +40,19 @@ function memoryHit(key: string, limit: number, windowMs: number): boolean {
 
 /** Returns true if the request is allowed, false if the user went over the limit. */
 export async function checkRateLimit(userId: string, endpoint: string, limit: number, windowMs: number): Promise<boolean> {
+  return (await checkRateLimitWithId(userId, endpoint, limit, windowMs)).allowed
+}
+
+/**
+ * Same as checkRateLimit, but also returns the id of the api_usage row it logged
+ * (null when the in-memory fallback was used), so the caller can add token counts later.
+ */
+export async function checkRateLimitWithId(
+  userId: string,
+  endpoint: string,
+  limit: number,
+  windowMs: number,
+): Promise<{ allowed: boolean; usageId: number | null }> {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
   if (url && serviceKey) {
@@ -53,13 +66,37 @@ export async function checkRateLimit(userId: string, endpoint: string, limit: nu
         .eq('endpoint', endpoint)
         .gte('created_at', since)
       if (!error) {
-        if ((count ?? 0) >= limit) return false
-        await admin.from('api_usage').insert({ user_id: userId, endpoint })
-        return true
+        if ((count ?? 0) >= limit) return { allowed: false, usageId: null }
+        const { data: row } = await admin.from('api_usage').insert({ user_id: userId, endpoint }).select('id').single()
+        return { allowed: true, usageId: (row as { id: number } | null)?.id ?? null }
       }
     } catch {
       // fall through to the in-memory limiter
     }
   }
-  return memoryHit(`${endpoint}:${userId}`, limit, windowMs)
+  return { allowed: memoryHit(`${endpoint}:${userId}`, limit, windowMs), usageId: null }
+}
+
+export interface UsageDetails {
+  model: string
+  input_tokens: number
+  output_tokens: number
+  cache_read_tokens: number
+  status: 'ok' | 'error'
+}
+
+/**
+ * Adds model, tokens and status to an api_usage row. Best-effort: until the migration
+ * *_api_usage_tokens.sql is applied the columns don't exist and this silently does nothing.
+ */
+export async function recordUsageDetails(usageId: number | null, details: UsageDetails): Promise<void> {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+  if (!usageId || !url || !serviceKey) return
+  try {
+    const { error } = await createClient(url, serviceKey).from('api_usage').update(details).eq('id', usageId)
+    if (error) console.warn('[api_usage details]', error.message)
+  } catch {
+    // ignore
+  }
 }

@@ -51,7 +51,7 @@ interface SpeechRecognitionInstance {
   maxAlternatives: number
   onstart: (() => void) | null
   onend: (() => void) | null
-  onerror: (() => void) | null
+  onerror: ((e: { error?: string }) => void) | null
   onresult: ((e: { results: { [k: number]: { [k: number]: { transcript: string } } } }) => void) | null
   start(): void
   stop(): void
@@ -72,7 +72,7 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
   const [loading, setLoading] = useState(false)
   const [conversationId, setConversationId] = useState<string | undefined>()
   const [isListening, setIsListening] = useState(false)
-  const [micHint, setMicHint] = useState(false)
+  const [micHint, setMicHint] = useState<'' | 'keyboard' | 'denied'>('')
   const [ttsSupported] = useState(() => typeof window !== 'undefined' && 'speechSynthesis' in window)
   const [speakingIndex, setSpeakingIndex] = useState<number | null>(null)
   // Bloqueo: sin membresía se muestra el panel con las guías y el Pack (no el Club).
@@ -88,14 +88,27 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
     }
   }, [ttsSupported])
 
+  // Idioma para dictado y lectura: español de EE.UU./Latinoamérica (es-US) salvo que el
+  // navegador esté en español de España (es-ES). En inglés, en-US.
+  function speechLang(): string {
+    if (en) return 'en-US'
+    const nav = (typeof navigator !== 'undefined' ? navigator.language : '') || ''
+    return nav.toLowerCase() === 'es-es' ? 'es-ES' : 'es-US'
+  }
+
   function pickBestVoice(lang: string): SpeechSynthesisVoice | null {
     const voices = window.speechSynthesis.getVoices()
-    // Priority: exact lang female → any lang female → any lang voice
-    const langLower = lang.toLowerCase()
-    const candidates = voices.filter(v => v.lang.toLowerCase().startsWith(langLower.slice(0, 2)))
-    const femaleKeywords = ['female', 'woman', 'mujer', 'femenina', 'paulina', 'monica', 'jorge', 'lupe', 'paloma', 'sabina', 'conchita', 'valentina']
-    const female = candidates.find(v => femaleKeywords.some(k => v.name.toLowerCase().includes(k)))
-    return female ?? candidates[0] ?? voices[0] ?? null
+    const norm = (l: string) => l.toLowerCase().replace('_', '-')
+    const want = norm(lang)
+    const prefix = want.slice(0, 2)
+    // Misma variante (es-US) → cualquier español latino (es-MX, es-419…) → cualquier español.
+    // Si no hay voz en ese idioma, null: el navegador elige según utterance.lang.
+    return (
+      voices.find(v => norm(v.lang) === want) ??
+      (prefix === 'es' ? voices.find(v => /^es-(mx|419|us|co|ar|cl|pe)/.test(norm(v.lang))) : undefined) ??
+      voices.find(v => norm(v.lang).startsWith(prefix)) ??
+      null
+    )
   }
 
   function speakText(text: string, index: number) {
@@ -106,16 +119,18 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
       return
     }
     window.speechSynthesis.cancel()
-    // Strip markdown symbols for cleaner speech
+    // Sin símbolos de formato ni emojis, para que la lectura suene natural
     const clean = text
       .replace(/\*\*(.*?)\*\*/g, '$1')
       .replace(/\*(.*?)\*/g, '$1')
       .replace(/#{1,3} /g, '')
-      .replace(/- /g, '')
+      .replace(/^\s*[-*] /gm, '')
+      .replace(/https?:\/\/\S+/g, '')
+      .replace(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}]/gu, '')
     const utterance = new SpeechSynthesisUtterance(clean)
-    utterance.lang = locale === 'en' ? 'en-US' : 'es-ES'
-    utterance.rate = 0.9
-    utterance.pitch = 1.08
+    utterance.lang = speechLang()
+    utterance.rate = 0.95
+    utterance.pitch = 1
     utterance.volume = 1
     // Wait for voices to load (Chrome needs this)
     const assignVoice = () => {
@@ -140,6 +155,14 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
     }
   }, [open, messages])
 
+  // Al cerrar el chat se detienen la lectura y el micrófono.
+  useEffect(() => {
+    if (!open) {
+      if (ttsSupported) window.speechSynthesis.cancel()
+      recognitionRef.current?.stop()
+    }
+  }, [open, ttsSupported])
+
   function toggleListening() {
     if (isListening) {
       recognitionRef.current?.stop()
@@ -151,26 +174,38 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
     if (!SR) {
       // iPhone y navegadores sin reconocimiento: guiar al dictado del teclado (siempre funciona)
       inputRef.current?.focus()
-      setMicHint(true)
-      setTimeout(() => setMicHint(false), 7000)
+      setMicHint('keyboard')
+      setTimeout(() => setMicHint(''), 7000)
       return
     }
 
     const recognition = new SR()
-    recognition.lang = navigator.language.startsWith('en') ? 'en-US' : 'es-ES'
+    recognition.lang = speechLang()
     recognition.interimResults = false
     recognition.maxAlternatives = 1
 
     recognition.onstart = () => setIsListening(true)
     recognition.onend = () => setIsListening(false)
-    recognition.onerror = () => setIsListening(false)
+    recognition.onerror = (e) => {
+      setIsListening(false)
+      // Sin permiso de micrófono o servicio no disponible: ofrecer el dictado del teclado.
+      if (e?.error === 'not-allowed' || e?.error === 'service-not-allowed' || e?.error === 'audio-capture') {
+        inputRef.current?.focus()
+        setMicHint('denied')
+        setTimeout(() => setMicHint(''), 7000)
+      }
+    }
     recognition.onresult = (e) => {
       const transcript = e.results[0][0].transcript
       setInput(prev => prev ? `${prev} ${transcript}` : transcript)
     }
 
     recognitionRef.current = recognition
-    recognition.start()
+    try {
+      recognition.start()
+    } catch {
+      setIsListening(false)
+    }
   }
 
   async function sendMessage() {
@@ -295,7 +330,7 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
           </div>
 
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-3 max-h-[400px] bg-gray-50">
+          <div className="flex-1 overflow-y-auto p-4 space-y-3 max-h-[400px] bg-gray-50" aria-live="polite" aria-busy={loading}>
             {messages.length === 0 && (
               <p className="text-sm text-gray-400 text-center pt-8">{t('empty')}</p>
             )}
@@ -325,15 +360,18 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
                   {/* TTS button — only on completed Alli messages */}
                   {ttsSupported && msg.role === 'assistant' && msg.content && !(loading && i === messages.length - 1) && (
                     <button
+                      type="button"
                       onClick={() => speakText(msg.content, i)}
-                      title={speakingIndex === i ? (en ? 'Stop voice' : 'Detener voz') : (en ? 'Listen to response' : 'Escuchar respuesta')}
-                      className={`flex items-center gap-1 text-xs px-2 py-0.5 rounded-full transition-all duration-200 ${
+                      aria-label={speakingIndex === i ? (en ? 'Stop reading the answer aloud' : 'Detener la lectura de la respuesta') : (en ? 'Read this answer aloud' : 'Escuchar esta respuesta en voz alta')}
+                      aria-pressed={speakingIndex === i}
+                      className={`flex min-h-[44px] items-center gap-1.5 rounded-full px-3 text-sm font-medium transition-all duration-200 ${
                         speakingIndex === i
-                          ? 'bg-blue-100 text-blue-700 border border-blue-300 animate-pulse'
-                          : 'text-gray-400 hover:text-blue-600 hover:bg-blue-50 border border-transparent'
+                          ? 'bg-blue-100 text-blue-700 border border-blue-300'
+                          : 'text-gray-600 hover:text-blue-700 hover:bg-blue-50 border border-gray-200 bg-white'
                       }`}
                     >
-                      {speakingIndex === i ? (en ? '🔊 Playing...' : '🔊 Reproduciendo...') : (en ? '🔈 Listen' : '🔈 Escuchar')}
+                      <span aria-hidden="true">{speakingIndex === i ? '⏹' : '🔊'}</span>
+                      {speakingIndex === i ? (en ? 'Stop' : 'Detener') : (en ? 'Listen' : 'Escuchar')}
                     </button>
                   )}
                 </div>
@@ -343,13 +381,22 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
             <div ref={bottomRef} />
           </div>
 
+          {/* Aviso: Alli es una IA */}
+          <p className="border-t border-gray-200 bg-amber-50 px-4 py-1.5 text-center text-[11px] leading-snug text-amber-800">
+            {t('disclaimer')}
+          </p>
+
           {/* Input */}
           <div className="relative p-3 border-t border-gray-200 bg-white flex gap-2 items-end">
             {micHint && (
-              <div className="absolute -top-2 left-3 right-3 -translate-y-full bg-gray-900 text-white text-xs rounded-xl px-3 py-2 shadow-lg">
-                {en
-                  ? 'On iPhone: tap the 🎤 on your keyboard to talk to Alli.'
-                  : 'En iPhone: toca el 🎤 de tu teclado para hablarle a Alli.'}
+              <div role="status" className="absolute -top-2 left-3 right-3 -translate-y-full bg-gray-900 text-white text-xs rounded-xl px-3 py-2 shadow-lg">
+                {micHint === 'denied'
+                  ? (en
+                    ? "I can't use the microphone here. Allow it in your browser, or tap the 🎤 on your keyboard."
+                    : 'No puedo usar el micrófono aquí. Permítelo en tu navegador o toca el 🎤 de tu teclado.')
+                  : (en
+                    ? 'Voice dictation isn\'t available in this browser. Tap the 🎤 on your keyboard to talk to Alli.'
+                    : 'El dictado por voz no está disponible en este navegador. Toca el 🎤 de tu teclado para hablarle a Alli.')}
               </div>
             )}
             <textarea
@@ -358,29 +405,33 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
               onChange={e => setInput(e.target.value)}
               onKeyDown={handleKey}
               placeholder={t('placeholder')}
+              aria-label={t('placeholder')}
               rows={1}
               disabled={loading}
               className="flex-1 resize-none rounded-xl border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 max-h-28 overflow-y-auto"
               style={{ fieldSizing: 'content' } as React.CSSProperties}
             />
             <button
+              type="button"
               onClick={toggleListening}
               disabled={loading}
-              aria-label={isListening ? (en ? 'Stop recording' : 'Detener grabación') : (en ? 'Talk to Alli' : 'Hablarle a Alli')}
-              title={en ? 'Talk to Alli' : 'Hablarle a Alli'}
-              className={`shrink-0 w-10 h-10 rounded-xl text-white flex items-center justify-center disabled:opacity-40 transition ${
+              aria-label={isListening ? (en ? 'Stop dictation' : 'Detener el dictado') : (en ? 'Dictate your question by voice' : 'Dictar tu pregunta por voz')}
+              aria-pressed={isListening}
+              title={en ? 'Dictate by voice' : 'Dictar por voz'}
+              className={`shrink-0 w-11 h-11 rounded-xl text-white text-lg flex items-center justify-center disabled:opacity-40 transition ${
                 isListening
                   ? 'bg-red-500 hover:bg-red-600 animate-pulse'
                   : 'bg-blue-500 hover:bg-blue-600'
               }`}
             >
-              🎤
+              <span aria-hidden="true">{isListening ? '⏹' : '🎤'}</span>
             </button>
             <button
+              type="button"
               onClick={sendMessage}
               disabled={loading || !input.trim()}
               aria-label={t('send')}
-              className="shrink-0 w-10 h-10 rounded-xl bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center disabled:opacity-40 transition"
+              className="shrink-0 w-11 h-11 rounded-xl bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center disabled:opacity-40 transition"
             >
               ➤
             </button>

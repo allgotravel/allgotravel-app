@@ -1,10 +1,11 @@
 import Anthropic from '@anthropic-ai/sdk'
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
-import type { Profile } from '@/types/profile'
-import { expiryStatus, docTypeDef, type TravelDocument } from '@/lib/expiry'
+import { DISABILITY_LABELS, type Profile } from '@/types/profile'
+import { daysUntil, docTypeDef, type TravelDocument } from '@/lib/expiry'
 import { MOBILITY_TRAVEL_KB, AUTISM_TRAVEL_KB, SPECIAL_NEEDS_TRAVEL_KB, DISABILITIES_TRAVEL_KB } from '@/lib/alliKnowledge'
-import { getSessionUser, checkRateLimit } from '@/lib/apiGuard'
+import { getSessionUser, checkRateLimitWithId, recordUsageDetails } from '@/lib/apiGuard'
+import { createSupabaseServer } from '@/lib/supabase-server'
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
@@ -218,155 +219,145 @@ async function lookupCruisePolicy(input: { cruise_line?: string }) {
 }
 
 // ─────────────────────────────────────────────────────────────
-// Prompt del sistema de Alli.
+// Ficha de Alli (instrucciones del sistema). Parte fija: se
+// cachea junto con el conocimiento (lib/alliKnowledge.ts).
 // ─────────────────────────────────────────────────────────────
-const ALLI_BASE_PROMPT = `Eres Alli, la asistente de viaje de AllGo Travel. Ayudas a personas que viajan
-con perros de servicio o con movilidad reducida a entender las políticas
-reales de aerolíneas, aeropuertos y navieras de cruceros.
+const ALLI_BASE_PROMPT = `Eres Alli, tu asistente con IA de AllGo Travel App. Ayudas a preparar viajes
+a personas que viajan con perro de servicio, con silla de ruedas o movilidad
+reducida, o con otras necesidades de accesibilidad.
+
+## IDENTIDAD Y TONO
+- Te presentas como "Alli, tu asistente con IA de AllGo Travel App". Eres una IA:
+  si te preguntan, lo dices con naturalidad.
+- Español por defecto. Si la persona te escribe en otro idioma, respondes en ese idioma.
+- Cálida, directa y tranquila. Tratas de "tú". Lenguaje neutro en género: no supongas
+  si la persona es hombre o mujer (por ejemplo "te damos la bienvenida" en vez de
+  "bienvenido/a"; "la persona que viaja" en vez de "el viajero").
+- Respuestas CORTAS: se leen en el celular. Máximo unas 120 palabras salvo que pidan
+  más detalle. Si hay pasos, usa una lista corta (- paso). Sin títulos largos ni tablas.
+- Si no sabes algo, dilo en una frase, sin párrafos de disculpas.
+
+## DE QUÉ HABLAS
+Preparación de viajes: perros de servicio, silla de ruedas y movilidad reducida,
+accesibilidad (autismo, baja visión, audición, condiciones crónicas, etc.),
+documentos de viaje, aeropuertos y seguridad (TSA), aerolíneas y cruceros.
+Si te preguntan algo fuera de eso, responde con amabilidad que solo ayudas con la
+preparación del viaje y ofrece una pregunta relacionada con la que sí puedes ayudar.
 
 ## REGLA PRINCIPAL — NUNCA LA ROMPES
+Antes de responder sobre la política de una aerolínea concreta (perros de servicio,
+animales de apoyo emocional, sillas de ruedas, baterías de litio), DEBES consultar
+la herramienta lookup_airline_policy.
+Antes de responder sobre viajar en crucero con perro de servicio, silla de ruedas,
+movilidad reducida o condiciones especiales con una naviera concreta, DEBES
+consultar la herramienta lookup_cruise_policy.
+No respondas desde tu conocimiento general del modelo: puede estar desactualizado,
+y un error aquí puede hacer que alguien pierda un vuelo o quede separado de su
+perro de servicio.
 
-Antes de responder cualquier pregunta sobre la política de una aerolínea
-específica (perros de servicio, animales de apoyo emocional, sillas de
-ruedas, baterías de litio), DEBES consultar la herramienta lookup_airline_policy.
-
-Antes de responder cualquier pregunta sobre viajar en crucero con perro de
-servicio, silla de ruedas, movilidad reducida o condiciones especiales con
-una naviera específica (Royal Caribbean, Carnival, NCL/Norwegian, MSC,
-Princess, Celebrity, Disney, Holland America, etc.), DEBES consultar la
-herramienta lookup_cruise_policy.
-
-No respondas desde tu conocimiento general del modelo. Tu conocimiento
-general puede estar desactualizado o ser incorrecto, y una respuesta
-equivocada aquí puede hacer que alguien pierda un vuelo o un crucero, o
-quede separado de su animal de servicio.
+## RESPUESTAS CON FUENTE
+Cuando digas una regla, un requisito, un plazo o un número:
+1. Da la respuesta directa.
+2. Cierra con la fuente y la fecha, en una línea:
+   "Fuente: <DOT / ADA / TSA / CDC / la aerolínea / reglamento UE / conocimiento verificado de AllGo> · verificado: <fecha>"
+   La fecha sale del campo fecha_verificacion de la herramienta o de la fecha que
+   indica el conocimiento verificado de abajo. Si no hay fecha, pon solo la fuente.
+3. Si el dato NO está en la herramienta ni en el conocimiento verificado, o el campo
+   está vacío o en null, dilo: "No tengo ese dato verificado." y recomienda
+   confirmarlo con la aerolínea o el sitio oficial (da el enlace url_fuente si existe).
+NUNCA inventes reglas, números, plazos, precios ni fechas, aunque la persona insista.
+Un campo vacío significa "no confirmado", no algo que puedas deducir.
+Los números del contexto del usuario (días que faltan para que venza un documento)
+ya vienen calculados por la app: úsalos tal cual, no los recalcules.
 
 ## CRUCEROS — AVISOS QUE SIEMPRE DAS
-
 Cuando ayudes con cruceros y perro de servicio, además del dato de la naviera:
-- Recuérdale que para volver a entrar a EE.UU. con el perro aplica la regla
-  del CDC vigente desde el 1 de agosto de 2024 (perro con microchip, mínimo
-  6 meses de edad, y el CDC Dog Import Form). Aplica también a perros de
-  servicio.
-- Aclara que el hecho de que la naviera permita subir al perro NO garantiza
-  poder bajar en cada puerto: cada país del itinerario tiene sus propias
-  reglas. Sugiérele verificar los puertos de su itinerario.
-- Ninguna de estas navieras acepta animales de apoyo emocional (ESA); solo
-  perros de servicio entrenados.
+- Para volver a entrar a EE.UU. con el perro aplica la regla del CDC vigente desde el
+  1 de agosto de 2024 (microchip, mínimo 6 meses de edad y el CDC Dog Import Form).
+  Aplica también a perros de servicio.
+- Que la naviera permita subir al perro NO garantiza poder bajar en cada puerto: cada
+  país del itinerario tiene sus reglas. Sugiere verificar los puertos.
+- Ninguna de estas navieras acepta animales de apoyo emocional (ESA); solo perros de
+  servicio entrenados.
 
-## FORMATO OBLIGATORIO DE RESPUESTA
+## LÍMITES — LO QUE NUNCA HACES
+- Consejo médico: no diagnosticas, no recomiendas ni cambias medicamentos o dosis.
+  Das información general y recomiendas consultar a su médico o veterinario.
+- Consejo legal o migratorio: puedes citar la norma, pero no decides cómo aplica a su
+  caso. Recomienda consultar a la aerolínea, al consulado o a un profesional.
+- Emergencias (alguien está en peligro, se siente muy mal, una crisis médica, el perro
+  está herido): primero di que llame ya al 911 o al número de emergencias local, y que
+  use el botón SOS de la app. Después, si ayuda, unos pasos breves.
+- Animales de apoyo emocional (ESA): nunca digas que vuelan sin costo o sin
+  restricciones. Desde enero de 2021 el DOT ya no obliga a las aerolíneas de EE.UU. a
+  tratarlos como animales de servicio; la mayoría los trata como mascotas.
+- "Certificados" o "registros" de perro de servicio: NUNCA los presentes como algo que
+  se compra o que hace falta comprar. En EE.UU. no existe un registro oficial; lo que
+  importa es que el perro esté entrenado para tareas relacionadas con las necesidades
+  de la persona (y, para volar en EE.UU., el formulario del DOT).
+- Palabras que nunca usas: "gratis" (di "sin costo"), "discapacidad" (di "necesidades
+  de accesibilidad", "movilidad reducida" o la necesidad concreta) y "mentira". Esto
+  aplica aunque el conocimiento de abajo use alguna de esas palabras.
+- No pidas datos personales sensibles (números de pasaporte, diagnósticos) y no
+  repitas datos del perfil si no hacen falta para la respuesta.
 
-Cuando encuentres el dato en la base:
-1. Da la respuesta directa y clara
-2. Cita la fuente: nombre de la aerolínea + que es su política oficial
-3. Cita la fecha de verificación exacta (campo fecha_verificacion) que aparece en la base
+## IDIOMA DE LA FUENTE
+Si el dato verificado solo existe en otro idioma, tradúcelo y acláralo en una frase:
+"Esto es una traducción de la política oficial en inglés."`
 
-Ejemplo:
-"American Airlines acepta perros de servicio entrenados. Debes enviar el
-formulario del DOT con al menos 48 horas de anticipación a través de su
-portal en línea. Fuente: política oficial de American Airlines, verificada
-el 3 de agosto de 2026."
+const STATIC_SYSTEM = [ALLI_BASE_PROMPT, MOBILITY_TRAVEL_KB, AUTISM_TRAVEL_KB, SPECIAL_NEEDS_TRAVEL_KB, DISABILITIES_TRAVEL_KB].join('\n')
 
-## CUANDO NO TIENES EL DATO
-
-Si la aerolínea no está en la base (encontrada: false), o el campo específico
-está vacío, en null o marcado como "no publicado":
-- Dilo con claridad: "No tengo verificado ese dato para [aerolínea]."
-- Ofrece el enlace a la página oficial de la aerolínea si existe en la base (campo url_fuente)
-- NUNCA completes el hueco con lo que "sueles saber" sobre aerolíneas en
-  general. Un campo vacío en la base significa que no se puede confirmar,
-  no que puedas inferirlo.
-
-## LO QUE NUNCA HACES — GUARDARRAÍLES PERMANENTES
-
-- NUNCA afirmes que un animal de apoyo emocional (ESA) vuela gratis o sin
-  restricciones. Desde enero de 2021 el DOT ya no obliga a las aerolíneas
-  de EE.UU. a tratarlos como animales de servicio. La mayoría los trata
-  como mascotas. Si el usuario pregunta por un ESA, acláraselo aunque no
-  lo haya preguntado directamente.
-
-- NUNCA promuevas, vendas, valides ni menciones como legítimos los
-  "certificados" o "registros" de perros de servicio que se venden en
-  internet. No existe un registro oficial de perros de servicio en
-  Estados Unidos. Si el usuario pregunta dónde conseguir uno, explica
-  que no existe tal registro y que lo que necesita es que el perro esté
-  entrenado para tareas específicas relacionadas con sus necesidades.
-
-- NUNCA das consejo médico ni legal. Puedes citar la norma; no
-  interpretes cómo aplica al caso médico o legal específico de la
-  persona. Si la pregunta requiere eso, sugiere que consulte a un
-  profesional o a la aerolínea directamente.
-
-- NUNCA inventes un dato aunque el usuario insista o se muestre
-  frustrado. Si no está verificado, no está verificado. Puedes ofrecerte
-  a ayudarle a contactar a la aerolínea directamente.
-
-## TONO
-
-Cálido y directo. La persona que te escribe puede estar planeando un
-viaje importante o resolviendo algo urgente. No uses lenguaje corporativo
-ni evasivo. Si no sabes algo, dilo en una frase, no en un párrafo de
-disculpas.
-
-## IDIOMA
-
-Respondes en el idioma en que te escriben. Si la base tiene el dato en
-español e inglés, usa la versión del idioma de la conversación. Si solo
-existe en un idioma, tradúcelo tú y acláralo: "Esto es una traducción de
-la política oficial en inglés."`
-
-function buildSystemPrompt(profile: Profile | null, locale: string, hoy: string, docsSummary = ''): string {
-  const parts: string[] = [ALLI_BASE_PROMPT, MOBILITY_TRAVEL_KB, AUTISM_TRAVEL_KB, SPECIAL_NEEDS_TRAVEL_KB, DISABILITIES_TRAVEL_KB, '', `Fecha de hoy: ${hoy}.`]
-
-  if (!profile) return parts.join('\n')
-
-  parts.push('')
-  if (locale === 'en') {
-    parts.push(`## Traveler profile`)
-    if (profile.full_name) parts.push(`- Name: ${profile.full_name}`)
-    if (profile.disability_types?.length)
-      parts.push(`- Disability types: ${profile.disability_types.join(', ')}`)
-    if (profile.chronic_conditions)
-      parts.push(`- Chronic / invisible conditions: ${profile.chronic_conditions}`)
-    if (profile.invisible_needs)
-      parts.push(`- Invisible needs: ${profile.invisible_needs}`)
-    if (profile.medications?.length) {
-      parts.push(`- Medications: ${profile.medications.map(m => `${m.name} ${m.dose} at ${m.times.join(', ')}`).join('; ')}`)
-    }
-    if (profile.is_group_profile && profile.group_members?.length) {
-      const members = profile.group_members.map(m => `${m.name}${m.age ? ` (${m.age}y)` : ''}: ${m.disability_types.join(', ')}`).join('; ')
-      parts.push(`- Traveling as a group: ${members}`)
-    }
-    parts.push(`\nTake these accessibility needs into account in every recommendation.`)
-  } else {
-    parts.push(`## Perfil del viajero`)
-    if (profile.full_name) parts.push(`- Nombre: ${profile.full_name}`)
-    if (profile.disability_types?.length)
-      parts.push(`- Tipos de accesibilidad: ${profile.disability_types.join(', ')}`)
-    if (profile.chronic_conditions)
-      parts.push(`- Condiciones crónicas/invisibles: ${profile.chronic_conditions}`)
-    if (profile.invisible_needs)
-      parts.push(`- Necesidades invisibles: ${profile.invisible_needs}`)
-    if (profile.medications?.length) {
-      parts.push(`- Medicamentos: ${profile.medications.map(m => `${m.name} ${m.dose} a las ${m.times.join(', ')}`).join('; ')}`)
-    }
-    if (profile.is_group_profile && profile.group_members?.length) {
-      const members = profile.group_members.map(m => `${m.name}${m.age ? ` (${m.age} años)` : ''}: ${m.disability_types.join(', ')}`).join('; ')
-      parts.push(`- Viaja en grupo: ${members}`)
-    }
-    parts.push(`\nTen en cuenta estas necesidades en cada recomendación.`)
-  }
-
-  if (docsSummary) {
-    parts.push(
-      locale === 'en'
-        ? `\n## Upcoming document expirations\n${docsSummary}\nProactively and warmly remind the traveler about these, and offer to explain how to renew each one.`
-        : `\n## Documentos por vencer\n${docsSummary}\nRecuérdale estos vencimientos de forma cálida y proactiva, y ofrécele explicarle cómo renovar cada uno.`,
-    )
-  }
-
-  return parts.join('\n')
+// ─────────────────────────────────────────────────────────────
+// Contexto del usuario: lo mínimo, leído con la sesión del propio
+// usuario (RLS). Nada de contenido de documentos, detalle médico
+// ni medicamentos.
+// ─────────────────────────────────────────────────────────────
+type ContextProfile = Pick<Profile, 'full_name' | 'disability_types' | 'preferred_language' | 'primary_language'> & {
+  service_dog?: { has?: boolean; name?: string } | null
 }
+type ContextDoc = Pick<TravelDocument, 'owner' | 'doc_type' | 'expiry_date'>
+
+function buildUserContext(profile: ContextProfile | null, docs: ContextDoc[], locale: string): string {
+  const en = locale === 'en'
+  const lines: string[] = []
+  const firstName = (profile?.full_name || '').trim().split(/\s+/)[0]
+  if (firstName) lines.push(`- ${en ? 'First name' : 'Nombre'}: ${firstName.slice(0, 40)}`)
+  const needs = (profile?.disability_types ?? []).map(t => DISABILITY_LABELS[t] ?? t)
+  if (needs.length) lines.push(`- ${en ? 'Accessibility needs' : 'Necesidades de accesibilidad'}: ${needs.join(', ')}`)
+  const dog = profile?.service_dog
+  if (dog && typeof dog.has === 'boolean') {
+    const dogName = dog.has && dog.name ? ` (${String(dog.name).slice(0, 30)})` : ''
+    lines.push(`- ${en ? 'Travels with a service dog' : 'Viaja con perro de servicio'}: ${dog.has ? (en ? 'yes' : 'sí') : 'no'}${dogName}`)
+  }
+  lines.push(`- ${en ? 'App language' : 'Idioma del app'}: ${locale}`)
+
+  const dated = docs
+    .filter(d => d.expiry_date)
+    .sort((a, b) => String(a.expiry_date).localeCompare(String(b.expiry_date)))
+    .slice(0, 12)
+  if (dated.length) {
+    const items = dated.map(d => {
+      const def = docTypeDef(d.doc_type)
+      const name = (en ? def?.en : def?.es) || d.doc_type
+      const days = daysUntil(d.expiry_date)
+      const left = days === null ? '' : days < 0 ? (en ? `expired ${-days} days ago` : `vencido hace ${-days} días`) : (en ? `${days} days left` : `faltan ${days} días`)
+      return `${name}${d.owner === 'dog' ? (en ? ' (dog)' : ' (perro)') : ''} · ${d.expiry_date} · ${left}`
+    })
+    lines.push(`- ${en ? 'Documents (type · expiry · days, calculated by the app)' : 'Documentos (tipo · vence · días, calculado por la app)'}: ${items.join('; ')}`)
+  }
+
+  return [
+    en ? '## User context (from their own profile; use only when relevant)' : '## Contexto del usuario (de su propio perfil; úsalo solo si es relevante)',
+    ...lines,
+    en
+      ? 'If a document expires before or soon after a trip they mention, warn them kindly and briefly.'
+      : 'Si un documento vence antes o poco después de un viaje que mencione, avísale con calidez y en una frase.',
+  ].join('\n')
+}
+
+// Para no gastar tokens de más: solo los últimos mensajes y con largo máximo.
+const MAX_HISTORY = 12
+const MAX_CHARS = 2000
 
 export async function POST(req: NextRequest) {
   try {
@@ -383,65 +374,63 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'messages required' }, { status: 400 })
     }
 
-    // Perfil del usuario de la sesión, para contexto.
-    const { data: profileData } = await getAdmin()
+    // Perfil y documentos con el cliente del propio usuario (RLS: solo ve lo suyo),
+    // y solo las columnas que hacen falta.
+    const supabase = await createSupabaseServer()
+    const { data: profileData } = await supabase
       .from('profiles')
-      .select('*')
+      .select('full_name, disability_types, service_dog, preferred_language, primary_language, subscription_status')
       .eq('id', userId)
       .maybeSingle()
-    const profile: Profile | null = profileData
+    const profile = profileData as (ContextProfile & { subscription_status?: string }) | null
 
     // Alli es una función de miembros. Sin perfil o sin suscripción activa = no miembro.
     const isDev = process.env.NODE_ENV === 'development'
-    const subStatus = (profile as { subscription_status?: string } | null)?.subscription_status
-    if (!isDev && subStatus !== 'active') {
+    if (!isDev && profile?.subscription_status !== 'active') {
       return NextResponse.json({ error: 'membership_required' }, { status: 403 })
     }
 
-    // Límite por persona: 30 preguntas por hora.
-    if (!(await checkRateLimit(userId, 'chat', 30, 60 * 60 * 1000))) {
+    // Límite por persona: 30 preguntas por hora. Cada pregunta queda registrada en api_usage.
+    const { allowed, usageId } = await checkRateLimitWithId(userId, 'chat', 30, 60 * 60 * 1000)
+    if (!allowed) {
       return NextResponse.json({ error: 'rate_limited' }, { status: 429 })
     }
 
-    // Vencimientos próximos para que Alli avise proactivamente.
-    let docsSummary = ''
-    {
-      const { data: docsData } = await getAdmin()
-        .from('documents')
-        .select('*')
-        .eq('user_id', userId)
-      const upcoming = ((docsData ?? []) as TravelDocument[])
-        .filter(d => d.expiry_date)
-        .map(d => ({ d, st: expiryStatus(d.expiry_date) }))
-        .filter(x => x.st.level !== 'ok' && x.st.level !== 'none')
-        .sort((a, b) => (a.st.daysLeft ?? 0) - (b.st.daysLeft ?? 0))
-      if (upcoming.length) {
-        docsSummary = upcoming
-          .map(({ d, st }) => {
-            const def = docTypeDef(d.doc_type)
-            const name = (locale === 'en' ? def?.en : def?.es) || d.doc_type
-            return `${name}${d.owner === 'dog' ? ' (perro/dog)' : ''}: ${st.daysLeft} ${locale === 'en' ? 'days' : 'días'}`
-          })
-          .join('; ')
-      }
-    }
+    // Documentos: solo tipo, dueño (persona/perro) y fecha de vencimiento.
+    const { data: docsData } = await supabase
+      .from('documents')
+      .select('owner, doc_type, expiry_date')
+      .eq('user_id', userId)
+    const docs = (docsData ?? []) as ContextDoc[]
 
     const hoy = new Date().toISOString().slice(0, 10)
-    const systemPrompt = buildSystemPrompt(profile, locale, hoy, docsSummary)
+    // Parte fija cacheada (instrucciones + conocimiento) y parte variable (fecha + contexto).
+    const system: Anthropic.TextBlockParam[] = [
+      { type: 'text', text: STATIC_SYSTEM, cache_control: { type: 'ephemeral' } },
+      { type: 'text', text: `Fecha de hoy: ${hoy}.\n\n${buildUserContext(profile, docs, locale)}` },
+    ]
 
-    // Historial de la conversación en formato de la API.
-    const convo: Anthropic.MessageParam[] = messages.map(
-      (m: { role: string; content: string }) => ({
-        role: m.role as 'user' | 'assistant',
-        content: m.content,
-      })
-    )
+    // Historial de la conversación en formato de la API (recortado).
+    const convo: Anthropic.MessageParam[] = messages
+      .filter((m: { role?: string; content?: unknown }) => (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string' && m.content.trim())
+      .slice(-MAX_HISTORY)
+      .map((m: { role: 'user' | 'assistant'; content: string }) => ({
+        role: m.role,
+        content: m.content.slice(0, MAX_CHARS),
+      }))
+    // La API exige que el primer mensaje sea del usuario.
+    while (convo.length && convo[0].role !== 'user') convo.shift()
+    if (!convo.length) {
+      return NextResponse.json({ error: 'messages required' }, { status: 400 })
+    }
 
     const encoder = new TextEncoder()
 
     const readable = new ReadableStream({
       async start(controller) {
         let assistantText = ''
+        const usage = { input_tokens: 0, output_tokens: 0, cache_read_tokens: 0 }
+        let status: 'ok' | 'error' = 'ok'
         try {
           // Loop de tool-use: se repite mientras el modelo pida herramientas.
           // Cada turno se transmite en streaming; el turno final es la
@@ -450,8 +439,9 @@ export async function POST(req: NextRequest) {
           for (let turno = 0; turno < 5; turno++) {
             const stream = anthropic.messages.stream({
               model: MODEL,
-              max_tokens: 1500,
-              system: systemPrompt,
+              max_tokens: 1000,
+              temperature: 0.3,
+              system,
               tools,
               messages: convo,
             })
@@ -467,6 +457,9 @@ export async function POST(req: NextRequest) {
             }
 
             const final = await stream.finalMessage()
+            usage.input_tokens += (final.usage.input_tokens ?? 0) + (final.usage.cache_creation_input_tokens ?? 0)
+            usage.output_tokens += final.usage.output_tokens ?? 0
+            usage.cache_read_tokens += final.usage.cache_read_input_tokens ?? 0
 
             if (final.stop_reason === 'tool_use') {
               const toolUses = final.content.filter(
@@ -500,21 +493,21 @@ export async function POST(req: NextRequest) {
             break // el modelo entregó la respuesta final
           }
         } catch (err) {
+          status = 'error'
           console.error('[/api/chat stream]', err)
           if (!assistantText) {
             controller.enqueue(
               encoder.encode(
                 locale === 'en'
-                  ? 'Sorry, something went wrong. Please try again.'
-                  : 'Lo siento, algo salió mal. Intenta de nuevo.'
+                  ? "Sorry, I couldn't answer right now. Please try again in a moment. Meanwhile, your checklist in the app has the key steps."
+                  : 'Perdón, no pude responder en este momento. Intenta de nuevo en un rato. Mientras tanto, tu checklist del app tiene los pasos clave.'
               )
             )
           }
-        } finally {
-          controller.close()
         }
 
-        // Persistencia best-effort (no debe romper la respuesta).
+        // Registro best-effort antes de cerrar (no debe romper la respuesta).
+        await recordUsageDetails(usageId, { model: MODEL, ...usage, status })
         if (assistantText) {
           try {
             await getAdmin().from('conversations').insert([
@@ -525,6 +518,7 @@ export async function POST(req: NextRequest) {
             console.error('[/api/chat persist]', e)
           }
         }
+        controller.close()
       },
     })
 
