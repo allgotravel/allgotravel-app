@@ -196,6 +196,14 @@ src="https://www.facebook.com/tr?id=1402403141746407&ev=PageView&noscript=1"/></
 var KIT_CHECKOUT_URL = "https://pay.hotmart.com/L107208384X";  // Kit del Viajero $9 (Hotmart)
 /* =================================================================== */
 
+/* Rastreo de origen de ventas: Hotmart recibe src y sck (por defecto ig-kit; si la página llega con ?src=xxx, se usa xxx). Solo añade parámetros; no cambia precio ni checkout. */
+var KIT_SCK = 'ig-kit';
+try{ var _s=new URLSearchParams(location.search).get('src'); if(_s){ _s=String(_s).toLowerCase().replace(/[^a-z0-9_-]/g,'').slice(0,40); if(_s) KIT_SCK=_s; } }catch(_){}
+function kitUrl(base){
+  try{ var u=new URL(base); u.searchParams.set('src', KIT_SCK); u.searchParams.set('sck', KIT_SCK); return u.toString(); }catch(_){ return base; }
+}
+document.querySelectorAll('a[href*="pay.hotmart.com"]').forEach(function(a){ a.href=kitUrl(a.href); });
+
 function goKit(ev){
   if(ev) ev.preventDefault();
   try{fbq('track','InitiateCheckout',{value:9.00,currency:'USD',content_name:'Kit del Viajero'});}catch(_){}
@@ -203,7 +211,7 @@ function goKit(ev){
     alert('Falta pegar el link de checkout del Kit en Hotmart (variable KIT_CHECKOUT_URL).');
     return false;
   }
-  window.location.href = KIT_CHECKOUT_URL;
+  window.location.href = kitUrl(KIT_CHECKOUT_URL);
   return false;
 }
 
