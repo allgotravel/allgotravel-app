@@ -106,7 +106,7 @@
     "send": "Send",
     "empty": "Hi! I'm Alli, your AI assistant from AllGo Travel App 🌍 How can I help you prepare your trip?",
     "error": "Something went wrong. Please try again.",
-    "disclaimer": "I’m an AI. Always verify with your airline or an official source."
+    "disclaimer": "Alli is an AI. Its answers cite the source and the verification date."
   },
   "destinations": {
     "title": "Accessible destinations",

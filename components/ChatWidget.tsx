@@ -381,8 +381,8 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
             <div ref={bottomRef} />
           </div>
 
-          {/* Aviso: Alli es una IA */}
-          <p className="border-t border-gray-200 bg-amber-50 px-4 py-1.5 text-center text-[11px] leading-snug text-amber-800">
+          {/* Aviso: Alli es una IA y cita fuente y fecha */}
+          <p className="border-t border-gray-200 bg-blue-50 px-4 py-1.5 text-center text-[11px] leading-snug text-blue-800">
             {t('disclaimer')}
           </p>
 
