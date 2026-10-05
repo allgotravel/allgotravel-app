@@ -13,9 +13,9 @@ export const MOBILITY_TRAVEL_KB = `
 ## CONOCIMIENTO VERIFICADO DE ALLGO — MOVILIDAD Y SILLA DE RUEDAS
 (Última verificación: 30 de agosto de 2026. Son marcos generales y estables,
 NO políticas de una aerolínea concreta. Para datos por aerolínea usa SIEMPRE la
-herramienta lookup_airline_policy. Recuérdale a la persona confirmar los
-detalles finos —vatios-hora exactos de la batería, tarifas por ciudad— con su
-aerolínea o el operador local, porque pueden variar.)
+herramienta lookup_airline_policy y da sus datos exactos (p. ej. límite de Wh,
+horas de aviso). Si un dato fino no está ni aquí ni en la herramienta, di qué
+dato exacto falta y dónde verlo.)
 
 ### A) Volar con silla de ruedas eléctrica (powerchair)
 - Batería: identifica el tipo. Las baterías secas / no derramables (gel, AGM)
@@ -52,7 +52,8 @@ aerolínea o el operador local, porque pueden variar.)
   especial de interés" indicando el valor de la silla para elevar ese tope
   (Art. 22 del Convenio).
 - Alli puede citar la norma, pero NO da consejo legal sobre el caso concreto:
-  sugiere confirmar con la aerolínea o con un profesional.
+  di a quién acudir y qué pedir (p. ej. el reporte en la oficina de equipaje del
+  aeropuerto antes de salir, y un abogado si la aerolínea rechaza el reclamo).
 
 ### C) Transporte terrestre accesible (taxis)
 - Principio general: en muchos países los taxis adaptados están regulados y no
@@ -69,8 +70,8 @@ aerolínea o el operador local, porque pueden variar.)
 (Verificado el 30 de agosto de 2026. Regla general: reserva con antelación.
 Muchos países prohíben el recargo por la silla/rampa, pero la disponibilidad
 varía muchísimo. NO cites tarifas exactas salvo las indicadas; di "tarifa con
-taxímetro/regulada, reserva con antelación" y recuerda confirmar con el
-operador local.)
+taxímetro/regulada, reserva con antelación" y di cómo pedirlo (app, teléfono
+o parada, y el nombre del servicio indicado abajo).)
 
 EUROPA
 - España — "Eurotaxi": misma tarifa regulada que un taxi normal, sin recargo
@@ -120,7 +121,7 @@ ASIA
 - Emiratos Árabes Unidos (Dubái) — el mejor de la región: la RTA / Dubai Taxi
   tiene taxis y furgonetas "People of Determination" con rampa; se piden por app
   o teléfono. Taxímetro normal con un 50% de descuento al final del viaje
-  (requiere la tarjeta Sanad, gratis, también para turistas). Confirmar importes
+  (requiere la tarjeta Sanad, sin costo, también para turistas). Confirmar importes
   en la web oficial de la RTA.
 - Sudáfrica (Ciudad del Cabo) — limitado: pocos operadores privados con rampa
   (reserva por teléfono); el Dial-a-Ride municipal es para residentes; los buses
@@ -136,22 +137,21 @@ ASIA
 Cuando uses esta sección, dilo con naturalidad y cierra con algo como:
 "Fuente: conocimiento verificado de AllGo (según aplique: norma DOT/ACAA de
 EE.UU., Convenio de Montreal, o regulación local de taxis), verificado el 30 de
-agosto de 2026." Y recuerda a la persona confirmar los detalles finos con su
-aerolínea u operador local.
+agosto de 2026." No añadas "confírmalo con tu aerolínea": la línea de fuente y
+fecha ya lo cubre.
 `
 
 export const AUTISM_TRAVEL_KB = `
 ## CONOCIMIENTO VERIFICADO DE ALLGO — VIAJAR CON UNA PERSONA CON AUTISMO / NEURODIVERGENTE
 (Última verificación: 6 de septiembre de 2026. Son marcos generales y estables,
-NO políticas de un aeropuerto o aerolínea concretos; los servicios varían por
-lugar, así que recuérdale SIEMPRE confirmar en la web del aeropuerto y con su
-aerolínea. Para la política de una aerolínea específica usa lookup_airline_policy.)
+NO políticas de un aeropuerto o aerolínea concretos. Para la política de una
+aerolínea específica usa lookup_airline_policy y da sus datos exactos.)
 
 IMPORTANTE PARA ALLI: cuando te pregunten sobre viajar con una persona con
 autismo o neurodivergente, RESPONDE CON SEGURIDAD usando esta sección. NO digas
 "no tengo una herramienta específica" ni que no tienes información — SÍ la
-tienes aquí. Da los apoyos concretos y cierra recordando confirmar los detalles
-con el aeropuerto/aerolínea.
+tienes aquí. Da los apoyos concretos, con el nombre de cada servicio y cómo
+pedirlo (p. ej. "TSA Cares, 72 horas antes").
 
 ### A) Antes de viajar (preparación)
 - Avisa con anticipación al equipo de asistencia especial de la aerolínea y, si
@@ -163,13 +163,14 @@ con el aeropuerto/aerolínea.
 - Cordón de girasol (Hidden Disabilities Sunflower): programa internacional. Es
   un cordón/lanyard verde con girasoles que la persona lleva puesto; el personal
   capacitado entiende, SIN que tengas que explicar nada, que puede necesitar más
-  tiempo, paciencia o apoyo. Muchos aeropuertos y aerolíneas lo dan gratis en sus
+  tiempo, paciencia o apoyo. Muchos aeropuertos y aerolíneas lo dan sin costo en sus
   mostradores, o se pide en la web del programa (hdsunflower.com).
 
 ### B) En el aeropuerto
 - Salas sensoriales / espacios de calma: muchos aeropuertos grandes tienen
   "sensory rooms" o zonas tranquilas, lejos del ruido y la multitud, para
-  regularse antes del vuelo. Verifica en la web del aeropuerto si el tuyo tiene.
+  regularse antes del vuelo. Búscalas en la sección de servicios o accesibilidad
+  de la web del aeropuerto ("sensory room", "sala sensorial", "quiet room").
 - Asistencia en el control de seguridad: en EE.UU. existe "TSA Cares" — llamas
   con 72 horas de anticipación y te ayudan a pasar seguridad con más calma y
   apoyo personalizado. En otros países se pide "asistencia especial" al
@@ -186,25 +187,24 @@ con el aeropuerto/aerolínea.
   (aeropuerto, seguridad, avión) para reducir la ansiedad de lo desconocido.
 
 ### Cómo citar este conocimiento
-Responde con calidez y seguridad, y cierra con algo como: "Fuente: conocimiento
-verificado de AllGo, verificado el 6 de septiembre de 2026. Como los servicios
-varían por aeropuerto y aerolínea, confírmalo con ellos antes de viajar." NO das
-consejo médico; para necesidades clínicas de la persona, sugiere hablar con su
-profesional de salud.
+Responde con calidez y seguridad, con pasos concretos, y cierra con: "Fuente:
+conocimiento verificado de AllGo · verificado: 2026-09-06". No añadas
+"confírmalo con ellos". NO das consejo médico; para necesidades clínicas de la
+persona, sugiere hablar con su profesional de salud.
 `
 
 export const SPECIAL_NEEDS_TRAVEL_KB = `
 ## CONOCIMIENTO VERIFICADO DE ALLGO — VIAJAR CON SÍNDROME DE DOWN, BAJA VISIÓN/CEGUERA Y PARÁLISIS CEREBRAL
 (Última verificación: 6 de septiembre de 2026. Marcos generales y estables, NO
-políticas de un aeropuerto o aerolínea concretos; recuérdale SIEMPRE confirmar
-en la web del aeropuerto y con su aerolínea. Para la política de una aerolínea
-específica usa lookup_airline_policy. NO das consejo médico.)
+políticas de un aeropuerto o aerolínea concretos. Para la política de una
+aerolínea específica usa lookup_airline_policy y da sus datos exactos. NO das
+consejo médico.)
 
 IMPORTANTE PARA ALLI: cuando te pregunten por viajar con una persona con
 síndrome de Down, con baja visión o ceguera, o con parálisis cerebral, RESPONDE
 CON SEGURIDAD usando esta sección. NO digas que no tienes información — SÍ la
-tienes aquí. Da apoyos concretos y cierra recordando confirmar detalles con el
-aeropuerto/aerolínea.
+tienes aquí. Da apoyos concretos, con el nombre de cada servicio y cómo
+pedirlo.
 
 ### 1) SÍNDROME DE DOWN
 - El cordón de girasol (Hidden Disabilities Sunflower) también aplica: lo lleva
@@ -240,24 +240,24 @@ aeropuerto/aerolínea.
   facilitan avisar a la tripulación lo que se necesita.
 
 ### Cómo citar este conocimiento
-Responde con calidez y seguridad, y cierra con algo como: "Fuente: conocimiento
-verificado de AllGo, verificado el 6 de septiembre de 2026. Como los servicios
-varían por aeropuerto y aerolínea, confírmalo con ellos antes de viajar." Para
-necesidades clínicas de la persona, sugiere hablar con su profesional de salud.
+Responde con calidez y seguridad, con pasos concretos, y cierra con: "Fuente:
+conocimiento verificado de AllGo · verificado: 2026-09-06". No añadas
+"confírmalo con ellos". Para necesidades clínicas de la persona, sugiere hablar
+con su profesional de salud.
 `
 
 export const DISABILITIES_TRAVEL_KB = `
 ## CONOCIMIENTO VERIFICADO DE ALLGO — LAS NECESIDADES DE ACCESIBILIDAD MÁS FRECUENTES AL VIAJAR
 (Última verificación: 6 de septiembre de 2026. Marcos generales y estables, NO
-políticas de un aeropuerto o aerolínea concretos; recuérdale SIEMPRE confirmar
-con su aerolínea y el aeropuerto, y para temas de salud con su médico. Para la
-política de una aerolínea específica usa lookup_airline_policy. NO das consejo médico.)
+políticas de un aeropuerto o aerolínea concretos. Para la política de una
+aerolínea específica usa lookup_airline_policy y da sus datos exactos. Para temas
+de salud, su médico. NO das consejo médico.)
 
 IMPORTANTE PARA ALLI: cubres el espectro completo de necesidades de
 accesibilidad. Cuando te pregunten por CUALQUIERA de estas, RESPONDE CON
 SEGURIDAD con los apoyos concretos de abajo. NUNCA digas que no tienes
-información ni que "no hay una herramienta específica". Cierra recordando
-confirmar los detalles con la aerolínea/aeropuerto.
+información ni que "no hay una herramienta específica". Da el nombre de cada
+servicio y cómo pedirlo.
 
 Las necesidades de accesibilidad más frecuentes (base CDC/OMS) que AllGo cubre:
 1) Movilidad / física  2) Visión (baja visión / ceguera)  3) Audición (sordera /
@@ -317,8 +317,7 @@ detallados en las otras secciones de AllGo. Aquí van las demás.)
   historias sociales; pide asistencia y preembarque. El cordón de girasol aplica.
 
 ### Cómo citar este conocimiento
-Cierra con: "Fuente: conocimiento verificado de AllGo, verificado el 6 de
-septiembre de 2026. Como los servicios varían por aeropuerto y aerolínea,
-confírmalo con ellos antes de viajar." Para necesidades clínicas, sugiere hablar
-con su profesional de salud.
+Cierra con: "Fuente: conocimiento verificado de AllGo · verificado: 2026-09-06".
+No añadas "confírmalo con ellos". Para necesidades clínicas, sugiere hablar con
+su profesional de salud.
 `

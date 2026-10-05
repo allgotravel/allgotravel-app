@@ -127,6 +127,9 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
       .replace(/^\s*[-*] /gm, '')
       .replace(/https?:\/\/\S+/g, '')
       .replace(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}]/gu, '')
+      // Pronunciación: la voz en español lee "Alli" como "allí"; se dice "Ali".
+      // Solo en lo hablado; en pantalla sigue "Alli".
+      .replace(/(?<![\p{L}\p{N}])alli(?![\p{L}\p{N}])/giu, 'Ali')
     const utterance = new SpeechSynthesisUtterance(clean)
     utterance.lang = speechLang()
     utterance.rate = 0.95
@@ -332,7 +335,21 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
           {/* Messages */}
           <div className="flex-1 overflow-y-auto p-4 space-y-3 max-h-[400px] bg-gray-50" aria-live="polite" aria-busy={loading}>
             {messages.length === 0 && (
-              <p className="text-sm text-gray-400 text-center pt-8">{t('empty')}</p>
+              <div className="flex flex-col items-center gap-2 pt-8">
+                <p className="text-sm text-gray-500 text-center">{t('empty')}</p>
+                {ttsSupported && (
+                  <button
+                    type="button"
+                    onClick={() => speakText(t('empty'), -1)}
+                    aria-label={speakingIndex === -1 ? (en ? 'Stop reading the greeting aloud' : 'Detener la lectura del saludo') : (en ? 'Read the greeting aloud' : 'Escuchar el saludo en voz alta')}
+                    aria-pressed={speakingIndex === -1}
+                    className="flex min-h-[44px] items-center gap-1.5 rounded-full border border-gray-200 bg-white px-3 text-sm font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-700"
+                  >
+                    <span aria-hidden="true">{speakingIndex === -1 ? '⏹' : '🔊'}</span>
+                    {speakingIndex === -1 ? (en ? 'Stop' : 'Detener') : (en ? 'Listen' : 'Escuchar')}
+                  </button>
+                )}
+              </div>
             )}
             {messages.map((msg, i) => (
               <div
