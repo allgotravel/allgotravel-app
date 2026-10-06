@@ -14,8 +14,8 @@ export async function generateMetadata({
     ? 'AllGo Travel App — Accessible travel: service dogs, wheelchairs and more'
     : 'AllGo Travel App — Viajes accesibles en español: perro de servicio, silla de ruedas y más'
   const description = en
-    ? 'Verified accessible travel information, with source and date, and Alli, your AI assistant. Guides for traveling with a service dog, a wheelchair or reduced mobility.'
-    : 'Información de viaje accesible verificada, con su fuente y fecha, y Alli, tu asistente con IA. Guías para viajar con perro de servicio, silla de ruedas o movilidad reducida.'
+    ? 'Accessible travel guides built on official sources: the Service Dog guide (Spanish and English, $37), Turismo Sin Fronteras (Spanish only, $37) and the Complete Traveler Pack ($59).'
+    : 'Guías de viaje accesible con fuentes oficiales: Guía Perro de Servicio (español e inglés, $37), Turismo Sin Fronteras (solo en español, $37) y el Pack Viajero Completo ($59).'
   return {
     title,
     description,
@@ -73,7 +73,7 @@ const jsonLd = {
       image: `${SITE}/og/og-perro.jpg`,
       url: `${SITE}/perro.html`,
       brand: { '@type': 'Brand', name: 'AllGo Travel App' },
-      offers: offer('37.00', 'https://pay.hotmart.com/Q106793737G'),
+      offers: offer('37.00', `${SITE}/perro.html`),
     },
     {
       '@type': 'Product',
@@ -81,7 +81,7 @@ const jsonLd = {
       image: `${SITE}/og/og-turismo.jpg`,
       url: `${SITE}/turismo.html`,
       brand: { '@type': 'Brand', name: 'AllGo Travel App' },
-      offers: offer('37.00', 'https://pay.hotmart.com/O106521584H'),
+      offers: offer('37.00', `${SITE}/turismo.html`),
     },
     {
       '@type': 'Product',
@@ -89,7 +89,7 @@ const jsonLd = {
       image: `${SITE}/og/og-home.jpg`,
       url: `${SITE}/perro.html#pack`,
       brand: { '@type': 'Brand', name: 'AllGo Travel App' },
-      offers: offer('59.00', 'https://pay.hotmart.com/A107786229V'),
+      offers: offer('59.00', `${SITE}/perro.html#pack`),
     },
   ],
 }
