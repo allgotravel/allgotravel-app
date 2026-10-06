@@ -1,105 +1,39 @@
 {
   "redirects": [
-    {
-      "source": "/kit-perro-gratis.html",
-      "destination": "/adelanto-perro.html",
-      "permanent": false
-    },
-    {
-      "source": "/kit-perro-gratis",
-      "destination": "/adelanto-perro.html",
-      "permanent": false
-    },
-    {
-      "source": "/kit-perro-gratis.pdf",
-      "destination": "/adelanto-perro.html",
-      "permanent": false
-    },
-    {
-      "source": "/gratis.html",
-      "destination": "/perro.html",
-      "permanent": false
-    },
-    {
-      "source": "/gratis",
-      "destination": "/perro.html",
-      "permanent": false
-    },
-    {
-      "source": "/checklist-perro.pdf",
-      "destination": "/perro.html",
-      "permanent": false
-    },
-    {
-      "source": "/verificador-perro.html",
-      "destination": "/perro.html",
-      "permanent": false
-    },
-    {
-      "source": "/verificador-perro",
-      "destination": "/perro.html",
-      "permanent": false
-    },
-    {
-      "source": "/checklist-viaje.html",
-      "destination": "/turismo.html",
-      "permanent": false
-    },
-    {
-      "source": "/checklist-viaje",
-      "destination": "/turismo.html",
-      "permanent": false
-    },
-    {
-      "source": "/kit-turismo-gratis.html",
-      "destination": "/turismo.html",
-      "permanent": false
-    },
-    {
-      "source": "/kit-turismo-gratis",
-      "destination": "/turismo.html",
-      "permanent": false
-    },
-    {
-      "source": "/kit-turismo-gratis.pdf",
-      "destination": "/turismo.html",
-      "permanent": false
-    },
-    {
-      "source": "/quiz-viaje.html",
-      "destination": "/turismo.html",
-      "permanent": false
-    },
-    {
-      "source": "/quiz-viaje",
-      "destination": "/turismo.html",
-      "permanent": false
-    },
-    {
-      "source": "/prueba-ali.html",
-      "destination": "/club.html",
-      "permanent": false
-    },
-    {
-      "source": "/prueba-ali",
-      "destination": "/club.html",
-      "permanent": false
-    },
-    {
-      "source": "/checklist-vuelo-perro.pdf",
-      "destination": "/club.html",
-      "permanent": false
-    },
-    {
-      "source": "/kit-plantillas-es.pdf",
-      "destination": "/club.html",
-      "permanent": false
-    },
-    {
-      "source": "/kit-plantillas-en.pdf",
-      "destination": "/club.html",
-      "permanent": false
-    }
+    { "source": "/adelanto-perro.html", "destination": "/perro.html", "permanent": true },
+    { "source": "/adelanto-perro", "destination": "/perro.html", "permanent": true },
+    { "source": "/kit-perro-gratis.html", "destination": "/perro.html", "permanent": true },
+    { "source": "/kit-perro-gratis", "destination": "/perro.html", "permanent": true },
+    { "source": "/kit-perro-gratis.pdf", "destination": "/perro.html", "permanent": true },
+    { "source": "/gratis.html", "destination": "/perro.html", "permanent": true },
+    { "source": "/gratis", "destination": "/perro.html", "permanent": true },
+    { "source": "/checklist-perro.pdf", "destination": "/perro.html", "permanent": true },
+    { "source": "/checklist-vuelo-perro.pdf", "destination": "/perro.html", "permanent": true },
+    { "source": "/verificador-perro.html", "destination": "/perro.html", "permanent": true },
+    { "source": "/verificador-perro", "destination": "/perro.html", "permanent": true },
+
+    { "source": "/checklist-viaje.html", "destination": "/turismo.html", "permanent": true },
+    { "source": "/checklist-viaje", "destination": "/turismo.html", "permanent": true },
+    { "source": "/kit-turismo-gratis.html", "destination": "/turismo.html", "permanent": true },
+    { "source": "/kit-turismo-gratis", "destination": "/turismo.html", "permanent": true },
+    { "source": "/kit-turismo-gratis.pdf", "destination": "/turismo.html", "permanent": true },
+    { "source": "/quiz-viaje.html", "destination": "/turismo.html", "permanent": true },
+    { "source": "/quiz-viaje", "destination": "/turismo.html", "permanent": true },
+
+    { "source": "/web-nueva.html", "destination": "/es", "permanent": true },
+    { "source": "/web-nueva", "destination": "/es", "permanent": true },
+    { "source": "/preview-landing.html", "destination": "/es", "permanent": true },
+    { "source": "/preview-landing", "destination": "/es", "permanent": true },
+    { "source": "/preview-landing-en.html", "destination": "/en", "permanent": true },
+    { "source": "/preview-landing-en", "destination": "/en", "permanent": true },
+    { "source": "/club.html", "destination": "/es", "permanent": true },
+    { "source": "/club", "destination": "/es", "permanent": true },
+    { "source": "/club.html.bak", "destination": "/es", "permanent": true },
+    { "source": "/prueba-ali.html", "destination": "/es", "permanent": true },
+    { "source": "/prueba-ali", "destination": "/es", "permanent": true },
+    { "source": "/kit-plantillas-es.pdf", "destination": "/es", "permanent": true },
+    { "source": "/kit-plantillas-en.pdf", "destination": "/es", "permanent": true },
+    { "source": "/:file(\\.fuse_hidden.*)", "destination": "/es", "permanent": true }
   ],
   "rewrites": [
     {

@@ -48,5 +48,8 @@ alli_prompt.txt
 # temp de verificación (Claude)
 tsconfig.check.json
 
+# archivos temporales del sistema (no subir)
+.fuse_hidden*
+
 # Claude Code local settings
 .claude/settings.local*.json
