@@ -1,7 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
+import { timingSafeEqual } from 'crypto'
 
 const HOTMART_HOTTOK = process.env.HOTMART_HOTTOK
+
+// Constant-time comparison so the token can't be guessed by timing the responses.
+function tokenMatches(given: string | null | undefined, expected: string | undefined): boolean {
+  if (!given || !expected) return false
+  const a = Buffer.from(given)
+  const b = Buffer.from(expected)
+  return a.length === b.length && timingSafeEqual(a, b)
+}
 
 // SUPABASE_SERVICE_ROLE_KEY must be added to Vercel environment variables — never expose to client
 if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
@@ -58,7 +67,7 @@ export async function POST(req: NextRequest) {
 
   // Sin HOTMART_HOTTOK configurado no se acepta nada; con él, el token debe coincidir.
   const tok = headerTok ?? body.hottok
-  if (!HOTMART_HOTTOK || !tok || tok !== HOTMART_HOTTOK) {
+  if (!tokenMatches(tok, HOTMART_HOTTOK)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 

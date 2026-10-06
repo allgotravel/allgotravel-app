@@ -1,35 +1,80 @@
-import { supabase } from '@/lib/supabase'
+import type { Metadata } from 'next'
+import { headers } from 'next/headers'
+import { createHash } from 'crypto'
+import { getSupabaseAdmin } from '@/lib/supabase-admin'
 import { Medication, ServiceDog } from '@/types/profile'
 import { formatMedTimes } from '@/lib/medtime'
 
 export const dynamic = 'force-dynamic'
+export const revalidate = 0
 
+// Personal medical data: never index, never cache, never send the URL (token) as a referrer.
+export const metadata: Metadata = {
+  title: 'Tarjeta médica de emergencia · AllGo Travel',
+  robots: { index: false, follow: false, nocache: true, googleBot: { index: false, follow: false } },
+  referrer: 'no-referrer',
+}
+
+// Minimal data for first responders (see get_emergency_card in Supabase).
 interface EmergencyCard {
   full_name: string | null
-  chronic_conditions: string | null
-  allergies: string | null
-  invisible_needs: string | null
-  medications: Medication[] | null
   blood_type: string | null
+  allergies: string | null
+  allergy_severity: string | null
+  chronic_conditions: string | null
+  invisible_needs: string | null
+  medical_devices: string | null
+  medications: Medication[] | null
+  primary_language: string | null
   emergency_contact_name: string | null
   emergency_contact_phone: string | null
-  disability_types: string[] | null
-  service_dog: ServiceDog | null
-  doctor_name: string | null
-  doctor_phone: string | null
-  insurance_name: string | null
-  insurance_policy: string | null
-  insurance_phone: string | null
-  organ_donor: boolean | null
-  primary_language: string | null
-  weight: string | null
-  allergy_severity: string | null
-  medical_devices: string | null
   emergency_contact2_name: string | null
   emergency_contact2_phone: string | null
   emergency_contact3_name: string | null
   emergency_contact3_phone: string | null
+  doctor_name: string | null
+  doctor_phone: string | null
+  service_dog: ServiceDog | null
 }
+
+// New tokens are 32 base64url characters (192 random bits). Anything else is rejected
+// without touching the database.
+const TOKEN_RE = /^[A-Za-z0-9_-]{32,64}$/
+
+// Per-visitor limit: 30 card views per 10 minutes. The IP is hashed, never stored raw.
+const RATE_LIMIT = 30
+const RATE_WINDOW_SECONDS = 600
+
+async function visitorBucket(): Promise<string> {
+  const h = await headers()
+  const ip =
+    h.get('x-real-ip') ??
+    h.get('x-forwarded-for')?.split(',')[0]?.trim() ??
+    'unknown'
+  const salt = process.env.RATE_LIMIT_SALT ?? 'allgo-e-card'
+  return 'e:' + createHash('sha256').update(salt + ':' + ip).digest('hex').slice(0, 32)
+}
+
+function Notice({ title, body, bodyEn }: { title: string; body: string; bodyEn: string }) {
+  return (
+    <main className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
+      <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 text-center">
+        <span className="text-4xl">🏥</span>
+        <h1 className="text-xl font-bold text-gray-800 mt-4">{title}</h1>
+        <p className="text-sm text-gray-500 mt-2">{body}</p>
+        <p className="text-xs text-gray-400 mt-1 italic">{bodyEn}</p>
+      </div>
+    </main>
+  )
+}
+
+const Unavailable = () => (
+  <Notice
+    title="Tarjeta no disponible"
+    body="Este código no es válido o el usuario desactivó el acceso de emergencia."
+    bodyEn="This card is unavailable or emergency access is turned off."
+  />
+)
 
 export default async function EmergencyCardPage({
   params,
@@ -38,33 +83,36 @@ export default async function EmergencyCardPage({
 }) {
   const { token } = await params
 
+  if (!TOKEN_RE.test(token)) return <Unavailable />
+
   let card: EmergencyCard | null = null
+  let limited = false
   try {
-    const { data } = await supabase.rpc('get_emergency_card', { token })
-    card = (data as EmergencyCard[] | null)?.[0] ?? null
+    const admin = getSupabaseAdmin()
+    const { data: allowed, error: rlError } = await admin.rpc('hit_rate_limit', {
+      p_bucket: await visitorBucket(),
+      p_limit: RATE_LIMIT,
+      p_window_seconds: RATE_WINDOW_SECONDS,
+    })
+    limited = !rlError && allowed === false
+    if (!limited) {
+      const { data } = await admin.rpc('get_emergency_card', { token })
+      card = (data as EmergencyCard[] | null)?.[0] ?? null
+    }
   } catch {
     card = null
   }
 
-  if (!card) {
+  if (limited) {
     return (
-      <main className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
-        <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 text-center">
-          <span className="text-4xl">🏥</span>
-          <h1 className="text-xl font-bold text-gray-800 mt-4">
-            Tarjeta no disponible
-          </h1>
-          <p className="text-sm text-gray-500 mt-2">
-            Este código no es válido o el usuario desactivó el acceso de
-            emergencia.
-          </p>
-          <p className="text-xs text-gray-400 mt-1 italic">
-            This card is unavailable or emergency access is turned off.
-          </p>
-        </div>
-      </main>
+      <Notice
+        title="Demasiadas consultas"
+        body="Espera unos minutos y vuelve a escanear el código. En una emergencia llama al 911."
+        bodyEn="Too many requests. Wait a few minutes and scan again. In an emergency call 911."
+      />
     )
   }
+  if (!card) return <Unavailable />
 
   const meds = card.medications ?? []
   const dog = card.service_dog
@@ -168,18 +216,9 @@ export default async function EmergencyCardPage({
             </div>
           )}
 
-          {/* Datos vitales */}
-          {(card.weight || card.primary_language || card.organ_donor) && (
+          {card.primary_language && (
             <div className="flex flex-wrap gap-3 text-sm">
-              {card.weight && (
-                <span className="bg-gray-100 rounded-lg px-3 py-1.5"><span className="font-semibold">⚖️ Peso / Weight:</span> {card.weight}</span>
-              )}
-              {card.primary_language && (
-                <span className="bg-gray-100 rounded-lg px-3 py-1.5"><span className="font-semibold">🗣️ Idioma / Language:</span> {card.primary_language}</span>
-              )}
-              {card.organ_donor && (
-                <span className="bg-blue-50 text-blue-700 rounded-lg px-3 py-1.5 font-semibold">💚 Donante de órganos / Organ donor</span>
-              )}
+              <span className="bg-gray-100 rounded-lg px-3 py-1.5"><span className="font-semibold">🗣️ Idioma / Language:</span> {card.primary_language}</span>
             </div>
           )}
 
@@ -280,26 +319,6 @@ export default async function EmergencyCardPage({
             </div>
           )}
 
-          {/* Seguro */}
-          {(card.insurance_name || card.insurance_policy || card.insurance_phone) && (
-            <div>
-              <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">
-                🛡️ Seguro / Insurance
-              </p>
-              <p className="text-gray-800 text-sm">
-                {card.insurance_name}
-                {card.insurance_policy && (
-                  <span className="text-gray-600">{card.insurance_name ? ' · ' : ''}Póliza / Policy: {card.insurance_policy}</span>
-                )}
-              </p>
-              {card.insurance_phone && (
-                <a href={`tel:${card.insurance_phone}`} className="text-[#1B6FB5] text-sm font-semibold underline">
-                  {card.insurance_phone}
-                </a>
-              )}
-            </div>
-          )}
-
           {/* Perro de servicio */}
           {dog?.has && (
             <div className="bg-amber-50 border border-amber-200 rounded-xl p-4">
@@ -318,9 +337,6 @@ export default async function EmergencyCardPage({
                 )}
                 {dog.tasks && (
                   <p><span className="font-semibold">Tareas / Tasks:</span> {dog.tasks}</p>
-                )}
-                {dog.microchip && (
-                  <p><span className="font-semibold">🔎 Microchip:</span> {dog.microchip}</p>
                 )}
                 {dog.trained_dot && (
                   <p className="text-blue-700 font-medium">
