@@ -39,6 +39,10 @@
   .gate input::placeholder{color:#8fb0c2}
   .fine{font-size:11.5px;color:#8fb0c2;text-align:center;margin-top:9px}
   .hide{display:none}
+  .next{margin-top:18px;background:rgba(255,107,53,.1);border:1px solid rgba(255,107,53,.35);border-radius:16px;padding:20px}
+  .next h3{font-size:18px;margin-bottom:8px}.next p{color:#dbe6ef;font-size:14.5px;margin-bottom:12px}
+  .next .price{font-weight:800;color:#ffb38f;font-size:15px;margin-bottom:12px}
+  .next a.btn{text-decoration:none;margin-top:0}
 </style>
 </head>
 <body>
@@ -97,10 +101,26 @@
       '<p>Te lo mando + Alli, tu asistente con IA, te ayuda a completar cada punto para tu aerolínea y país.</p>'+
       '<input id="email" type="email" placeholder="tu@correo.com" inputmode="email">'+
       '<button class="btn" id="gbtn" style="margin-top:0" onclick="save()">Enviarme mi checklist →</button>'+
-      '<div class="fine">Sin spam. Solo tu guía y novedades de AllGo Travel App.</div></div>';
+      '<div class="fine">Sin spam. Solo tu guía y novedades de AllGo Travel App.</div></div>'+
+      nextStep(dog==='si');
     document.getElementById('form').classList.add('hide');
     var r=document.getElementById('result');r.innerHTML=h;r.classList.remove('hide');
     window.scrollTo({top:0,behavior:'smooth'});
+  }
+  // Cierre de venta: guía que corresponde a la respuesta (va a la landing, no directo al checkout)
+  function nextStep(isPerro){
+    if(isPerro){
+      return '<div class="next"><div class="eyebrow">Tu siguiente paso</div>'+
+        '<h3>Llega al mostrador con todo en orden 🐾</h3>'+
+        '<p>Este checklist es el comienzo. Si el día del vuelo falta un documento, te pueden negar el embarque con tu perro. La guía <b>Viaja con tu Perro de Servicio</b> de AllGo Travel App te lleva paso a paso: el formulario del DOT explicado, aerolíneas por región, requisitos por país y la tarjeta “Modo Mostrador”.</p>'+
+        '<div class="price">$37 · un solo pago · acceso inmediato</div>'+
+        '<a class="btn" href="https://allgotravel.app/perro.html?src=checklist-viaje">Ver la guía →</a></div>';
+    }
+    return '<div class="next"><div class="eyebrow">Tu siguiente paso</div>'+
+      '<h3>Que nada te tome por sorpresa en el aeropuerto ✈️</h3>'+
+      '<p>Este checklist es el comienzo. Llegar sin haber pedido la asistencia correcta puede significar esperas largas y un viaje con estrés. La guía <b>Turismo Sin Fronteras</b> de AllGo Travel App te dice qué pedir en el aeropuerto, el avión, el hotel y el crucero, con los correos ya escritos.</p>'+
+      '<div class="price">$37 · un solo pago · acceso inmediato</div>'+
+      '<a class="btn" href="https://allgotravel.app/turismo.html?src=checklist-viaje">Ver la guía →</a></div>';
   }
   function save(){
     var e=(document.getElementById('email').value||'').trim();
