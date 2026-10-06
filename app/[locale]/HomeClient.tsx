@@ -15,8 +15,8 @@ const GUIDE = {
 
 // ── Named testimonials ──
 // ONLY real people who gave permission to use their name and words. Never invent
-// or paraphrase. Sandra gave permission (Oct 2026); she bought the Service Dog guide,
-// so her quote sits next to that guide.
+// or paraphrase. Sandra and Bertha (@miamiglamcreations) gave permission (Oct 2026);
+// both relate to the Service Dog guide, so their quotes sit next to that guide.
 // TURISMO_TESTIMONIALS: add an entry once someone gives permission. While the list
 // is empty nothing is rendered.
 type NamedTestimonial = { quote: string; name: string; detail?: string }
@@ -127,7 +127,7 @@ export default function HomeClient() {
         </div>
         <div className="wrap gcards reveal">
 
-          {/* Guía Perro de Servicio + Sandra's testimonial (she bought this guide) */}
+          {/* Guía Perro de Servicio + Sandra's and Bertha's testimonials (with permission) */}
           <div className="gcol">
             <article className="prodcard">
               <div className="ph duo"><img className="photo" src="/img/yadira-luna-aeropuerto.webp" width={1000} height={1299} loading="lazy" alt={t('dogPhotoAlt')} /><img className="cover" src="/img/home-perro.webp" width={700} height={700} loading="lazy" alt={t('dogCoverAlt')} /></div>
@@ -144,6 +144,7 @@ export default function HomeClient() {
               </div>
             </article>
             <TestimonialCard quote={t('h3SandraQuote')} name={t('h3SandraName')} detail={t('h3SandraSub')} />
+            <TestimonialCard quote={t('h3BerthaQuote')} name={t('h3BerthaName')} detail={t('h3BerthaSub')} />
           </div>
 
           {/* Guía Turismo Sin Fronteras (solo en español) */}
