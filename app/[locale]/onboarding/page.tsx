@@ -853,7 +853,7 @@ function StepPricing({ t, uid }: { t: T; uid: string | null }) { // step 6
                 {t('Plan Anual', 'Annual Plan')}
               </p>
               <p className="text-white/50 text-xs mt-1">
-                {t('Ahorra vs mensual · 2 meses gratis', 'Save vs monthly · 2 months free')}
+                {t('Ahorra vs mensual', 'Save vs monthly')}
               </p>
             </div>
             <div className="text-right shrink-0">

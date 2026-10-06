@@ -195,7 +195,7 @@ export default async function MembresiaPage() {
               {en ? 'Best value' : 'Mejor valor'}
             </div>
             <h3 className="text-lg font-extrabold" style={{ color: BLUE }}>{en ? 'Annual' : 'Anual'}</h3>
-            <p className="mt-1 text-xs font-semibold" style={{ color: ORANGE }}>{en ? 'Save $58 = 2 months free' : 'Ahorra $58 = 2 meses gratis'}</p>
+            <p className="mt-1 text-xs font-semibold" style={{ color: ORANGE }}>{en ? 'Save $58 vs monthly' : 'Ahorra $58 vs mensual'}</p>
             <div className="mt-4">
               <span className="text-4xl font-extrabold">$290</span>
               <span className="text-gray-500">{en ? '/yr' : '/año'}</span>
@@ -204,7 +204,7 @@ export default async function MembresiaPage() {
               <li>{en ? '✅ Everything in the monthly plan' : '✅ Todo lo del plan mensual'}</li>
               <li>{en ? '✅ Downloadable guides to keep (ebook, wheelchair and more)' : '✅ Guías descargables para conservar (ebook, silla y más)'}</li>
               <li>{en ? '✅ Private members community' : '✅ Comunidad privada de miembros'}</li>
-              <li>{en ? '✅ 2 months free (about ~$24/mo)' : '✅ 2 meses gratis (equivale a ~$24/mes)'}</li>
+              <li>{en ? '✅ Works out to about ~$24/mo' : '✅ Equivale a ~$24/mes'}</li>
             </ul>
             <PlanButton
               href={HOTMART.annual}
@@ -240,7 +240,7 @@ export default async function MembresiaPage() {
         <div className="mx-auto mt-6 max-w-3xl overflow-hidden rounded-2xl bg-white shadow-sm border border-gray-100">
           <div className="grid grid-cols-[1fr_90px_110px] items-center px-5 py-4" style={{ backgroundColor: BLUE, color: 'white' }}>
             <span className="text-sm font-bold">{en ? 'Benefit' : 'Beneficio'}</span>
-            <span className="text-center text-sm font-bold">Free</span>
+            <span className="text-center text-sm font-bold">{en ? 'Basic' : 'Básico'}</span>
             <span className="text-center text-sm font-bold" style={{ color: ORANGE }}>Member</span>
           </div>
           {COMPARISON.map((row, i) => (
