@@ -302,7 +302,10 @@ html.lp-hero-visible .allgo-float{opacity:0;pointer-events:none}
 .lp .storycard > .split > .luna figcaption{text-align:center}
 /* Por dentro: partial previews (top part only, faded) */
 .lp .inside{background:#fff}
-.lp .insidegrid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+/* 5 previews: desktop 3 + 2 (second row centered) */
+.lp .insidegrid{display:grid;grid-template-columns:repeat(6,1fr);gap:18px;max-width:1000px}
+.lp .insidegrid .peek{grid-column:span 2}
+.lp .insidegrid .peek:nth-child(4){grid-column:2 / span 2}
 .lp .peek{margin:0;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-sm);overflow:hidden;display:flex;flex-direction:column}
 .lp .peek .pv{position:relative;height:190px;overflow:hidden;background:var(--soft)}
 .lp .peek .pv img{width:100%;height:100%;object-fit:cover;object-position:50% 0}
@@ -324,6 +327,7 @@ html.lp-hero-visible .allgo-float{opacity:0;pointer-events:none}
 .lp .soonline{margin:0;padding:16px 22px;text-align:center;background:var(--soft);color:var(--muted);font-size:14px;font-weight:700;border-top:1px solid var(--line)}
 @media(max-width:900px){
 .lp .insidegrid{grid-template-columns:repeat(2,1fr);gap:12px}
+.lp .insidegrid .peek,.lp .insidegrid .peek:nth-child(4){grid-column:auto}
 .lp .peek .pv{height:140px}
 }
 @media(max-width:860px){

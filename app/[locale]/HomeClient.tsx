@@ -223,14 +223,16 @@ export default function HomeClient() {
         </div>
         <div className="wrap insidegrid reveal">
           {[
-            { src: '/img/perro-cheatsheet-dot.webp', w: 800, h: 240, n: 1 },
-            { src: '/img/perro-aerolineas-region.webp', w: 800, h: 240, n: 2 },
-            { src: '/img/turismo-guiones.webp', w: 700, h: 656, n: 3 },
-            { src: '/img/turismo-tarjetas.webp', w: 700, h: 1624, n: 4 },
+            { src: '/img/perro-cheatsheet-dot.webp', w: 800, h: 240, n: 1, dog: true, wide: true },
+            { src: '/img/perro-aerolineas-region.webp', w: 800, h: 240, n: 2, dog: true, wide: true },
+            // Modo Mostrador: page exported from the real bonus PDF; only the top shows (CSS crop + fade)
+            { src: '/img/perro-modo-mostrador.jpg', w: 800, h: 1035, n: 5, dog: true, wide: false },
+            { src: '/img/turismo-guiones.webp', w: 700, h: 656, n: 3, dog: false, wide: false },
+            { src: '/img/turismo-tarjetas.webp', w: 700, h: 1624, n: 4, dog: false, wide: false },
           ].map(p => (
             <figure className="peek" key={p.n}>
-              <div className={p.n <= 2 ? 'pv wide' : 'pv'}><img src={p.src} width={p.w} height={p.h} loading="lazy" alt={t(`h3Inside${p.n}`)} /></div>
-              <figcaption><b>{t(`h3Inside${p.n}`)}</b><small>{t(p.n <= 2 ? 'h3InsideFromDog' : 'h3InsideFromTur')}</small></figcaption>
+              <div className={p.wide ? 'pv wide' : 'pv'}><img src={p.src} width={p.w} height={p.h} loading="lazy" alt={t(`h3Inside${p.n}`)} /></div>
+              <figcaption><b>{t(`h3Inside${p.n}`)}</b><small>{t(p.dog ? 'h3InsideFromDog' : 'h3InsideFromTur')}</small></figcaption>
             </figure>
           ))}
         </div>
