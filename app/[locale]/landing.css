@@ -51,7 +51,7 @@ header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);bac
 .lp .rating{display:flex;align-items:center;gap:12px;margin-top:24px;color:var(--muted);font-size:14px;font-weight:600}
 .lp .stars{color:#F5A628;letter-spacing:2px;font-size:16px}
 .lp .heroimg{position:relative}
-.lp .heroimg img{width:100%;border-radius:26px;box-shadow:var(--shadow);object-fit:cover;aspect-ratio:5/6}
+.lp .heroimg img{width:100%;height:auto;border-radius:26px;box-shadow:var(--shadow)}
 .lp .badge-float{position:absolute;left:-14px;bottom:22px;background:#fff;border-radius:16px;box-shadow:var(--shadow-sm);padding:12px 16px;display:flex;align-items:center;gap:11px;font-weight:700;font-size:14px}
 .lp .badge-float .ic{width:34px;height:34px;border-radius:10px;background:#E9F2FB;color:var(--teal);display:grid;place-items:center;font-size:17px}
 @media(max-width:860px){
@@ -295,9 +295,19 @@ html.lp-hero-visible .allgo-float{opacity:0;pointer-events:none}
 .lp .hero .v2line{margin:10px 0 22px}
 .lp .gsys{margin:6px 0 0;font-size:14.5px;font-weight:700;color:var(--teal);line-height:1.35}
 .lp .gtr{margin:8px 0 0;font-size:13.5px;color:var(--muted);font-style:italic}
+/* Perro card (1000×1299): Yadira's head starts ~2% from the top, Luna spans ~42%–98% on the left.
+   A 4:5 box shows ~96% of the photo height, so both are fully visible (desktop and mobile).
+   The guide-cover thumbnail moves to the top-right (window background) so it never covers Luna. */
+.lp .prodcard .ph.duo.luna .photo{height:auto;aspect-ratio:auto;object-fit:contain}
+.lp .prodcard .ph.duo.luna .cover{top:12px;bottom:auto;right:12px}
 /* Turismo card: zoomed crop of the hero photo on its left side (wheelchair traveler + older adult) */
 .lp .prodcard .ph.duo{overflow:hidden}
-.lp .prodcard .ph.duo .photo.tur{width:180%;max-width:none;object-position:0 30%}
+/* Turismo card: show the WHOLE hero photo (800×999), no crop — wheelchair, every face and the dog stay visible.
+   The small cover goes bottom-right over the floor (below the dog's paws, ~78% down) and is a bit smaller. */
+.lp .prodcard .ph.duo .photo.tur{width:100%;max-width:100%;height:auto;object-fit:contain}
+.lp .prodcard .ph.duo .cover.tur{width:72px;height:72px;right:10px;bottom:10px;top:auto}
+/* Story beach photo (700×874): no crop anywhere, so every head and the dog are visible */
+.lp .storycard > .split > img{height:auto;min-height:0;max-height:none;object-fit:contain;align-self:center}
 .lp .storyshort{display:none}
 @media(max-width:860px){
 /* Hero: text first, compact; photo below and ~45% shorter than before */
@@ -310,8 +320,15 @@ html.lp-hero-visible .allgo-float{opacity:0;pointer-events:none}
 .lp .herochecks li{font-size:15px}
 .lp .hero .actions .btn{width:100%;justify-content:center;padding:14px 22px}
 .lp .hero .v2line{text-align:center;font-size:13.5px;margin:8px 0 18px}
-.lp .heroimg img{aspect-ratio:16/10;object-position:50% 40%;border-radius:20px}
-.lp .badge-float{left:10px;bottom:10px;padding:8px 12px;font-size:13px}
+/* Show every head: a bit taller (4:3) and anchored near the top (the man's head starts ~12% down the photo) */
+/* Rule: never crop heads, the dog or the wheelchair → full image, just narrower (≈280px wide) and centered */
+.lp .heroimg{max-width:280px;margin:0 auto;width:100%;text-align:center}
+.lp .heroimg img{aspect-ratio:auto;height:auto;object-fit:contain;border-radius:20px}
+/* Badge sits under the photo on mobile so it never covers faces */
+.lp .badge-float{position:static;display:inline-flex;margin-top:10px;padding:8px 12px;font-size:13px}
+/* Turismo card crop on mobile: less zoom + top anchor so heads/faces stay in frame */
+.lp .prodcard .ph.duo .photo.tur{width:100%;height:auto}
+.lp .prodcard .ph.duo .cover.tur{width:60px;height:60px}
 .lp .badge-float .ic{width:28px;height:28px;font-size:15px}
 .lp .section.selector{padding:34px 0 40px}
 /* Nav: keep it to logo + language + login + one compact CTA */
@@ -334,7 +351,7 @@ html.lp-hero-visible .allgo-float{opacity:0;pointer-events:none}
 .lp .storyfull{display:none}
 .lp .storyshort{display:block}
 .lp .storycard .txt{padding:26px 22px}
-.lp .storycard > .split > img{min-height:0;max-height:260px}
+.lp .storycard > .split > img{min-height:0;max-height:none;height:auto}
 /* Próximamente compact */
 .lp .section.app{padding:56px 0}
 .lp .soongrid{gap:10px;margin-bottom:0}

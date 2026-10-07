@@ -152,7 +152,7 @@ export default function HomeClient() {
           {/* Guía Perro de Servicio + Sandra's and Bertha's testimonials (with permission) */}
           <div className="gcol">
             <article className="prodcard">
-              <div className="ph duo"><img className="photo" src="/img/yadira-luna-aeropuerto.webp" width={1000} height={1299} loading="lazy" alt={t('dogPhotoAlt')} /><img className="cover" src="/img/home-perro.webp" width={700} height={700} loading="lazy" alt={t('dogCoverAlt')} /></div>
+              <div className="ph duo luna"><img className="photo" src="/img/yadira-luna-aeropuerto.webp" width={1000} height={1299} loading="lazy" alt={t('dogPhotoAlt')} /><img className="cover" src="/img/home-perro.webp" width={700} height={700} loading="lazy" alt={t('dogCoverAlt')} /></div>
               <div className="bd">
                 <span className="tag">{t('prodDogTag')}</span>
                 <h3>{t('dogGuideName')}</h3>
@@ -175,7 +175,7 @@ export default function HomeClient() {
           <div className="gcol">
             <article className="prodcard">
               {/* Human photo (crop of the existing hero: wheelchair traveler + older adult in an airport) + the guide cover */}
-              <div className="ph duo"><img className="photo tur" src="/img/home-hero.webp" width={800} height={999} loading="lazy" alt={t('h3TurPhotoAlt')} /><img className="cover" src="/img/turismo-portada-es.webp" width={700} height={700} loading="lazy" alt={t('prodTurImgAlt')} /></div>
+              <div className="ph duo"><img className="photo tur" src="/img/home-hero.webp" width={800} height={999} loading="lazy" alt={t('h3TurPhotoAlt')} /><img className="cover tur" src="/img/turismo-portada-es.webp" width={700} height={700} loading="lazy" alt={t('prodTurImgAlt')} /></div>
               <div className="bd">
                 <span className="tag">{t('h3TurTag')}</span>
                 <h3>Turismo Sin Fronteras</h3>
