@@ -252,11 +252,6 @@ document.addEventListener('DOMContentLoaded', function(){
 </head>
 <body>
 
-<div class="lang-switch">
-  <button id="btn-es" class="active" onclick="setLang('es')">ES</button>
-  <button id="btn-en" onclick="setLang('en')">EN</button>
-</div>
-
 <!-- HERO -->
 <a id="top"></a>
 <div class="hero">
@@ -272,7 +267,7 @@ document.addEventListener('DOMContentLoaded', function(){
           <li>Ten listo qué hacer si la asistencia falla o algo no sale como esperabas (incluso si dañan la silla)</li>
         </ul>
         <a class="btn" href="https://pay.hotmart.com/O106521584H" target="_blank" rel="noopener">QUIERO PREPARAR SU VIAJE — $37</a>
-        <p class="pay-note">Recibe acceso inmediato al sistema Turismo Sin Fronteras por $37 · Pago único en Hotmart · Tarjeta, PayPal o Venmo · o paga en 30 días con Klarna (según tu país) · Garantía de 7 días · Sistema digital en español</p><p class="pay-note en">This guide is available in Spanish only.</p>
+        <p class="pay-note">Recibe acceso inmediato al sistema Turismo Sin Fronteras por $37 · Pago único en Hotmart · Tarjeta, PayPal o Venmo · o paga en 30 días con Klarna (según tu país) · Garantía de 7 días · Sistema digital en español</p>
       </div>
       <div>
         <img src="/img/turismo-portada-es.webp" width="700" height="700" alt="Turismo Sin Fronteras — Guía de Viaje Accesible e Inclusivo (en español)">
@@ -384,7 +379,7 @@ document.addEventListener('DOMContentLoaded', function(){
       <div class="lang-tag">📘 Sistema digital en español</div>
       <div style="height:14px"></div>
       <a class="btn" href="https://pay.hotmart.com/O106521584H" target="_blank" rel="noopener">QUIERO PREPARAR SU VIAJE — $37</a>
-      <p class="pay-note">Recibe acceso inmediato al sistema Turismo Sin Fronteras por $37 · Pago único en Hotmart · Tarjeta, PayPal o Venmo · o paga en 30 días con Klarna (según tu país) · Garantía de 7 días · Sistema digital en español</p><p class="pay-note en">This guide is available in Spanish only.</p>
+      <p class="pay-note">Recibe acceso inmediato al sistema Turismo Sin Fronteras por $37 · Pago único en Hotmart · Tarjeta, PayPal o Venmo · o paga en 30 días con Klarna (según tu país) · Garantía de 7 días · Sistema digital en español</p>
       <div style="margin-top:16px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:.94rem;color:#173F3A;font-weight:600;">
        <span style="font-size:1.15rem;">🛡️</span>
        <span>Garantía de 7 días. Si no es para ti, te devolvemos tu dinero.</span>
@@ -443,16 +438,10 @@ document.addEventListener('DOMContentLoaded', function(){
   </div>
 </section>
 
-<!-- COMUNIDAD + GARANTÍA -->
+<!-- GARANTÍA (sin testimonios por ahora: solo se publican testimonios reales de compradores de esta guía) -->
 <section class="testi">
   <div class="wrap">
-    <h2 style="text-align:center">Lo que nos dice la comunidad</h2>
-    <div class="q">
-      <div style="color:#E8720C;letter-spacing:2px;margin-bottom:8px">★★★★★</div>
-      <p>"Es espectacular, muy práctico y excelente ayuda. En ocasiones uno siente miedo al viajar, y cada información hace más fácil cada trámite."</p>
-      <div style="font-weight:700;color:var(--teald)">@miamiglamcreations <span style="font-weight:400;color:var(--grey);font-size:.9rem">· Comunidad de AllGo Travel App · Instagram</span></div>
-    </div>
-    <div class="q" style="margin-top:18px;display:flex;gap:14px;align-items:center;border-left-color:var(--buy);font-style:normal">
+    <div class="q" style="display:flex;gap:14px;align-items:center;border-left-color:var(--buy);font-style:normal">
       <span style="font-size:2rem;line-height:1">🛡️</span>
       <div><b style="color:var(--teald)">Garantía de 7 días</b><br><span style="color:var(--grey)">Si no es lo que esperabas, te devolvemos tu dinero, sin complicaciones.</span></div>
     </div>
@@ -520,7 +509,6 @@ document.addEventListener('DOMContentLoaded', function(){
       </ul>
     </div>
     <a class="btn" href="https://pay.hotmart.com/O106521584H" target="_blank" rel="noopener">QUIERO PREPARAR SU VIAJE — $37</a>
-    <p class="pay-note en">This guide is available in Spanish only.</p>
   </div>
 </section>
 
@@ -550,13 +538,5 @@ document.addEventListener('DOMContentLoaded', function(){
   <strong>AllGo Travel App</strong> · Turismo accesible con información verificada · Todos merecen descubrir el mundo.
 </footer>
 
-<script>
-function setLang(l){
-  document.body.classList.toggle('lang-en', l==='en');
-  document.getElementById('btn-es').classList.toggle('active', l==='es');
-  document.getElementById('btn-en').classList.toggle('active', l==='en');
-  document.documentElement.lang = l;
-}
-</script>
 </body>
 </html>

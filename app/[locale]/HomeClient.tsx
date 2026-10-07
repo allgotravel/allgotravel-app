@@ -19,14 +19,15 @@ const GUIDE = {
 // both relate to the Service Dog guide, so their quotes sit next to that guide.
 // TURISMO_TESTIMONIALS: add an entry once someone gives permission. While the list
 // is empty nothing is rendered.
-type NamedTestimonial = { quote: string; name: string; detail?: string }
+type NamedTestimonial = { quote: string; name: string; detail?: string; tr?: string }
 const TURISMO_TESTIMONIALS: NamedTestimonial[] = []
 
-function TestimonialCard({ quote, name, detail }: NamedTestimonial) {
+function TestimonialCard({ quote, name, detail, tr }: NamedTestimonial) {
   return (
     <figure className="tcard gtest">
       <div className="st" aria-hidden="true">★★★★★</div>
-      <blockquote><p>{quote}</p></blockquote>
+      <blockquote lang="es"><p>{quote}</p></blockquote>
+      {tr && <p className="gtr">{tr}</p>}
       <figcaption className="who">{name}{detail && <small>{detail}</small>}</figcaption>
     </figure>
   )
@@ -94,27 +95,48 @@ export default function HomeClient() {
 
       <a id="top" />
 
-      {/* ── HERO: what we sell today — the paid guides ── */}
+      {/* ── HERO: on mobile (≈390×750) the offer + CTA fit before any scroll;
+             the photo sits BELOW the text and is shorter on mobile ── */}
       <section className="hero">
         <div className="wrap grid">
-          <div>
+          <div className="herotxt">
             <span className="kicker">{t('h3Kicker')}</span>
             <h1 className="h1long">{t('h3H1')}</h1>
             <p className="sub">{t('h3Sub')}</p>
+            <ul className="herochecks">
+              <li>{t('h3Bullet1')}</li>
+              <li>{t('h3Bullet2')}</li>
+              <li>{t('h3Bullet3')}</li>
+            </ul>
+            <div className="actions">
+              <a className="btn btn-primary" href="#guias">{t('h3HeroCta')}</a>
+            </div>
+            <p className="v2line">{t('h3From')}</p>
             <ul className="heroprods">
               <li><a href={GUIDE.perro}><span className="e" aria-hidden="true">🦮</span><span className="tx">{t('h3Mini1')}<small>{t('h3Mini1Sub')}</small></span><span className="pr">$37</span></a></li>
               <li><a href={GUIDE.turismo}><span className="e" aria-hidden="true">♿</span><span className="tx">{t('h3Mini2')}<small>{t('h3Mini2Sub')}</small></span><span className="pr">$37</span></a></li>
               <li className="pk"><a href={GUIDE.pack}><span className="e" aria-hidden="true">⭐</span><span className="tx">{t('h3Mini3')}<small>{t('h3Mini3Sub')}</small></span><span className="pr">$59</span></a></li>
             </ul>
-            <div className="actions">
-              <a className="btn btn-primary" href="#guias">{t('h3NavCta')}</a>
-            </div>
-            <p className="v2line">{t('h3Line')}</p>
           </div>
           <div className="heroimg">
             <img src="/img/home-hero.webp" width={800} height={999} alt={t('heroImgAlt')} />
             <div className="badge-float"><span className="ic">🌻</span> {t('heroBadge')}</div>
           </div>
+        </div>
+      </section>
+
+      {/* ── ¿NO SABES CUÁL ELEGIR? 4 situations, right after the hero ── */}
+      <section className="section selector" id="viaje">
+        <div className="wrap center">
+          <span className="kicker">{t('h3ProfKicker')}</span>
+          <h2 style={{ margin: '14px 0 22px' }}>{t('h3SelTitle')}</h2>
+          <div className="selgrid">
+            <a className="selcard" href="/perro.html?src=home"><span className="e">🦮</span><span className="tx">{t('sel1')}</span><span className="go">→</span></a>
+            <a className="selcard" href="/turismo.html?src=home"><span className="e">♿</span><span className="tx">{t('sel2')}{locale === 'en' && <small>{t('selEsOnly')}</small>}</span><span className="go">→</span></a>
+            <a className="selcard" href="/turismo.html?src=home-sensorial"><span className="e">🌻</span><span className="tx">{t('sel3')}{locale === 'en' && <small>{t('selEsOnly')}</small>}</span><span className="go">→</span></a>
+            <a className="selcard" href="/turismo.html?src=home-mayor"><span className="e">👵</span><span className="tx">{t('sel4')}{locale === 'en' && <small>{t('selEsOnly')}</small>}</span><span className="go">→</span></a>
+          </div>
+          <p className="gagency">{t('h3NotAgency')}</p>
         </div>
       </section>
 
@@ -134,6 +156,7 @@ export default function HomeClient() {
               <div className="bd">
                 <span className="tag">{t('prodDogTag')}</span>
                 <h3>{t('dogGuideName')}</h3>
+                <p className="gsys">{t('h3DogSys')}</p>
                 <span className="prodsub">{t('h3LangLabel')}: {t('h3DogLang')}</span>
                 <dl className="gdl">
                   <dt>{t('h3ForLabel')}</dt><dd>{t('h3DogFor')}</dd>
@@ -143,17 +166,20 @@ export default function HomeClient() {
                 <a className="btn btn-primary gbtn" href={GUIDE.perro}>{t('h3DogCta')}</a>
               </div>
             </article>
-            <TestimonialCard quote={t('h3SandraQuote')} name={t('h3SandraName')} detail={t('h3SandraSub')} />
-            <TestimonialCard quote={t('h3BerthaQuote')} name={t('h3BerthaName')} detail={t('h3BerthaSub')} />
+            {/* Exact original quotes (Spanish) on both /es and /en; /en adds a labeled translation */}
+            <TestimonialCard quote={t('h3SandraQuote')} name={t('h3SandraName')} detail={t('h3SandraSub')} tr={locale === 'en' ? t('h3SandraTr') : undefined} />
+            <TestimonialCard quote={t('h3BerthaQuote')} name={t('h3BerthaName')} detail={t('h3BerthaSub')} tr={locale === 'en' ? t('h3BerthaTr') : undefined} />
           </div>
 
           {/* Guía Turismo Sin Fronteras (solo en español) */}
           <div className="gcol">
             <article className="prodcard">
-              <div className="ph"><img src="/img/turismo-portada-es.webp" width={700} height={700} loading="lazy" alt={t('prodTurImgAlt')} /></div>
+              {/* Human photo (crop of the existing hero: wheelchair traveler + older adult in an airport) + the guide cover */}
+              <div className="ph duo"><img className="photo tur" src="/img/home-hero.webp" width={800} height={999} loading="lazy" alt={t('h3TurPhotoAlt')} /><img className="cover" src="/img/turismo-portada-es.webp" width={700} height={700} loading="lazy" alt={t('prodTurImgAlt')} /></div>
               <div className="bd">
-                <span className="tag">{t('prodTurTag')}</span>
+                <span className="tag">{t('h3TurTag')}</span>
                 <h3>Turismo Sin Fronteras</h3>
+                <p className="gsys">{t('h3TurSys')}</p>
                 <span className="prodsub">{t('h3LangLabel')}: {t('h3TurLang')}</span>
                 <dl className="gdl">
                   <dt>{t('h3ForLabel')}</dt><dd>{t('h3TurFor')}</dd>
@@ -175,6 +201,7 @@ export default function HomeClient() {
               <div className="bd">
                 <span className="tag">{t('cualBadge')}</span>
                 <h3>{t('h3PackName')}</h3>
+                <p className="gsys">{t('h3PackSys')}</p>
                 <span className="prodsub">{t('h3LangLabel')}: {t('h3PackLang')}</span>
                 <dl className="gdl">
                   <dt>{t('h3ForLabel')}</dt><dd>{t('h3PackFor')}</dd>
@@ -187,22 +214,6 @@ export default function HomeClient() {
           </div>
         </div>
         <p className="center gsecure">{t('h3Secure')}</p>
-      </section>
-
-      {/* ── PARA QUIÉN ES: profiles as descriptions, each to its guide's landing ── */}
-      <section className="section selector" id="viaje">
-        <div className="wrap center">
-          <span className="kicker">{t('h3ProfKicker')}</span>
-          <h2 style={{ margin: '14px 0 22px' }}>{t('h3SelTitle')}</h2>
-          <div className="selgrid">
-            <a className="selcard" href="/perro.html?src=home"><span className="e">🦮</span><span className="tx">{t('sel1')}</span><span className="go">→</span></a>
-            <a className="selcard" href="/turismo.html?src=home"><span className="e">♿</span><span className="tx">{t('sel2')}{locale === 'en' && <small>{t('selEsOnly')}</small>}</span><span className="go">→</span></a>
-            <a className="selcard" href="/turismo.html?src=home-sensorial"><span className="e">🌻</span><span className="tx">{t('sel3')}{locale === 'en' && <small>{t('selEsOnly')}</small>}</span><span className="go">→</span></a>
-            <a className="selcard" href="/turismo.html?src=home-mayor"><span className="e">👵</span><span className="tx">{t('sel4')}{locale === 'en' && <small>{t('selEsOnly')}</small>}</span><span className="go">→</span></a>
-          </div>
-          <p className="gagency">{t('h3NotAgency')}</p>
-          <p className="seltag">{t('selTag')}</p>
-        </div>
       </section>
 
       {/* ── TRUST NUMBERS ── */}
@@ -222,8 +233,15 @@ export default function HomeClient() {
             <div className="txt">
               <span className="kicker">{t('storyKicker')}</span>
               <h2 style={{ margin: '14px 0 10px' }}>{t('storyTitle')}</h2>
-              <p style={{ color: '#33475b', fontSize: 16.5 }}>{t('storyP1')}</p>
-              <p style={{ color: '#33475b', fontSize: 16.5 }}>{t('storyP2')}</p>
+              {/* Full text on desktop; ~1/3 shorter on mobile (same core + closing line) */}
+              <div className="storyfull">
+                <p style={{ color: '#33475b', fontSize: 16.5 }}>{t('storyP1')}</p>
+                <p style={{ color: '#33475b', fontSize: 16.5 }}>{t('storyP2')}</p>
+              </div>
+              <div className="storyshort">
+                <p style={{ color: '#33475b', fontSize: 16 }}>{t('storyP1Short')}</p>
+                <p style={{ color: '#33475b', fontSize: 16 }}>{t('storyP2Short')}</p>
+              </div>
               <div className="sig">{t('storySig')}</div>
               <figure className="luna"><img src="/img/yadira-luna-mostrador.webp" width={1000} height={1300} loading="lazy" alt={t('storyLunaAlt')} /><figcaption>{t('storyLunaCap')}</figcaption></figure>
             </div>
@@ -262,8 +280,9 @@ export default function HomeClient() {
           <div className="center">
             <span className="kicker" style={{ background: 'rgba(22,199,182,.15)', color: 'var(--tealb)' }}>{t('h3BuildKicker')}</span>
             <h2 style={{ margin: '14px 0 6px' }}>{t('h3BuildTitle')}</h2>
-            <p className="lead" style={{ margin: '0 auto 30px' }}>{t('h3BuildLead')}</p>
+            <p className="lead" style={{ margin: '0 auto 24px' }}>{t('h3BuildLead')}</p>
           </div>
+          {/* Short version: 3 compact cards only (Alli Q&A preview removed while Alli is "Próximamente") */}
           <div className="soongrid">
             {[1, 2, 3].map(n => (
               <div className="qa-card soon" key={n}>
@@ -272,26 +291,6 @@ export default function HomeClient() {
                 <p className="a">{t(`h3Soon${n}d`)}</p>
               </div>
             ))}
-          </div>
-          <div className="split soonsplit">
-            <div>
-              <h3 className="soonh">{t('h3BuildList')}</h3>
-              <ul className="feat">
-                {[1, 2, 3].map(n => <li key={n}><span className="tk">·</span>{t(`h3Build${n}`)}</li>)}
-              </ul>
-            </div>
-            <div>
-              <h3 className="soonh">{t('h3PreviewTitle')}</h3>
-              <div className="qa-list">
-                {[1, 2, 3].map(n => (
-                  <div className="qa-card" key={n}>
-                    <p className="q">{t(`alliQ${n}`)}</p>
-                    <p className="a">{t(`alliA${n}`)}</p>
-                    <p className="s">{t('alliSrc')}: {['TSA Cares · tsa.gov', '14 CFR 382.103 · ecfr.gov', 'Reglamento (CE) 1107/2006, art. 7 · eur-lex.europa.eu'][n - 1]} · {t('alliRev')}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
         </div>
       </section>

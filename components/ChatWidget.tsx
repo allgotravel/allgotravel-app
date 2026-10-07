@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
+import { usePathname } from 'next/navigation'
 import PrepUpsell from '@/components/PrepUpsell'
 
 function renderMarkdown(text: string) {
@@ -65,6 +66,7 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
   const t = useTranslations('chat')
   const locale = useLocale()
   const en = locale === 'en'
+  const pathname = usePathname()
 
   const [open, setOpen] = useState(false)
   const [messages, setMessages] = useState<Message[]>([])
@@ -269,6 +271,11 @@ export default function ChatWidget({ userId }: ChatWidgetProps) {
       sendMessage()
     }
   }
+
+  // Alli is "Próximamente" on the marketing homepage (/, /es, /en): no floating
+  // bubble there. It stays available inside the logged-in app.
+  const homePath = (pathname || '/').replace(/\/+$/, '') || '/'
+  if (homePath === '/' || homePath === '/es' || homePath === '/en') return null
 
   return (
     <>
