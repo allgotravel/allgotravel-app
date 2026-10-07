@@ -84,7 +84,6 @@ export default function HomeClient() {
               <a href="#guias">{t('h3NavGuides')}</a>
               <a href="#historia">{t('navAbout')}</a>
               <a href="#faq">{t('navFaq')}</a>
-              <a href="#pronto">{t('h3NavSoon')}</a>
             </nav>
             <a href={`/${other}`} className="pill" style={{ cursor: 'pointer', background: '#fff', border: '1.5px solid var(--tealb)', color: 'var(--teal)', fontWeight: 800 }}>{t('toggleLabel')}</a>
             <Link href="/login" className="pill" style={{ fontWeight: 700 }}>{t('navLogin')}</Link>
@@ -216,13 +215,34 @@ export default function HomeClient() {
         <p className="center gsecure">{t('h3Secure')}</p>
       </section>
 
-      {/* ── TRUST NUMBERS ── */}
+      {/* ── POR DENTRO: partial previews (cropped on purpose, not enough to use for free) ── */}
+      <section className="section inside" id="por-dentro">
+        <div className="wrap center reveal">
+          <h2 style={{ margin: '0 0 8px' }}>{t('h3InsideTitle')}</h2>
+          <p className="lead" style={{ margin: '0 auto 26px' }}>{t('h3InsideLead')}</p>
+        </div>
+        <div className="wrap insidegrid reveal">
+          {[
+            { src: '/img/perro-cheatsheet-dot.webp', w: 800, h: 240, n: 1 },
+            { src: '/img/perro-aerolineas-region.webp', w: 800, h: 240, n: 2 },
+            { src: '/img/turismo-guiones.webp', w: 700, h: 656, n: 3 },
+            { src: '/img/turismo-tarjetas.webp', w: 700, h: 1624, n: 4 },
+          ].map(p => (
+            <figure className="peek" key={p.n}>
+              <div className={p.n <= 2 ? 'pv wide' : 'pv'}><img src={p.src} width={p.w} height={p.h} loading="lazy" alt={t(`h3Inside${p.n}`)} /></div>
+              <figcaption><b>{t(`h3Inside${p.n}`)}</b><small>{t(p.n <= 2 ? 'h3InsideFromDog' : 'h3InsideFromTur')}</small></figcaption>
+            </figure>
+          ))}
+        </div>
+        <p className="center insidenote">{t('h3InsideNote')}</p>
+      </section>
+
+      {/* ── TRUST NUMBERS (only verifiable facts) ── */}
       <section className="trust">
-        <div className="wrap row">
-          <div><div className="n">{t('trust1n')}</div><div className="l">{t('trust1l')}</div></div>
-          <div><div className="n">{t('trust2n')}</div><div className="l">{t('trust2l')}</div></div>
+        <div className="wrap row row3">
           <div><div className="n">{t('trust3n')}</div><div className="l">{t('trust3l')}</div></div>
           <div><div className="n">{t('trust4n')}</div><div className="l">{t('trust4l')}</div></div>
+          <div><div className="n">2026</div><div className="l">{t('h3Trust2026')}</div></div>
         </div>
       </section>
 
@@ -243,9 +263,9 @@ export default function HomeClient() {
                 <p style={{ color: '#33475b', fontSize: 16 }}>{t('storyP2Short')}</p>
               </div>
               <div className="sig">{t('storySig')}</div>
-              <figure className="luna"><img src="/img/yadira-luna-mostrador.webp" width={1000} height={1300} loading="lazy" alt={t('storyLunaAlt')} /><figcaption>{t('storyLunaCap')}</figcaption></figure>
             </div>
-            <img src="/img/home-historia.webp" width={700} height={874} loading="lazy" alt={t('storyImgAlt')} />
+            {/* Beach photo removed; the real photo of Yadira + Luna is the story's image (full, never cropped) */}
+            <figure className="luna"><img src="/img/yadira-luna-mostrador.webp" width={1000} height={1300} loading="lazy" alt={t('storyLunaAlt')} /><figcaption>{t('storyLunaCap')}</figcaption></figure>
           </div></div>
         </div>
       </section>
@@ -274,35 +294,18 @@ export default function HomeClient() {
         </div>
       </section>
 
-      {/* ── PRÓXIMAMENTE / LO QUE ESTAMOS CONSTRUYENDO — no prices, no buy buttons ── */}
-      <section className="section app" id="pronto">
-        <div className="wrap reveal">
-          <div className="center">
-            <span className="kicker" style={{ background: 'rgba(22,199,182,.15)', color: 'var(--tealb)' }}>{t('h3BuildKicker')}</span>
-            <h2 style={{ margin: '14px 0 6px' }}>{t('h3BuildTitle')}</h2>
-            <p className="lead" style={{ margin: '0 auto 24px' }}>{t('h3BuildLead')}</p>
-          </div>
-          {/* Short version: 3 compact cards only (Alli Q&A preview removed while Alli is "Próximamente") */}
-          <div className="soongrid">
-            {[1, 2, 3].map(n => (
-              <div className="qa-card soon" key={n}>
-                <span className="sb">{t('h3SoonBadge')}</span>
-                <p className="q">{t(`h3Soon${n}t`)}</p>
-                <p className="a">{t(`h3Soon${n}d`)}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ── FINAL CTA ── */}
       <section className="section finalcta">
         <div className="wrap reveal">
           <h2>{t('h3FinalTitle')}</h2>
-          <a className="btn btn-white" href="#guias" style={{ marginTop: 22 }}>{t('h3FinalCta')}</a>
-          <p style={{ fontSize: 15, marginTop: 18, opacity: 0.85 }}>{t('finalP')}</p>
+          <p className="finaltxt">{t('h3FinalText')}</p>
+          <a className="btn btn-white" href="#guias" style={{ marginTop: 8 }}>{t('h3FinalCta')}</a>
+          <p className="finalfine">{t('h3FinalFine')}</p>
         </div>
       </section>
+
+      {/* ── PRÓXIMAMENTE: one short line only (out of the main flow) ── */}
+      <p className="soonline" id="pronto">{t('h3SoonLine')}</p>
 
       {/* ── FOOTER ── */}
       <footer>
@@ -312,8 +315,8 @@ export default function HomeClient() {
               <div className="brand" style={{ fontWeight: 800, fontSize: 18, marginBottom: 8, display: 'flex', alignItems: 'center', gap: 8 }}><img src="/landing/img9.png" alt="" style={{ width: 30, height: 30, objectFit: 'contain' }} /> AllGo Travel App</div>
               <p style={{ maxWidth: 280 }}>{t('footTagline')}</p>
             </div>
-            <div><h4>{t('footExplore')}</h4><a href="#guias">{t('footLinkGuides')}</a><a href="#historia">{t('footLinkStory')}</a><a href="#pronto">{t('h3FootSoon')}</a></div>
-            <div><h4>{t('footResources')}</h4><a href="#faq">{t('footLinkFaq')}</a><a href="https://ig.me/m/allgotravelapp" target="_blank" rel="noopener">{t('footLinkContact')}</a></div>
+            <div><h4>{t('footExplore')}</h4><a href="#guias">{t('footLinkGuides')}</a><a href="#historia">{t('footLinkStory')}</a><a href="#faq">{t('footLinkFaq')}</a></div>
+            <div><h4>{t('footResources')}</h4><a href="https://ig.me/m/allgotravelapp" target="_blank" rel="noopener">{t('footLinkContact')}</a></div>
             <div><h4>{t('footCommunity')}</h4><a href="https://instagram.com/allgotravelapp" target="_blank" rel="noopener">Instagram @allgotravelapp</a></div>
           </div>
           <div className="legal">{t('footLegal')}</div>
