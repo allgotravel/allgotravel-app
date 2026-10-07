@@ -316,10 +316,14 @@ html.lp-hero-visible .allgo-float{opacity:0;pointer-events:none}
 .lp .peek .pv.wide:after{display:none}
 .lp .peek figcaption{padding:12px 14px 14px;text-align:left}
 .lp .peek figcaption b{display:block;color:var(--navy);font-size:15.5px;line-height:1.3}
-.lp .peek figcaption small{display:block;color:var(--muted);font-size:12.5px;font-weight:700;margin-top:3px}
-.lp .insidenote{margin:18px auto 0;color:var(--muted);font-size:14px;font-weight:600}
-/* Trust numbers: 3 verifiable stats */
+.lp .peek figcaption .use{display:block;color:#33475b;font-size:14px;line-height:1.45;margin-top:4px}
+.lp .peek figcaption small{display:block;color:var(--muted);font-size:12px;font-weight:700;margin-top:6px}
+.lp .insidenote{margin:14px auto 0;color:var(--muted);font-size:14px;font-weight:600}
+/* Less white space between the previews and the trust bar */
+.lp .section.inside{padding-bottom:44px}
+/* Trust bar: 3 verifiable facts; "Fuentes oficiales" is text, so a smaller size than the numbers */
 .lp .trust .row.row3{grid-template-columns:repeat(3,1fr)}
+.lp .trust .n.ntext{font-size:clamp(18px,2.2vw,26px);line-height:1.15}
 /* Final CTA */
 .lp .finalcta .finaltxt{color:#eaffff;max-width:600px;margin:14px auto 22px;font-size:17px}
 .lp .finalcta .finalfine{color:#eaffff;font-size:14px;margin:14px auto 0;opacity:.9}
@@ -333,15 +337,16 @@ html.lp-hero-visible .allgo-float{opacity:0;pointer-events:none}
 @media(max-width:860px){
 .lp .storycard > .split > .luna{padding:0 22px 26px}
 .lp .storycard > .split > .luna img{max-width:340px}
-.lp .section.inside{padding:48px 0}
+.lp .section.inside{padding:48px 0 28px}
 }
 @media(max-width:560px){
 .lp .insidegrid{grid-template-columns:1fr;gap:10px}
 .lp .peek .pv{height:130px}
 }
 @media(max-width:700px){
-.lp .trust .row.row3{grid-template-columns:repeat(3,1fr);gap:10px}
+.lp .trust .row.row3{grid-template-columns:repeat(3,1fr);gap:10px;padding:22px 0}
 .lp .trust .row.row3 .l{font-size:12px}
+.lp .trust .n.ntext{font-size:16px}
 }
 /* Perro card (1000×1299): Yadira's head starts ~2% from the top, Luna spans ~42%–98% on the left.
    A 4:5 box shows ~96% of the photo height, so both are fully visible (desktop and mobile).
@@ -356,7 +361,6 @@ html.lp-hero-visible .allgo-float{opacity:0;pointer-events:none}
 .lp .prodcard .ph.duo .cover.tur{width:72px;height:72px;right:10px;bottom:10px;top:auto}
 /* Story beach photo (700×874): no crop anywhere, so every head and the dog are visible */
 .lp .storycard > .split > img{height:auto;min-height:0;max-height:none;object-fit:contain;align-self:center}
-.lp .storyshort{display:none}
 @media(max-width:860px){
 /* Hero: text first, compact; photo below and ~45% shorter than before */
 .lp .hero .grid{gap:26px;padding:18px 22px 40px}
@@ -395,9 +399,6 @@ html.lp-hero-visible .allgo-float{opacity:0;pointer-events:none}
 .lp .gbtn{margin-top:8px}
 .lp .gcol{gap:12px}
 .lp .tcard.gtest{padding:18px}
-/* Story ~1/3 shorter on mobile */
-.lp .storyfull{display:none}
-.lp .storyshort{display:block}
 .lp .storycard .txt{padding:26px 22px}
 .lp .storycard > .split > img{min-height:0;max-height:none;height:auto}
 /* Próximamente compact */

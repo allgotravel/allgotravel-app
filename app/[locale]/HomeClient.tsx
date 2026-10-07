@@ -232,19 +232,19 @@ export default function HomeClient() {
           ].map(p => (
             <figure className="peek" key={p.n}>
               <div className={p.wide ? 'pv wide' : 'pv'}><img src={p.src} width={p.w} height={p.h} loading="lazy" alt={t(`h3Inside${p.n}`)} /></div>
-              <figcaption><b>{t(`h3Inside${p.n}`)}</b><small>{t(p.dog ? 'h3InsideFromDog' : 'h3InsideFromTur')}</small></figcaption>
+              <figcaption><b>{t(`h3Inside${p.n}`)}</b><span className="use">{t(`h3InsideUse${p.n}`)}</span><small>{t(p.dog ? 'h3InsideFromDog' : 'h3InsideFromTur')}</small></figcaption>
             </figure>
           ))}
         </div>
         <p className="center insidenote">{t('h3InsideNote')}</p>
       </section>
 
-      {/* ── TRUST NUMBERS (only verifiable facts) ── */}
+      {/* ── TRUST BAR (only verifiable facts) ── */}
       <section className="trust">
         <div className="wrap row row3">
           <div><div className="n">{t('trust3n')}</div><div className="l">{t('trust3l')}</div></div>
-          <div><div className="n">{t('trust4n')}</div><div className="l">{t('trust4l')}</div></div>
           <div><div className="n">2026</div><div className="l">{t('h3Trust2026')}</div></div>
+          <div><div className="n ntext">{t('trustSrcN')}</div><div className="l">{t('trustSrcL')}</div></div>
         </div>
       </section>
 
@@ -255,15 +255,9 @@ export default function HomeClient() {
             <div className="txt">
               <span className="kicker">{t('storyKicker')}</span>
               <h2 style={{ margin: '14px 0 10px' }}>{t('storyTitle')}</h2>
-              {/* Full text on desktop; ~1/3 shorter on mobile (same core + closing line) */}
-              <div className="storyfull">
-                <p style={{ color: '#33475b', fontSize: 16.5 }}>{t('storyP1')}</p>
-                <p style={{ color: '#33475b', fontSize: 16.5 }}>{t('storyP2')}</p>
-              </div>
-              <div className="storyshort">
-                <p style={{ color: '#33475b', fontSize: 16 }}>{t('storyP1Short')}</p>
-                <p style={{ color: '#33475b', fontSize: 16 }}>{t('storyP2Short')}</p>
-              </div>
+              {/* One version of the story only (the short one), so it is not duplicated in the HTML */}
+              <p style={{ color: '#33475b', fontSize: 16.5 }}>{t('storyP1Short')}</p>
+              <p style={{ color: '#33475b', fontSize: 16.5 }}>{t('storyP2Short')}</p>
               <div className="sig">{t('storySig')}</div>
             </div>
             {/* Beach photo removed; the real photo of Yadira + Luna is the story's image (full, never cropped) */}
