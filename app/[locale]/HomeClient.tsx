@@ -11,6 +11,7 @@ const GUIDE = {
   perro: '/perro.html?src=home',
   turismo: '/turismo.html?src=home',
   pack: '/perro.html?src=home-pack#pack',
+  mexico: '/mexico.html?src=home',
 }
 
 // ── Named testimonials ──
@@ -145,6 +146,22 @@ export default function HomeClient() {
           <span className="kicker">{t('h3GKicker')}</span>
           <h2 style={{ margin: '14px 0 8px' }}>{t('h3GTitle')}</h2>
           <p className="lead" style={{ margin: '0 auto 40px' }}>{t('h3GLead')}</p>
+        </div>
+        {/* Nuevo: Patitas Viajeras Sin Fronteras (México; la guía está solo en español) → /mexico.html */}
+        <div className="wrap reveal">
+          <article className="prodcard gnew">
+            <a className="ph" href={GUIDE.mexico}><img src="/img/mexico/portada-mini.jpg" width={240} height={360} loading="lazy" alt={t('h3MxCoverAlt')} /></a>
+            <div className="bd">
+              <span className="tag gnewtag">{t('h3MxBadge')}</span>
+              <h3>{t('h3MxName')}</h3>
+              <p className="gsys">{t('h3MxLine')}</p>
+              <span className="prodsub">{t('h3MxLang')}</span>
+              <div className="gnewrow">
+                <div className="price">$17</div>
+                <a className="btn btn-primary gbtn" href={GUIDE.mexico}>{t('h3MxCta')}</a>
+              </div>
+            </div>
+          </article>
         </div>
         <div className="wrap gcards reveal">
 

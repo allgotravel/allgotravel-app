@@ -272,6 +272,24 @@ html.lp-hero-visible .allgo-float{opacity:0;pointer-events:none}
 .lp .gdl dd{margin:4px 0 0;color:var(--muted);font-size:14.5px;line-height:1.5}
 .lp .gbtn{margin-top:12px;justify-content:center;text-align:center}
 .lp .gpack{border:2px solid var(--orange);box-shadow:0 18px 40px rgba(245,166,40,.25);overflow:visible}
+/* Guía nueva (México): tarjeta horizontal destacada encima de las 3 guías */
+.lp .gnew{display:grid;grid-template-columns:200px 1fr;max-width:880px;margin:0 auto 30px;border:2px solid #E84A7F;box-shadow:0 18px 40px rgba(232,74,127,.16)}
+.lp .gnew .ph{background:linear-gradient(135deg,#E6F7F5,#FFF4D6);padding:20px;display:grid;place-items:center}
+.lp .gnew .ph img{width:150px;height:auto;max-height:none;border-radius:8px;box-shadow:0 10px 24px rgba(11,31,58,.25)}
+.lp .gnew .bd{padding:22px 26px}
+.lp .gnew h3{margin:0}
+.lp .gnew .gsys{flex:0 0 auto}
+.lp .gnewtag{background:#E84A7F;color:#fff}
+.lp .gnewrow{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:14px}
+.lp .gnewrow .gbtn{margin-top:0}
+@media(max-width:700px){
+.lp .gnew{grid-template-columns:1fr;margin-bottom:22px}
+.lp .gnew .ph{padding:16px}
+.lp .gnew .ph img{width:120px}
+.lp .gnew .bd{padding:16px 18px 18px}
+.lp .gnewrow{flex-direction:column;align-items:stretch;gap:8px}
+.lp .gnewrow .price{text-align:left}
+}
 .lp .gbadge{position:absolute;top:-13px;left:20px;z-index:1;background:var(--orange);color:#3a2400;font-weight:800;font-size:12px;letter-spacing:.04em;padding:5px 12px;border-radius:999px}
 .lp .prodcard .ph.gduo{display:flex;gap:12px;justify-content:center;border-radius:var(--radius) var(--radius) 0 0}
 .lp .prodcard .ph.gduo img{width:45%;height:auto;max-height:200px;object-fit:cover}
