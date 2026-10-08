@@ -1,5 +1,5 @@
 -- Compras de Hotmart -> Supabase (para la secuencia poscompra en MailerLite) — 9-oct-2026.
--- Lo escribe solo la función Edge "hotmart-webhook" (service role). Sin acceso para anon ni authenticated.
+-- Lo escribe solo app/api/webhooks/hotmart/route.ts con la clave de servicio (lib/hotmartPurchases.ts). Sin acceso para anon ni authenticated.
 -- Datos personales mínimos: correo (para el correo de servicio) y nombre de pila. Nada de teléfono, documento ni dirección.
 
 create table if not exists public.hotmart_purchases (
@@ -38,7 +38,7 @@ revoke all on public.hotmart_purchases from anon, authenticated;
 --  * PURCHASE_REFUNDED -> refunded · PURCHASE_CHARGEBACK -> chargeback · PURCHASE_CANCELED -> canceled
 --  * cualquier otro evento -> solo crea una fila mínima 'pending' si no existía (no cambia estados)
 --  * mismo last_event_id que ya se procesó -> no hace nada (reenvío de Hotmart)
--- Devuelve el estado anterior y el nuevo para que la función Edge sepa si debe sincronizar MailerLite.
+-- Devuelve el estado anterior y el nuevo para que la ruta sepa si debe sincronizar MailerLite.
 create or replace function public.hotmart_record_event(p jsonb)
 returns table (transaction_id text, previous_status text, new_status text, changed boolean, duplicate boolean)
 language plpgsql
@@ -118,7 +118,7 @@ begin
 end;
 $$;
 
--- Anota el resultado de la sincronización con MailerLite (lo llama la función Edge).
+-- Anota el resultado de la sincronización con MailerLite (lo llama la ruta del webhook).
 create or replace function public.hotmart_mark_ml_sync(p_tx text, p_group text, p_error text)
 returns void language sql security definer set search_path = public as $$
   update public.hotmart_purchases

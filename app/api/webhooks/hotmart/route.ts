@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 import { timingSafeEqual } from 'crypto'
+import { guideProduct, handleGuidePurchase, normalizeGuideEvent, safeLog } from '@/lib/hotmartPurchases'
 
 const HOTMART_HOTTOK = process.env.HOTMART_HOTTOK
 
@@ -72,6 +73,26 @@ export async function POST(req: NextRequest) {
   }
 
   const { event, data } = body
+
+  // Guías (Perro, Turismo, Pack, Kit, Kit Silla, México): se guardan en hotmart_purchases y,
+  // solo si BUYER_SYNC_ENABLED=true, el comprador entra/sale del grupo "Compradores · <Producto>"
+  // en MailerLite. No toca la membresía: después sigue el flujo del Club igual que antes.
+  if (data && guideProduct(data.product?.id)) {
+    const p = normalizeGuideEvent(body)
+    if (p.transaction_id) {
+      try {
+        const r = await handleGuidePurchase(p, {
+          rpc: (fn, args) => getAdmin().rpc(fn, args) as unknown as Promise<{ data: unknown; error: unknown }>,
+          fetchFn: fetch,
+          env: process.env,
+        })
+        console.log('[hotmart] guía', safeLog(p, { status: r.status, changed: r.changed, dup: r.duplicate, action: r.action, sync: r.sync, ml: r.mlError ? 'error' : 'ok' }))
+      } catch (e) {
+        console.error('[hotmart] guía: no se pudo guardar', safeLog(p, { err: String(e).slice(0, 120) }))
+        return NextResponse.json({ error: 'store_failed' }, { status: 500 }) // Hotmart reintenta
+      }
+    }
+  }
 
   // Solo el producto de membresía toca el acceso. Compras de guías se registran y se ignoran.
   if (!data || !isMembershipPurchase(data)) {
