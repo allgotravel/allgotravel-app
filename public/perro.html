@@ -162,6 +162,21 @@
  .upsell p{font-size:1.08rem;color:var(--ink);margin:0 0 16px;line-height:1.5}
  .upsell p b{color:var(--teald)}
  .upsell .btn{font-size:1rem;padding:14px 26px}
+
+ /* Bloque de la fundadora (idéntico en perro, turismo y mexico) */
+ .agf{padding:48px 0;background:#fff}
+ .agf .agf-card{max-width:980px;margin:0 auto;display:grid;grid-template-columns:minmax(0,420px) 1fr;gap:30px;align-items:center;background:#FFF8EC;border-radius:22px;padding:26px;border-top:6px solid #F5A628;box-shadow:0 12px 34px rgba(11,31,58,.08)}
+ .agf figure{margin:0}
+ .agf figure img{width:100%;height:auto;display:block;border-radius:16px;box-shadow:0 10px 26px rgba(11,31,58,.15)}
+ .agf figcaption{font-size:.78rem;color:#6B7785;margin-top:6px;text-align:center;font-style:italic}
+ .agf h2{font-family:inherit;font-size:1.6rem;line-height:1.2;color:#0B1F3A;margin:0 0 6px;font-weight:800}
+ .agf .agf-sub{color:#0E7C86;font-weight:700;margin:0 0 14px;font-size:1.02rem;font-style:normal}
+ .agf .agf-body p{margin:0 0 10px;color:#1F2A2E;font-size:1rem;line-height:1.6;font-style:normal;max-width:none;padding:0}
+ .agf .agf-sig{margin:14px 0 0;color:#0B1F3A;font-weight:700;line-height:1.5;font-style:normal}
+ .agf .agf-legal{margin:10px 0 0;font-size:.85rem;color:#5B686D;font-style:normal}
+ .agf .agf-legal a{color:inherit;text-decoration:underline;white-space:nowrap}
+ .agf .agf-cta{margin-top:18px}
+ @media(max-width:800px){ .agf{padding:36px 0} .agf .agf-card{grid-template-columns:1fr;padding:18px;gap:18px} .agf h2{font-size:1.35rem} .agf .agf-cta .btn{display:block;text-align:center} }
 </style>
 <!-- Meta Pixel Code (AllGo Travel App) -->
 <script>
@@ -403,14 +418,23 @@ document.addEventListener('DOMContentLoaded', function(){
  </div>
 </section>
 
-<section class="story">
+<section class="agf" id="quien">
  <div class="wrap">
-  <div class="grid">
-   <div><img src="/img/yadira-papa-luna-aeropuerto.webp" width="1200" height="900" loading="lazy" decoding="async" alt="Yadira Suárez, fundadora de AllGo Travel App, con su papá en silla de ruedas y Luna, su perra de servicio, en el aeropuerto" data-alt-es="Yadira Suárez, fundadora de AllGo Travel App, con su papá en silla de ruedas y Luna, su perra de servicio, en el aeropuerto" data-alt-en="Yadira Suárez, founder of AllGo Travel App, with her dad in his wheelchair and Luna, her service dog, at the airport"></div>
+  <div class="agf-card">
+   <figure><img src="/img/yadira-papa-luna-aeropuerto.webp" width="1200" height="900" loading="lazy" decoding="async" alt="Yadira Suárez, fundadora de AllGo Travel App, con su papá y Luna, su perra de servicio" data-alt-es="Yadira Suárez, fundadora de AllGo Travel App, con su papá y Luna, su perra de servicio" data-alt-en="Yadira Suárez, founder of AllGo Travel App, with her dad and Luna, her service dog"></figure>
    <div>
-    <h2><span class="es">Por qué existe esta guía</span><span class="en">Why this guide exists</span></h2>
-    <blockquote><span class="es">Soy Yadira. Viajo con mi perra de servicio, Luna, y aprendí todo esto a los golpes — con las reglas cambiando, la información regada y el miedo de que no nos dejaran subir. Esta guía es lo que me hubiera gustado tener: en simple, en dos idiomas, y honesta con lo que la ley sí permite hoy.</span><span class="en">I'm Yadira. I travel with my service dog, Luna, and I learned all of this the hard way — with the rules changing, the information scattered, and the fear that they wouldn't let us board. This guide is what I wish I'd had: simple, in two languages, and honest about what the law actually allows today.</span></blockquote>
-    <p class="llc" style="margin-top:14px;font-size:.92rem;color:var(--grey)"><span class="es">Proyecto de All Go Travel LLC · Weston, Florida, EE.UU. · <a href="mailto:hola@allgotravel.app" style="color:inherit;text-decoration:underline;white-space:nowrap">hola@allgotravel.app</a></span><span class="en">A project of All Go Travel LLC · Weston, Florida, USA · <a href="mailto:hola@allgotravel.app" style="color:inherit;text-decoration:underline;white-space:nowrap">hola@allgotravel.app</a></span></p>
+    <h2><span class="es">¿Quién está detrás de AllGo Travel App?</span><span class="en">Who’s behind AllGo Travel App?</span></h2>
+    <p class="agf-sub"><span class="es">Una historia real. Una misión que nació en familia. 💙</span><span class="en">A real story. A mission born in a family. 💙</span></p>
+    <div class="agf-body">
+     <p><span class="es">AllGo Travel App nació de mi propia experiencia viajando con mi papá, que utiliza un scooter de movilidad, y con Luna, mi perrita de servicio.</span><span class="en">AllGo Travel App was born from my own experience traveling with my dad, who uses a mobility scooter, and with Luna, my service dog.</span></p>
+     <p><span class="es">Sé lo que significa organizar un viaje cuando existen necesidades especiales: investigar requisitos, preparar documentos, confirmar accesibilidad y tratar de evitar sorpresas de último momento.</span><span class="en">I know what it means to plan a trip when there are special needs: researching requirements, preparing documents, confirming accessibility and trying to avoid last-minute surprises.</span></p>
+     <p><span class="es">Esa experiencia me inspiró a crear AllGo Travel App, un proyecto dedicado a ayudar a otras personas y familias a preparar sus viajes con más información, organización y tranquilidad.</span><span class="en">That experience inspired me to create AllGo Travel App, a project dedicated to helping other people and families prepare their trips with more information, organization and peace of mind.</span></p>
+     <p><span class="es">Porque viajar no debería ser un privilegio reservado para quienes no enfrentan barreras.</span><span class="en">Because travel shouldn’t be a privilege reserved for those who don’t face barriers.</span></p>
+     <p><span class="es">Detrás de estas guías hay una familia que también vive estos desafíos.</span><span class="en">Behind these guides is a family that also lives these challenges.</span></p>
+    </div>
+    <p class="agf-sig"><span class="es">Con cariño,<br>Yadira, fundadora de AllGo Travel App 💙</span><span class="en">With love,<br>Yadira, founder of AllGo Travel App 💙</span></p>
+    <p class="agf-legal"><span class="es">All Go Travel LLC · Florida, Estados Unidos · <a href="https://www.allgotravel.app">www.allgotravel.app</a> · <a href="mailto:hola@allgotravel.app">hola@allgotravel.app</a></span><span class="en">All Go Travel LLC · Florida, United States · <a href="https://www.allgotravel.app">www.allgotravel.app</a> · <a href="mailto:hola@allgotravel.app">hola@allgotravel.app</a></span></p>
+    <div class="agf-cta"><a class="btn" href="https://pay.hotmart.com/Q106793737G" target="_blank" rel="noopener"><span class="es">QUIERO PREPARAR MI VIAJE — $37</span><span class="en">GET MY TRIP READY — $37</span></a></div>
    </div>
   </div>
  </div>

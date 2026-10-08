@@ -271,14 +271,15 @@ export default function HomeClient() {
           <div className="storycard"><div className="split">
             <div className="txt">
               <span className="kicker">{t('storyKicker')}</span>
-              <h2 style={{ margin: '14px 0 10px' }}>{t('storyTitle')}</h2>
-              {/* One version of the story only (the short one), so it is not duplicated in the HTML */}
-              <p style={{ color: '#33475b', fontSize: 16.5 }}>{t('storyP1Short')}</p>
-              <p style={{ color: '#33475b', fontSize: 16.5 }}>{t('storyP2Short')}</p>
-              <div className="sig">{t('storySig')}</div>
+              <h2 style={{ margin: '14px 0 6px' }}>{t('storyWhoTitle')}</h2>
+              {/* Yadira's own words (same founder text as perro/turismo/mexico.html) */}
+              <p style={{ color: '#0E7C86', fontWeight: 700, margin: '0 0 12px' }}>{t('storyWhoSub')}</p>
+              {[1, 2, 3, 4, 5].map(n => <p key={n} style={{ color: '#33475b', fontSize: 16 }}>{t(`storyWhoP${n}`)}</p>)}
+              <div className="sig">{t('storyWhoSig1')}<br />{t('storyWhoSig2')}</div>
+              <p style={{ color: '#5B686D', fontSize: 13.5, marginTop: 10 }}>All Go Travel LLC · {t('storyWhoPlace')} · <a href="https://www.allgotravel.app" style={{ textDecoration: 'underline' }}>www.allgotravel.app</a> · <a href="mailto:hola@allgotravel.app" style={{ textDecoration: 'underline' }}>hola@allgotravel.app</a></p>
             </div>
             {/* Beach photo removed; the real photo of Yadira + Luna is the story's image (full, never cropped) */}
-            <figure className="luna"><img src="/img/yadira-papa-luna-aeropuerto.webp" width={1200} height={900} loading="lazy" alt={t('storyLunaAlt')} /><figcaption>{t('storyLunaCap')}</figcaption></figure>
+            <figure className="luna"><img src="/img/yadira-papa-luna-aeropuerto.webp" width={1200} height={900} loading="lazy" alt={t('storyLunaAlt')} /></figure>
           </div></div>
         </div>
       </section>
