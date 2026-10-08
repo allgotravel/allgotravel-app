@@ -14,6 +14,8 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     // Prototipo suelto (no lo importa la app)
     "verificador-psd.jsx",
+    // Funciones Edge de Supabase (Deno, se revisan aparte)
+    "supabase/functions/**",
   ]),
 ]);
 
