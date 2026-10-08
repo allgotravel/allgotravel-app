@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { getLocale } from "next-intl/server";
 import MetaPixel from "@/components/MetaPixel";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -53,6 +54,8 @@ export default async function RootLayout({
       <body className="min-h-full flex flex-col">
         <MetaPixel />
         {children}
+        {/* Vercel Web Analytics (visitas; se activa en el panel de Vercel) */}
+        <Analytics />
       </body>
     </html>
   );

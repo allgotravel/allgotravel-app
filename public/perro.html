@@ -590,5 +590,20 @@ function setLang(l){
   document.title = en ? 'Flying with a service dog in 2026: DOT form and requirements | AllGo Travel App' : 'Viajar con perro de servicio en avión 2026: formulario DOT y requisitos | AllGo Travel App';
 }
 </script>
+<!-- Vercel Web Analytics: visitas + evento "Comprar" al tocar un botón de compra (no cambia el link ni el ?src) -->
+<script>
+window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+document.addEventListener('click', function (e) {
+  var a = e.target && e.target.closest ? e.target.closest('a[href*="pay.hotmart.com"], a.buy') : null;
+  if (!a) return;
+  var h = a.getAttribute('href') || '', p = 'Patitas Viajeras Sin Fronteras';
+  if (h.indexOf('Q106793737G') > -1) p = 'Guia Perro de Servicio';
+  else if (h.indexOf('O106521584H') > -1) p = 'Turismo Sin Fronteras';
+  else if (h.indexOf('A107786229V') > -1) p = 'Pack Viajero Completo';
+  else if (h.indexOf('L107208384X') > -1) p = 'Kit del Viajero';
+  try { window.va('event', { name: 'Comprar', data: { producto: p, pagina: location.pathname, src: window.ALLGO_SCK || window.KIT_SCK || '' } }); } catch (_) {}
+}, true);
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
