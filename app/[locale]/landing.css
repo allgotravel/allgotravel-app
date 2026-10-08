@@ -316,7 +316,7 @@ html.lp-hero-visible .allgo-float{opacity:0;pointer-events:none}
 /* ── Home final round (oct 2026) ── */
 /* Story: the Yadira + Luna photo is now the story's second column (full image, no crop) */
 .lp .storycard > .split > .luna{margin:0;padding:36px 36px 36px 0;max-width:none;align-self:center}
-.lp .storycard > .split > .luna img{max-width:420px;margin:0 auto}
+.lp .storycard > .split > .luna img{max-width:520px;margin:0 auto}
 .lp .storycard > .split > .luna figcaption{text-align:center}
 /* Por dentro: partial previews (top part only, faded) */
 .lp .inside{background:#fff}

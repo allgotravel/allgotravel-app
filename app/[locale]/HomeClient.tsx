@@ -278,7 +278,7 @@ export default function HomeClient() {
               <div className="sig">{t('storySig')}</div>
             </div>
             {/* Beach photo removed; the real photo of Yadira + Luna is the story's image (full, never cropped) */}
-            <figure className="luna"><img src="/img/yadira-luna-mostrador.webp" width={1000} height={1300} loading="lazy" alt={t('storyLunaAlt')} /><figcaption>{t('storyLunaCap')}</figcaption></figure>
+            <figure className="luna"><img src="/img/yadira-papa-luna-aeropuerto.webp" width={1200} height={900} loading="lazy" alt={t('storyLunaAlt')} /><figcaption>{t('storyLunaCap')}</figcaption></figure>
           </div></div>
         </div>
       </section>

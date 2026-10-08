@@ -142,13 +142,13 @@
  .bridge li{margin:0 0 4px 18px}
  /* QUIÉN ESTÁ DETRÁS */
  .who{padding:40px 0}
- .who .box{max-width:780px;margin:0 auto;display:grid;grid-template-columns:150px 1fr;gap:22px;align-items:center;background:var(--cream);border-radius:22px;padding:22px 24px;border-top:5px solid var(--turq)}
- .who img{width:150px;height:150px;object-fit:cover;object-position:50% 15%;border-radius:50%;border:4px solid var(--yellow)}
+ .who .box{max-width:900px;margin:0 auto;display:grid;grid-template-columns:minmax(0,360px) 1fr;gap:24px;align-items:center;background:var(--cream);border-radius:22px;padding:22px 24px;border-top:5px solid var(--turq)}
+ .who img{width:100%;height:auto;object-fit:contain;border-radius:16px;border:4px solid var(--yellow);box-shadow:0 10px 26px rgba(11,31,58,.15)}
  .who h2{font-size:1.4rem;margin-bottom:8px}
  .who blockquote{font-size:1.02rem;color:var(--ink);margin:0}
  .who .sig{font-weight:800;color:var(--navy);margin-top:8px}
  .who .llc{font-size:.9rem;color:var(--grey);margin-top:6px}
- @media(max-width:600px){ .who .box{grid-template-columns:1fr;text-align:center;padding:20px 18px} .who img{width:120px;height:120px;margin:0 auto} }
+ @media(max-width:600px){ .who .box{grid-template-columns:1fr;text-align:center;padding:20px 18px} .who img{max-width:100%} }
  /* FAQ */
  .faq{background:#FFFBEF}
  .faq details{max-width:820px;background:#fff;border-radius:14px;margin:0 0 10px;box-shadow:0 4px 16px rgba(11,31,58,.06);border-left:5px solid var(--turq)}
@@ -492,7 +492,7 @@ var HOTMART_MEXICO_URL = 'https://pay.hotmart.com/T107935222A';
 <section class="who" id="quien">
  <div class="wrap">
   <div class="box">
-   <img src="/img/yadira-luna-aeropuerto.webp" width="150" height="150" loading="lazy" alt="Yadira Suárez con Luna, su perra de servicio, en el aeropuerto">
+   <img src="/img/yadira-papa-luna-aeropuerto.webp" width="1200" height="900" loading="lazy" alt="Yadira Suárez, fundadora de AllGo Travel App, con su papá en silla de ruedas y Luna, su perra de servicio, en el aeropuerto">
    <div>
     <h2>¿Quién está detrás de AllGo Travel App?</h2>
     <blockquote>"AllGo Travel App nació de mi propia experiencia: viajar con mi papá en silla de ruedas y con Luna, mi perra de servicio. Creé estas guías para que tu familia prepare su viaje con calma y sin sorpresas."</blockquote>
