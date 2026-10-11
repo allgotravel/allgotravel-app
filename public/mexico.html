@@ -560,6 +560,8 @@ document.addEventListener('click', function (e) {
   else if (h.indexOf('A107786229V') > -1) p = 'Pack Viajero Completo';
   else if (h.indexOf('L107208384X') > -1) p = 'Kit del Viajero';
   try { window.va('event', { name: 'Comprar', data: { producto: p, pagina: location.pathname, src: window.ALLGO_SCK || window.KIT_SCK || '' } }); } catch (_) {}
+  /* Clic contable gratis (plan Hobby): aparece en Vercel → Analytics → Pages como /clic/<producto>-desde-<pagina> */
+  try { var s = '/clic/' + p.toLowerCase().split(' ').slice(0,2).join('-') + '-desde-' + (location.pathname.replace(/^\/|\.html$/g,'') || 'home'); window.va('pageview', { route: s, path: s }); } catch (_) {}
 }, true);
 </script>
 <script defer src="/_vercel/insights/script.js"></script>
