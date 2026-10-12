@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Abriendo el pago seguro… | AllGo Travel App</title>
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<style>body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#0f4c5c;color:#fff;display:flex;min-height:100vh;align-items:center;justify-content:center;margin:0;text-align:center;padding:24px}a{color:#F5A628;font-weight:700;font-size:18px}</style>
+</head>
+<body>
+<div>
+  <p style="font-size:20px">🔒 Abriendo el pago seguro de Hotmart…</p>
+  <p><a id="go" href="https://pay.hotmart.com/L107208384X">Toca aquí si no se abre</a></p>
+  <p style="opacity:.7;font-size:14px">AllGo Travel App</p>
+</div>
+<script>
+(function () {
+  var fallback = document.getElementById('go').getAttribute('href');
+  var to = '';
+  try { to = new URLSearchParams(location.search).get('to') || ''; } catch (_) {}
+  if (!/^https:\/\/pay\.hotmart\.com\//.test(to)) to = fallback;
+  document.getElementById('go').href = to;
+  setTimeout(function () { location.replace(to); }, 1200);
+})();
+</script>
+</body>
+</html>

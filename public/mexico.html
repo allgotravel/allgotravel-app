@@ -560,8 +560,20 @@ document.addEventListener('click', function (e) {
   else if (h.indexOf('A107786229V') > -1) p = 'Pack Viajero Completo';
   else if (h.indexOf('L107208384X') > -1) p = 'Kit del Viajero';
   try { window.va('event', { name: 'Comprar', data: { producto: p, pagina: location.pathname, src: window.ALLGO_SCK || window.KIT_SCK || '' } }); } catch (_) {}
-  /* Clic contable gratis (plan Hobby): aparece en Vercel → Analytics → Pages como /clic/<producto>-desde-<pagina> */
-  try { var s = '/clic/' + p.toLowerCase().split(' ').slice(0,2).join('-') + '-desde-' + (location.pathname.replace(/^\/|\.html$/g,'') || 'home'); window.va('pageview', { route: s, path: s }); } catch (_) {}
+  /* Clic contable gratis (plan Hobby): pasa por una página puente /ir/<producto>.html que cuenta como visita en Vercel y redirige a Hotmart con el MISMO link (con sck/src) */
+  try {
+    var dest = a.href || '';
+    if (dest.indexOf('pay.hotmart.com') > -1) {
+      var slug = 'patitas-mexico';
+      if (dest.indexOf('Q106793737G') > -1) slug = 'guia-perro';
+      else if (dest.indexOf('O106521584H') > -1) slug = 'turismo';
+      else if (dest.indexOf('A107786229V') > -1) slug = 'pack-viajero';
+      else if (dest.indexOf('L107208384X') > -1) slug = 'kit';
+      var puente = '/ir/' + slug + '.html?desde=' + encodeURIComponent((location.pathname.replace(/^\/|\.html$/g,'') || 'home')) + '&to=' + encodeURIComponent(dest);
+      e.preventDefault();
+      if (a.target === '_blank') { var w = window.open(puente, '_blank'); if (!w) location.href = puente; } else { location.href = puente; }
+    }
+  } catch (_) {}
 }, true);
 </script>
 <script defer src="/_vercel/insights/script.js"></script>
