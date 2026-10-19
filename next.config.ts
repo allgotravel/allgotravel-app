@@ -22,11 +22,12 @@ function csp(opts: { metaPixel: boolean }) {
   const fb = opts.metaPixel
   const d: Record<string, string[]> = {
     'default-src': ["'self'"],
-    'script-src': ["'self'", "'unsafe-inline'", ...(isDev ? ["'unsafe-eval'"] : []), ...(fb ? ['https://connect.facebook.net'] : [])],
+    // Marketing pages also allow Microsoft Clarity (session recordings/heatmaps, project z0dssbdtze).
+    'script-src': ["'self'", "'unsafe-inline'", ...(isDev ? ["'unsafe-eval'"] : []), ...(fb ? ['https://connect.facebook.net', 'https://www.clarity.ms', 'https://*.clarity.ms'] : [])],
     'style-src': ["'self'", "'unsafe-inline'"],
-    'img-src': ["'self'", 'data:', 'blob:', SUPABASE, ...(fb ? ['https://www.facebook.com'] : [])],
+    'img-src': ["'self'", 'data:', 'blob:', SUPABASE, ...(fb ? ['https://www.facebook.com', 'https://*.clarity.ms', 'https://c.bing.com'] : [])],
     'font-src': ["'self'", 'data:'],
-    'connect-src': ["'self'", SUPABASE, SUPABASE_WS, ...(fb ? ['https://www.facebook.com', 'https://connect.facebook.net'] : []), ...(isDev ? ['ws:'] : [])],
+    'connect-src': ["'self'", SUPABASE, SUPABASE_WS, ...(fb ? ['https://www.facebook.com', 'https://connect.facebook.net', 'https://*.clarity.ms', 'https://c.bing.com'] : []), ...(isDev ? ['ws:'] : [])],
     'media-src': ["'self'", 'blob:'],
     'worker-src': ["'self'", 'blob:'],
     'manifest-src': ["'self'"],
