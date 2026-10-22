@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { getTranslations } from 'next-intl/server'
 import HomeClient from './HomeClient'
 
 const SITE = 'https://www.allgotravel.app'
@@ -38,6 +39,28 @@ export async function generateMetadata({
   }
 }
 
+// Garantía de 7 días de Hotmart (reembolso completo). Producto digital: sin costo de envío.
+const returnPolicy = {
+  '@type': 'MerchantReturnPolicy',
+  applicableCountry: ['US', 'MX'],
+  returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
+  merchantReturnDays: 7,
+  returnFees: 'https://schema.org/FreeReturn',
+  refundType: 'https://schema.org/FullRefund',
+}
+
+// Guía digital: llega por correo al instante y sin costo (0 días, $0).
+const zeroDays = { '@type': 'QuantitativeValue', minValue: 0, maxValue: 0, unitCode: 'DAY' }
+const digitalDelivery = {
+  '@type': 'OfferShippingDetails',
+  shippingRate: { '@type': 'MonetaryAmount', value: 0, currency: 'USD' },
+  shippingDestination: [
+    { '@type': 'DefinedRegion', addressCountry: 'US' },
+    { '@type': 'DefinedRegion', addressCountry: 'MX' },
+  ],
+  deliveryTime: { '@type': 'ShippingDeliveryTime', handlingTime: zeroDays, transitTime: zeroDays },
+}
+
 const offer = (price: string, url: string) => ({
   '@type': 'Offer',
   price,
@@ -45,6 +68,8 @@ const offer = (price: string, url: string) => ({
   availability: 'https://schema.org/InStock',
   url,
   seller: { '@id': `${SITE}/#organization` },
+  shippingDetails: digitalDelivery,
+  hasMerchantReturnPolicy: returnPolicy,
 })
 
 const jsonLd = {
@@ -57,7 +82,11 @@ const jsonLd = {
       url: SITE,
       logo: `${SITE}/icon-512x512.png`,
       founder: { '@type': 'Person', name: 'Yadira Suárez' },
+      email: 'hola@allgotravel.app',
+      legalName: 'All Go Travel LLC',
+      address: { '@type': 'PostalAddress', addressLocality: 'Weston', addressRegion: 'FL', addressCountry: 'US' },
       sameAs: ['https://instagram.com/allgotravelapp'],
+      hasMerchantReturnPolicy: returnPolicy,
     },
     {
       '@type': 'WebSite',
@@ -70,6 +99,7 @@ const jsonLd = {
     {
       '@type': 'Product',
       name: 'Viaja con tu Perro de Servicio — Sistema Vuelo Seguro (español e inglés)',
+      description: 'Sistema Vuelo Seguro, en español e inglés, para volar con tu perro de servicio: formulario DOT paso a paso, requisitos de aerolíneas y países, y la tarjeta Modo Mostrador. $37.',
       image: `${SITE}/og/og-perro.jpg`,
       url: `${SITE}/perro.html`,
       brand: { '@type': 'Brand', name: 'AllGo Travel App' },
@@ -78,6 +108,7 @@ const jsonLd = {
     {
       '@type': 'Product',
       name: 'Turismo Sin Fronteras — Sistema de viaje accesible (en español)',
+      description: 'Sistema Turismo Sin Fronteras, en español, para organizar el viaje de tu mamá o tu papá con movilidad reducida u otra necesidad especial: qué pedir, qué confirmar y qué hacer si algo falla. $37.',
       image: `${SITE}/og/og-turismo.jpg`,
       url: `${SITE}/turismo.html`,
       brand: { '@type': 'Brand', name: 'AllGo Travel App' },
@@ -86,18 +117,45 @@ const jsonLd = {
     {
       '@type': 'Product',
       name: 'Pack Viajero Completo — las 2 guías de AllGo Travel App',
+      description: 'Viaja con tu Perro de Servicio (español e inglés) y Turismo Sin Fronteras (en español) en un solo pago.',
       image: `${SITE}/og/og-home.jpg`,
       url: `${SITE}/perro.html#pack`,
       brand: { '@type': 'Brand', name: 'AllGo Travel App' },
       offers: offer('59.00', `${SITE}/perro.html#pack`),
     },
+    {
+      '@type': 'Product',
+      name: 'Patitas Viajeras Sin Fronteras · Sistema Ida y Regreso — Guía 2026 para viajar con tu perro entre Estados Unidos y México',
+      description: 'Guía digital en español: las 2 reglas nuevas de ida y regreso entre EE. UU. y México, calendario día por día, checklists, guion para el veterinario y qué hacer si algo sale mal.',
+      image: `${SITE}/img/mexico/portada.jpg`,
+      url: `${SITE}/mexico.html`,
+      brand: { '@type': 'Brand', name: 'AllGo Travel App' },
+      offers: offer('17.00', `${SITE}/mexico.html`),
+    },
   ],
 }
 
-export default function HomePage() {
+// Mismas 6 preguntas que se ven en la sección #faq de la home (messages/*.json → landing.h3FaqQ/A).
+const FAQ_COUNT = 6
+
+export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: 'landing' })
+  const faqLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    inLanguage: locale,
+    mainEntity: Array.from({ length: FAQ_COUNT }, (_, i) => ({
+      '@type': 'Question',
+      name: t(`h3FaqQ${i + 1}`),
+      acceptedAnswer: { '@type': 'Answer', text: t(`h3FaqA${i + 1}`) },
+    })),
+  }
+  const ld = (data: object) => ({ __html: JSON.stringify(data).replace(/</g, '\\u003c') })
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={ld(jsonLd)} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={ld(faqLd)} />
       <HomeClient />
     </>
   )

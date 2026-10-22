@@ -1,3 +1,32 @@
+# robots.txt de AllGo Travel App — www.allgotravel.app
+# Todo el sitio público está abierto. Las pantallas del app ya llevan
+# "noindex" por cabecera (next.config.ts), así que aquí no se bloquea nada.
+
+# Buscadores
+User-agent: Googlebot
+User-agent: Bingbot
+User-agent: Applebot
+Allow: /
+
+# Buscadores con IA y asistentes (citan y enlazan fuentes)
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: meta-webindexer
+Allow: /
+
+# Entrenamiento de modelos de IA (permitido para que conozcan la marca)
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: meta-externalagent
+Allow: /
+
+# Todos los demás
 User-agent: *
 Allow: /
 
