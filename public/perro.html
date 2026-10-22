@@ -183,6 +183,8 @@
  a.step:active,a.stage:active{transform:scale(.985)}
  a.step:focus-visible,a.stage:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
  #precio{scroll-margin-top:70px}
+ #ver-precio{scroll-margin-top:80px}
+ @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
 </style>
 <!-- Meta Pixel Code (AllGo Travel App) -->
 <script>
@@ -288,17 +290,17 @@ document.addEventListener('DOMContentLoaded', function(){
  <div class="wrap">
   <h2><span class="es">De la duda a llegar con todo listo en 3 pasos</span><span class="en">From doubt to arriving with everything ready in 3 steps</span></h2>
   <div class="grid3">
-   <a class="step" href="#precio"><span class="n">1</span>
+   <a class="step" href="#ver-precio"><span class="n">1</span>
     <h3><span class="es">IDENTIFICA</span><span class="en">IDENTIFY</span></h3>
     <p><span class="es">Confirma cómo aplica tu situación y qué requisitos corresponden a tu perro, origen y destino.</span><span class="en">Confirm how your situation applies and which requirements fit your dog, origin and destination.</span></p>
     <div class="tools"><span class="es">Herramientas: la guía + Aerolíneas por Región 2026</span><span class="en">Tools: the guide + Airlines by Region 2026</span></div>
    </a>
-   <a class="step" href="#precio"><span class="n">2</span>
+   <a class="step" href="#ver-precio"><span class="n">2</span>
     <h3><span class="es">PREPARA</span><span class="en">PREPARE</span></h3>
     <p><span class="es">Organiza formularios, documentos, requisitos de la aerolínea y fechas importantes antes de llegar al aeropuerto.</span><span class="en">Organize forms, documents, airline requirements and key dates before you get to the airport.</span></p>
     <div class="tools"><span class="es">Herramientas: Cheat-sheet DOT + Requisitos por País + Kit Antes de Volar</span><span class="en">Tools: DOT Cheat-sheet + Requirements by Country + Before You Fly Kit</span></div>
    </a>
-   <a class="step" href="#precio"><span class="n">3</span>
+   <a class="step" href="#ver-precio"><span class="n">3</span>
     <h3><span class="es">VIAJA CON TODO LISTO</span><span class="en">TRAVEL WITH EVERYTHING READY</span></h3>
     <p><span class="es">Usa tu checklist y tu tarjeta Modo Mostrador para saber qué presentar y cómo actuar si aparece una duda o inconveniente.</span><span class="en">Use your checklist and your Counter Mode card to know what to present and how to act if a question or issue comes up.</span></p>
     <div class="tools"><span class="es">Herramienta: Modo Mostrador</span><span class="en">Tool: Counter Mode</span></div>
@@ -314,7 +316,7 @@ document.addEventListener('DOMContentLoaded', function(){
   <h2><span class="es">Esto es lo que recibes en cada etapa</span><span class="en">This is what you get at each stage</span></h2>
   <p class="lead" style="margin:6px auto 0"><span class="es">No tienes que averiguar por tu cuenta qué regla aplica, qué formulario buscar o qué revisar primero.</span><span class="en">You don't have to figure out on your own which rule applies, which form to look for or what to check first.</span></p>
   <div class="stages">
-   <a class="stage" href="#precio"><span class="n">1</span>
+   <a class="stage" href="#ver-precio"><span class="n">1</span>
     <h3><span class="es">IDENTIFICA</span><span class="en">IDENTIFY</span></h3>
     <p><span class="es">Entiende cómo aplica tu situación y qué requisitos corresponden a tu perro y tu viaje.</span><span class="en">Understand how your situation applies and which requirements fit your dog and your trip.</span></p>
     <div class="inc"><b><span class="es">Incluye</span><span class="en">Includes</span></b>
@@ -325,7 +327,7 @@ document.addEventListener('DOMContentLoaded', function(){
      </ul>
     </div>
    </a>
-   <a class="stage" href="#precio"><span class="n">2</span>
+   <a class="stage" href="#ver-precio"><span class="n">2</span>
     <h3><span class="es">PREPARA</span><span class="en">PREPARE</span></h3>
     <p><span class="es">Completa el formulario del DOT, revisa tu aerolínea y confirma los requisitos de entrada de tu destino antes de volar.</span><span class="en">Complete the DOT form, check your airline and confirm your destination's entry requirements before you fly.</span></p>
     <div class="inc"><b><span class="es">Incluye</span><span class="en">Includes</span></b>
@@ -336,7 +338,7 @@ document.addEventListener('DOMContentLoaded', function(){
      </ul>
     </div>
    </a>
-   <a class="stage" href="#precio"><span class="n">3</span>
+   <a class="stage" href="#ver-precio"><span class="n">3</span>
     <h3><span class="es">VIAJA CON TODO LISTO</span><span class="en">TRAVEL WITH EVERYTHING READY</span></h3>
     <p><span class="es">Lleva tu checklist listo y usa tu tarjeta Modo Mostrador si aparece una duda o inconveniente en el aeropuerto.</span><span class="en">Bring your checklist ready and use your Counter Mode card if a question or issue comes up at the airport.</span></p>
     <div class="inc"><b><span class="es">Incluye</span><span class="en">Includes</span></b>
@@ -346,7 +348,7 @@ document.addEventListener('DOMContentLoaded', function(){
     </div>
    </a>
   </div>
-  <p class="key"><span class="es">No son 6 archivos para leer. Es un proceso para llegar con todo listo al día de tu vuelo.</span><span class="en">It's not 6 files to read. It's a process to arrive with everything ready on the day of your flight.</span></p>
+  <p class="key" id="ver-precio"><span class="es">No son 6 archivos para leer. Es un proceso para llegar con todo listo al día de tu vuelo.</span><span class="en">It's not 6 files to read. It's a process to arrive with everything ready on the day of your flight.</span></p>
   <div class="card" id="precio">
    <div class="big">$37</div>
    <a class="btn" href="https://pay.hotmart.com/Q106793737G" target="_blank" rel="noopener"><span class="es">QUIERO PREPARAR MI VIAJE — $37</span><span class="en">GET MY TRIP READY — $37</span></a>
@@ -622,6 +624,32 @@ function setLang(l){
   document.querySelectorAll('img[data-alt-es]').forEach(function(i){ i.alt = en ? i.getAttribute('data-alt-en') : i.getAttribute('data-alt-es'); });
   document.title = en ? 'Flying with a service dog in 2026: DOT form and requirements | AllGo Travel App' : 'Viajar con perro de servicio en avión 2026: formulario DOT y requisitos | AllGo Travel App';
 }
+</script>
+<script>
+/* Tarjetas de pasos/etapas: bajan SUAVE hasta justo antes del precio ($37), sin abrir el pago.
+   preventDefault + scroll manual, y los botones de Hotmart ignoran toques durante 900 ms
+   para que el mismo toque (o uno repetido) no caiga en el botón naranja mientras la página se mueve. */
+(function(){
+  var target=document.getElementById('ver-precio');
+  if(!target) return;
+  var reduce=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var guardUntil=0;
+  document.addEventListener('click',function(e){
+    var card=e.target && e.target.closest ? e.target.closest('a.step, a.stage') : null;
+    if(!card) return;
+    e.preventDefault();
+    guardUntil=Date.now()+900;
+    try{ target.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'start'}); }
+    catch(_){ target.scrollIntoView(true); }
+  });
+  /* Durante la guarda, un toque en un link de Hotmart se descarta (fase de captura: va antes que el píxel y el puente /ir/). */
+  document.addEventListener('click',function(e){
+    if(Date.now()>guardUntil) return;
+    var a=e.target && e.target.closest ? e.target.closest('a[href*="pay.hotmart.com"]') : null;
+    if(!a) return;
+    e.preventDefault(); e.stopImmediatePropagation();
+  },true);
+})();
 </script>
 <!-- Vercel Web Analytics: visitas + evento "Comprar" al tocar un botón de compra (no cambia el link ni el ?src) -->
 <script>
