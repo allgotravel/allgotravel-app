@@ -45,6 +45,8 @@ const returnPolicy = {
   applicableCountry: ['US', 'MX'],
   returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
   merchantReturnDays: 7,
+  // Producto digital: se reembolsa sin devolver nada (el cliente conserva el PDF).
+  returnMethod: 'https://schema.org/KeepProduct',
   returnFees: 'https://schema.org/FreeReturn',
   refundType: 'https://schema.org/FullRefund',
 }
