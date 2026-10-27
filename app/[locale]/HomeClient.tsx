@@ -116,6 +116,7 @@ export default function HomeClient() {
               <li><a href={GUIDE.perro}><span className="e" aria-hidden="true">🦮</span><span className="tx">{t('h3Mini1')}<small>{t('h3Mini1Sub')}</small></span><span className="pr">$37</span></a></li>
               <li><a href={GUIDE.turismo}><span className="e" aria-hidden="true">♿</span><span className="tx">{t('h3Mini2')}<small>{t('h3Mini2Sub')}</small></span><span className="pr">$37</span></a></li>
               <li className="pk"><a href={GUIDE.pack}><span className="e" aria-hidden="true">⭐</span><span className="tx">{t('h3Mini3')}<small>{t('h3Mini3Sub')}</small></span><span className="pr">$59</span></a></li>
+              <li><a href={GUIDE.mexico}><span className="e" aria-hidden="true">🐾</span><span className="tx">{t('h3Mini4')}<small>{t('h3Mini4Sub')}</small></span><span className="pr">$17</span></a></li>
             </ul>
           </div>
           <div className="heroimg">
@@ -145,7 +146,9 @@ export default function HomeClient() {
         <div className="wrap center reveal">
           <span className="kicker">{t('h3GKicker')}</span>
           <h2 style={{ margin: '14px 0 8px' }}>{t('h3GTitle')}</h2>
-          <p className="lead" style={{ margin: '0 auto 40px' }}>{t('h3GLead')}</p>
+          <p className="lead" style={{ margin: '0 auto 12px' }}>{t('h3GLead')}</p>
+          <p className="gcost" style={{ margin: '0 auto 10px', maxWidth: 640, fontSize: 15, background: '#FFF4E5', borderLeft: '5px solid #F5A628', borderRadius: 12, padding: '12px 16px', textAlign: 'left' }}>{t.rich('h3GCost', { b: (c) => <b>{c}</b>, a: (c) => <a href="https://wheelchairtravel.org/ranking-airlines-wheelchair-damage-2026/" target="_blank" rel="noopener" style={{ textDecoration: 'underline' }}>{c}</a> })}</p>
+          <p className="gverified" style={{ margin: '0 auto 40px', fontSize: 14, fontWeight: 700 }}>{t('h3GVerified')}</p>
         </div>
         {/* Nuevo: Patitas Viajeras Sin Fronteras (México; la guía está solo en español) → /mexico.html */}
         <div className="wrap reveal">
@@ -276,7 +279,7 @@ export default function HomeClient() {
               <p style={{ color: '#0E7C86', fontWeight: 700, margin: '0 0 12px' }}>{t('storyWhoSub')}</p>
               {[1, 2, 3, 4, 5].map(n => <p key={n} style={{ color: '#33475b', fontSize: 16 }}>{t(`storyWhoP${n}`)}</p>)}
               <div className="sig">{t('storyWhoSig1')}<br />{t('storyWhoSig2')}</div>
-              <p style={{ color: '#5B686D', fontSize: 13.5, marginTop: 10 }}>All Go Travel LLC · {t('storyWhoPlace')} · <a href="https://www.allgotravel.app" style={{ textDecoration: 'underline' }}>www.allgotravel.app</a> · <a href="mailto:hola@allgotravel.app" style={{ textDecoration: 'underline' }}>hola@allgotravel.app</a></p>
+              <p style={{ color: '#5B686D', fontSize: 13.5, marginTop: 10 }}>All Go Travel LLC · {t('storyWhoPlace')} · <a href="https://www.allgotravel.app" style={{ textDecoration: 'underline' }}>www.allgotravel.app</a> · <a href="mailto:hola@allgotravel.app" style={{ textDecoration: 'underline' }}>hola@allgotravel.app</a> · <span aria-hidden="true">💬</span> <a href="https://wa.me/19545464344" target="_blank" rel="noopener" style={{ textDecoration: 'underline' }}>WhatsApp +1 (954) 546-4344</a></p>
             </div>
             {/* Beach photo removed; the real photo of Yadira + Luna is the story's image (full, never cropped) */}
             <figure className="luna"><img src="/img/yadira-papa-luna-aeropuerto.webp" width={1200} height={900} loading="lazy" alt={t('storyLunaAlt')} /></figure>

@@ -15,8 +15,8 @@ export async function generateMetadata({
     ? 'AllGo Travel App — Accessible travel: service dogs, wheelchairs and more'
     : 'AllGo Travel App — Viajes accesibles en español: perro de servicio, silla de ruedas y más'
   const description = en
-    ? 'Accessible travel guides built on official sources: the Service Dog guide (Spanish and English, $37), Turismo Sin Fronteras (Spanish only, $37) and the Complete Traveler Pack ($59).'
-    : 'Guías de viaje accesible con fuentes oficiales: Guía Perro de Servicio (español e inglés, $37), Turismo Sin Fronteras (solo en español, $37) y el Pack Viajero Completo ($59).'
+    ? 'Accessible travel guides built on official sources: the Service Dog guide (Spanish and English, $37), Turismo Sin Fronteras (Spanish only, $37), the Complete Traveler Pack ($59) and Patitas Viajeras Sin Fronteras for traveling with your dog between the US and Mexico (Spanish only, $17).'
+    : 'Guías de viaje accesible con fuentes oficiales: Guía Perro de Servicio (español e inglés, $37), Turismo Sin Fronteras (solo en español, $37), el Pack Viajero Completo ($59) y Patitas Viajeras Sin Fronteras para viajar con tu perro entre EE. UU. y México (solo en español, $17).'
   return {
     title,
     description,
@@ -39,7 +39,7 @@ export async function generateMetadata({
   }
 }
 
-// Garantía de 7 días de Hotmart (reembolso completo). Producto digital: sin costo de envío.
+// Garantía de 7 días (Payhip para la guía del perro; Hotmart para las demás), reembolso completo. Producto digital: sin costo de envío.
 const returnPolicy = {
   '@type': 'MerchantReturnPolicy',
   applicableCountry: ['US', 'MX'],
@@ -85,6 +85,7 @@ const jsonLd = {
       logo: `${SITE}/icon-512x512.png`,
       founder: { '@type': 'Person', name: 'Yadira Suárez' },
       email: 'hola@allgotravel.app',
+      telephone: '+1-954-546-4344',
       legalName: 'All Go Travel LLC',
       address: { '@type': 'PostalAddress', addressLocality: 'Weston', addressRegion: 'FL', addressCountry: 'US' },
       sameAs: ['https://instagram.com/allgotravelapp'],
