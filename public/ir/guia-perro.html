@@ -11,8 +11,8 @@
 </head>
 <body>
 <div>
-  <p style="font-size:20px">🔒 Abriendo el pago seguro de Hotmart…</p>
-  <p><a id="go" href="https://pay.hotmart.com/Q106793737G">Toca aquí si no se abre</a></p>
+  <p style="font-size:20px">🔒 Abriendo el pago seguro…</p>
+  <p><a id="go" href="https://payhip.com/b/s1x5w">Toca aquí si no se abre</a></p>
   <p style="opacity:.7;font-size:14px">AllGo Travel App</p>
 </div>
 <script>
@@ -20,7 +20,7 @@
   var fallback = document.getElementById('go').getAttribute('href');
   var to = '';
   try { to = new URLSearchParams(location.search).get('to') || ''; } catch (_) {}
-  if (!/^https:\/\/pay\.hotmart\.com\//.test(to)) to = fallback;
+  if (!/^https:\/\/(pay\.hotmart\.com\/|payhip\.com\/b\/)/.test(to)) to = fallback;
   document.getElementById('go').href = to;
   setTimeout(function () { location.replace(to); }, 1200);
 })();
