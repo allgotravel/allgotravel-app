@@ -45,8 +45,9 @@ const returnPolicy = {
   applicableCountry: ['US', 'MX'],
   returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
   merchantReturnDays: 7,
-  // Producto digital: se reembolsa sin devolver nada (el cliente conserva el PDF).
-  returnMethod: 'https://schema.org/KeepProduct',
+  // Google solo acepta ReturnByMail / ReturnInStore / ReturnAtKiosk (KeepProduct da error en GSC).
+  // Producto digital: el reembolso se solicita por correo.
+  returnMethod: 'https://schema.org/ReturnByMail',
   returnFees: 'https://schema.org/FreeReturn',
   refundType: 'https://schema.org/FullRefund',
 }
