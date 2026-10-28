@@ -145,11 +145,40 @@ export default function HomeClient() {
       <section className="section needs" id="guias">
         <div className="wrap center reveal">
           <span className="kicker">{t('h3GKicker')}</span>
-          <h2 style={{ margin: '14px 0 8px' }}>{t('h3GTitle')}</h2>
-          <p className="lead" style={{ margin: '0 auto 12px' }}>{t('h3GLead')}</p>
-          <p className="gcost" style={{ margin: '0 auto 10px', maxWidth: 640, fontSize: 15, background: '#FFF4E5', borderLeft: '5px solid #F5A628', borderRadius: 12, padding: '12px 16px', textAlign: 'left' }}>{t.rich('h3GCost', { b: (c) => <b>{c}</b>, a: (c) => <a href="https://wheelchairtravel.org/ranking-airlines-wheelchair-damage-2026/" target="_blank" rel="noopener" style={{ textDecoration: 'underline' }}>{c}</a> })}</p>
-          <p className="gverified" style={{ margin: '0 auto 40px', fontSize: 14, fontWeight: 700 }}>{t('h3GVerified')}</p>
+          <h2 className="ghook">{t('h3GHook')}</h2>
+          {/* Contraste: buscarlo por tu cuenta vs. con la guía (apilado en celular) */}
+          <div className="gvs">
+            <div className="gvs-col gvs-solo">
+              <h3>{t('h3GSoloTitle')}</h3>
+              <ul>
+                <li><span className="ic" aria-hidden="true">⏳</span>{t('h3GSolo1')}</li>
+                <li><span className="ic" aria-hidden="true">📰</span>{t('h3GSolo2')}</li>
+                <li><span className="ic" aria-hidden="true">⚠️</span>{t('h3GSolo3')}</li>
+              </ul>
+            </div>
+            <div className="gvs-col gvs-with">
+              <h3>{t('h3GWithTitle')}</h3>
+              <ul>
+                <li><span className="ic" aria-hidden="true">✓</span>{t('h3GWith1')}</li>
+                <li><span className="ic" aria-hidden="true">✓</span>{t('h3GWith2')}</li>
+                <li><span className="ic" aria-hidden="true">✓</span>{t('h3GWith3')}</li>
+                <li><span className="ic" aria-hidden="true">✓</span>{t('h3GWith4')}</li>
+              </ul>
+            </div>
+          </div>
+          <p className="gpunch">{t.rich('h3GLead', { m: (c) => <><br /><mark>{c}</mark></> })}</p>
+          {/* Dato verificado (WheelchairTravel.org con datos del DOT) */}
+          <div className="gcost">
+            <span className="gcost-ic" aria-hidden="true">♿</span>
+            <div>
+              <h3>{t('h3GCostTitle')}</h3>
+              <p className="gcost-big">{t('h3GCostBig')}</p>
+              <p className="gcost-tx">{t.rich('h3GCost', { a: (c) => <a href="https://wheelchairtravel.org/ranking-airlines-wheelchair-damage-2026/" target="_blank" rel="noopener" style={{ textDecoration: 'underline' }}>{c}</a> })}</p>
+            </div>
+          </div>
+          <a className="btn btn-primary ggo" href="#guias-lista">{t('h3GGo')} <span aria-hidden="true">↓</span></a>
         </div>
+        <h2 id="guias-lista" className="ganchor gpick">{t('h3GTitle')}</h2>
         {/* Nuevo: Patitas Viajeras Sin Fronteras (México; la guía está solo en español) → /mexico.html */}
         <div className="wrap reveal">
           <article className="prodcard gnew">
