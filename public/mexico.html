@@ -268,7 +268,7 @@ var HOTMART_MEXICO_URL = 'https://pay.hotmart.com/T107935222A';
       a.target='_blank'; a.rel='noopener';
       a.addEventListener('click', function(){
         if (typeof window.fbq === 'function') {
-          window.fbq('track', 'InitiateCheckout', {content_name: 'Patitas Viajeras Sin Fronteras', content_category: 'ebook', value: 17.00, currency: 'USD'});
+          window.fbq('trackCustom', 'ClickComprar', { content_name: 'Patitas Viajeras Sin Fronteras', content_ids: ['mexico'], value: 17, currency: 'USD' });
           window.fbq('trackCustom', 'ClickToCheckout', {content_name: 'Patitas Viajeras Sin Fronteras', value: 17.00, currency: 'USD'});
         }
       });

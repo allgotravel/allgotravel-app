@@ -243,7 +243,7 @@ document.addEventListener('DOMContentLoaded', function(){
   document.querySelectorAll('a[href*="pay.hotmart.com/O106521584H"]').forEach(function(a){
     a.addEventListener('click', function(){
       if (typeof window.fbq === 'function') {
-        window.fbq('track', 'InitiateCheckout', {content_name: 'Guia Turismo Sin Fronteras', content_category: 'ebook', value: 37.00, currency: 'USD'});
+        window.fbq('trackCustom', 'ClickComprar', { content_name: 'Guia Turismo Sin Fronteras', content_ids: ['turismo'], value: 37, currency: 'USD' });
         window.fbq('trackCustom', 'ClickToCheckout', {content_name: 'Guia Turismo Sin Fronteras', value: 37.00, currency: 'USD'});
       }
     });
@@ -255,7 +255,7 @@ document.addEventListener('DOMContentLoaded', function(){
   document.querySelectorAll('a[href*="pay.hotmart.com/A107786229V"]').forEach(function(a){
     a.addEventListener('click', function(){
       if (typeof window.fbq === 'function') {
-        window.fbq('track', 'InitiateCheckout', {content_name: 'Pack Viajero Completo', content_category: 'ebook', value: 59.00, currency: 'USD'});
+        window.fbq('trackCustom', 'ClickComprar', { content_name: 'Pack Viajero Completo', content_ids: ['pack'], value: 59, currency: 'USD' });
         window.fbq('trackCustom', 'ClickToCheckout', {content_name: 'Pack Viajero Completo', value: 59.00, currency: 'USD'});
       }
     });

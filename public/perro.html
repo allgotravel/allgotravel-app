@@ -236,10 +236,10 @@ fbq('track', 'ViewContent', {content_name: 'Guia Perro de Servicio', content_cat
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1402403141746407&ev=PageView&noscript=1" alt=""/><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=909677295538709&ev=PageView&noscript=1" alt=""/></noscript>
 <script>
 document.addEventListener('DOMContentLoaded', function(){
-  document.querySelectorAll('a[href*="payhip.com/b/s1x5w"]').forEach(function(a){
+  document.querySelectorAll('a[href*="payhip.com/b/s1x5w"], a[href*="/ir/guia-perro"]').forEach(function(a){
     a.addEventListener('click', function(){
       if (typeof window.fbq === 'function') {
-        window.fbq('track', 'InitiateCheckout', {content_name: 'Guia Perro de Servicio', content_category: 'ebook', value: 37.00, currency: 'USD'});
+        window.fbq('trackCustom', 'ClickComprar', { content_name: 'Viaja con tu Perro de Servicio', content_ids: ['perro-servicio'], value: 37, currency: 'USD' });
         window.fbq('trackCustom', 'ClickToCheckout', {content_name: 'Guia Perro de Servicio', value: 37.00, currency: 'USD'});
       }
     });
@@ -251,7 +251,7 @@ document.addEventListener('DOMContentLoaded', function(){
   document.querySelectorAll('a[href*="pay.hotmart.com/A107786229V"]').forEach(function(a){
     a.addEventListener('click', function(){
       if (typeof window.fbq === 'function') {
-        window.fbq('track', 'InitiateCheckout', {content_name: 'Pack Viajero Completo', content_category: 'ebook', value: 59.00, currency: 'USD'});
+        window.fbq('trackCustom', 'ClickComprar', { content_name: 'Pack Viajero Completo', content_ids: ['pack'], value: 59, currency: 'USD' });
         window.fbq('trackCustom', 'ClickToCheckout', {content_name: 'Pack Viajero Completo', value: 59.00, currency: 'USD'});
       }
     });
