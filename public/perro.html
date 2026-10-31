@@ -236,7 +236,7 @@ fbq('track', 'ViewContent', {content_name: 'Guia Perro de Servicio', content_cat
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1402403141746407&ev=PageView&noscript=1" alt=""/><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=909677295538709&ev=PageView&noscript=1" alt=""/></noscript>
 <script>
 document.addEventListener('DOMContentLoaded', function(){
-  document.querySelectorAll('a[href*="payhip.com/b/s1x5w"], a[href*="/ir/guia-perro"]').forEach(function(a){
+  document.querySelectorAll('a[href*="payhip.com/buy?link=s1x5w"], a[href*="/ir/guia-perro"]').forEach(function(a){
     a.addEventListener('click', function(){
       if (typeof window.fbq === 'function') {
         window.fbq('trackCustom', 'ClickComprar', { content_name: 'Viaja con tu Perro de Servicio', content_ids: ['perro-servicio'], value: 37, currency: 'USD' });
@@ -276,6 +276,34 @@ document.addEventListener('DOMContentLoaded', function(){
   if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', tag); } else { tag(); }
 })();
 </script>
+<script>
+/* Payhip (guía $37): checkout directo (https://payhip.com/buy?link=s1x5w, help.payhip.com/article/126).
+   Al tocar comprar le pasa a Payhip los datos del anuncio: fbclid y utm_* (de la URL o guardados en la sesión)
+   y _fbc/_fbp como metadata[fbc]/metadata[fbp] (Payhip los envía en sus webhooks). Sin parámetros, el link queda limpio. */
+(function(){
+  var KEYS=['fbclid','utm_source','utm_medium','utm_campaign','utm_content','utm_term','utm_id'], attr={};
+  try{ attr=JSON.parse(sessionStorage.getItem('allgo_attr')||'{}')||{}; }catch(e){ attr={}; }
+  try{ var q=new URLSearchParams(location.search); KEYS.forEach(function(k){ var v=q.get(k); if(v){ attr[k]=String(v).slice(0,500); } }); }catch(e){}
+  try{ sessionStorage.setItem('allgo_attr', JSON.stringify(attr)); }catch(e){}
+  function ck(n){ try{ var m=document.cookie.match(new RegExp('(?:^|; )'+n+'=([^;]*)')); return m?decodeURIComponent(m[1]):''; }catch(e){ return ''; } }
+  function tag(a){
+    try{
+      var u=new URL(a.href);
+      if(u.hostname!=='payhip.com'||u.pathname!=='/buy'||u.searchParams.get('link')!=='s1x5w') return;
+      var fbc=ck('_fbc'), fbp=ck('_fbp'), fbclid=attr.fbclid;
+      if(!fbclid && fbc){ var p=fbc.split('.'); if(p.length===4) fbclid=p[3]; } /* visita de vuelta: fbclid desde la cookie _fbc */
+      KEYS.forEach(function(k){ var v=(k==='fbclid')?fbclid:attr[k]; if(v) u.searchParams.set(k,v); });
+      if(fbc) u.searchParams.set('metadata[fbc]', fbc.replace(/[<>]/g,''));
+      if(fbp) u.searchParams.set('metadata[fbp]', fbp.replace(/[<>]/g,''));
+      a.href=u.toString();
+    }catch(e){}
+  }
+  function tagAll(){ document.querySelectorAll('a[href*="payhip.com/buy?link=s1x5w"]').forEach(tag); }
+  if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', tagAll); } else { tagAll(); }
+  /* Se vuelve a etiquetar justo al tocar (fase de captura, antes del píxel y del puente /ir/) por si _fbp/_fbc se crearon después de cargar */
+  document.addEventListener('click', function(e){ var a=e.target&&e.target.closest?e.target.closest('a[href*="payhip.com/buy?link=s1x5w"]'):null; if(a) tag(a); }, true);
+})();
+</script>
 <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z0dssbdtze");</script>
 </head>
 <body>
@@ -298,7 +326,7 @@ document.addEventListener('DOMContentLoaded', function(){
      <li><span class="es">Revisa los requisitos de tu aerolínea y destino antes del vuelo</span><span class="en">Check your airline and destination requirements before the flight</span></li>
      <li><span class="es">Llega al mostrador sabiendo qué presentar y cómo responder</span><span class="en">Get to the counter knowing what to present and how to respond</span></li>
     </ul>
-    <a class="btn" href="https://payhip.com/b/s1x5w" target="_blank" rel="noopener"><span class="es">QUIERO PREPARAR MI VIAJE — $37.00</span><span class="en">GET MY TRIP READY — $37.00</span></a>
+    <a class="btn" href="https://payhip.com/buy?link=s1x5w" target="_blank" rel="noopener"><span class="es">QUIERO PREPARAR MI VIAJE — $37.00</span><span class="en">GET MY TRIP READY — $37.00</span></a>
     <p class="guar"><span class="es">🛡️ Garantía de 7 días sobre el contenido de la guía · Revisado: octubre 2026</span><span class="en">🛡️ 7-day guarantee on the guide’s content · Reviewed: October 2026</span></p>
     <p class="pay-note"><span class="es">🔒 Pago seguro con PayPal o tarjeta, con recibo · solo te pedimos tu email y tu código postal · la guía llega a tu email al instante</span><span class="en">🔒 Secure payment with PayPal or card, with a receipt · we only ask for your email and ZIP code · the guide arrives in your email instantly</span></p>
    </div>
@@ -446,7 +474,7 @@ document.addEventListener('DOMContentLoaded', function(){
   <div class="card" id="precio">
    <div class="big">$37.00 <small>USD</small></div>
    <p class="once"><span class="es">Pago único · sin suscripción</span><span class="en">One-time payment · no subscription</span></p>
-   <a class="btn" href="https://payhip.com/b/s1x5w" target="_blank" rel="noopener"><span class="es">QUIERO PREPARAR MI VIAJE — $37.00</span><span class="en">GET MY TRIP READY — $37.00</span></a>
+   <a class="btn" href="https://payhip.com/buy?link=s1x5w" target="_blank" rel="noopener"><span class="es">QUIERO PREPARAR MI VIAJE — $37.00</span><span class="en">GET MY TRIP READY — $37.00</span></a>
    <p class="guar"><span class="es">🛡️ Garantía de 7 días sobre el contenido de la guía · Revisado: octubre 2026</span><span class="en">🛡️ 7-day guarantee on the guide’s content · Reviewed: October 2026</span></p>
    <div class="paybox">
     <p><span class="es">Si la guía no te sirve, te devolvemos el 100% dentro de 7 días: solo escríbenos. La garantía cubre el contenido; la aprobación del viaje la decide la aerolínea.</span><span class="en">If the guide doesn't help you, we refund 100% within 7 days: just write to us. The guarantee covers the content; the airline decides whether your trip is approved.</span></p>
@@ -558,7 +586,7 @@ document.addEventListener('DOMContentLoaded', function(){
     <li><span class="es"><b>Garantía de 7 días:</b> si no te sirve, te devolvemos el 100%</span><span class="en"><b>7-day guarantee:</b> if it doesn't help you, we refund 100%</span></li>
    </ul>
   </div>
-  <a class="btn" href="https://payhip.com/b/s1x5w" target="_blank" rel="noopener"><span class="es">QUIERO PREPARAR MI VIAJE — $37.00</span><span class="en">GET MY TRIP READY — $37.00</span></a>
+  <a class="btn" href="https://payhip.com/buy?link=s1x5w" target="_blank" rel="noopener"><span class="es">QUIERO PREPARAR MI VIAJE — $37.00</span><span class="en">GET MY TRIP READY — $37.00</span></a>
   <p class="guar"><span class="es">🛡️ Garantía de 7 días sobre el contenido de la guía · Revisado: octubre 2026</span><span class="en">🛡️ 7-day guarantee on the guide’s content · Reviewed: October 2026</span></p>
  </div>
 </section>
@@ -597,7 +625,7 @@ function sendOptin(ev){ev.preventDefault();
 
 <div class="buybar" id="buybar">
  <b><span class="es">Guía digital · Perro de servicio · Garantía 7 días</span><span class="en">Digital guide · Service dog · 7-day guarantee</span></b>
- <a class="btn" href="https://payhip.com/b/s1x5w" target="_blank" rel="noopener"><span class="es">QUIERO PREPARAR MI VIAJE — $37.00</span><span class="en">GET MY TRIP READY — $37.00</span></a>
+ <a class="btn" href="https://payhip.com/buy?link=s1x5w" target="_blank" rel="noopener"><span class="es">QUIERO PREPARAR MI VIAJE — $37.00</span><span class="en">GET MY TRIP READY — $37.00</span></a>
 </div>
 <script>
 (function(){
@@ -645,7 +673,7 @@ function setLang(l){
   /* Durante la guarda, un toque en un link de pago (Hotmart o Payhip) se descarta (fase de captura: va antes que el píxel y el puente /ir/). */
   document.addEventListener('click',function(e){
     if(Date.now()>guardUntil) return;
-    var a=e.target && e.target.closest ? e.target.closest('a[href*="pay.hotmart.com"], a[href*="payhip.com/b/s1x5w"]') : null;
+    var a=e.target && e.target.closest ? e.target.closest('a[href*="pay.hotmart.com"], a[href*="payhip.com/buy?link=s1x5w"]') : null;
     if(!a) return;
     e.preventDefault(); e.stopImmediatePropagation();
   },true);
@@ -655,20 +683,20 @@ function setLang(l){
 <script>
 window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
 document.addEventListener('click', function (e) {
-  var a = e.target && e.target.closest ? e.target.closest('a[href*="pay.hotmart.com"], a[href*="payhip.com/b/s1x5w"], a.buy') : null;
+  var a = e.target && e.target.closest ? e.target.closest('a[href*="pay.hotmart.com"], a[href*="payhip.com/buy?link=s1x5w"], a.buy') : null;
   if (!a) return;
   var h = a.getAttribute('href') || '', p = 'Patitas Viajeras Sin Fronteras';
-  if (h.indexOf('Q106793737G') > -1 || h.indexOf('payhip.com/b/s1x5w') > -1) p = 'Guia Perro de Servicio';
+  if (h.indexOf('Q106793737G') > -1 || h.indexOf('payhip.com/buy?link=s1x5w') > -1) p = 'Guia Perro de Servicio';
   else if (h.indexOf('O106521584H') > -1) p = 'Turismo Sin Fronteras';
   else if (h.indexOf('A107786229V') > -1) p = 'Pack Viajero Completo';
   else if (h.indexOf('L107208384X') > -1) p = 'Kit del Viajero';
   try { window.va('event', { name: 'Comprar', data: { producto: p, pagina: location.pathname, src: window.ALLGO_SCK || window.KIT_SCK || '' } }); } catch (_) {}
-  /* Clic contable sin costo (plan Hobby): pasa por una página puente /ir/<producto>.html que cuenta como visita en Vercel y redirige al pago con el MISMO link (Hotmart: con sck/src; Payhip: sin parámetros) */
+  /* Clic contable sin costo (plan Hobby): pasa por una página puente /ir/<producto>.html que cuenta como visita en Vercel y redirige al pago con el MISMO link (Hotmart: con sck/src; Payhip: checkout directo con fbclid/utm_* y metadata fbc/fbp) */
   try {
     var dest = a.href || '';
-    if (dest.indexOf('pay.hotmart.com') > -1 || dest.indexOf('payhip.com/b/s1x5w') > -1) {
+    if (dest.indexOf('pay.hotmart.com') > -1 || dest.indexOf('payhip.com/buy?link=s1x5w') > -1) {
       var slug = 'patitas-mexico';
-      if (dest.indexOf('Q106793737G') > -1 || dest.indexOf('payhip.com/b/s1x5w') > -1) slug = 'guia-perro';
+      if (dest.indexOf('Q106793737G') > -1 || dest.indexOf('payhip.com/buy?link=s1x5w') > -1) slug = 'guia-perro';
       else if (dest.indexOf('O106521584H') > -1) slug = 'turismo';
       else if (dest.indexOf('A107786229V') > -1) slug = 'pack-viajero';
       else if (dest.indexOf('L107208384X') > -1) slug = 'kit';
