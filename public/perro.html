@@ -485,6 +485,44 @@ document.addEventListener('DOMContentLoaded', function(){
  </div>
 </section>
 
+<!-- Bloque "No es para ti si" (nov-2026): filtra a quien no encaja; cada frase verificada contra el PDF ES (31-oct) -->
+<style>
+ .nofit{background:var(--tealL)}
+ .nofit .cols{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:900px;margin:0 auto}
+ .nofit .col{background:#fff;border-radius:16px;padding:22px 20px;box-shadow:0 8px 26px rgba(14,124,134,.08)}
+ .nofit .col.no{border-top:5px solid #C9D3D5}
+ .nofit .col.si{border-top:5px solid var(--buy)}
+ .nofit h2{font-size:1.35rem;margin-bottom:14px}
+ .nofit ul{list-style:none;display:grid;gap:12px}
+ .nofit li{position:relative;padding-left:30px;font-size:1rem;line-height:1.5}
+ .nofit li:before{position:absolute;left:0;top:0;font-weight:800}
+ .nofit .no li:before{content:"✕";color:var(--grey)}
+ .nofit .si li:before{content:"✓";color:#C77F00}
+ @media(max-width:800px){ .nofit .cols{grid-template-columns:1fr} .nofit h2{font-size:1.25rem} }
+</style>
+<section class="nofit" id="para-quien">
+ <div class="wrap">
+  <div class="cols">
+   <div class="col no">
+    <h2><span class="es">Esta guía NO es para ti si…</span><span class="en">This guide is NOT for you if…</span></h2>
+    <ul>
+     <li><span class="es">Tu perro es de apoyo emocional (no está entrenado para una tarea específica). Desde 2021, las aerolíneas de EE. UU. ya no están obligadas a aceptarlo como animal de servicio: viaja como mascota.</span><span class="en">Your dog is an emotional support animal (not trained for a specific task). Since 2021, U.S. airlines are no longer required to accept it as a service animal: it travels as a pet.</span></li>
+     <li><span class="es">Buscas un “certificado” o “registro oficial” que se compra por internet. En EE. UU. no existe un registro federal obligatorio, y esta guía no vende certificados.</span><span class="en">You’re looking for a “certificate” or “official registration” sold online. In the U.S. there is no mandatory federal registry, and this guide doesn’t sell certificates.</span></li>
+     <li><span class="es">Quieres que alguien haga el trámite por ti o te asegure que te dejarán subir. Es material educativo: te explica cada paso para que lo hagas tú. La aprobación la decide la aerolínea.</span><span class="en">You want someone to do the paperwork for you or to promise you’ll be allowed to board. It’s educational material: it explains each step so you can do it yourself. The airline makes the final call.</span></li>
+    </ul>
+   </div>
+   <div class="col si">
+    <h2><span class="es">Es para ti si…</span><span class="en">It’s for you if…</span></h2>
+    <ul>
+     <li><span class="es">Tienes un perro de servicio entrenado en tareas y vas a volar pronto.</span><span class="en">You have a task-trained service dog and you’re flying soon.</span></li>
+     <li><span class="es">Quieres llegar al mostrador con los papeles en orden y saber qué te pueden pedir y qué no.</span><span class="en">You want to get to the counter with your papers in order, knowing what they can and can’t ask for.</span></li>
+     <li><span class="es">Prefieres tenerlo todo en español, paso a paso.</span><span class="en">You’d rather have it all in your language (Spanish or English), step by step.</span></li>
+    </ul>
+   </div>
+  </div>
+ </div>
+</section>
+
 <style>
  .allgo-faq{background:#fff;padding:56px 20px;color:#173F3A}
  .allgo-faq .allgo-faq-inner{max-width:780px;margin:0 auto}
