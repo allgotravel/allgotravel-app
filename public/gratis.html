@@ -3,49 +3,50 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Checklist GRATIS: Viajar con tu Perro de Servicio | AllGo Travel App</title>
-<meta name="description" content="Descarga gratis el checklist de 5 cosas que revisar antes de viajar con tu perro de servicio. Formulario DOT, microchip, requisitos por país y más.">
+<title>Kit gratis: Antes de volar con tu perro de servicio | AllGo Travel App</title>
+<meta name="description" content="Kit gratis de 10 páginas: lo que tienes que revisar antes de volar con tu perro de servicio. El formulario del DOT, la fecha que no puede fallar y las preguntas para tu aerolínea.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="/icon-192x192.png">
 <style>
  :root{--teal:#0E7C86;--teald:#0A4F57;--tealL:#E3F1F2;--gold:#E0A100;--ink:#1F2A2E;--grey:#5B686D;}
  *{box-sizing:border-box;margin:0;padding:0}
  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:var(--ink);line-height:1.6;background:var(--tealL)}
- img{max-width:100%;display:block}
  .brandbar{background:var(--gold);height:6px}
  .toplogo{background:var(--teald);text-align:center;padding:14px 0}
  .toplogo span{color:#fff;font-weight:800;letter-spacing:.5px;font-size:1.05rem}
  .toplogo span b{color:var(--gold)}
- .wrap{max-width:680px;margin:0 auto;padding:0 20px}
- .btn{display:inline-block;background:var(--gold);color:#1a1a1a;font-weight:800;font-size:1.15rem;padding:16px 34px;border-radius:40px;text-decoration:none;box-shadow:0 6px 20px rgba(224,161,0,.35);transition:transform .15s;cursor:pointer;border:none}
- .btn:hover{transform:translateY(-2px)}
- .hero{padding:46px 0 30px;text-align:center}
- .tag{display:inline-block;background:#fff;border:1px solid var(--teal);color:var(--teal);padding:6px 16px;border-radius:20px;font-size:.82rem;font-weight:800;letter-spacing:.5px;margin-bottom:18px}
- h1{font-size:2rem;line-height:1.18;color:var(--teald);margin-bottom:14px}
+ .wrap{max-width:640px;margin:0 auto;padding:0 20px}
+ .hero{padding:38px 0 8px;text-align:center}
+ .tag{display:inline-block;background:#fff;border:1px solid var(--teal);color:var(--teal);padding:6px 16px;border-radius:20px;font-size:.82rem;font-weight:800;letter-spacing:.5px;margin-bottom:16px}
+ h1{font-size:1.95rem;line-height:1.18;color:var(--teald);margin-bottom:12px}
  h1 b{color:var(--gold)}
- .sub{font-size:1.08rem;color:var(--grey);margin:0 auto 8px;max-width:560px}
- .card{background:#fff;border-radius:20px;box-shadow:0 14px 40px rgba(14,124,134,.14);padding:30px 26px;margin:22px 0 10px;text-align:center}
+ .sub{font-size:1.06rem;color:var(--grey);max-width:540px;margin:0 auto}
+ .card{background:#fff;border-radius:20px;box-shadow:0 14px 40px rgba(14,124,134,.14);padding:28px 24px;margin:22px 0 10px;text-align:center}
  .card h2{color:var(--teald);font-size:1.25rem;margin-bottom:6px}
- .card p.small{color:var(--grey);font-size:.96rem;margin-bottom:18px}
- form{display:flex;gap:10px;max-width:460px;margin:0 auto}
- input[type=email]{flex:1;padding:15px 18px;border:1.5px solid #cfe0e1;border-radius:40px;font-size:1rem}
- form .btn{padding:15px 24px;font-size:1rem;white-space:nowrap}
- .bullets{list-style:none;max-width:460px;margin:20px auto 0;text-align:left;display:grid;gap:8px}
- .bullets li{padding-left:28px;position:relative;color:#26424a;font-size:1rem}
+ .small{color:var(--grey);font-size:.96rem;margin-bottom:16px}
+ form{display:grid;gap:10px;max-width:420px;margin:0 auto}
+ input{width:100%;padding:15px 18px;border:1.5px solid #cfe0e1;border-radius:40px;font-size:1rem}
+ .btn{display:inline-block;background:var(--gold);color:#1a1a1a;font-weight:800;font-size:1.08rem;padding:16px 28px;border-radius:40px;text-decoration:none;box-shadow:0 6px 20px rgba(224,161,0,.35);cursor:pointer;border:none;width:100%}
+ .btn[disabled]{opacity:.6}
+ .bullets{list-style:none;max-width:440px;margin:20px auto 0;text-align:left;display:grid;gap:8px}
+ .bullets li{padding-left:28px;position:relative;color:#26424a}
  .bullets li:before{content:"✓";position:absolute;left:0;color:var(--teal);font-weight:900}
+ .fine{color:var(--grey);font-size:.85rem;margin-top:12px}
+ .err{color:#b42318;font-size:.92rem;display:none}
  .done{display:none}
- .done .check{font-size:44px}
- .done h2{color:var(--teald);font-size:1.5rem;margin:6px 0 8px}
- .done p{color:var(--grey);margin-bottom:20px}
- .fine{color:var(--grey);font-size:.86rem;margin-top:14px}
+ .done h2{font-size:1.45rem;margin:6px 0 8px}
+ .done p{color:var(--grey);margin-bottom:18px}
+ .next{margin-top:26px;padding-top:22px;border-top:1px solid #e6eef0}
+ .next .ey{font-size:.8rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--teald);margin-bottom:6px}
+ .next h3{color:var(--teald);font-size:1.15rem;margin-bottom:8px}
+ .next .btn{background:#fff;border:2px solid var(--teald);color:var(--teald);box-shadow:none}
+ .who{display:flex;gap:14px;align-items:center;text-align:left;margin:18px 0 6px}
+ .who img{width:64px;height:64px;border-radius:50%;object-fit:cover;flex:none}
+ .who p{font-size:.95rem;color:#26424a}
  footer{color:var(--grey);text-align:center;padding:26px 20px 40px;font-size:.85rem}
  footer strong{color:var(--teald)}
- @media(max-width:560px){h1{font-size:1.55rem} form{flex-direction:column}}
- .next{margin-top:26px;padding-top:22px;border-top:1px solid #e6eef0;text-align:center}
- .next .ey{font-size:.8rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--teald);margin-bottom:6px}
- .next h3{color:var(--teald);font-size:1.2rem;margin-bottom:8px}
- .next p{color:var(--grey);margin-bottom:12px}
- .next .price{font-weight:800;margin-bottom:14px}
+ @media(max-width:560px){h1{font-size:1.55rem}}
 </style>
-
 <!-- Meta Pixel -->
 <script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -55,74 +56,98 @@ t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
 document,'script','https://connect.facebook.net/en_US/fbevents.js');
 fbq('init','1402403141746407');fbq('track','PageView');
 </script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1402403141746407&ev=PageView&noscript=1"/></noscript>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1402403141746407&ev=PageView&noscript=1"/></noscript>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z0dssbdtze");</script>
 </head>
 <body>
 <div class="brandbar"></div>
-<div class="toplogo"><span>AllGo <b>Travel App</b> 🐾</span></div>
+<div class="toplogo"><span>AllGo <b>Travel App</b></span></div>
 
-<div class="hero">
- <div class="wrap">
-  <span class="tag">DESCARGA GRATIS</span>
-  <h1>5 cosas que revisar <b>antes de viajar</b> con tu perro de servicio</h1>
-  <p class="sub">El checklist rápido para llegar al aeropuerto con calma y con todo en orden. En 1 página, listo para descargar.</p>
- </div>
-</div>
+<div class="hero"><div class="wrap">
+ <span class="tag">KIT GRATIS · 10 PÁGINAS</span>
+ <h1>Antes de volar con tu <b>perro de servicio</b></h1>
+ <p class="sub">Lo que tienes que revisar antes de comprar el boleto y antes de llegar al aeropuerto, para que no te tome por sorpresa.</p>
+</div></div>
 
 <div class="wrap">
- <!-- FORM STATE -->
  <div class="card" id="optinCard">
-  <h2>Te lo envío gratis 💌</h2>
-  <p class="small">Déjame tu correo y descárgalo al instante.</p>
-  <form id="optinForm" onsubmit="return sendOptin(event)">
-   <input id="optinEmail" type="email" placeholder="Tu mejor correo" required>
-   <button class="btn" type="submit">Enviarme el checklist →</button>
+  <h2>Te lo envío ahora mismo</h2>
+  <p class="small">Escribe tu nombre y tu correo, y descárgalo al instante.</p>
+  <form id="optinForm" novalidate>
+   <input id="fName" name="name" type="text" placeholder="Tu nombre" autocomplete="given-name" required>
+   <input id="fEmail" name="email" type="email" placeholder="Tu mejor correo" autocomplete="email" required>
+   <p class="err" id="fErr">Revisa tu nombre y tu correo, por favor.</p>
+   <button class="btn" id="fBtn" type="submit">Quiero el kit →</button>
   </form>
   <ul class="bullets">
-   <li>El formulario del DOT (gratis, y lo único que piden en vuelos de EE.UU.)</li>
-   <li>Microchip y vacunas: qué revisar antes de comprar el vuelo</li>
-   <li>Requisitos por país y el "Modo Mostrador" para el check-in</li>
+   <li>Por qué en el avión no aplica la regla de "las 2 preguntas"</li>
+   <li>El formulario del DOT: cómo saber si tienes la versión correcta</li>
+   <li>El error de la fecha que puede tumbarte el viaje</li>
+   <li>Las preguntas para tu aerolínea y tu checklist para imprimir</li>
   </ul>
   <p class="fine">Sin spam. Puedes darte de baja cuando quieras.</p>
+  <div class="who">
+   <img src="/img/yadira-luna-real.jpg" alt="Yadira y Luna">
+   <p>Soy <b>Yadira</b>, fundadora de AllGo Travel App. Viajo con mi papá y con Luna, mi perrita de servicio. Preparar nuestro primer viaje me tomó más de 30 días. Este kit es lo que yo hubiera querido tener.</p>
+  </div>
  </div>
 
- <!-- SUCCESS STATE -->
  <div class="card done" id="doneCard">
-  <div class="check">🎉🐾</div>
-  <h2>¡Listo! Aquí está tu checklist</h2>
-  <p>Descárgalo ahora — y revisa tu correo, que te voy a enviar más tips para viajar tranquila con tu perro. 💚</p>
-  <a class="btn" id="dlBtn" href="/checklist-perro.pdf" download onclick="try{fbq('track','ViewContent',{content_name:'Checklist descarga'});}catch(_){}">Descargar el checklist (PDF) →</a>
-  <p class="fine">Si no descarga, escríbeme y te lo mando por correo.</p>
-  <!-- Cierre de venta: siguiente paso (landing, no checkout directo) -->
+  <h2>¡Listo<span id="hiName"></span>! Aquí está tu kit</h2>
+  <p>Descárgalo ahora. También te lo envío a tu correo en unos minutos (si no lo ves, revisa promociones o spam).</p>
+  <a class="btn" id="dlBtn" href="/kit-gratis-perro.pdf" target="_blank" rel="noopener">Descargar el kit (10 páginas) →</a>
   <div class="next">
-   <div class="ey">Tu siguiente paso</div>
-   <h3>Llega al mostrador con todo en orden 🐾</h3>
-   <p>El checklist te dice qué revisar. Si el día del vuelo falta un documento, te pueden negar el embarque con tu perro. La guía <b>Viaja con tu Perro de Servicio</b> de AllGo Travel App te lleva paso a paso: el formulario del DOT explicado, aerolíneas por región, requisitos por país y la tarjeta “Modo Mostrador”.</p>
-   <p class="price">$37 · un solo pago · acceso inmediato</p>
-   <a class="btn" href="https://allgotravel.app/perro.html?src=checklist-perro">Ver la guía →</a>
+   <div class="ey">Cuando lo termines</div>
+   <h3>Si quieres todos los pasos en orden</h3>
+   <p>El formulario del Departamento de Transporte campo por campo y qué decir en el mostrador están en la guía <b>Viaja con tu Perro de Servicio</b> (ES + EN). <b>$37</b>, con garantía de 7 días.</p>
+   <a class="btn" href="https://www.allgotravel.app/perro.html?src=gratis">Ver la guía completa →</a>
   </div>
  </div>
 </div>
 
-<footer>
- <div class="wrap">
-  <p><strong>AllGo Travel App</strong> · Viaja con tu Perro de Servicio</p>
-  <p style="margin-top:6px">Esta guía es orientación informativa, no asesoría legal. Verifica siempre con tu aerolínea y el país de destino.</p>
-  <p style="margin-top:6px">© 2026 AllGo Travel App</p>
- </div>
-</footer>
+<footer><div class="wrap">
+ <p><strong>AllGo Travel App</strong> · Viajar es para todos</p>
+ <p style="margin-top:6px">Información general verificada con fuentes oficiales. No es asesoría legal: confirma siempre con tu aerolínea y el país de destino.</p>
+</div></footer>
 
 <script>
-function sendOptin(ev){ev.preventDefault();
- var el=document.getElementById('optinEmail');var e=(el.value||'').trim();
- if(!e||e.indexOf('@')<0||e.indexOf('.')<0){el.style.outline='2px solid #ffb3b3';return false;}
- try{fbq('track','Lead',{content_name:'Checklist gratis'});}catch(_){}
- try{fetch('https://ywtkkxpuebwqvmylzwew.supabase.co/rest/v1/leads',{method:'POST',headers:{'apikey':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl3dGtreHB1ZWJ3cXZteWx6d2V3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI0MjE0MjEsImV4cCI6MjA5Nzk5NzQyMX0.8xGdNeqpGygiA3w8QhCxk3rmKOfkJb4btbbOqCJfDxk','Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl3dGtreHB1ZWJ3cXZteWx6d2V3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI0MjE0MjEsImV4cCI6MjA5Nzk5NzQyMX0.8xGdNeqpGygiA3w8QhCxk3rmKOfkJb4btbbOqCJfDxk','Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({email:e,source:'checklist-gratis',meta:{origen:'gratis-page'}})}).catch(function(){});}catch(_){}
+/* ── Configuración ──────────────────────────────────────────────
+   ML_FORM_ACTION: URL del formulario incrustado de MailerLite que
+   mete a la persona en el grupo "Kit gratis Perro (prueba nov)".
+   (MailerLite → Formularios → el formulario → HTML → atributo action).
+   Si está vacío, el correo solo se guarda en Supabase.            */
+var ML_FORM_ACTION = '__ML_FORM_ACTION__';
+var SB_URL = 'https://ywtkkxpuebwqvmylzwew.supabase.co/rest/v1/leads';
+var SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl3dGtreHB1ZWJ3cXZteWx6d2V3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI0MjE0MjEsImV4cCI6MjA5Nzk5NzQyMX0.8xGdNeqpGygiA3w8QhCxk3rmKOfkJb4btbbOqCJfDxk';
+var SRC = (new URLSearchParams(location.search).get('src') || 'directo').slice(0,40);
+
+document.getElementById('optinForm').addEventListener('submit', function(ev){
+ ev.preventDefault();
+ var n = document.getElementById('fName').value.trim();
+ var e = document.getElementById('fEmail').value.trim();
+ var ok = n.length > 0 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+ document.getElementById('fErr').style.display = ok ? 'none' : 'block';
+ if(!ok) return;
+ document.getElementById('fBtn').disabled = true;
+ try{ fbq('track','Lead',{content_name:'Kit gratis Perro nov'}); }catch(_){}
+ // 1) Respaldo en Supabase
+ try{ fetch(SB_URL,{method:'POST',keepalive:true,headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
+   body:JSON.stringify({email:e,source:'kit-gratis-perro-nov',meta:{nombre:n,src:SRC,pagina:'gratis.html'}})}).catch(function(){}); }catch(_){}
+ // 2) MailerLite (grupo de la prueba → secuencia de 5 correos)
+ if(ML_FORM_ACTION && ML_FORM_ACTION.indexOf('http')===0){
+  try{
+   var fd = new FormData();
+   fd.append('fields[email]', e); fd.append('fields[name]', n);
+   fd.append('ml-submit','1'); fd.append('anticsrf','true');
+   fetch(ML_FORM_ACTION,{method:'POST',mode:'no-cors',keepalive:true,body:fd}).catch(function(){});
+  }catch(_){}
+ }
+ document.getElementById('hiName').textContent = ', ' + n.split(' ')[0];
  document.getElementById('optinCard').style.display='none';
  document.getElementById('doneCard').style.display='block';
  window.scrollTo({top:0,behavior:'smooth'});
- return false;}
+});
+document.getElementById('dlBtn').addEventListener('click',function(){ try{fbq('trackCustom','KitDescarga',{src:SRC});}catch(_){} });
 </script>
 </body>
 </html>

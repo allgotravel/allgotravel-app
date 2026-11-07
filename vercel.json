@@ -5,8 +5,6 @@
     { "source": "/kit-perro-gratis.html", "destination": "/perro.html", "permanent": true },
     { "source": "/kit-perro-gratis", "destination": "/perro.html", "permanent": true },
     { "source": "/kit-perro-gratis.pdf", "destination": "/perro.html", "permanent": true },
-    { "source": "/gratis.html", "destination": "/perro.html", "permanent": true },
-    { "source": "/gratis", "destination": "/perro.html", "permanent": true },
     { "source": "/checklist-perro.pdf", "destination": "/perro.html", "permanent": true },
     { "source": "/checklist-vuelo-perro.pdf", "destination": "/perro.html", "permanent": true },
     { "source": "/verificador-perro.html", "destination": "/perro.html", "permanent": true },
