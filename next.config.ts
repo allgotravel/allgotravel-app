@@ -27,7 +27,7 @@ function csp(opts: { metaPixel: boolean }) {
     'style-src': ["'self'", "'unsafe-inline'"],
     'img-src': ["'self'", 'data:', 'blob:', SUPABASE, ...(fb ? ['https://www.facebook.com', 'https://*.clarity.ms', 'https://c.bing.com'] : [])],
     'font-src': ["'self'", 'data:'],
-    'connect-src': ["'self'", SUPABASE, SUPABASE_WS, ...(fb ? ['https://www.facebook.com', 'https://connect.facebook.net', 'https://*.clarity.ms', 'https://c.bing.com'] : []), ...(isDev ? ['ws:'] : [])],
+    'connect-src': ["'self'", SUPABASE, SUPABASE_WS, ...(fb ? ['https://www.facebook.com', 'https://connect.facebook.net', 'https://*.clarity.ms', 'https://c.bing.com', 'https://assets.mailerlite.com'] : []), ...(isDev ? ['ws:'] : [])],
     'media-src': ["'self'", 'blob:'],
     'worker-src': ["'self'", 'blob:'],
     'manifest-src': ["'self'"],
